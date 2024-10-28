@@ -386,7 +386,7 @@ document.write(`
                   
   <section id="regression">
 <h1><span class="section-number">11. </span>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h1>
-<p>The linear least squares fit in the previous chapter is an example of <strong>regression</strong>, which is the more general problem of quantifying the relationship between one set of variables, called <strong>dependent variables</strong> or outcomes, and another set of variables, called <strong>independent variables</strong> or predictors.</p>
+<p>The linear least squares fit in the previous chapter is an example of <strong>regression</strong>, which is the more general problem of modeling the relationship between one set of variables, called <strong>dependent variables</strong> or outcomes, and another set of variables, called <strong>independent variables</strong> or predictors.</p>
 <p>In the examples in the previous chapter, there is only one dependent and one explanatory variable, which is called <strong>simple regression</strong>.
 In this chapter, we move on to <strong>multiple regression</strong>, with more than one explanatory variable, but still only one dependent variable.
 If there is more than one dependent variable, that’s multivariate regression, which we won’t cover in this book.</p>
@@ -534,10 +534,13 @@ If there is more than one dependent variable, that’s multivariate regression, 
 </div>
 <section id="statsmodels">
 <h2><span class="section-number">11.1. </span>StatsModels<a class="headerlink" href="#statsmodels" title="Link to this heading">#</a></h2>
-<p>In the previous chapter we used the SciPy function <code class="docutils literal notranslate"><span class="pre">linregress</span></code> to compute least squares fit. This function performs simple regression, but not multiple regression.
+<p>In the previous chapter we used the SciPy function <code class="docutils literal notranslate"><span class="pre">linregress</span></code> to compute least squares fits.
+This function performs simple regression, but not multiple regression.
 For that, we’ll use <code class="docutils literal notranslate"><span class="pre">StatsModels</span></code>, a package that provides several forms of regression and other analyses.</p>
 <p>As an first example, we’ll continue exploring the penguin data.</p>
-<p>The following cell downloads the data.</p>
+<p>The following cell downloads the data from a repository created by Allison Horst.</p>
+<p>Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a class="reference external" href="https://allisonhorst.github.io/palmerpenguins/">https://allisonhorst.github.io/palmerpenguins/</a>. doi: 10.5281/zenodo.3960218.</p>
+<p>The data was collected as part of the research that led to this paper: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLoS ONE 9(3):e90081. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a></p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span>
@@ -594,7 +597,7 @@ For that, we’ll use <code class="docutils literal notranslate"><span class="pr
             }, 500);
             </script></div>
 </div>
-<p>Now we can loar the data, drop the rows with missing weights, and rename the columns.</p>
+<p>Now we can load the data, drop the rows with missing weights, and rename the columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span> <span class="o">=</span> <span class="p">(</span>
@@ -715,12 +718,10 @@ We’ll work with just the Adélie penguins.</p>
             </script></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides two interfaces (APIs) – we’ll use the “formula” API, which uses the Patsy formula language to identify the dependent and explanatory variables.
-The following formula string specifies that the dependent variable, <code class="docutils literal notranslate"><span class="pre">mass</span></code>, is a linear function of one explanatory variable, <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code></p>
+The following formula string specifies that the dependent variable, <code class="docutils literal notranslate"><span class="pre">mass</span></code>, is a linear function of one explanatory variable, <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-
-<span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;mass ~ flipper_length&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;mass ~ flipper_length&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -742,10 +743,12 @@ The following formula string specifies that the dependent variable, <code class=
             }, 500);
             </script></div>
 </div>
-<p>We can pass this formulat to the <code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> function <code class="docutils literal notranslate"><span class="pre">ols</span></code>, along with the data.</p>
+<p>We can pass this formula to the <code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> function <code class="docutils literal notranslate"><span class="pre">ols</span></code>, along with the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">adelie</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">adelie</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -772,9 +775,9 @@ The following formula string specifies that the dependent variable, <code class=
             </script></div>
 </div>
 <p>The name <code class="docutils literal notranslate"><span class="pre">ols</span></code> stands for “ordinary least squares”, which indicates that this function computes a least squares fit under the most common, or “ordinary”, set of assumptions.</p>
-<p>The result <code class="docutils literal notranslate"><span class="pre">OLS</span></code> object that represents the model.
-In general, a model is a simplified description of the relationship between variable.
-In this example, it’s a linear model, which means that it assume that the dependent variable is a linear function of the explanatory variables.</p>
+<p>The result is an <code class="docutils literal notranslate"><span class="pre">OLS</span></code> object that represents the model.
+In general, a model is a simplified description of the relationship between variables.
+In this example, it’s a linear model, which means that it assumes that the dependent variable is a linear function of the explanatory variables.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">fit</span></code> method fits the model to the data and returns a <code class="docutils literal notranslate"><span class="pre">RegressionResults</span></code> object that contains the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -899,7 +902,7 @@ We can confirm that they are are same as the parameters we got from <code class=
             }, 500);
             </script></div>
 </div>
-<p>The second column contains the standard errors of the estimates parameters – again, they are the same as as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+<p>The second column contains the standard errors of the estimated parameters – again, they are the same as as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">intercept_stderr</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
@@ -927,7 +930,7 @@ We can confirm that they are are same as the parameters we got from <code class=
             }, 500);
             </script></div>
 </div>
-<p>The next column report t statistics, which are used to compute p-values – we can ignore them, because the p-values are in the next column, labeled <code class="docutils literal notranslate"><span class="pre">P&lt;|t|</span></code>.
+<p>The next column reports <span class="math notranslate nohighlight">\(t\)</span> statistics, which are used to compute p-values – we can ignore them, because the p-values are in the next column, labeled <code class="docutils literal notranslate"><span class="pre">P&lt;|t|</span></code>.
 The p-value for <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code> is rounded down to 0, but we can display it like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -984,27 +987,27 @@ The p-value for <code class="docutils literal notranslate"><span class="pre">fli
             }, 500);
             </script></div>
 </div>
-<p>The p-value is very small, which means that if there were actually no relationship between weight and flipper length, it is very unlikely we would see a slope as big as the estimated value – 32.8 grams per mm – by chance.</p>
+<p>The p-value is very small, which means that if there were actually no relationship between weight and flipper length, it is very unlikely we would see a slope as big as the estimated value by chance.</p>
 <p>The last two columns, labeled <code class="docutils literal notranslate"><span class="pre">[0.025</span></code> and <code class="docutils literal notranslate"><span class="pre">0.975]</span></code>, report 95% confidence intervals for the intercept and slope.
 So the 95% CI for the slope is [22.8, 42.9].</p>
 <p>The last line reports the <span class="math notranslate nohighlight">\(R^2\)</span> value of the model, which is about 0.22 – that means we can reduce MSE by about 22% if we use flipper length to predict weight.</p>
-<p>For a simple regression <span class="math notranslate nohighlight">\(R^2\)</span> is the correlation of the dependent and explanatory variable, <span class="math notranslate nohighlight">\(r\)</span>, squared.
-So we can compare <span class="math notranslate nohighlight">\(R^2\)</span> computed by <code class="docutils literal notranslate"><span class="pre">ols</span></code> with <span class="math notranslate nohighlight">\(r^2\)</span> computed by <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+<p>The <span class="math notranslate nohighlight">\(R^2\)</span> value we get from simple correlation is the square of the correlation coefficient, <span class="math notranslate nohighlight">\(r\)</span>.
+So we can compare <code class="docutils literal notranslate"><span class="pre">rsquared</span></code> computed by <code class="docutils literal notranslate"><span class="pre">ols</span></code> with the square of the <code class="docutils literal notranslate"><span class="pre">rvalue</span></code> computed by <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_ols</span><span class="o">.</span><span class="n">rsquared</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">rvalue</span><span class="o">**</span><span class="mi">2</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.21921282646854875
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.21921282646854878, 0.21921282646854875)
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 20;
-                var nbb_unformatted_code = "result_linregress.rvalue**2";
-                var nbb_formatted_code = "result_linregress.rvalue**2";
+                var nbb_cell_id = 78;
+                var nbb_unformatted_code = "result_ols.rsquared,  result_linregress.rvalue**2";
+                var nbb_formatted_code = "result_ols.rsquared, result_linregress.rvalue**2";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1061,8 +1064,8 @@ So we can compare <span class="math notranslate nohighlight">\(R^2\)</span> comp
 <p>Again, the p-value of the slope is very small, which means that if there were actually no relationship between mass and culmen length, it is unlikely we would see a slope this big by chance.
 You might notice that the p-value associated with the intercept is large, but that’s not a problem because we are not concerned about whether the intercept might be zero.
 In this model, the intercept is close to zero, but that’s just a coincidence – it doesn’t indicate a problem with the model.</p>
-<p>The <span class="math notranslate nohighlight">\(R^2\)</span> value for this model is about 0.30, so the reduction in MSE is a little higher if we use culmen length rather than flipper length as an explanatory variable (the <span class="math notranslate nohighlight">\(R^2\)</span> value with flipper length is 0.22).</p>
-<p>Now, let’s see what happens if we combine them.</p>
+<p>The <span class="math notranslate nohighlight">\(R^2\)</span> value for this model is about 0.30, so the reduction in MSE is a little higher if we use culmen length rather than flipper length as an explanatory variable (the <span class="math notranslate nohighlight">\(R^2\)</span> value with flipper length is 0.22).
+Now, let’s see what happens if we combine them.</p>
 </section>
 <section id="on-to-multiple-regression">
 <h2><span class="section-number">11.2. </span>On To Multiple Regression<a class="headerlink" href="#on-to-multiple-regression" title="Link to this heading">#</a></h2>
@@ -1140,8 +1143,8 @@ Similarly, we expect a penguin with a longer culmen, by one millimeter, to weigh
 <p>The p-values associated with both slopes are small, which means that the contribution of both explanatory variables would be unlikely to happen by chance.</p>
 <p>And the <span class="math notranslate nohighlight">\(R^2\)</span> value is 0.39, higher than the model with only culmen length (0.30) and the model with only flipper length (0.22).
 So predictions based on both explanatory variables are better than predictions based on either one alone.</p>
-<p>But it is not as much better as we might have hoped.
-If flipper length reduces MSE by 22% and culmen length reduces it by 30%, why don’t the two of them together reduce it by a total of 52%.
+<p>But they are not as much better as we might have hoped.
+If flipper length reduces MSE by 22% and culmen length reduces it by 30%, why don’t the two of them together reduce it by a total of 52%?
 The reason is that the explanatory variables are correlated with each other.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1264,9 +1267,9 @@ Another common use is to quantify the contribution of one set of variables while
 <p>In Section &lt;&lt;section_comparing_cdfs&gt;&gt; we saw that first babies are lighter than other babies, on average.
 And in Section &lt;&lt;section_test_correlation&gt;&gt; we saw that birth weight is correlated with the mother’s age – older mothers have heavier babies on average.</p>
 <p>These results might be related.
-If mothers of first babies are younger than mothers of other babies – which seems likely – that might explain why their babies are younger.
+If mothers of first babies are younger than mothers of other babies – which seems likely – that might explain why their babies are lighter.
 We can use multiple regression to test this conjecture, by estimating the difference in birth weight between first babies and others while controlling for the mothers’ ages.</p>
-<p>Instructions for downloading the data are in the notebook for this chapter.</p>
+<p>Instructions for downloading the NSFG data are in the notebook for this chapter.</p>
 <p>The following cells download the data files and install <code class="docutils literal notranslate"><span class="pre">statadict</span></code>, which we need to read the data.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -1321,7 +1324,7 @@ We can use multiple regression to test this conjecture, by estimating the differ
             }, 500);
             </script></div>
 </div>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">get_nsfg_groups</span></code> to read the NSFG data, select live births, and group live births into first babies and others.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">get_nsfg_groups</span></code> to read the data, select live births, and group live births into first babies and others.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">get_nsfg_groups</span>
@@ -1420,8 +1423,8 @@ But the p-value is small, so this slope – small as it is – would be unlikely
 <p>The <span class="math notranslate nohighlight">\(R^2\)</span> value is also small, which means that mother’s age is not very useful as a predictive variable.
 If we know the mother’s age, our ability to predict the baby’s weight is hardly improved at all.</p>
 <p>This combination of a small p-value and a small <span class="math notranslate nohighlight">\(R^2\)</span> value is a common source of confusion, because it seems contradictory – if the relationship is statistically significant, it seems like it should be predictive.
-But this example shows that there is no contradiction – a relationship can be statistically significant but not very useful for prediction.</p>
-<p>If we visualize the results, we’ll see why.
+But this example shows that there is no contradiction – a relationship can be statistically significant but not very useful for prediction.
+If we visualize the results, we’ll see why.
 First let’s select the relevant columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1475,7 +1478,7 @@ First we’ll compute a range of values for <code class="docutils literal notran
             }, 500);
             </script></div>
 </div>
-<p>To use predict, we have to put values for the explanatory variables in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">predict</span></code>, we have to put values for the explanatory variables in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;agepreg&quot;</span><span class="p">:</span> <span class="n">agepreg_range</span><span class="p">})</span>
@@ -1559,7 +1562,7 @@ Here’s what they look like, along with a scatter plot of the data.</p>
 <p>Because the slope of the fitted line is small, we can barely see the difference in the expected birth weight between the youngest and oldest mothers.
 The variation in birth weight, at every maternal age, is much larger.</p>
 <p>Next we’ll use <code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> to confirm that first babies are lighter than others.
-To make that work, we’ll add a column to <code class="docutils literal notranslate"><span class="pre">live</span></code>, a Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> that is <code class="docutils literal notranslate"><span class="pre">True</span></code> for first babies and <code class="docutils literal notranslate"><span class="pre">False</span></code> for others.</p>
+To make that work, we’ll create a Boolean <code class="docutils literal notranslate"><span class="pre">Series</span></code> that is <code class="docutils literal notranslate"><span class="pre">True</span></code> for first babies and <code class="docutils literal notranslate"><span class="pre">False</span></code> for others, and add it as a new column called <code class="docutils literal notranslate"><span class="pre">is_first</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid</span><span class="p">[</span><span class="s2">&quot;is_first&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;birthord&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
@@ -1618,7 +1621,7 @@ Name: count, dtype: int64
             </script></div>
 </div>
 <p>Here’s the formula for a model with birth weight as the dependent variable and <code class="docutils literal notranslate"><span class="pre">is_first</span></code> as the explanatory variable.
-In the Patsy formula language, <code class="docutils literal notranslate"><span class="pre">C</span></code> and the parentheses around the variable name indicate that it is categorical, not numerical.</p>
+In the Patsy formula language, <code class="docutils literal notranslate"><span class="pre">C</span></code> and the parentheses around the variable name indicate that it is <strong>categorical</strong> – that is, it contains represents categories like “first baby” rather than measurements like birth weight.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;totalwgt_lb ~ C(is_first)&quot;</span>
@@ -1688,7 +1691,7 @@ The <code class="docutils literal notranslate"><span class="pre">T</span></code>
 These designations are arbitrary – we could consider first babies to be the reference group and others to be the treatment group.
 But we need to know which is which in order to interpret the results.</p>
 <p>The intercept is about 7.3, which means that the average weight of the reference group is 7.3 pounds.
-The “slope” is -0.12, which means that the average weight of the treatment group – first babies – is 0.12 pounds lighter.
+The coefficient of <code class="docutils literal notranslate"><span class="pre">is_first</span></code> is -0.12, which means that the average weight of the treatment group – first babies – is 0.12 pounds lighter.
 We can check both of these results by computing them directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2042,7 +2045,6 @@ To see that, we can use the <code class="docutils literal notranslate"><span cla
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">agepreg_range</span><span class="p">,</span> <span class="n">fit_ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Quadratic model&quot;</span><span class="p">)</span>
-
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">agepreg</span><span class="p">,</span> <span class="n">totalwgt</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Maternal Age&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Birth weight (pounds)&quot;</span><span class="p">)</span>
@@ -2117,23 +2119,23 @@ So let’s see what happens when we add <code class="docutils literal notranslat
             }, 500);
             </script></div>
 </div>
-<p>With a more effective control for maternal age, the estimated difference between first babies and others is 0.0504 pounds, smaller than the estimate in the linear model (0.0698 pounds).
+<p>With a more effective control for maternal age, the estimated difference between first babies and others is 0.0504 pounds, smaller than the estimate with just the linear model (0.0698 pounds).
 And the p-value associated with <code class="docutils literal notranslate"><span class="pre">is_first</span></code> is 0.109, which mean it is plausible that the remaining difference between these groups is due to chance.</p>
 <p>We can conclude that the difference in birth weight is explained – at least in part and possibly in full – by the difference in mother’s age.</p>
 </section>
 <section id="logistic-regression">
 <h2><span class="section-number">11.5. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
-<p>Linear regression is based on a model where the dependent variable is the weighted sum of the explanatory variables, an intercept, and a random residual.
-This model is appropriate when the dependent variable is a continuous quantity like birth weight or penguin weight, but not when the dependent variable is discrete quantity like a count or a categorical variable.</p>
+<p>Linear regression is based on a model where the expected value of the dependent variable is the weighted sum of the explanatory variables and an intercept.
+This model is appropriate when the dependent variable is a continuous quantity like birth weight or penguin weight, but not when the dependent variable is discrete quantity like a count or a category.</p>
 <p>For these kinds of dependent variables, we can use <strong>generalized linear models</strong> or GLMs.
 For example:</p>
 <ul class="simple">
 <li><p>If the dependent variable is a count, we can use Poisson regression.</p></li>
 <li><p>If it’s categorical with only two categories, we can use logistic regression.</p></li>
 <li><p>If it’s categorical with more than two categories, we can use multinomial logistic regression</p></li>
-<li><p>If it’s categorical and ordered, we can use ordered logistic regression.</p></li>
+<li><p>If it’s categorical and the categories can be arranged in order, we can use ordered logistic regression.</p></li>
 </ul>
-<p>We won’t cover all of them – just logistic regression, which is the most widely used.
+<p>We won’t cover all of them in this book – just logistic regression, which is the most widely used.
 As an example, we’ll use the penguin dataset again, and see if we can tell whether a penguin is male or female, based on its weight and other measurements.</p>
 <p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides a function that does logistic regression – it’s called <code class="docutils literal notranslate"><span class="pre">logit</span></code> because that’s the name of a mathematical function that appears in the definition of logistic regression.
 Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the dependent variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and `1’.</p>
@@ -2260,8 +2262,7 @@ Here’s how we make and fit the model – the argument <code class="docutils li
 <p>The coefficient of determination, <span class="math notranslate nohighlight">\(R^2\)</span>, does not apply to logistic regression, but there are several alternatives that are used as “pseudo <span class="math notranslate nohighlight">\(R^2\)</span> values.”
 The pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value for this model is about 0.526, which doesn’t mean much by itself, but we will use it to compare models.</p>
 <p>The parameter of <code class="docutils literal notranslate"><span class="pre">mass</span></code> is positive, which means that heavier penguins are more likely to be male.
-Other than that, the estimated coefficients are not easy to interpret.
-But we can understand the model better by plotting the predictions.
+Other than that, the estimated coefficients are not easy to interpret – we can understand the model better by plotting the predictions.
 We’ll make a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with a range of values for <code class="docutils literal notranslate"><span class="pre">mass</span></code>, and use <code class="docutils literal notranslate"><span class="pre">predict</span></code> to compute a <code class="docutils literal notranslate"><span class="pre">Series</span></code> of predictions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2371,10 +2372,10 @@ Here’s what the predicted values look like.</p>
             }, 500);
             </script></div>
 </div>
-<p>The pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value of this model is 0.662, higher than the previous model (0.526) – so the additional measurement contain additional information that distinguishes male and female penguins.</p>
+<p>The pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value of this model is 0.662, higher than the previous model (0.526) – so the additional measurements contain additional information that distinguishes male and female penguins.</p>
 <p>The p-values for culmen length and depth are small, which indicates that they contribute more information than we expect by chance.
 The p-value for flipper length is large, which suggests that if you know a penguin’s weight a bill dimensions, flipper length doesn’t contribute any additional information.</p>
-<p>To understand this model, let’s look at some of it’s predictions.
+<p>To understand this model, let’s look at some of its predictions.
 We’ll use the following function, which takes a sequence of masses and a specific value for <code class="docutils literal notranslate"><span class="pre">culmen_length</span></code>.
 It sets the other measurements to their mean values, computes predicted probabilities as a function of mass, and plots the results.</p>
 <div class="cell docutils container">
@@ -2408,7 +2409,7 @@ It sets the other measurements to their mean values, computes predicted probabil
             }, 500);
             </script></div>
 </div>
-<p>Here’s what the results look like for three values of <code class="docutils literal notranslate"><span class="pre">culmen_length</span></code>: on standard deviation above average, average, and one standard deviation below average.</p>
+<p>Here’s what the results look like for three values of <code class="docutils literal notranslate"><span class="pre">culmen_length</span></code>: one standard deviation above average, average, and one standard deviation below average.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">culmen_length</span> <span class="o">=</span> <span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;culmen_length&quot;</span><span class="p">]</span>
@@ -2467,8 +2468,8 @@ It sets the other measurements to their mean values, computes predicted probabil
 Also, at any weight, a penguin with a longer bill is more likely to be male.</p>
 <p>This model is more useful than it might seem – in fact, it is similar to models that were used in the original research paper this dataset was collected for.
 The primary topic of that research is sexual dimorphism, which is the degree to which male and female bodies differ.
-One way to quantify dimorphism is to use measurements to identify males and females.
-In a species with higher dimorphism, we expect these identifications to be more accurate.</p>
+One way to quantify dimorphism is to use measurements to classify males and females.
+In a species with higher dimorphism, we expect these classifications to be more accurate.</p>
 <p>The original paper is Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLoS ONE 9(3):e90081. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a></p>
 <p>To test this methodology, let’s try the same model on a different species.
 In addition to the Adélie penguins we’ve worked with so far, the dataset also contains measurements from 123 Gentoo penguins.
@@ -2579,7 +2580,8 @@ We’ll use the following function to select them.</p>
             }, 500);
             </script></div>
 </div>
-<p>The pseudo-<span class="math notranslate nohighlight">\(R^2\)</span> value is 0.848, higher what we got with Adélie penguins (0.662) – that suggests that Gentoo penguins are more dimorphic.</p>
+<p>The pseudo-<span class="math notranslate nohighlight">\(R^2\)</span> value is 0.848, higher what we got with Adélie penguins (0.662).
+That means Gentoo penguins can be classified more accurately using physical measurements, compared to Adélie penguins, which suggests that Gentoo penguins are more dimorphic.</p>
 </section>
 <section id="glossary">
 <h2><span class="section-number">11.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
@@ -2593,23 +2595,19 @@ Also known as independent, or exogenous, variables.</p></li>
 <li><p><strong>multiple regression</strong>: A regression with multiple explanatory variables, but only one dependent variable.</p></li>
 <li><p><strong>linear regression</strong>: A regression based on a linear model.</p></li>
 <li><p><strong>ordinary least squares</strong>: A linear regression that estimates parameters by minimizing the squared error of the residuals.</p></li>
-<li><p><strong>spurious relationship</strong>: A relationship between two variables that is caused by a statistical artifact or a factor, not included in the model, that is related to both variables.</p></li>
 <li><p><strong>control variable</strong>: A variable included in a regression to eliminate or “control for” a spurious relationship.</p></li>
 <li><p><strong>proxy variable</strong>: A variable that contributes information to a regression model indirectly because of a relationship with another factor, so it acts as a proxy for that factor.</p></li>
-<li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of unordered values.</p></li>
-<li><p><strong>join</strong>: An operation that combines data from two <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s using a key to match up rows in the two frames.</p></li>
-<li><p><strong>data mining</strong>: An approach to finding relationships between variables by testing a large number of models.</p></li>
+<li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of values.</p></li>
 <li><p><strong>logistic regression</strong>: A form of regression used when the dependent variable is boolean.</p></li>
 <li><p><strong>Poisson regression</strong>: A form of regression used when the dependent variable is a non-negative integer, usually a count.</p></li>
-<li><p><strong>odds</strong>: An alternative way of representing a probability, <span class="math notranslate nohighlight">\(p\)</span>, as the ratio of the probability and its complement, <span class="math notranslate nohighlight">\(p / (1-p)\)</span>.</p></li>
 </ul>
 </section>
 <section id="exercises">
 <h2><span class="section-number">11.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <section id="exercise">
 <h3><span class="section-number">11.7.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
-<p>Are baby boys heavier than baby girls?
-To answer this question, fit a linear regression model with <code class="docutils literal notranslate"><span class="pre">totalwgt_lb</span></code> as the dependent variable and <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a categorical explanatory variable – the value of this variable is <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">2</span></code> for girls.
+<p>Are baby boys heavier than baby girls? To answer this question, we’ll use the NSFG data again.</p>
+<p>Fit a linear regression model with <code class="docutils literal notranslate"><span class="pre">totalwgt_lb</span></code> as the dependent variable and <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a categorical explanatory variable – the value of this variable is <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">2</span></code> for girls.
 What is the estimated difference in weight?
 Is it statistically significant?
 What if you control for the mother’s age – does maternal age account for some or all of the apparent difference?</p>
