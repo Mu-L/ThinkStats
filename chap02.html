@@ -1920,30 +1920,6 @@ You can read the codebook to see what income level each value represents.</p>
 <p>Make a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object to represent the distribution of this variable and plot it as a bar chart.</p>
 <p><strong>Exercise:</strong> Make a histogram of the <code class="docutils literal notranslate"><span class="pre">parity</span></code> column, which records the number of children each respondent has borne.
 How would you describe the shape of this distribution?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The distribution is skewed to the right.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 51;
-                var nbb_unformatted_code = "# The distribution is skewed to the right.";
-                var nbb_formatted_code = "# The distribution is skewed to the right.";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">largest</span></code> function to find the largest values of <code class="docutils literal notranslate"><span class="pre">parity</span></code>.
 Are there any values you think are errors?</p>
 <p><strong>Exercise:</strong> Let’s investigate whether people with higher income bear more children.</p>
@@ -1953,35 +1929,6 @@ Plot the histogram of <code class="docutils literal notranslate"><span class="pr
 <p>Compute the Cohen effect size for this difference.
 How does it compare with the difference in pregnancy length for first babies and others?</p>
 <p>Do these results show that people with higher income have more children, or can you think of another explanation for the apparent difference?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The NSFG interviews respondents at a range of ages.</span>
-<span class="c1"># The older respondents are likely to have higher incomes,</span>
-<span class="c1"># and also more likely to have borne more children.</span>
-
-<span class="c1"># To check whether people with higher income have more</span>
-<span class="c1"># children, we need to compare people at the same ages.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 56;
-                var nbb_unformatted_code = "# The NSFG interviews respondents at a range of ages.\n# The older respondents are likely to have higher incomes,\n# and also more likely to have borne more children.\n\n# To check whether people with higher income have more\n# children, we need to compare people at the same ages.";
-                var nbb_formatted_code = "# The NSFG interviews respondents at a range of ages.\n# The older respondents are likely to have higher incomes,\n# and also more likely to have borne more children.\n\n# To check whether people with higher income have more\n# children, we need to compare people at the same ages.";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
 <p><a class="reference external" href="https://allendowney.github.io/ThinkStats/index.html">Think Stats: Exploratory Data Analysis in Python, 3rd Edition</a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>

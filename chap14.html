@@ -537,10 +537,12 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <section id="normal-probability-plots">
 <h2><span class="section-number">14.1. </span>Normal Probability Plots<a class="headerlink" href="#normal-probability-plots" title="Link to this heading">#</a></h2>
 <p>Many analytic methods are based on the properties of the normal distribution, for two reasons: distributions of many measurements in the real world are well-approximated by normal distributions, and normal distributions have mathematical properties that make them useful for analysis.</p>
-<p>To demonstrate the first point, we’ll look at some of the measurements in the penguin dataset, which we saw in Section XXX.
+<p>To demonstrate the first point, we’ll look at some of the measurements in the penguin dataset.
 Then we’ll explore the mathematical properties of the normal distribution.
-Instructions for downloading the penguin dataset are in the notebook for this chapter.</p>
-<p>The following cell downloads the data.</p>
+Instructions for downloading the data are in the notebook for this chapter.</p>
+<p>The following cell downloads the data from a repository created by Allison Horst.</p>
+<p>Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago (Antarctica) penguin data. R package version 0.1.0. <a class="reference external" href="https://allisonhorst.github.io/palmerpenguins/">https://allisonhorst.github.io/palmerpenguins/</a>. doi: 10.5281/zenodo.3960218.</p>
+<p>The data was collected as part of the research that led to this paper: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus Pygoscelis). PLoS ONE 9(3):e90081. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0090081">https://doi.org/10.1371/journal.pone.0090081</a></p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span>
@@ -743,8 +745,8 @@ For this example, we’ll select the Adélie penguins.</p>
 <p>The normal distribution might be a good enough model of this data, but it’s certainly not a perfect fit.</p>
 <p>In general, plotting the CDF of the data and the CDF of a model is a good way to evaluate how well the model fits the data.
 But one drawback of this method is that it depends on how well we estimate the parameters of the model – in this example, the mean and standard deviation.</p>
-<p>An alternative is a <strong>normal probability plot</strong>, which does not depend on our ability to estimate parameters.</p>
-<p>In a normal probability plot the <span class="math notranslate nohighlight">\(y\)</span> values are the sorted measurements.</p>
+<p>An alternative is a <strong>normal probability plot</strong>, which does not depend on our ability to estimate parameters.
+In a normal probability plot the <span class="math notranslate nohighlight">\(y\)</span> values are the sorted measurements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
@@ -773,16 +775,17 @@ But one drawback of this method is that it depends on how well we estimate the p
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
-<span class="n">xs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 13;
-                var nbb_unformatted_code = "n = len(weights)\nxs = norm.ppf((np.arange(n) + 0.5) / n)";
-                var nbb_formatted_code = "n = len(weights)\nxs = norm.ppf((np.arange(n) + 0.5) / n)";
+                var nbb_cell_id = 129;
+                var nbb_unformatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
+                var nbb_formatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -856,15 +859,16 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
             }, 500);
             </script></div>
 </div>
-<p>The normal probability plot is not a perfectly straight line, which indicates that the normal distribution is not a perfect model for this data.
-One reason is that the dataset includes male and female penguins, so let’s see what happens if we plot the two groups separately.
+<p>The normal probability plot is not a perfectly straight line, which indicates that the normal distribution is not a perfect model for this data.</p>
+<p>One reason is that the dataset includes male and female penguins, and the two groups have different means – let’s see what happens if we plot the groups separately.
 The following function encapsulates the steps we used to make a normal probability plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_probability_plot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Makes a normal probability plot with a fitted line.&quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
-    <span class="n">xs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span>
     <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
@@ -1099,7 +1103,7 @@ def sample(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e4e7cdb53de9bea3e5ecf7a6d2bc4032e05243e578b698f40bad08faed9ef80f.png" src="_images/e4e7cdb53de9bea3e5ecf7a6d2bc4032e05243e578b698f40bad08faed9ef80f.png" />
+<img alt="_images/b33bedeb470c5a7d0523e9edc8aff060a67071e3296b168bc44d7e9cad69fc97.png" src="_images/b33bedeb470c5a7d0523e9edc8aff060a67071e3296b168bc44d7e9cad69fc97.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 22;
@@ -1254,7 +1258,7 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2343d2beddb33e8e49816c7755e4b17726f9d85379bfa0c00647f04fcddcbc8f.png" src="_images/2343d2beddb33e8e49816c7755e4b17726f9d85379bfa0c00647f04fcddcbc8f.png" />
+<img alt="_images/f7ef3f8fd8a90b4a5f265ea86f657223947153b0ea715073c0e712170eb25634.png" src="_images/f7ef3f8fd8a90b4a5f265ea86f657223947153b0ea715073c0e712170eb25634.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 26;
@@ -1389,7 +1393,7 @@ def sum(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/656e98ca2a8b0bdb65c5f7af4d7b4f00d5a1c9cdf9e9726055c0b5e5c180909e.png" src="_images/656e98ca2a8b0bdb65c5f7af4d7b4f00d5a1c9cdf9e9726055c0b5e5c180909e.png" />
+<img alt="_images/ee181650e803b4b095d4f2f8a52ee80bd37c4c593f0843f30a6afcf4e70762de.png" src="_images/ee181650e803b4b095d4f2f8a52ee80bd37c4c593f0843f30a6afcf4e70762de.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 30;
@@ -1565,7 +1569,7 @@ We can use this property to compute the distribution of the sample means.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/387e93428171df3b34923be955f2f2c402b55219aa10e78082ba40e2d5fbe247.png" src="_images/387e93428171df3b34923be955f2f2c402b55219aa10e78082ba40e2d5fbe247.png" />
+<img alt="_images/d8165fa857dbf460267abbb9d32c4df18917d0cb2ec72b863793ab7941d32731.png" src="_images/d8165fa857dbf460267abbb9d32c4df18917d0cb2ec72b863793ab7941d32731.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 35;
@@ -1799,7 +1803,7 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f6b5710a1bf7010e95416192bcd52d474c6143b7c7f6ff758f37c5bc8438611e.png" src="_images/f6b5710a1bf7010e95416192bcd52d474c6143b7c7f6ff758f37c5bc8438611e.png" />
+<img alt="_images/b9c7ec591b0793f20e999950ecec9cb6700c884c8d2ac7dc238289637d88cdbe.png" src="_images/b9c7ec591b0793f20e999950ecec9cb6700c884c8d2ac7dc238289637d88cdbe.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 42;
@@ -1900,7 +1904,7 @@ def ppf(self, xs):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([589.46701521, 758.29745645])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([590.04570736, 756.63215718])
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -1980,9 +1984,9 @@ The following loop generates samples from an exponential distribution, adds them
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1       0.995659
-10     10.212150
-100    99.950328
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        1.080295
+10       9.928901
+100    100.244146
 dtype: float64
 </pre></div>
 </div>
@@ -2050,7 +2054,7 @@ This function takes the <code class="docutils literal notranslate"><span class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/771893ee146744fde75257567c6a8c14e9aa4a91a18634f334c162c7d43e58a1.png" src="_images/771893ee146744fde75257567c6a8c14e9aa4a91a18634f334c162c7d43e58a1.png" />
+<img alt="_images/419acefd9f4b19b8c4cecd39aca86171c52a7fa335747a32d25f5ab74557fef4.png" src="_images/419acefd9f4b19b8c4cecd39aca86171c52a7fa335747a32d25f5ab74557fef4.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 49;
@@ -2110,7 +2114,7 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a9a1930dc6ad734f6095c320bb972f69315f84340236f092c6db3136681cf29c.png" src="_images/a9a1930dc6ad734f6095c320bb972f69315f84340236f092c6db3136681cf29c.png" />
+<img alt="_images/9721f1bb53a3d50b7b5cfa3850f27462195eb1ff46d3a5edbda494959c933eaf.png" src="_images/9721f1bb53a3d50b7b5cfa3850f27462195eb1ff46d3a5edbda494959c933eaf.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 51;
@@ -2174,7 +2178,7 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ff29f325b2cef4b09cf7994ef0ffc1fa1a3f9cd22a107ce89734b9aacd3e1205.png" src="_images/ff29f325b2cef4b09cf7994ef0ffc1fa1a3f9cd22a107ce89734b9aacd3e1205.png" />
+<img alt="_images/8674865765498f9dc8ee99c219fc65e572303c4e320751371d205d59f95167e7.png" src="_images/8674865765498f9dc8ee99c219fc65e572303c4e320751371d205d59f95167e7.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 53;
@@ -2299,7 +2303,7 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/de88404bbdf4439fe5a242587ade9f908328f89105fba454f28c0e6c3791f4b2.png" src="_images/de88404bbdf4439fe5a242587ade9f908328f89105fba454f28c0e6c3791f4b2.png" />
+<img alt="_images/2f30344adf7b8963349f126aaf198c1370ad06a23027d60166fe4dd73cfa5f1d.png" src="_images/2f30344adf7b8963349f126aaf198c1370ad06a23027d60166fe4dd73cfa5f1d.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 57;
@@ -2596,7 +2600,7 @@ The vertical dotted lines show the observed difference, positive and negative.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6abfdfd7f8b04eacf2f9a9a697db419ca835dc2c34d8ccffdc5f0ad90732f2a1.png" src="_images/6abfdfd7f8b04eacf2f9a9a697db419ca835dc2c34d8ccffdc5f0ad90732f2a1.png" />
+<img alt="_images/44961acb5554b80644c685b98d60a3d73ede59d32c55d208aa5c1ac0b126b255.png" src="_images/44961acb5554b80644c685b98d60a3d73ede59d32c55d208aa5c1ac0b126b255.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 67;
@@ -2968,7 +2972,7 @@ The following figure shows the CDF of a <span class="math notranslate nohighligh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cff8e068b5df856462f7506a71f662a767926664a320e5434be3c56884b7467e.png" src="_images/cff8e068b5df856462f7506a71f662a767926664a320e5434be3c56884b7467e.png" />
+<img alt="_images/84e16e4e249f05d7b9c371c2ac346b856ee1ab0eabbfe7d309838f14ac4530f9.png" src="_images/84e16e4e249f05d7b9c371c2ac346b856ee1ab0eabbfe7d309838f14ac4530f9.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 79;
@@ -3140,7 +3144,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b8db7f98388e0c9228fac791316574ce873140a4e59edf5040322d7860d06e8d.png" src="_images/b8db7f98388e0c9228fac791316574ce873140a4e59edf5040322d7860d06e8d.png" />
+<img alt="_images/867e32d66e2edb87b6a57ef07d6736f63b7b6a74fe4c34e2928eb3b0ff775329.png" src="_images/867e32d66e2edb87b6a57ef07d6736f63b7b6a74fe4c34e2928eb3b0ff775329.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 85;
@@ -3603,7 +3607,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ccfa65df273f2f4df15e4cd08abbffc6030ca15ebca717e1cc8e664e599e687d.png" src="_images/ccfa65df273f2f4df15e4cd08abbffc6030ca15ebca717e1cc8e664e599e687d.png" />
+<img alt="_images/13ae8342d965038379c1a606f3efe48b56be0c7febab7a4a2a6799acd791523c.png" src="_images/13ae8342d965038379c1a606f3efe48b56be0c7febab7a4a2a6799acd791523c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 99;
@@ -4017,7 +4021,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 117;
+                var nbb_cell_id = 116;
                 var nbb_unformatted_code = "from empiricaldist import Pmf\n\npmf_fmarital = Pmf.from_seq(live[\"fmarital\"])\npmf_fmarital";
                 var nbb_formatted_code = "from empiricaldist import Pmf\n\npmf_fmarital = Pmf.from_seq(live[\"fmarital\"])\npmf_fmarital";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -4100,7 +4104,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 118;
+                var nbb_cell_id = 117;
                 var nbb_unformatted_code = "expected = pd.DataFrame()\nexpected[\"male\"] = pmf_fmarital * observed[\"male\"].sum()\nexpected[\"female\"] = pmf_fmarital * observed[\"female\"].sum()\nexpected";
                 var nbb_formatted_code = "expected = pd.DataFrame()\nexpected[\"male\"] = pmf_fmarital * observed[\"male\"].sum()\nexpected[\"female\"] = pmf_fmarital * observed[\"female\"].sum()\nexpected";
                 var nbb_cells = Jupyter.notebook.get_cells();
