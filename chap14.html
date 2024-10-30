@@ -771,7 +771,7 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
             }, 500);
             </script></div>
 </div>
-<p>And the <span class="math notranslate nohighlight">\(x\)</span> values are the corresponding percentiles of a normal distribution, computed using the <code class="docutils literal notranslate"><span class="pre">ppf</span></code> method of the <code class="docutils literal notranslate"><span class="pre">norm</span></code> object, which computes the inverse CDF.</p>
+<p>And the <span class="math notranslate nohighlight">\(x\)</span> values are the corresponding percentiles of a normal distribution, computed using the <code class="docutils literal notranslate"><span class="pre">ppf</span></code> method of the <code class="docutils literal notranslate"><span class="pre">norm</span></code> object, which computes the “percent point function”, which is the inverse CDF.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
@@ -783,7 +783,7 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 129;
+                var nbb_cell_id = 13;
                 var nbb_unformatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
                 var nbb_formatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -887,8 +887,8 @@ The following function encapsulates the steps we used to make a normal probabili
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 16;
-                var nbb_unformatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    xs = norm.ppf((np.arange(n) + 0.5) / n)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
-                var nbb_formatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    xs = norm.ppf((np.arange(n) + 0.5) / n)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
+                var nbb_unformatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    ps = (np.arange(n) + 0.5) / n\n    xs = norm.ppf(ps)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
+                var nbb_formatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    ps = (np.arange(n) + 0.5) / n\n    xs = norm.ppf(ps)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1103,7 +1103,7 @@ def sample(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b33bedeb470c5a7d0523e9edc8aff060a67071e3296b168bc44d7e9cad69fc97.png" src="_images/b33bedeb470c5a7d0523e9edc8aff060a67071e3296b168bc44d7e9cad69fc97.png" />
+<img alt="_images/773573f287bdc8ea374a13e964f519c2ac794c754b9917de071c280c43a78225.png" src="_images/773573f287bdc8ea374a13e964f519c2ac794c754b9917de071c280c43a78225.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 22;
@@ -1258,7 +1258,7 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f7ef3f8fd8a90b4a5f265ea86f657223947153b0ea715073c0e712170eb25634.png" src="_images/f7ef3f8fd8a90b4a5f265ea86f657223947153b0ea715073c0e712170eb25634.png" />
+<img alt="_images/0ee3d6a3888d606c93b273e4837383948ef9d913ea50732cb9780970efe602da.png" src="_images/0ee3d6a3888d606c93b273e4837383948ef9d913ea50732cb9780970efe602da.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 26;
@@ -1393,7 +1393,7 @@ def sum(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ee181650e803b4b095d4f2f8a52ee80bd37c4c593f0843f30a6afcf4e70762de.png" src="_images/ee181650e803b4b095d4f2f8a52ee80bd37c4c593f0843f30a6afcf4e70762de.png" />
+<img alt="_images/c5ace91604790d92a8e0c02357a3542c1a62ff61bdc567514e70af7f78730d19.png" src="_images/c5ace91604790d92a8e0c02357a3542c1a62ff61bdc567514e70af7f78730d19.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 30;
@@ -1569,7 +1569,7 @@ We can use this property to compute the distribution of the sample means.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d8165fa857dbf460267abbb9d32c4df18917d0cb2ec72b863793ab7941d32731.png" src="_images/d8165fa857dbf460267abbb9d32c4df18917d0cb2ec72b863793ab7941d32731.png" />
+<img alt="_images/bf1de8fe7081e558a733cadb07af13ebb532ed7efb4803363c3ea43e50bcca6c.png" src="_images/bf1de8fe7081e558a733cadb07af13ebb532ed7efb4803363c3ea43e50bcca6c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 35;
@@ -1803,7 +1803,7 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b9c7ec591b0793f20e999950ecec9cb6700c884c8d2ac7dc238289637d88cdbe.png" src="_images/b9c7ec591b0793f20e999950ecec9cb6700c884c8d2ac7dc238289637d88cdbe.png" />
+<img alt="_images/072d238e00b42513729d90cbcbccff1ff142a8223dd718eb3cfb74fa65ddebea.png" src="_images/072d238e00b42513729d90cbcbccff1ff142a8223dd718eb3cfb74fa65ddebea.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 42;
@@ -1823,7 +1823,7 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 <p>They agree, which confirms that we found the distribution of the differences correctly.
 We can use this distribution to compute a confidence interval for the difference in weights.
-We’ll use the following method to compute the “percent point function”, which is the inverse CDF.</p>
+We’ll use the following method to compute the inverse CDF.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">add_method_to</span> Normal
@@ -1904,7 +1904,7 @@ def ppf(self, xs):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([590.04570736, 756.63215718])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([589.8270722, 759.5640151])
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -1984,9 +1984,9 @@ The following loop generates samples from an exponential distribution, adds them
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        1.080295
-10       9.928901
-100    100.244146
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        1.023000
+10       9.943775
+100    100.220176
 dtype: float64
 </pre></div>
 </div>
@@ -2008,9 +2008,8 @@ dtype: float64
             </script></div>
 </div>
 <p>The average value from this distribution is 1, so if we add up 10 values, the average of the sum is close to 10, and if we add up 100 values the average of the sum is close to 100.</p>
-<p>Now let’s see what the distributions of these sums look like.
-This function takes the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we just made and makes a normal probability plot for each list of sums.</p>
-<div class="cell docutils container">
+<p>This function takes the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we just made and makes a normal probability plot for each list of sums.</p>
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_plot_samples</span><span class="p">(</span><span class="n">df_sample</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normal probability plots for samples of sums.&quot;&quot;&quot;</span>
@@ -2046,7 +2045,7 @@ This function takes the <code class="docutils literal notranslate"><span class="
             }, 500);
             </script></div>
 </div>
-<p>Here are the results.</p>
+<p>The following figure shows normal probability plots for the three lists of sums (the definition of <code class="docutils literal notranslate"><span class="pre">normal_plot_samples</span></code> is in the notebook for this chapter).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normal_plot_samples</span><span class="p">(</span><span class="n">df_sample_expo</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Sum of exponential values&quot;</span><span class="p">)</span>
@@ -2054,7 +2053,7 @@ This function takes the <code class="docutils literal notranslate"><span class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/419acefd9f4b19b8c4cecd39aca86171c52a7fa335747a32d25f5ab74557fef4.png" src="_images/419acefd9f4b19b8c4cecd39aca86171c52a7fa335747a32d25f5ab74557fef4.png" />
+<img alt="_images/c0d0df75bf4b9cdf1174ba24a88bda4f040eacea1213518f9ca353723b1af7d3.png" src="_images/c0d0df75bf4b9cdf1174ba24a88bda4f040eacea1213518f9ca353723b1af7d3.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 49;
@@ -2114,7 +2113,7 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9721f1bb53a3d50b7b5cfa3850f27462195eb1ff46d3a5edbda494959c933eaf.png" src="_images/9721f1bb53a3d50b7b5cfa3850f27462195eb1ff46d3a5edbda494959c933eaf.png" />
+<img alt="_images/44396badfe433a33ba4e810968d8fd1406bea17b1953125d2ac271651d9d5a6c.png" src="_images/44396badfe433a33ba4e810968d8fd1406bea17b1953125d2ac271651d9d5a6c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 51;
@@ -2142,7 +2141,7 @@ And in some cases, it doesn’t happen at all.</p>
 <h2><span class="section-number">14.6. </span>The Limits of the Central Limit Theorem<a class="headerlink" href="#the-limits-of-the-central-limit-theorem" title="Link to this heading">#</a></h2>
 <p>Pareto distributions are even more skewed than lognormal.
 Depending on the parameters, some Pareto distributions do not have finite mean and variance – in those cases, the Central Limit Theorem does not apply.</p>
-<p>To demonstrate, we’ll generate values from a Pareto distribution with <code class="docutils literal notranslate"><span class="pre">alpha=1</span></code>, which has infinite mean and variance.</p>
+<p>To demonstrate, we’ll generate values from a Pareto distribution with parameter <code class="docutils literal notranslate"><span class="pre">alpha=1</span></code>, which has infinite mean and variance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -2178,7 +2177,7 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8674865765498f9dc8ee99c219fc65e572303c4e320751371d205d59f95167e7.png" src="_images/8674865765498f9dc8ee99c219fc65e572303c4e320751371d205d59f95167e7.png" />
+<img alt="_images/21353e8afabf0a51b6db535c9c2a6cdcda4a8dde65ca6b10e9ece1d88c56fcce.png" src="_images/21353e8afabf0a51b6db535c9c2a6cdcda4a8dde65ca6b10e9ece1d88c56fcce.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 53;
@@ -2198,8 +2197,9 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </div>
 <p>Even with <code class="docutils literal notranslate"><span class="pre">n=100</span></code>, the distribution of the sum is nothing like a normal distribution.</p>
 <p>I also mentioned that the CLT does not apply if the values are correlated.
-To test that, we’ll use the following function, which generates values from a normal distribution where the serial correlation – that is, the correlation between successive elements in the sample – is the given value, <code class="docutils literal notranslate"><span class="pre">rho</span></code>.</p>
-<div class="cell docutils container">
+To test that, we’ll use a function called <code class="docutils literal notranslate"><span class="pre">generate_expo_correlated</span></code> to generate values from a normal distribution where the serial correlation – that is, the correlation between successive elements in the sample – is the given value, <code class="docutils literal notranslate"><span class="pre">rho</span></code>.
+This function is defined in the notebook for this chapter.</p>
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_normal_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates an array of correlated values from a standard normal dist.&quot;&quot;&quot;</span>
@@ -2233,7 +2233,7 @@ To test that, we’ll use the following function, which generates values from a 
             </script></div>
 </div>
 <p>Given a correlated sequence from a normal distribution, the following function generates a correlated sequence from an exponential distribution.</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">expon</span>
 
@@ -2267,7 +2267,7 @@ To test that, we’ll use the following function, which generates values from a 
 </div>
 <p>It starts with a sequence of correlated normal values and uses the normal CDF to transform them to a sequence of values from a uniform distribution between 0 and 1.
 Then it uses the exponential inverse CDF to transform them to a sequence of exponential values.</p>
-<p>Again can make a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with one column for each sample size and 1001 sums in each column.</p>
+<p>The following loop uses makes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with one column for each sample size and 1001 sums in each column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mf">0.8</span>
@@ -2295,7 +2295,7 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
             }, 500);
             </script></div>
 </div>
-<p>Here are the normal probability plots.</p>
+<p>Here are the normal probability plots for the distribution of these sums.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normal_plot_samples</span><span class="p">(</span><span class="n">df_sample</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;sum of correlated exponential values&quot;</span><span class="p">)</span>
@@ -2303,7 +2303,7 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2f30344adf7b8963349f126aaf198c1370ad06a23027d60166fe4dd73cfa5f1d.png" src="_images/2f30344adf7b8963349f126aaf198c1370ad06a23027d60166fe4dd73cfa5f1d.png" />
+<img alt="_images/d15e21a5ef055e1d7d3c4327b4498a5a853d9b9570bd3e729104165bdbdbd5e2.png" src="_images/d15e21a5ef055e1d7d3c4327b4498a5a853d9b9570bd3e729104165bdbdbd5e2.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 57;
@@ -2323,13 +2323,13 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </div>
 <p>With <code class="docutils literal notranslate"><span class="pre">rho=0.8</span></code>, there is a strong correlation between successive elements, and the distribution of the sum converges slowly.
 If there is also a strong correlation between distant elements of the sequence, it might not converge at all.</p>
-<p>These experiments are meant to show how the Central Limit Theorem works, and what happens when it doesn’t.
+<p>The previous section shows that the Central Limit Theorem works, and this section shows what happens when it doesn’t.
 Now let’s see how we can use it.</p>
 </section>
 <section id="applying-the-clt">
 <h2><span class="section-number">14.7. </span>Applying the CLT<a class="headerlink" href="#applying-the-clt" title="Link to this heading">#</a></h2>
 <p>To see why the Central Limit Theorem is useful, let’s get back to the example in Section XXX: testing the apparent difference in mean pregnancy length for first babies and others.
-Instructions for downloading the NSFG data are in the notebook for this chapter.</p>
+We’ll use the NSFG data again – instructions for downloading it are in the notebook for this chapter.</p>
 <p>The following cell downloads the data.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -2413,7 +2413,7 @@ Instructions for downloading the NSFG data are in the notebook for this chapter.
             }, 500);
             </script></div>
 </div>
-<p>Now, to see whether this difference might have happened by chance, we’ll assume as a null hypothesis that the mean and variance of pregnancy lengths is actually the same for both groups, so we can estimate it using all live births.</p>
+<p>To see whether this difference might have happened by chance, we’ll assume as a null hypothesis that the mean and variance of pregnancy lengths is actually the same for both groups, so we can estimate it using all live births.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_lengths</span> <span class="o">=</span> <span class="n">live</span><span class="p">[</span><span class="s2">&quot;prglngth&quot;</span><span class="p">]</span>
@@ -2558,7 +2558,7 @@ Instructions for downloading the NSFG data are in the notebook for this chapter.
             </script></div>
 </div>
 <p>The mean is 0, which makes sense because if we draw two samples from the same distribution, we expect the difference in means to be 0, on average.
-The variance of the sampling distribution is 0.0032, which indicates how much variation we expect in the differences due to chance.</p>
+The variance of the sampling distribution is 0.0032, which indicates how much variation we expect in the difference due to chance.</p>
 <p>To confirm that this distribution approximates the sampling distribution, we can also estimate it by resampling.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2600,7 +2600,7 @@ The vertical dotted lines show the observed difference, positive and negative.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/44961acb5554b80644c685b98d60a3d73ede59d32c55d208aa5c1ac0b126b255.png" src="_images/44961acb5554b80644c685b98d60a3d73ede59d32c55d208aa5c1ac0b126b255.png" />
+<img alt="_images/48bd803b386ca2eb0191192a1d802180ec34e6e416105b79ef6e6f48e1443729.png" src="_images/48bd803b386ca2eb0191192a1d802180ec34e6e416105b79ef6e6f48e1443729.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 67;
@@ -2693,7 +2693,7 @@ def cdf(self, xs):
             }, 500);
             </script></div>
 </div>
-<p>And here’s the probability of a difference as small as <code class="docutils literal notranslate"><span class="pre">-delta</span></code>, which is the left tail.</p>
+<p>And here’s the probability of a difference as negative as <code class="docutils literal notranslate"><span class="pre">-delta</span></code>, which is the left tail.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">dist_diff</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">delta</span><span class="p">)</span>
@@ -2751,7 +2751,7 @@ The sum of the two is the probability of a difference as large as <code class="d
             }, 500);
             </script></div>
 </div>
-<p>The resulting p-value is 0.168, which is consistent with the estimate we computed by resampling in Section XXX.</p>
+<p>The resulting p-value is 0.170, which is consistent with the estimate we computed by resampling in Section XXX.</p>
 <p>The way we computed this p-value is similar to an <strong>independent sample <span class="math notranslate nohighlight">\(t\)</span> test</strong>.
 SciPy provides a function called <code class="docutils literal notranslate"><span class="pre">ttest_ind</span></code> that takes two samples and computes a p-value for the difference in their means.</p>
 <div class="cell docutils container">
@@ -2785,7 +2785,7 @@ SciPy provides a function called <code class="docutils literal notranslate"><spa
             </script></div>
 </div>
 <p>When the sample sizes are large, the result of the <span class="math notranslate nohighlight">\(t\)</span> test is close to what we computed with normal distributions.
-The <span class="math notranslate nohighlight">\(t\)</span> test is so called because it is based on Student’s <span class="math notranslate nohighlight">\(t\)</span> distribution rather than a normal distribution.
+The <span class="math notranslate nohighlight">\(t\)</span> test is so called because it is based on a <span class="math notranslate nohighlight">\(t\)</span> distribution rather than a normal distribution.
 The <span class="math notranslate nohighlight">\(t\)</span> distribution is also useful for testing whether a correlation is statistically significant, as we’ll see in the next section.</p>
 </section>
 <section id="correlation-test">
@@ -2926,7 +2926,7 @@ To see what that looks like, we’ll use the following function to generate unco
             }, 500);
             </script></div>
 </div>
-<p>To check whether these <code class="docutils literal notranslate"><span class="pre">ts</span></code> follow a <span class="math notranslate nohighlight">\(t\)</span> distribution, we’ll use the following function, which makes a <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> object that represents the CDF of a <span class="math notranslate nohighlight">\(t\)</span> distribution.</p>
+<p>To check whether these <code class="docutils literal notranslate"><span class="pre">ts</span></code> follow a <span class="math notranslate nohighlight">\(t\)</span> distribution, we’ll use the following function, which makes an object that represents the CDF of a <span class="math notranslate nohighlight">\(t\)</span> distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">t</span> <span class="k">as</span> <span class="n">student_t</span>
@@ -2972,7 +2972,7 @@ The following figure shows the CDF of a <span class="math notranslate nohighligh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/84e16e4e249f05d7b9c371c2ac346b856ee1ab0eabbfe7d309838f14ac4530f9.png" src="_images/84e16e4e249f05d7b9c371c2ac346b856ee1ab0eabbfe7d309838f14ac4530f9.png" />
+<img alt="_images/ab965df43ff65859fb5ef231fecab8584058f42954018ff515aab15f355bcd41.png" src="_images/ab965df43ff65859fb5ef231fecab8584058f42954018ff515aab15f355bcd41.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 79;
@@ -3144,7 +3144,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/867e32d66e2edb87b6a57ef07d6736f63b7b6a74fe4c34e2928eb3b0ff775329.png" src="_images/867e32d66e2edb87b6a57ef07d6736f63b7b6a74fe4c34e2928eb3b0ff775329.png" />
+<img alt="_images/d68dfc0dd55d344fb89451031ba89a5e9d9c0a0739f826783ce1bae27548d57c.png" src="_images/d68dfc0dd55d344fb89451031ba89a5e9d9c0a0739f826783ce1bae27548d57c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 85;
@@ -3217,7 +3217,7 @@ First we’ll transform the observed correlation.</p>
             }, 500);
             </script></div>
 </div>
-<p>We can also compute the probability of a value as small as <code class="docutils literal notranslate"><span class="pre">-t_actual</span></code>.</p>
+<p>We can also compute the probability of a value as negative as <code class="docutils literal notranslate"><span class="pre">-t_actual</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">student_t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="o">-</span><span class="n">t_actual</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
@@ -3305,11 +3305,12 @@ First we’ll transform the observed correlation.</p>
             }, 500);
             </script></div>
 </div>
+<p>The results are nearly the same.</p>
 <p>Based on the resampling results, we concluded that the p-value was less than 0.001, but we could not say how much less without running a very large number of resamplings.
 With analytic methods, we can compute small p-values quickly.</p>
 <p>However, in practice it might not matter.
 Generally, if a p-value is smaller than 0.001, we can conclude that the observed effect is unlikely to be due to chance.
-It is usually not important to know precisely how unlikely.</p>
+It is not usually important to know precisely how unlikely.</p>
 </section>
 <section id="chi-squared-test">
 <h2><span class="section-number">14.9. </span>Chi-squared Test<a class="headerlink" href="#chi-squared-test" title="Link to this heading">#</a></h2>
@@ -3540,12 +3541,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 
 
 <span class="k">def</span> <span class="nf">chi_squared_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Discrete approximation of the chi-squared CDF with df=n-1.</span>
-
-<span class="sd">    n: sample size</span>
-
-<span class="sd">    returns: Cdf</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Discrete approximation of the chi-squared CDF.&quot;&quot;&quot;</span>
     <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">chi2_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Cdf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span>
@@ -3556,8 +3552,8 @@ To see what it looks like, we’ll use the following function, which simulates r
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 97;
-                var nbb_unformatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF with df=n-1.\n\n    n: sample size\n\n    returns: Cdf\n    \"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
-                var nbb_formatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF with df=n-1.\n\n    n: sample size\n\n    returns: Cdf\n    \"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
+                var nbb_unformatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF.\"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
+                var nbb_formatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF.\"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -3570,7 +3566,7 @@ To see what it looks like, we’ll use the following function, which simulates r
             }, 500);
             </script></div>
 </div>
-<p>With <code class="docutils literal notranslate"><span class="pre">n</span></code> possible outcomes, the simulated chi-squared statistics should follow a chi-squared distibution with parameter <code class="docutils literal notranslate"><span class="pre">n-1</span></code>.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">n</span></code> possible outcomes, the simulated chi-squared statistics should follow a chi-squared distribution with parameter <code class="docutils literal notranslate"><span class="pre">n-1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
@@ -3607,7 +3603,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/13ae8342d965038379c1a606f3efe48b56be0c7febab7a4a2a6799acd791523c.png" src="_images/13ae8342d965038379c1a606f3efe48b56be0c7febab7a4a2a6799acd791523c.png" />
+<img alt="_images/3fd645a1b2572399735ed50b9a8d7577bd8084ac1e34109530f9e9087ae39025.png" src="_images/3fd645a1b2572399735ed50b9a8d7577bd8084ac1e34109530f9e9087ae39025.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 99;
@@ -3710,7 +3706,7 @@ To see what it looks like, we’ll use the following function, which simulates r
             </script></div>
 </div>
 <p>The advantage of the chi-squared statistic is that its distribution under the null hypothesis can be computed efficiently.
-But it might not be the statistic that best quantifies the difference between the observed and expected outcomes.</p>
+But in context, it might not be the statistic that best quantifies the difference between the observed and expected outcomes.</p>
 </section>
 <section id="computation-and-analysis">
 <h2><span class="section-number">14.10. </span>Computation and Analysis<a class="headerlink" href="#computation-and-analysis" title="Link to this heading">#</a></h2>
@@ -3719,7 +3715,7 @@ These methods have several advantages over analysis:</p>
 <ul class="simple">
 <li><p>They are easier to explain and understand. For example, one of the most difficult topics in an introductory statistics class is hypothesis testing. Many students don’t really understand what p-values are. I think the approach we took in Chapter xxx – simulating the null hypothesis and computing test statistics – makes the fundamental idea clearer.</p></li>
 <li><p>They are robust and versatile. Analytic methods are often based on assumptions that don’t hold in practice. Computational methods require fewer assumptions, and can be adapted and extended more easily.</p></li>
-<li><p>They are debuggable. Analytic methods are often like a black box: you plug in numbers and they spit out results. But it’s easy to make subtle errors, hard to be confident that the results are right, and hard to find the problem if they are not. Computational methods lend themselves to incremental development and testing, which fosters confidence in the results.</p></li>
+<li><p>They are debuggable. Analytic methods are often like a black box: you plug in numbers and they spit out results. But it’s easy to make subtle errors, hard to be confident that the results are right, and hard to diagnose the problem if they are not. Computational methods lend themselves to incremental development and testing, which fosters confidence in the results.</p></li>
 </ul>
 <p>But there is one drawback: computational methods can be slow.
 Taking into account these pros and cons, I recommend the following process:</p>
@@ -3734,7 +3730,8 @@ Taking into account these pros and cons, I recommend the following process:</p>
 <h2><span class="section-number">14.11. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <section id="exercise">
 <h3><span class="section-number">14.11.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
-<p>In this chapter we compared the weights of male and female penguins and computes a confidence interval for the difference. Now let’s do the same for flipper length.
+<p>In this chapter we compared the weights of male and female penguins and computed a confidence interval for the difference.
+Now let’s do the same for flipper length.
 The observed difference is about 4.6 mm.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
