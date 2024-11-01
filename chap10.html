@@ -387,7 +387,7 @@ document.write(`
   <section id="least-squares">
 <h1><span class="section-number">10. </span>Least Squares<a class="headerlink" href="#least-squares" title="Link to this heading">#</a></h1>
 <p>This chapter and the next introduce the idea of fitting a model to data.
-In this context, a model consists a mathematical description of the relationship between variables – like a straight line – and a description of random variation – like a normal distribution.</p>
+In this context, a <strong>model</strong> consists a mathematical description of the relationship between variables – like a straight line – and a description of random variation – like a normal distribution.</p>
 <p>When we say that a model fits data, we usually mean that it minimizes errors, which are the distances between the model and the data.
 We’ll start with one of the most widely-used ways of fitting a model, minimizing the sum of the squared errors, which is called a least squares fit.</p>
 <p>We’ll also start with models that work with just two variables at a time.
@@ -815,7 +815,7 @@ It might make more sense if we use the slope and intercept to evaluate the fitte
             }, 500);
             </script></div>
 </div>
-<p>The name <code class="docutils literal notranslate"><span class="pre">predict</span></code> might seem odd here – in natural language, a prediction usually pertains to something happening in the future, but in the context of regression, the points on the fitted line are also called predictions.</p>
+<p>The name <code class="docutils literal notranslate"><span class="pre">predict</span></code> might seem odd here – in natural language, a <strong>prediction</strong> usually pertains to something happening in the future, but in the context of regression, the points on the fitted line are also called predictions.</p>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">predict</span></code> to compute the points on the line for a range of flipper sizes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2370,12 +2370,14 @@ Here’s what the fitted line looks like after the inverse transformation, along
 <section id="glossary">
 <h2><span class="section-number">10.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>linear fit</strong>: a line intended to model the relationship between variables.</p></li>
-<li><p><strong>least squares fit</strong>: A model of a dataset that minimizes the sum of squares of the residuals.</p></li>
-<li><p><strong>residual</strong>: The deviation of an actual value from a model.</p></li>
-<li><p><strong>goodness of fit</strong>: A measure of how well a model fits data.</p></li>
-<li><p><strong>coefficient of determination</strong>: A statistic intended to quantify goodness of fit.</p></li>
-<li><p><strong>sampling weight</strong>: A value associated with an observation in a sample that indicates what part of the population it represents.</p></li>
+<li><p><strong>model</strong>: In the context of regression, a model is a mathematical description of the relationship between variables – such as a straight line – along with a description of random variation – such as a normal distribution.</p></li>
+<li><p><strong>imputation:</strong> A process for estimating and filling in missing values in a dataset.</p></li>
+<li><p><strong>line of best fit:</strong> A line (or curve) that best describes a relationship between variables, by some definition of “best”.</p></li>
+<li><p><strong>linear regression:</strong> A method for finding a line of best fit.</p></li>
+<li><p><strong>prediction</strong>: A point on a line of best fit – in the context of regression, it is not necessarily a claim about the future.</p></li>
+<li><p><strong>residual</strong>: The difference between an observed value and a value predicted by a line of best fit.</p></li>
+<li><p><strong>linear least squares fit:</strong> A line that minimizes the sum of squared residuals.</p></li>
+<li><p><strong>coefficient of determination</strong>: A statistic, denoted <span class="math notranslate nohighlight">\(R^2\)</span> and often pronounced “R squared”, that quantifies how well a model fits the data.</p></li>
 </ul>
 </section>
 <section id="exercises">

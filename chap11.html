@@ -2135,7 +2135,7 @@ For example:</p>
 <li><p>If it’s categorical with more than two categories, we can use multinomial logistic regression</p></li>
 <li><p>If it’s categorical and the categories can be arranged in order, we can use ordered logistic regression.</p></li>
 </ul>
-<p>We won’t cover all of them in this book – just logistic regression, which is the most widely used.
+<p>We won’t cover all of them in this book – just <strong>logistic regression</strong>, which is the most widely used.
 As an example, we’ll use the penguin dataset again, and see if we can tell whether a penguin is male or female, based on its weight and other measurements.</p>
 <p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides a function that does logistic regression – it’s called <code class="docutils literal notranslate"><span class="pre">logit</span></code> because that’s the name of a mathematical function that appears in the definition of logistic regression.
 Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the dependent variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and `1’.</p>
@@ -2586,20 +2586,16 @@ That means Gentoo penguins can be classified more accurately using physical meas
 <section id="glossary">
 <h2><span class="section-number">11.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>regression</strong>: One of several related processes for estimating parameters that fit a model to data.</p></li>
-<li><p><strong>dependent variables</strong>: The variables in a regression model we would like to predict.
-Also known as endogenous variables.</p></li>
-<li><p><strong>explanatory variables</strong>: The variables used to predict or explain the dependent variables.
-Also known as independent, or exogenous, variables.</p></li>
-<li><p><strong>simple regression</strong>: A regression with only one dependent and one explanatory variable.</p></li>
+<li><p><strong>regression</strong>: A method for estimating coefficients that fit a model to data.</p></li>
+<li><p><strong>dependent variables</strong>: The variables a regression model tries to predict, also known as endogenous variables.</p></li>
+<li><p><strong>explanatory variables</strong>: The variables a model uses to predict the dependent variables. Also known as independent or exogenous variables.</p></li>
+<li><p><strong>simple regression</strong>: A regression with one dependent and one explanatory variable.</p></li>
 <li><p><strong>multiple regression</strong>: A regression with multiple explanatory variables, but only one dependent variable.</p></li>
-<li><p><strong>linear regression</strong>: A regression based on a linear model.</p></li>
-<li><p><strong>ordinary least squares</strong>: A linear regression that estimates parameters by minimizing the squared error of the residuals.</p></li>
-<li><p><strong>control variable</strong>: A variable included in a regression to eliminate or “control for” a spurious relationship.</p></li>
-<li><p><strong>proxy variable</strong>: A variable that contributes information to a regression model indirectly because of a relationship with another factor, so it acts as a proxy for that factor.</p></li>
-<li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of values.</p></li>
-<li><p><strong>logistic regression</strong>: A form of regression used when the dependent variable is boolean.</p></li>
-<li><p><strong>Poisson regression</strong>: A form of regression used when the dependent variable is a non-negative integer, usually a count.</p></li>
+<li><p><strong>coefficients:</strong> In a regression model, the coefficients are the intercept and the estimated slopes for the explanatory variables.</p></li>
+<li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of values, usually not numerical.</p></li>
+<li><p><strong>control variable</strong>: A variable included in a regression to separate the direct effect of an explanatory variable from an indirect effect.</p></li>
+<li><p><strong>generalized linear models:</strong> A set of regression models based on different mathematical relationships between the explanatory and dependent variables.</p></li>
+<li><p><strong>logistic regression</strong>: A generalized linear model used when the dependent variable is boolean – that is, it has two possible values.</p></li>
 </ul>
 </section>
 <section id="exercises">
