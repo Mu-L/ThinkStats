@@ -878,18 +878,11 @@ But for audiences that are not familiar with CDFs, there is one more option: pro
 </section>
 <section id="probability-density">
 <h2><span class="section-number">6.2. </span>Probability Density<a class="headerlink" href="#probability-density" title="Link to this heading">#</a></h2>
-<p>We’ll start with the probability density function (PDF) of the normal distribution, which we can compute like this.</p>
+<p>We’ll start with the <strong>probability density function (PDF)</strong> of the normal distribution, which computes the density for the quantities, <code class="docutils literal notranslate"><span class="pre">xs</span></code>, given the parameters <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates the normal probability density function.</span>
-
-<span class="sd">    xs: float or sequence of floats</span>
-<span class="sd">    mu: mean of the distribution</span>
-<span class="sd">    sigma: standard deviation of the distribution</span>
-
-<span class="sd">    returns: float or NumPy array of probability density</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates the normal probability density function.&quot;&quot;&quot;</span>
     <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">xs</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 </pre></div>
@@ -1688,7 +1681,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 90;
                 var nbb_unformatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_formatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1713,7 +1706,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 45;
+                var nbb_cell_id = 91;
                 var nbb_unformatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_formatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1744,7 +1737,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <img alt="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" src="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 46;
+                var nbb_cell_id = 92;
                 var nbb_unformatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_formatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1778,7 +1771,7 @@ We can represent that possibility by replacing each discrete probability mass wi
 <img alt="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" src="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 47;
+                var nbb_cell_id = 93;
                 var nbb_unformatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_formatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1801,7 +1794,7 @@ We can represent that possibility by replacing each discrete probability mass wi
 <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">NormalPdf</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)(</span><span class="n">qs</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">high_ps</span> <span class="o">=</span> <span class="n">low_ps</span> <span class="o">+</span> <span class="n">ps</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">low_ps</span><span class="p">,</span> <span class="n">high_ps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">low_ps</span><span class="p">,</span> <span class="n">high_ps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
     <span class="n">low_ps</span> <span class="o">=</span> <span class="n">high_ps</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Birth weight (pounds)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;PDF&quot;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="n">xlim</span><span class="p">)</span>
@@ -1809,12 +1802,12 @@ We can represent that possibility by replacing each discrete probability mass wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a2f9cff8fe849b6b617f3e1b1ced495ad53f84e761484501098ec985cfd4a535.png" src="_images/a2f9cff8fe849b6b617f3e1b1ced495ad53f84e761484501098ec985cfd4a535.png" />
+<img alt="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" src="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 48;
-                var nbb_unformatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=0)\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
-                var nbb_formatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=0)\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
+                var nbb_cell_id = 94;
+                var nbb_unformatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
+                var nbb_formatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2577,10 +2570,12 @@ But that might be misleading – again, I think comparing CDFs provides the clea
 <section id="glossary">
 <h2><span class="section-number">6.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Probability density function (PDF)</strong>: The derivative of a continuous CDF, a function that maps a value to its probability density.</p></li>
-<li><p><strong>Probability density</strong>: A quantity that can be integrated over a range of values to yield a probability. If the values are in units of cm, for example, probability density is in units of probability per cm.</p></li>
-<li><p><strong>Kernel density estimation (KDE)</strong>: An algorithm that estimates a PDF based on a sample.</p></li>
-<li><p><strong>discretize</strong>: To approximate a continuous function or distribution with a discrete function. The opposite of smoothing.</p></li>
+<li><p><strong>continuous:</strong> A quantity is continuous if it can have any value in a range on the number line. Most things we measure in the world – like weight, distance, and time – are continuous.</p></li>
+<li><p><strong>discrete:</strong> A quantity is discrete if it can have a limited set of values, like integers or categories. Exact counts are discrete, as well as categorical variables.</p></li>
+<li><p><strong>probability density function (PDF)</strong>: A function that shows how density (not probability) is spread across values for a continuous variable. The area under the PDF within a range gives the probability that the variable falls in that range.</p></li>
+<li><p><strong>probability density</strong>: The value of a PDF at a specific point; it’s not a probability itself it can be used to compute a probability.</p></li>
+<li><p><strong>kernel density estimation (KDE)</strong>: An method for estimating a PDF based on a sample.</p></li>
+<li><p><strong>discretize</strong>: To approximate a continuous quantity by dividing its range into discrete levels or categories.</p></li>
 </ul>
 </section>
 <section id="exercises">

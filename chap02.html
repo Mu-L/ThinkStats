@@ -367,6 +367,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">2.7. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">2.8. Exercises</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.8.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.8.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.8.3. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -1834,21 +1836,17 @@ But you should also do your best to make your reports honest, and to acknowledge
 <section id="glossary">
 <h2><span class="section-number">2.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>distribution</strong>: The quantities that appear in a sample and the frequency of each.</p></li>
+<li><p><strong>distribution</strong>: The set of quantities in a sample and how frequently each quantity appears.</p></li>
 <li><p><strong>histogram</strong>: A mapping from quantities to frequencies, or a graph that shows this mapping.</p></li>
 <li><p><strong>frequency</strong>: The number of times a quantity appears in a sample.</p></li>
+<li><p><strong>skewed:</strong> A distribution is skewed if it is asymmetrical, with extreme quantities extending farther in one direction than the other.</p></li>
 <li><p><strong>mode</strong>: The most frequent quantity in a sample, or one of the most frequent quantities.</p></li>
-<li><p><strong>normal distribution</strong>: An idealization of a bell-shaped distribution; also known as a Gaussian distribution.</p></li>
 <li><p><strong>uniform distribution</strong>: A distribution in which all quantities have the same frequency.</p></li>
-<li><p><strong>tail</strong>: The part of a distribution at the high and low extremes.</p></li>
-<li><p><strong>central tendency</strong>: A characteristic of a sample or population; intuitively, it is an average or typical quantity.</p></li>
-<li><p><strong>outlier</strong>: A quantity far from the central tendency.</p></li>
-<li><p><strong>spread</strong>: A measure of how spread out the quantities in a distribution are.</p></li>
-<li><p><strong>summary statistic</strong>: A statistic that quantifies some aspect of a distribution, like central tendency or spread.</p></li>
-<li><p><strong>variance</strong>: A summary statistic often used to quantify spread.</p></li>
-<li><p><strong>standard deviation</strong>: The square root of variance, also used as a measure of spread.</p></li>
-<li><p><strong>effect size</strong>: A summary statistic intended to quantify the size of an effect like a difference between groups.</p></li>
-<li><p><strong>clinically significant</strong>: A result, like a difference between groups, that is relevant in practice.</p></li>
+<li><p><strong>outlier</strong>: An extreme quantity in a distribution.</p></li>
+<li><p><strong>standardized:</strong> A statistic is standardized if it is expressed in terms that are comparable across different datasets and domains.</p></li>
+<li><p><strong>pooled standard deviation:</strong> A statistic that combines data from two or more groups to compute a common standard deviation.</p></li>
+<li><p><strong>Cohen’s effect size:</strong> A standardized statistic that quantifies the difference in the means of two groups.</p></li>
+<li><p><strong>clinically significant:</strong> An effect is clinically significant if it is big enough to matter in practice.</p></li>
 </ul>
 </section>
 <section id="exercises">
@@ -1918,12 +1916,18 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>We’ll start with <code class="docutils literal notranslate"><span class="pre">totincr</span></code>, which records the total income for the respondent’s family, encoded with a value from 1 to 14.
 You can read the codebook to see what income level each value represents.</p>
 <p>Make a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object to represent the distribution of this variable and plot it as a bar chart.</p>
-<p><strong>Exercise:</strong> Make a histogram of the <code class="docutils literal notranslate"><span class="pre">parity</span></code> column, which records the number of children each respondent has borne.
+</section>
+<section id="id1">
+<h3><span class="section-number">2.8.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Make a histogram of the <code class="docutils literal notranslate"><span class="pre">parity</span></code> column, which records the number of children each respondent has borne.
 How would you describe the shape of this distribution?</p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">largest</span></code> function to find the largest values of <code class="docutils literal notranslate"><span class="pre">parity</span></code>.
 Are there any values you think are errors?</p>
-<p><strong>Exercise:</strong> Let’s investigate whether people with higher income bear more children.</p>
-<p>Use the query method to select the respondents with the highest income (level 14).
+</section>
+<section id="id2">
+<h3><span class="section-number">2.8.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Let’s investigate whether people with higher income bear more children.
+Use the query method to select the respondents with the highest income (level 14).
 Plot the histogram of <code class="docutils literal notranslate"><span class="pre">parity</span></code> for just the high income respondents.</p>
 <p>Compare the mean <code class="docutils literal notranslate"><span class="pre">parity</span></code> for high income respondents and others.</p>
 <p>Compute the Cohen effect size for this difference.
@@ -2010,6 +2014,8 @@ How does it compare with the difference in pregnancy length for first babies and
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">2.7. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">2.8. Exercises</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.8.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.8.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.8.3. Exercise</a></li>
 </ul>
 </li>
 </ul>

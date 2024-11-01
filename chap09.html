@@ -382,13 +382,11 @@ document.write(`
                   
   <section id="hypothesis-testing">
 <h1><span class="section-number">9. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h1>
-<p>Exploring the data from the NSFG, we saw several “apparent effects”, including differences between first babies and others.
-So far we have taken these effects at face value – in this chapter, we put them to the test.</p>
-<p>The fundamental question we want to address is whether the effects we see in a sample are likely be present in the larger population.
-For example, in the NSFG sample we see a difference in mean pregnancy length for first babies and others.
-We would like to know if that effect reflects a real difference for women in the U.S., or if it might appear in the sample by chance.</p>
-<p>There are several ways we could formulate this question, including Fisher null hypothesis testing, Neyman-Pearson decision theory, and Bayesian inference.
-What I present here is a subset of all three that makes up most of what people use in practice, which I will call <strong>classical hypothesis testing</strong>.</p>
+<p>In the datasets we have explored in this book, we’ve seen differences between groups of people – and penguins – correlations between variables, and slopes of regression lines.
+Results like these are called <strong>observed effects</strong> because they appear in a sample, as contrasted with actual effects in the population, which we usually can’t observe directly.
+When we see an apparent effect, we should consider whether it is likely to be present in the larger population or whether it might appear in the sample by chance.</p>
+<p>There are several ways to formulate this question, including Fisher null hypothesis testing, Neyman-Pearson decision theory, and Bayesian inference.
+What I present here is a subset of all three that is most often used in practice, which I will call <strong>classical hypothesis testing</strong>.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap09.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -799,14 +797,14 @@ In this example, the simulated results exceed or equal 15 about 3.5% of the time
 </div>
 <p>If the coin is fair, we expect the excess to be 15 or more 3.5% of the time, just by chance.
 And we expect the the magnitude of the excess, in either direction, to be 15 or more about 7% of the time.</p>
-<p>In conclusion, an apparent effect of this size is not common, but it is certainly not impossible, even if the coin is fair.
+<p>In conclusion, an effect of this size is not common, but it is certainly not impossible, even if the coin is fair.
 On the basis of this experiment, we can’t rule out the possibility that the coin is fair.</p>
 <p>This example demonstrates the logic of statistical hypothesis testing.</p>
 <ul class="simple">
 <li><p>We started with an observation, 140 heads out of 250 spins, and the hypothesis that the coin is biased – that is, that the probability of heads is greater than 50%.</p></li>
-<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the apparent effect. In this example, the test statistic is the number of excess heads.</p></li>
-<li><p>We defined a <strong>null hypothesis</strong>, which is a model based on the assumption that the apparent effect is due to chance. In this example, the null hypothesis is that the coin is fair.</p></li>
-<li><p>Next, we computed a <strong>p-value</strong>, which is the probability of seeing the apparent effect if the null hypothesis is true. In this example, the p-value is the probability of 15 or more excess heads.</p></li>
+<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the observed effect. In this example, the test statistic is the number of excess heads.</p></li>
+<li><p>We defined a <strong>null hypothesis</strong>, which is a model based on the assumption that the observed effect is due to chance. In this example, the null hypothesis is that the coin is fair.</p></li>
+<li><p>Next, we computed a <strong>p-value</strong>, which is the probability of seeing the observed effect if the null hypothesis is true. In this example, the p-value is the probability of 15 or more excess heads.</p></li>
 </ul>
 <p>The last step is to interpret the result.
 If the p-value is small, we conclude that the effect would be unlikely to happen by chance.
@@ -1385,7 +1383,7 @@ So we can’t be sure that pregnancy lengths are generally more variable for fir
 <span id="section-test-correlation"></span><h2><span class="section-number">9.4. </span>Testing a Correlation<a class="headerlink" href="#testing-a-correlation" title="Link to this heading">#</a></h2>
 <p>We can use the same framework to test correlations.
 For example, in the NSFG data set, there is a correlation between birth weight and mother’s age – older mothers have heavier babies, on average.
-But could this apparent effect be due to chance?</p>
+But could this effect be due to chance?</p>
 <p>To find out, we’ll start by preparing the data.
 From live births, we’ll select cases where the age of the mother and birth weight are known.</p>
 <div class="cell docutils container">
@@ -1653,7 +1651,7 @@ Another problem is that this use of “significant” is misleading because it s
 The correlation between mother’s age and birth weight is a good example – it is statistically significant, but so small that it is not important.</p>
 <p>An alternative is to interpret p-values qualitatively.</p>
 <ul class="simple">
-<li><p>If a p-value is large, it is plausible that the apparent effect could happen by chance.</p></li>
+<li><p>If a p-value is large, it is plausible that the observed effect could happen by chance.</p></li>
 <li><p>If the p-value is small, we can often rule out the possibility that the effect is due to chance – but we should remember that it could still be due to non-representative sampling or measurement errors.</p></li>
 </ul>
 </section>
@@ -2095,13 +2093,12 @@ I would not rule out the possibility that the die is crooked, but I would not co
 <section id="glossary">
 <h2><span class="section-number">9.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>hypothesis testing</strong>: The process of determining whether an apparent effect is statistically significant.</p></li>
-<li><p><strong>test statistic</strong>: A statistic used to quantify an effect size.</p></li>
-<li><p><strong>null hypothesis</strong>: A model of a system based on the assumption that an apparent effect is due to chance.</p></li>
-<li><p><strong>p-value</strong>: The probability that an effect could occur by chance.</p></li>
-<li><p><strong>statistically significant</strong>: An effect is statistically significant if it is unlikely to occur by chance.</p></li>
-<li><p><strong>permutation test</strong>: A way to compute p-values by generating permutations of an observed dataset.</p></li>
-<li><p><strong>chi-squared test</strong>: A test that uses the chi-squared statistic as the test statistic.</p></li>
+<li><p><strong>classical hypothesis testing</strong>: A set of methods methods for checking whether an observed effect could plausibly be due to random sampling.</p></li>
+<li><p><strong>test statistic</strong>: A statistic used in a hypothesis test to quantify an effect size.</p></li>
+<li><p><strong>null hypothesis</strong>: A model of a system based on the assumption that an observed effect is due to chance.</p></li>
+<li><p><strong>permutation</strong>: A way to simulate a null hypothesis by randomly shuffling a dataset.</p></li>
+<li><p><strong>p-value</strong>: The probability of an effect as big as the observed effect, under the null hypothesis.</p></li>
+<li><p><strong>statistically significant</strong>: An effect is statistically significant if the p-value is smaller than a chosen threshold, often 5%. In a large dataset, an observed effect can be statistically significant even if it is too small to matter in practice.</p></li>
 </ul>
 </section>
 <section id="exercises">

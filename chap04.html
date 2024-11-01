@@ -57,8 +57,6 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]]}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap04';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -1526,7 +1524,7 @@ If we multiply by 100, we get my percentile rank.</p>
 <p>If you have a proportion and you use the inverse CDF to find the corresponding value, the result is called a <strong>quantile</strong> – so the inverse CDF is sometimes called the quantile function.</p>
 <p>If have have a quantile and you use the CDF to find the corresponding proportion, the result doesn’t really have a name, strangely.
 To be consistent with percentile and percentile rank”, it could be called a “quantile rank”, but as far as I can tell, no one calls it that.
-Most often, it is just called a <strong>cumulative probability</strong>.</p>
+Most often, it is just called a “cumulative probability”.</p>
 </section>
 <section id="comparing-cdfs">
 <span id="section-comparing-cdfs"></span><h2><span class="section-number">4.3. </span>Comparing CDFs<a class="headerlink" href="#comparing-cdfs" title="Link to this heading">#</a></h2>
@@ -2690,16 +2688,12 @@ And that makes sense, because in any distribution, the proportion with percentil
 <section id="glossary">
 <h2><span class="section-number">4.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>percentile rank</strong>: The percentage of quantities in a distribution that are less than or equal to a given quantity.</p></li>
-<li><p><strong>percentile</strong>: The quantity associated with a given percentile rank.</p></li>
-<li><p><strong>cumulative distribution function (CDF)</strong>: A function that maps from quantities to their cumulative probabilities.
-<span class="math notranslate nohighlight">\(CDF(x)\)</span> is the fraction of the sample less than or equal to <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
-<li><p><strong>inverse CDF</strong>: A function that maps from a cumulative probability, <span class="math notranslate nohighlight">\(p\)</span>, to the corresponding quantity.</p></li>
-<li><p><strong>median</strong>: The 50th percentile, often used as a measure of central tendency.</p></li>
-<li><p><strong>interquartile range</strong>: The difference between the 75th and 25th percentiles, used as a measure of spread.</p></li>
-<li><p><strong>quantile</strong>: A sequence of quantities that correspond to equally spaced percentile ranks; for example, the quartiles of a distribution are the 25th, 50th and 75th percentiles.</p></li>
-<li><p><strong>replacement</strong>: A property of a sampling process.
-“With replacement” means that the same quantity can be chosen more than once; “without replacement” means that once a quantity is chosen, it is removed from the population.</p></li>
+<li><p><strong>percentile rank</strong>: The percentage of values in a distribution that are less than or equal to a given quantity.</p></li>
+<li><p><strong>percentile</strong>: The value in a distribution associated with a given percentile rank.</p></li>
+<li><p><strong>cumulative distribution function (CDF)</strong>: A function that maps a value to the proportion of the distribution less than or equal to that value.</p></li>
+<li><p><strong>quantile</strong>: The value in a distribution that is greater than or equal to a given proportion of values.</p></li>
+<li><p><strong>robust</strong>: A statistic is robust if it is less affected by extreme values or outliers.</p></li>
+<li><p><strong>interquartile range</strong>: The difference between the 75th and 25th percentiles, used to measure the spread of a distribution.</p></li>
 </ul>
 </section>
 <section id="exercises">

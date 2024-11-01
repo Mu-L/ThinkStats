@@ -364,10 +364,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.7. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.7.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.7.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.7.3. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.8.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.3. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -803,7 +804,7 @@ We can simulate a competition like that by calling <code class="docutils literal
 </div>
 <p>The peak is near the mean, and the distribution is skewed to the left.</p>
 <p>Instead of running a simulation, we could have predicted this distribution.
-Mathematically, the distribution of these outcomes follows a binomial distribution, which has a PMF that is easy to compute.</p>
+Mathematically, the distribution of these outcomes follows a <strong>binomial distribution</strong>, which has a PMF that is easy to compute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">comb</span>
@@ -1313,7 +1314,7 @@ We’ll select the columns that contain the results and use the NumPy function <
             }, 500);
             </script></div>
 </div>
-<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a Poisson distribution, which has just one parameter, denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (because <code class="docutils literal notranslate"><span class="pre">lambda</span></code> is a Python keyword).
+<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a <strong>Poisson distribution</strong>, which has just one parameter, denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (because <code class="docutils literal notranslate"><span class="pre">lambda</span></code> is a Python keyword).
 <code class="docutils literal notranslate"><span class="pre">lam</span></code> represents the goal-scoring rate, which is 6 goals per game in the example.</p>
 <p>The PMF of the Poisson distribution is easy to compute – given <code class="docutils literal notranslate"><span class="pre">lam</span></code>, we can use the following function to compute the probability of seeing <code class="docutils literal notranslate"><span class="pre">k</span></code> goals in a game.</p>
 <div class="cell docutils container">
@@ -2143,7 +2144,7 @@ Nevertheless, theoretical distributions often fit real data remarkably well.</p>
 </section>
 <section id="the-normal-distribution">
 <span id="section-normal"></span><h2><span class="section-number">5.4. </span>The Normal Distribution<a class="headerlink" href="#the-normal-distribution" title="Link to this heading">#</a></h2>
-<p>Many things we measure in the real world follow a normal distribution, also known as a Gaussian distribution or a “bell curve”.
+<p>Many things we measure in the real world follow a <strong>normal distribution</strong>, also known as a Gaussian distribution or a “bell curve”.
 To see where these distributions come from, let’s consider a model of the way giant pumpkins grow.
 Suppose that each day, a pumpkin gains 1 pound if the weather is bad, 2 pounds if the weather is fair, and 3 pounds if the weather is good.
 And suppose the weather each day is bad, fair, or good with the same probability.</p>
@@ -2882,10 +2883,20 @@ Taken literally, these claims cannot be true – there are always differences be
 <p>Models are useful if they capture the relevant aspects of the real world and leave out unneeded details.
 But what is “relevant” or “unneeded” depends on what you are planning to use the model for.</p>
 </section>
+<section id="glossary">
+<h2><span class="section-number">5.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>binomial distribution:</strong> A theoretical distribution often use to model the number of successes or hit in a sequence of hits and misses.</p></li>
+<li><p><strong>Poisson distribution:</strong> A theoretical distribution often used to model the number of events that occur in an interval of time.</p></li>
+<li><p><strong>exponential distribution:</strong> A theoretical distribution often used to model the time between events.</p></li>
+<li><p><strong>normal distribution:</strong> A theoretical distribution often used to model data that follow a symmetric, bell-like curve.</p></li>
+<li><p><strong>lognormal distribution:</strong> A theoretical distribution often used to model data that follow a bell-like curve that is skewed to the right.</p></li>
+</ul>
+</section>
 <section id="exercises">
-<h2><span class="section-number">5.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <section id="exercise">
-<h3><span class="section-number">5.7.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.8.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>In the NSFG respondent file, the <code class="docutils literal notranslate"><span class="pre">numfmhh</span></code> column records the “number of family members in” each respondent’s household.
 We can use <code class="docutils literal notranslate"><span class="pre">read_fem_resp</span></code> to read the file, and <code class="docutils literal notranslate"><span class="pre">query</span></code> to select respondents who were 25 or older when they were interviewed.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2968,7 +2979,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 How well does the Poisson model fit the data?</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">5.7.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.8.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In Section xxx, we saw that the time until the first goal in a hockey game follows an exponential distribution.
 If our model of goal-scoring is correct, a goal is equally likely at any time, regardless of how long it has been since the previous goal.
 And if that’s true, we expect the time between goals to follow an exponential distribution.</p>
@@ -3032,7 +3043,7 @@ And if that’s true, we expect the time between goals to follow an exponential 
 <p>Use <code class="docutils literal notranslate"><span class="pre">exponential_cdf</span></code> to compute the CDF of an exponential distribution with the same mean as the observed intervals and compare this model to the CDF of the data.</p>
 </section>
 <section id="id2">
-<h3><span class="section-number">5.7.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">5.8.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Is the distribution of human height more like a normal or a lognormal distribution?
 To find out, we can select height data from the BRFSS like this:</p>
 <div class="cell docutils container">
@@ -3145,10 +3156,11 @@ Which model fits the data better?</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.7. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.7.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.7.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.7.3. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.8.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.3. Exercise</a></li>
 </ul>
 </li>
 </ul>
