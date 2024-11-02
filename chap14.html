@@ -370,11 +370,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">14.8. Correlation Test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">14.9. Chi-squared Test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">14.10. Computation and Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.11. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.11.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.11.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">14.11.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">14.11.4. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">14.11. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.12. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.12.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.12.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">14.12.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">14.12.4. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -2786,7 +2787,7 @@ SciPy provides a function called <code class="docutils literal notranslate"><spa
             </script></div>
 </div>
 <p>When the sample sizes are large, the result of the <span class="math notranslate nohighlight">\(t\)</span> test is close to what we computed with normal distributions.
-The <span class="math notranslate nohighlight">\(t\)</span> test is so called because it is based on a <span class="math notranslate nohighlight">\(t\)</span> distribution rather than a normal distribution.
+The <span class="math notranslate nohighlight">\(t\)</span> test is so called because it is based on a <strong><span class="math notranslate nohighlight">\(t\)</span> distribution</strong> rather than a normal distribution.
 The <span class="math notranslate nohighlight">\(t\)</span> distribution is also useful for testing whether a correlation is statistically significant, as we’ll see in the next section.</p>
 </section>
 <section id="correlation-test">
@@ -3727,10 +3728,19 @@ Taking into account these pros and cons, I recommend the following process:</p>
 </ol>
 <p>For many practical problems, the run time of computational methods is not a problem, and we don’t have to go past the first step.</p>
 </section>
+<section id="glossary">
+<h2><span class="section-number">14.11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>normal probability plot:</strong> A plot that compares observed values with the quantiles of a normal distribution to assess if the data follow a normal distribution.</p></li>
+<li><p><strong>independent sample <span class="math notranslate nohighlight">\(t\)</span> test:</strong> A method for computing the p-value of an observed difference between the means of two independent groups.</p></li>
+<li><p><strong><span class="math notranslate nohighlight">\(t\)</span> distribution:</strong> A distribution used to model the sampling distribution of a difference in means under the null hypothesis that the difference is 0.</p></li>
+<li><p><strong>chi-squared distribution:</strong> A distribution used to model the sampling distribution of some test statistics, including transformed correlations.</p></li>
+</ul>
+</section>
 <section id="exercises">
-<h2><span class="section-number">14.11. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <section id="exercise">
-<h3><span class="section-number">14.11.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">14.12.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>In this chapter we compared the weights of male and female penguins and computed a confidence interval for the difference.
 Now let’s do the same for flipper length.
 The observed difference is about 4.6 mm.</p>
@@ -3770,7 +3780,7 @@ The observed difference is about 4.6 mm.</p>
 Then compute the sampling distribution of the difference and a 90% confidence interval.</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">14.11.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">14.12.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Using the NSFG data, we computed the correlation between a baby’s birth weight and the mother’s age, and we used a <span class="math notranslate nohighlight">\(t\)</span> distribution to compute a p-value.
 Now let’s do the same with birth weight and father’s age, which is recorded in the <code class="docutils literal notranslate"><span class="pre">hpagelb</span></code> column.
 The observed correlation is about 0.065.</p>
@@ -3837,7 +3847,7 @@ Use the CDF of the <span class="math notranslate nohighlight">\(t\)</span> distr
 Use the SciPy function <code class="docutils literal notranslate"><span class="pre">pearsonr</span></code> to check your results.</p>
 </section>
 <section id="id2">
-<h3><span class="section-number">14.11.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">14.12.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>In one of the exercises in Chapter xxx we considered the Trivers-Willard hypothesis, which suggests that for many mammals the sex ratio depends on “maternal condition” – that is, factors like the mother’s age, size, health, and social status.
 Some studies have shown this effect among humans, but results are mixed.</p>
 <p>As an example – and a chance to practice a chi-squared test – let’s see if there’s a relationship between the sex of a baby and the mothers marital status.
@@ -4125,7 +4135,7 @@ Hint: use the argument <code class="docutils literal notranslate"><span class="p
 <p>Does this test provide support for the Trivers-Willard hypothesis?</p>
 </section>
 <section id="id3">
-<h3><span class="section-number">14.11.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">14.12.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>The method we used in this chapter to analyze differences between groups can be extended to analyze “differences in differences”, which is a common experimental design.
 As an example, we’ll use data from a 2014 paper that investigates the effects of an intervention intended to mitigate gender-stereotypical task allocation within student engineering teams.</p>
 <p>Stein, L. A., Aragon, D., Moreno, D., &amp; Goodman, J. (2014, October). Evidence for the persistent effects of an intervention to mitigate gender-stereotypical task allocation within student engineering teams. In <em>2014 IEEE Frontiers in Education Conference (FIE) Proceedings</em> (pp. 1-9). IEEE.</p>
@@ -4221,11 +4231,12 @@ As an example, we’ll use data from a 2014 paper that investigates the effects 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">14.8. Correlation Test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">14.9. Chi-squared Test</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">14.10. Computation and Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.11. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.11.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.11.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">14.11.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">14.11.4. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">14.11. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.12. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.12.1. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.12.2. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">14.12.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">14.12.4. Exercise</a></li>
 </ul>
 </li>
 </ul>

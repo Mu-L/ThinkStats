@@ -786,7 +786,7 @@ We can use the <code class="docutils literal notranslate"><span class="pre">date
             </script></div>
 </div>
 <p>It looks like there are some long-term increases and decreases, but they are hard to see clearly because there are large variations from month to month.
-To see the long-term trend more clearly, we can use the <code class="docutils literal notranslate"><span class="pre">rolling</span></code> method, which computes a “rolling average”.</p>
+To see the long-term trend more clearly, we can use the <code class="docutils literal notranslate"><span class="pre">rolling</span></code> and <code class="docutils literal notranslate"><span class="pre">mean</span></code> methods to compute a <strong>moving average</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trend</span> <span class="o">=</span> <span class="n">nuclear</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -2322,7 +2322,7 @@ For this example, I’ll use lags of 1 and 6 months.</p>
             </script></div>
 </div>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">ols</span></code> to make an autoregression model for the residuals.
-This part of the model is called a <strong>moving average</strong> because it reduces variability in the predictions in a way that’s analogous to the effect of a moving average.
+This part of the model is called a “moving average” because it reduces variability in the predictions in a way that’s analogous to the effect of a moving average.
 I don’t find that term particularly helpful, but it is conventional.</p>
 <p>Anyway, here’s a summary of the autoregression model for the residuals.</p>
 <div class="cell docutils container">
@@ -3007,12 +3007,14 @@ In this time series, the autocorrelations are not especially strong, so the adva
 <section id="glossary">
 <h2><span class="section-number">12.10. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>time series</strong>: A dataset where each value is associated with a timestamp, often a series of measurements and the times they were collected.</p></li>
-<li><p><strong>window</strong>: A sequence of consecutive values in a time series, often used to compute a moving average.</p></li>
-<li><p><strong>rolling mean</strong>: A moving average based on the mean value in each window.</p></li>
-<li><p><strong>serial correlation</strong>: Correlation between a time series and a shifted or lagged version of itself.</p></li>
+<li><p><strong>time series</strong>: A dataset where each value is associated with a specific time, often representing measurements taken at regular intervals.</p></li>
+<li><p><strong>seasonal decomposition:</strong> A method of splitting a time series into a long-term trend, a repeating seasonal component, and a residual component.</p></li>
+<li><p><strong>retrodiction:</strong> A prediction for a value observed in the past, often used to test or validate a model.</p></li>
+<li><p><strong>window</strong>: A sequence of consecutive values in a time series, used to compute a moving average.</p></li>
+<li><p><strong>moving average</strong>: A time series computed by averaging values in overlapping windows to smooth fluctuations.</p></li>
+<li><p><strong>serial correlation</strong>: The correlation between a time series and a shifted or lagged version of itself.</p></li>
 <li><p><strong>lag</strong>: The size of the shift in a serial correlation or autocorrelation.</p></li>
-<li><p><strong>autocorrelation</strong>: A more general term for a serial correlation with any amount of lag.</p></li>
+<li><p><strong>autocorrelation</strong>: The correlation between a time series and its lagged values, computed with different lags.</p></li>
 </ul>
 </section>
 <section id="exercises">

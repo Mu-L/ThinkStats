@@ -388,7 +388,7 @@ document.write(`
                   
   <section id="survival-analysis">
 <h1><span class="section-number">13. </span>Survival analysis<a class="headerlink" href="#survival-analysis" title="Link to this heading">#</a></h1>
-<p><strong>Survival analysis</strong> is a way to describe how long things last.
+<p>Survival analysis is a way to describe how long things last.
 It is often used to study human lifetimes, but it also applies to “survival” of mechanical and electronic components, or more generally to an interval in time before any kind of event – or even an interval in space.</p>
 <p>If someone you know has been diagnosed with a life-threatening disease, you might have seen a “5-year survival rate,” which is the probability of surviving five years after diagnosis.
 This chapter introduces the tools and methods used to produce estimates like that.</p>
@@ -2759,12 +2759,12 @@ For people waiting anxiously for a baby to be born, this behavior seems quite cr
 <section id="glossary">
 <h2><span class="section-number">13.10. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>survival analysis</strong>: A set of methods for describing and predicting lifetimes, or more generally time until an event occurs.</p></li>
-<li><p><strong>survival function</strong>: A function that maps from a time, <span class="math notranslate nohighlight">\(t\)</span>, to the probability of surviving past <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
-<li><p><strong>hazard function</strong>: A function that maps from <span class="math notranslate nohighlight">\(t\)</span> to the fraction of people alive until <span class="math notranslate nohighlight">\(t\)</span> who die at <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
-<li><p><strong>censored data</strong>: Data that is only partially known, often because it depends on future events.</p></li>
-<li><p><strong>Kaplan-Meier estimation</strong>: An algorithm for estimating hazard and survival functions.</p></li>
-<li><p><strong>cohort</strong>: A group of subjects with something in common – like they decade they were born – who are treated as a group for purposes of analysis.</p></li>
+<li><p><strong>survival analysis</strong>: A set of methods for describing and predicting the time until an event of interest, often focused on lifetimes or durations.</p></li>
+<li><p><strong>survival function</strong>: A function that maps from a time, <span class="math notranslate nohighlight">\(t\)</span>, to the probability of surviving beyond <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
+<li><p><strong>hazard function</strong>: A function that maps from <span class="math notranslate nohighlight">\(t\)</span> to the fraction of cases that survive until <span class="math notranslate nohighlight">\(t\)</span> and experience the event at <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
+<li><p><strong>censored data</strong>: Data that is only partially known because the event of interest has not yet occurred or was unobserved.</p></li>
+<li><p><strong>Kaplan-Meier estimation</strong>: A method for estimating survival and hazard functions in datasets with censored observations.</p></li>
+<li><p><strong>cohort</strong>: A group of subjects with shared characteristics – like decade of birth – analyzed as a group.</p></li>
 </ul>
 </section>
 <section id="exercises">
