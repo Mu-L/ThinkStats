@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preface &#8212; Think Stats</title>
+    <title>Time Series Analysis with StatsModels &#8212; Think Stats</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chap00';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'time_series';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. Exploratory Data Analysis" href="chap01.html" />
-    <link rel="prev" title="Think Stats, 3rd edition" href="index.html" />
+    <link rel="prev" title="Rip-off ETF?" href="ripoff_etf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,8 +171,8 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Preface</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
@@ -197,8 +196,8 @@
 <li class="toctree-l1"><a class="reference internal" href="ripoff_etf.html">Rip-off ETF?</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Analysis with StatsModels</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Time Series Analysis with StatsModels</a></li>
 </ul>
 
     </div>
@@ -268,7 +267,7 @@
       
       
       
-      <li><a href="_sources/chap00.ipynb" target="_blank"
+      <li><a href="_sources/time_series.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -278,7 +277,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </li>
       
@@ -352,7 +351,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Preface</h1>
+    <h1>Time Series Analysis with StatsModels</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -362,8 +361,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-new">What’s New?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-code">Using the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-notebooks">The notebooks</a></li>
 </ul>
             </nav>
         </div>
@@ -375,94 +373,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
-<section id="preface">
-<h1>Preface<a class="headerlink" href="#preface" title="Link to this heading">#</a></h1>
-<p>From the earliest history of statistics, there have been two ideas about what statistics is. In one view, it is a branch of mathematics with the goal of establishing a theoretical foundation for probability and statistical inference.
-In another view, it is a set of tools and practices for working with data, answering questions, and making better decisions.
-Many introductory classes in statistics are based on the first view.
-This book is based on the second.</p>
-<p><em>Think Stats</em> is an introduction to practical methods for exploring and visualizing data, discovering relationships and trends, and communicating results.
-The organization of the book follows the process I use when I start working with a dataset:</p>
+  <section id="time-series-analysis-with-statsmodels">
+<h1>Time Series Analysis with StatsModels<a class="headerlink" href="#time-series-analysis-with-statsmodels" title="Link to this heading">#</a></h1>
+<p>This is the landing page for a tutorial on time series analysis, based on <a class="reference external" href="https://allendowney.github.io/ThinkStats/chap12.html">Chapter 12 of <em>Think Stats</em></a>, third edition.</p>
+<p><strong>Abstract</strong></p>
+<p>Time series analysis provides essential tools for modeling and predicting time-dependent data, especially data exhibiting seasonal patterns or serial correlation. This tutorial covers tools in the StatsModels library including seasonal decomposition and ARIMA. We’ll develop the ARIMA model bottom-up, implementing it one piece at a time, and then using StatsModels. As examples, we’ll look at weather data and electricity generation from renewable sources in the United States since 2004 – but the methods we’ll cover apply to many kinds of real-world time series data.</p>
+<p><a class="reference external" href="https://docs.google.com/presentation/d/e/2PACX-1vSEz58B-hSZc0PzMUtBepQ0hmISXavVHJ3ASTLY-WfRaSqeq0D1Cl10BTDbuxDvJDVVeFhlx8t7w5aM/pub">Slides for the PyData Global 2024 tutorial are here</a></p>
+<section id="the-notebooks">
+<h2>The notebooks<a class="headerlink" href="#the-notebooks" title="Link to this heading">#</a></h2>
+<p>For each part of the tutorial, there are two notebook: the first contains
+blank cells for code-along activities and exercises; the second has all of
+the code and solutions to the exercises.</p>
+<p><strong>Part 1</strong>: Introduction and Seasonal Decomposition</p>
 <ul class="simple">
-<li><p>Importing and cleaning: Whatever format the data is in, it usually takes some time and effort to read the data, clean and transform it, and check that everything made it through the translation process intact.</p></li>
-<li><p>Single variable explorations: I usually start by examining one variable at a time, finding out what the variables mean, looking at distributions of the values, and choosing appropriate summary statistics.</p></li>
-<li><p>Pair-wise explorations: To identify possible relationships between variables, I look at tables and scatter plots, and compute correlations and linear fits.</p></li>
-<li><p>Multivariate analysis: If there are apparent relationships between variables, I use multiple regression to add control variables and investigate more complex relationships.</p></li>
-<li><p>Estimation and hypothesis testing: When reporting statistical results, it is important to answer three questions: How big is the effect? How much variability should we expect if we run the same measurement again? Is it possible that the apparent effect is due to chance?</p></li>
-<li><p>Visualization: During exploration, visualization is an important tool for finding possible relationships and effects. Then if an apparent effect holds up to scrutiny, visualization is an effective way to communicate results.</p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/time_series_01.ipynb">Click here to run Part 1 on Colab without solutions</a></p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/ts/time_series_01.ipynb">Click here to run Part 1 on Colab with solutions</a></p></li>
 </ul>
-<p>This book takes a computational approach, which has several advantages over mathematical approaches:</p>
+<p><strong>Part 2</strong>: Seasonal Decomposition and Prediction</p>
 <ul class="simple">
-<li><p>I present most ideas using Python code, rather than mathematical notation. In general, Python code is more readable – also, because it is executable, the reader can run it and modify it to develop deeper understanding.</p></li>
-<li><p>Each chapter includes exercises readers can do to develop and solidify their learning. When you write programs, you express your understanding in code – while you are debugging the program, you are also checking your understanding.</p></li>
-<li><p>Some exercises involve experiments to test statistical behavior. For example, you can explore the Central Limit Theorem (CLT) by generating random samples and computing their sums. The resulting visualizations demonstrate why the CLT works and when it doesn’t.</p></li>
-<li><p>Some ideas that are hard to grasp mathematically are easy to understand by simulation. For example, we approximate p-values by running random simulations, which reinforces the meaning of hypothesis testing.</p></li>
-<li><p>Because the book is based on a general-purpose programming language (Python), readers can import data from almost any source. They are not limited to datasets that have been cleaned and formatted for a particular statistics tool.</p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/time_series_02.ipynb">Click here to run Part 2 on Colab without solutions</a></p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/ts/time_series_02.ipynb">Click here to run Part 2 on Colab with solutions</a></p></li>
 </ul>
-<p>The book lends itself to a project-based approach.
-In my class, students work on a semester-long project that requires them to pose a statistical question, find a dataset that can address it, and apply each of the techniques they learn to their own data.
-To demonstrate my approach to statistical analysis, the book presents a case study that runs through all of the chapters.
-It uses data from two sources:</p>
+<p><strong>Part 3</strong>: Autocorrelation and ARIMA</p>
 <ul class="simple">
-<li><p>The National Survey of Family Growth (NSFG), conducted by the U.S. Centers for Disease Control and Prevention (CDC) to gather “information on family life, marriage and divorce, pregnancy, infertility, use of contraception, and men’s and women’s health.” (See <a class="reference external" href="https://www.cdc.gov/nchs/nsfg/index.htm">https://www.cdc.gov/nchs/nsfg/index.htm</a>.)</p></li>
-<li><p>The Behavioral Risk Factor Surveillance System (BRFSS), conducted by the National Center for Chronic Disease Prevention and Health Promotion to “track health conditions and risk behaviors in the United States.” (See <a class="reference external" href="http://cdc.gov/BRFSS/">http://cdc.gov/BRFSS/</a>.)</p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/time_series_03.ipynb">Click here to run Part 3 on Colab without solutions</a></p></li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/tutorial/ts/time_series_03.ipynb">Click here to run Part 3 on Colab with solutions</a></p></li>
 </ul>
-<p>Other examples use data from the IRS, the U.S. Census, and the Boston Marathon.</p>
-<p>TODO: Inventory of data sources in the new edition.</p>
-<section id="whats-new">
-<h2>What’s New?<a class="headerlink" href="#whats-new" title="Link to this heading">#</a></h2>
-<p>For this third edition, I started by moving the book into Jupyter notebooks.
-This change has one immediate benefit – you can read the text, run the code, and work on the exercises all in one place.
-And the notebooks are designed to work on Google Colab, so you can get started without installing anything.</p>
-<p>The move to notebooks has another benefit – the code is more visible.
-In the first two editions, some of the code was in the book and some was in supporting files available online.
-In retrospect, it’s clear that splitting the material in this way was not ideal, and it made the code more complicated than it needed to be.
-In the third edition, I was able to simplify the code and make it more readable.</p>
-<p>Since the last edition was published, I’ve developed a library called <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> that provides objects that represent statistical distributions.
-This library is more mature now, so the updated code makes better use of it.</p>
-<p>When I started this project, NumPy and SciPy were not as widely used, and Pandas even less, so the original code used Python data structures like lists and dictionaries.
-This edition uses arrays and Pandas structures extensively, and makes more use of functions these libraries provide.
-I assume readers have some familiarity with these tools, but I will explain each feature when it first appears.</p>
-<p>The third edition covers the same topics as the original, in almost the same order, but the text is substantially revised.
-Some of the examples are new; others are updated with new data.
-I’ve developed new exercises, revised some of the old ones, and removed a few.
-I think the updated exercises are better connected to the examples, and more interesting.</p>
-<p>Since the first edition, this book has been based on the thesis that many ideas that are hard to explain with math are easier to explain with code.
-In this edition, I have doubled down on this idea, to the point where there is almost no mathematical notation, only code.</p>
-<p>Overall, I think these changes make <em>Think Stats</em> a better book.
-I hope you like it!</p>
-</section>
-<section id="using-the-code">
-<h2>Using the code<a class="headerlink" href="#using-the-code" title="Link to this heading">#</a></h2>
-<p>The code and data used in this book are available from <a class="github reference external" href="https://github.com/AllenDowney/ThinkStats">AllenDowney/ThinkStats</a>, which is a Git repository on GitHub.
-Git is a version control system that helps to keep track of the files that make up a project.
-A collection of files under Git’s control is called a <strong>repository</strong>.
-GitHub is a hosting service that provides storage for Git repositories and a convenient web interface.</p>
-<p>For each chapter in this book, the repository provides a Jupyter notebook, which is a document that contains the text, code, and the results of running the code.
-You can use these notebooks to run the code and work on the exercises.</p>
-<p>There are two ways you can run the notebooks.
-By far the easier one is to use Colab, which is a service provided by Google where you can run the notebooks in a web browser without installing anything on your computer.
-If you start from the <em>Think Stats</em> home page at <a class="reference external" href="https://allendowney.github.io/ThinkStats/">https://allendowney.github.io/ThinkStats/</a>, you will find links to the notebooks, including one that introduces Colab and Jupyter notebooks.</p>
-<p>TODO: Add the Jupyter intro notebook to the repo.</p>
-<p>If you don’t want to use Colab, you can download the notebooks and run them on your computer, but in that case you will have to install Python, Jupyter, and the libraries the book uses, including NumPy, SciPy, and StatsModels.
-If you have experience installing software, setting up an environment where you can run the notebooks is not difficult.
-But if you don’t have that experience, your first attempt can be challenging, and sometimes frustrating.
-In that case, it can be a barrier to getting the most out of this book.
-If you want to learn about exploratory data analysis in Python, you don’t want to spend your time and cognitive capacity on installing software!</p>
-<p>So I strongly recommend that you run at least the first few chapters on Colab.
-Then, if you want to set up your own environment, you can do it without interrupting your progress in the book.
-And one last suggestion: if you have any problems installing software, take advantage of tools like ChatGPT – they generally provide good guidance on these topics.</p>
-<p>I wrote this book assuming that the reader is familiar with core Python, including object-oriented features.
-If you are familiar with NumPy and Pandas, that will help, but it’s not necessary – I’ll explain what you need to know.
-I assume that the reader knows basic mathematics, including logarithms, for example, and summations.
-You don’t need to know linear algebra or calculus.
-There is one place where I mention derivatives and integrals, but if you are not familiar with those concepts, they are entirely optional.
-Finally, I don’t assume you know anything about statistics.</p>
-<p><a class="reference external" href="https://allendowney.github.io/ThinkStats/index.html">Think Stats: Exploratory Data Analysis in Python, 3rd Edition</a></p>
-<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
-<p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
-<p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </section>
 </section>
 
@@ -497,22 +433,13 @@ Finally, I don’t assume you know anything about statistics.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="ripoff_etf.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Think Stats, 3rd edition</p>
+        <p class="prev-next-title">Rip-off ETF?</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="chap01.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>Exploratory Data Analysis</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -530,8 +457,7 @@ Finally, I don’t assume you know anything about statistics.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-new">What’s New?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-code">Using the code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-notebooks">The notebooks</a></li>
 </ul>
   </nav></div>
 
