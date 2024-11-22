@@ -60,6 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'variability';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Time Series Analysis with StatsModels" href="time_series.html" />
+    <link rel="prev" title="Downloading Our World in Data" href="temperature.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -121,8 +123,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -193,9 +193,10 @@
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ripoff_etf.html">Rip-off ETF?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="temperature.html">Downloading Our World in Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Variability Hypothesis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul class="nav bd-sidenav">
@@ -423,20 +424,6 @@ It selects the columns we’ll use and writes the much smaller excerpt to an HDF
     <span class="n">brfss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sas</span><span class="p">(</span><span class="s2">&quot;LLCP2022.XPT.gz&quot;</span><span class="p">)</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;_SEX&quot;</span><span class="p">,</span> <span class="s2">&quot;HTM4&quot;</span><span class="p">,</span> <span class="s2">&quot;WTKG3&quot;</span><span class="p">,</span> <span class="s2">&quot;_LLCPWT&quot;</span><span class="p">]</span>
     <span class="n">brfss</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">to_hdf</span><span class="p">(</span><span class="s2">&quot;LLCP2022.hdf5&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;brfss&quot;</span><span class="p">,</span> <span class="n">complevel</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brfss</span><span class="o">.</span><span class="n">to_feather</span><span class="p">(</span><span class="s1">&#39;brfss.feather&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">brfss</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;brfss.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1350,6 +1337,24 @@ The first line jitters the data – otherwise we would get the same results from
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="temperature.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Downloading Our World in Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="time_series.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Time Series Analysis with StatsModels</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
