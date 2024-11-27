@@ -549,7 +549,7 @@ And we’ll try out a widely-used model for analyzing time series data, with the
 <h2><span class="section-number">12.1. </span>Electricity<a class="headerlink" href="#electricity" title="Link to this heading">#</a></h2>
 <p>As an example of time-series data, we’ll use a dataset from the U.S. Energy Information Administration – it includes total electricity generation per month from renewable sources from 2001 to 2024.
 Instructions for downloading the data are in the notebook for this chapter.</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The following cell downloads the data, which I downloaded September 17, 2024</span>
 <span class="c1"># from https://www.eia.gov/electricity/data/browser/</span>
@@ -574,7 +574,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
             }, 500);
             </script></div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Net_generation_for_all_sectors.csv&quot;</span>
 <span class="n">download</span><span class="p">(</span><span class="s2">&quot;https://github.com/AllenDowney/ThinkStats/raw/v3/data/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>

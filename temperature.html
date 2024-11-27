@@ -385,53 +385,12 @@ So I took this opportunity to update my example using the new API – this noteb
 It is based on Chapter 12 of <a class="reference external" href="https://allendowney.github.io/ThinkStats/"><em>Think Stats</em>, third edition</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 1;
-                var nbb_unformatted_code = "%load_ext nb_black";
-                var nbb_formatted_code = "%load_ext nb_black";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 2;
-                var nbb_unformatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt";
-                var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
 </div>
 <section id="air-temperature">
 <h2>Air Temperature<a class="headerlink" href="#air-temperature" title="Link to this heading">#</a></h2>
@@ -453,23 +412,6 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 4;
-                var nbb_unformatted_code = "import requests\n\nurl = (\n    \"https://ourworldindata.org/grapher/\"\n    \"average-monthly-surface-temperature.metadata.json\"\n)\nquery_params = {\"v\": \"1\", \"csvType\": \"full\", \"useColumnShortNames\": \"true\"}\nheaders = {\"User-Agent\": \"Our World In Data data fetch/1.0\"}\n\nresponse = requests.get(url, params=query_params, headers=headers)\nmetadata = response.json()";
-                var nbb_formatted_code = "import requests\n\nurl = (\n    \"https://ourworldindata.org/grapher/\"\n    \"average-monthly-surface-temperature.metadata.json\"\n)\nquery_params = {\"v\": \"1\", \"csvType\": \"full\", \"useColumnShortNames\": \"true\"}\nheaders = {\"User-Agent\": \"Our World In Data data fetch/1.0\"}\n\nresponse = requests.get(url, params=query_params, headers=headers)\nmetadata = response.json()";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
 </div>
 <p>The result is a nested dictionary. Here are the top-level keys.</p>
 <div class="cell docutils container">
@@ -482,22 +424,7 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;chart&#39;, &#39;columns&#39;, &#39;dateDownloaded&#39;])
 </pre></div>
 </div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 5;
-                var nbb_unformatted_code = "metadata.keys()";
-                var nbb_formatted_code = "metadata.keys()";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
+</div>
 </div>
 <p>Here’s the chart-level documentation.</p>
 <div class="cell docutils container">
@@ -518,22 +445,7 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
  &#39;title&#39;: &#39;Average monthly surface temperature&#39;}
 </pre></div>
 </div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 6;
-                var nbb_unformatted_code = "from pprint import pprint\n\npprint(metadata['chart'])";
-                var nbb_formatted_code = "from pprint import pprint\n\npprint(metadata[\"chart\"])";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
+</div>
 </div>
 <p>And here’s the documentation of the column we’ll use.</p>
 <div class="cell docutils container">
@@ -603,22 +515,7 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
  &#39;unit&#39;: &#39;°C&#39;}
 </pre></div>
 </div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 8;
-                var nbb_unformatted_code = "pprint(metadata[\"columns\"][\"temperature_2m\"])";
-                var nbb_formatted_code = "pprint(metadata[\"columns\"][\"temperature_2m\"])";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
+</div>
 </div>
 <p>The following cells download the data for the United States – to see data from another country, change <code class="docutils literal notranslate"><span class="pre">country_code</span></code> to almost any <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes#Current_ISO_3166_country_code">three-letter ISO 3166 country codes</a>.</p>
 <div class="cell docutils container">
@@ -639,23 +536,6 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 9;
-                var nbb_unformatted_code = "country_code = 'USA'    # replace this with other three-letter country codes\nbase_url = \"https://ourworldindata.org/grapher/\"\"average-monthly-surface-temperature.csv\"\n\nquery_params = {\n    \"v\": \"1\",\n    \"csvType\": \"filtered\",\n    \"useColumnShortNames\": \"true\",\n    \"tab\": \"chart\",\n    \"country\": country_code  \n}";
-                var nbb_formatted_code = "country_code = \"USA\"  # replace this with other three-letter country codes\nbase_url = (\n    \"https://ourworldindata.org/grapher/\" \"average-monthly-surface-temperature.csv\"\n)\n\nquery_params = {\n    \"v\": \"1\",\n    \"csvType\": \"filtered\",\n    \"useColumnShortNames\": \"true\",\n    \"tab\": \"chart\",\n    \"country\": country_code,\n}";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -755,8 +635,8 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
 <p>For this example, we’ll use the monthly data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_series</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;temperature_2m&#39;</span><span class="p">]</span>
-<span class="n">temp_series</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_series</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="s2">&quot;temperature_2m&quot;</span><span class="p">]</span>
+<span class="n">temp_series</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">temp_df</span><span class="p">[</span><span class="s2">&quot;Day&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -765,12 +645,15 @@ It is based on Chapter 12 of <a class="reference external" href="https://allendo
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">temp_series</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">country_code</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Surface temperature (℃)&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Surface temperature (℃)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ae897b58e9b8541f265025d79764a87d73740b1fad45b044244e957e896889fe.png" src="_images/ae897b58e9b8541f265025d79764a87d73740b1fad45b044244e957e896889fe.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Surface temperature (℃)&#39;)
+</pre></div>
+</div>
+<img alt="_images/fe05d2e77042cb5d03657e7d484808be4dbaa1fa7f60390f3cca461f0f928cae.png" src="_images/fe05d2e77042cb5d03657e7d484808be4dbaa1fa7f60390f3cca461f0f928cae.png" />
 </div>
 </div>
 <p>Not surprisingly, there is a strong seasonal pattern.
