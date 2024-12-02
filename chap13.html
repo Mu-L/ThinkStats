@@ -397,8 +397,6 @@ document.write(`
 <h1><span class="section-number">13. </span>Survival analysis<a class="headerlink" href="#survival-analysis" title="Link to this heading">#</a></h1>
 <p>Survival analysis is a way to describe how long things last.
 It is often used to study human lifetimes, but it also applies to “survival” of mechanical and electronic components, or more generally to an interval in time before any kind of event – or even an interval in space.</p>
-<p>If someone you know has been diagnosed with a life-threatening disease, you might have seen a “5-year survival rate,” which is the probability of surviving five years after diagnosis.
-This chapter introduces the tools and methods used to produce estimates like that.</p>
 <p>We’ll start with a simple example, the lifespans of light bulbs, and then consider a more substantial example, age at first marriage and how it has changed in the United States over the last 50 years.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap13.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
@@ -1003,7 +1001,7 @@ A better alternative is to plot the <em>cumulative</em> hazard function, which i
 <p>Where the probability of expiring is high, the cumulative hazard function is steep.
 Where the probability of expiring is low, the cumulative hazard function is flat.
 In this example, we can see that the hazard is highest between 1500 and 2000 hours.
-After that, the hazard decreases – although this outcome is based on just one unusually long-lived battery, so it might look different in another dataset.</p>
+After that, the hazard decreases – although this outcome is based on just one unusually long-lived bulb, so it might look different in another dataset.</p>
 <p>Now that we have the general idea of survival and hazard functions, let’s apply them to a more substantial dataset.</p>
 </section>
 <section id="marriage-data">
@@ -1273,7 +1271,7 @@ The <code class="docutils literal notranslate"><span class="pre">dropna=False</s
             }, 500);
             </script></div>
 </div>
-<p>If we take these results at face value, they show that people in earlier generations got married younger, and more of them got married.
+<p>If we take these results at face value, they show that people in earlier generations got married younger, and more of them got married eventually.
 However, we should not interpret these results yet, because they are not correct.
 There are two problems we have to address:</p>
 <ul class="simple">
@@ -1437,7 +1435,7 @@ That’s what the following function does.</p>
 <h2><span class="section-number">13.5. </span>Estimating Survival Functions<a class="headerlink" href="#estimating-survival-functions" title="Link to this heading">#</a></h2>
 <p>In the light bulb example, we know the life spans for all 50 bulbs, so we can compute the survival function directly – and we can use the survival function to compute the hazard function.</p>
 <p>In the marriage example, we know the age at first marriage for some respondents, the ones who had been married before they were interviewed.
-But for respondents who had had never married, we don’t know at what age they will marry in the future – or if they will.</p>
+But for respondents who had never married, we don’t know at what age they would marry in the future – or if they will.</p>
 <p>This kind of missing data is said to be <strong>censored</strong>.
 That term might seem odd, because censored information is usually hidden deliberately, but in this case it is hidden just because we don’t know the future.</p>
 <p>However, in this case we have partial information we can work with: if someone is unmarried when they are surveyed, we know that the age when they get married (if they do) must be greater than their current age.</p>
@@ -2339,6 +2337,8 @@ It loops through the dictionaries, selects the survival function for the given c
             }, 500);
             </script></div>
 </div>
+<p>This visualization is good enough for exploration, but the lines look blurry and some of the labels overlap.
+More work might be needed to make a publication-ready figure, but we’ll keep it simple for now.</p>
 <p>Several patterns are visible:</p>
 <ul class="simple">
 <li><p>Women born in the 1940s married earliest – cohorts born in the 1950s and 1960s married later, but about the same fraction stayed unmarried.</p></li>
@@ -2955,7 +2955,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <img alt="_images/4060617e7c798a758d8c0ab435dee0bbf139acb8b9cffdcff28fddcd5f9e6a90.png" src="_images/4060617e7c798a758d8c0ab435dee0bbf139acb8b9cffdcff28fddcd5f9e6a90.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 94;
+                var nbb_cell_id = 88;
                 var nbb_unformatted_code = "hazard.plot()\n\ndecorate(xlabel=\"Age (years)\", ylabel=\"Hazard\")";
                 var nbb_formatted_code = "hazard.plot()\n\ndecorate(xlabel=\"Age (years)\", ylabel=\"Hazard\")";
                 var nbb_cells = Jupyter.notebook.get_cells();

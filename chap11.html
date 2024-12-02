@@ -736,8 +736,8 @@ The following formula string specifies that the dependent variable, <code class=
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 11;
-                var nbb_unformatted_code = "import statsmodels.formula.api as smf\n\nformula = \"mass ~ flipper_length\"";
-                var nbb_formatted_code = "import statsmodels.formula.api as smf\n\nformula = \"mass ~ flipper_length\"";
+                var nbb_unformatted_code = "formula = \"mass ~ flipper_length\"";
+                var nbb_formatted_code = "formula = \"mass ~ flipper_length\"";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -767,8 +767,8 @@ The following formula string specifies that the dependent variable, <code class=
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 12;
-                var nbb_unformatted_code = "model = smf.ols(formula, data=adelie)\ntype(model)";
-                var nbb_formatted_code = "model = smf.ols(formula, data=adelie)\ntype(model)";
+                var nbb_unformatted_code = "import statsmodels.formula.api as smf\n\nmodel = smf.ols(formula, data=adelie)\ntype(model)";
+                var nbb_formatted_code = "import statsmodels.formula.api as smf\n\nmodel = smf.ols(formula, data=adelie)\ntype(model)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1012,8 +1012,8 @@ So we can compare <code class="docutils literal notranslate"><span class="pre">r
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 78;
-                var nbb_unformatted_code = "result_ols.rsquared,  result_linregress.rvalue**2";
+                var nbb_cell_id = 20;
+                var nbb_unformatted_code = "result_ols.rsquared, result_linregress.rvalue**2";
                 var nbb_formatted_code = "result_ols.rsquared, result_linregress.rvalue**2";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
@@ -1628,7 +1628,7 @@ Name: count, dtype: int64
             </script></div>
 </div>
 <p>Here’s the formula for a model with birth weight as the dependent variable and <code class="docutils literal notranslate"><span class="pre">is_first</span></code> as the explanatory variable.
-In the Patsy formula language, <code class="docutils literal notranslate"><span class="pre">C</span></code> and the parentheses around the variable name indicate that it is <strong>categorical</strong> – that is, it contains represents categories like “first baby” rather than measurements like birth weight.</p>
+In the Patsy formula language, <code class="docutils literal notranslate"><span class="pre">C</span></code> and the parentheses around the variable name indicate that it is <strong>categorical</strong> – that is, it represents categories like “first baby” rather than measurements like birth weight.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;totalwgt_lb ~ C(is_first)&quot;</span>
@@ -2063,8 +2063,8 @@ To see that, we can use the <code class="docutils literal notranslate"><span cla
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 52;
-                var nbb_unformatted_code = "plt.plot(agepreg_range, fit_ys, color=\"C2\", label=\"Quadratic model\")\n\nplt.scatter(agepreg, totalwgt, marker=\".\", alpha=0.1, s=5)\n\ndecorate(xlabel=\"Maternal Age\", ylabel=\"Birth weight (pounds)\")";
-                var nbb_formatted_code = "plt.plot(agepreg_range, fit_ys, color=\"C2\", label=\"Quadratic model\")\n\nplt.scatter(agepreg, totalwgt, marker=\".\", alpha=0.1, s=5)\n\ndecorate(xlabel=\"Maternal Age\", ylabel=\"Birth weight (pounds)\")";
+                var nbb_unformatted_code = "plt.plot(agepreg_range, fit_ys, color=\"C2\", label=\"Quadratic model\")\nplt.scatter(agepreg, totalwgt, marker=\".\", alpha=0.1, s=5)\n\ndecorate(xlabel=\"Maternal Age\", ylabel=\"Birth weight (pounds)\")";
+                var nbb_formatted_code = "plt.plot(agepreg_range, fit_ys, color=\"C2\", label=\"Quadratic model\")\nplt.scatter(agepreg, totalwgt, marker=\".\", alpha=0.1, s=5)\n\ndecorate(xlabel=\"Maternal Age\", ylabel=\"Birth weight (pounds)\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {

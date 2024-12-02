@@ -545,10 +545,10 @@ The next chapter introduces models that can handle more than two variables.</p>
 <h2><span class="section-number">10.1. </span>Least Squares Fit<a class="headerlink" href="#least-squares-fit" title="Link to this heading">#</a></h2>
 <p>As a first example, let’s return to the scenario from Section xxx.
 Suppose you are a researcher in Antarctica, studying local populations of penguins.
-Are part of your data collection, you capture a sample of penguins, measure and weigh them – and then release them unharmed.</p>
+As part of your data collection, you capture a sample of penguins, measure and weigh them – and then release them unharmed.</p>
 <p>As you would soon learn, it can be difficult to get penguins to stay on the scale long enough to get an accurate measurement.
-So let’s suppose that for some penguins we have measurements like flipper and bill sizes, but no weights.
-And let’s see if we can use the other measurements to fill in the missing data – this process is called <strong>imputation</strong>.</p>
+Suppose that for some penguins we have measurements like flipper and bill sizes, but no weights.
+Let’s see if we can use the other measurements to fill in the missing data – this process is called <strong>imputation</strong>.</p>
 <p>We’ll start by exploring the relationship between the weights and measurements, using data collected between 2007 and 2010 by researchers at Palmer Station in Antarctica.
 The data they collected is freely available – instructions for downloading it are in the notebook for this chapter.</p>
 <p>The following cell downloads the data from a repository created by Allison Horst.</p>
@@ -1279,7 +1279,7 @@ We won’t prove that, but we can test it by adding small random values to the i
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>namespace(intercept=-2536.2945533224774, slope=33.63194777435839)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>namespace(intercept=-2538.11283599427, slope=34.938393901904284)
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -1333,7 +1333,7 @@ We won’t prove that, but we can test it by adding small random values to the i
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(163098.85902884745, 186094.73262877107, True)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(163098.85902884745, 321611.8836750411, True)
 </pre></div>
 </div>
 <script type="application/javascript">

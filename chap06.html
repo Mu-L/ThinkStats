@@ -899,8 +899,8 @@ But for audiences that are not familiar with CDFs, there is one more option: pro
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 18;
-                var nbb_unformatted_code = "def normal_pdf(xs, mu, sigma):\n    \"\"\"Evaluates the normal probability density function.\n\n    xs: float or sequence of floats\n    mu: mean of the distribution\n    sigma: standard deviation of the distribution\n\n    returns: float or NumPy array of probability density\n    \"\"\"\n    z = (xs - mu) / sigma\n    return np.exp(-(z**2) / 2) / sigma / np.sqrt(2 * np.pi)";
-                var nbb_formatted_code = "def normal_pdf(xs, mu, sigma):\n    \"\"\"Evaluates the normal probability density function.\n\n    xs: float or sequence of floats\n    mu: mean of the distribution\n    sigma: standard deviation of the distribution\n\n    returns: float or NumPy array of probability density\n    \"\"\"\n    z = (xs - mu) / sigma\n    return np.exp(-(z**2) / 2) / sigma / np.sqrt(2 * np.pi)";
+                var nbb_unformatted_code = "def normal_pdf(xs, mu, sigma):\n    \"\"\"Evaluates the normal probability density function.\"\"\"\n    z = (xs - mu) / sigma\n    return np.exp(-(z**2) / 2) / sigma / np.sqrt(2 * np.pi)";
+                var nbb_formatted_code = "def normal_pdf(xs, mu, sigma):\n    \"\"\"Evaluates the normal probability density function.\"\"\"\n    z = (xs - mu) / sigma\n    return np.exp(-(z**2) / 2) / sigma / np.sqrt(2 * np.pi)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1688,7 +1688,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 90;
+                var nbb_cell_id = 44;
                 var nbb_unformatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_formatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1713,7 +1713,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 91;
+                var nbb_cell_id = 45;
                 var nbb_unformatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_formatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1744,7 +1744,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <img alt="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" src="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 92;
+                var nbb_cell_id = 46;
                 var nbb_unformatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_formatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1778,7 +1778,7 @@ We can represent that possibility by replacing each discrete probability mass wi
 <img alt="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" src="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 93;
+                var nbb_cell_id = 47;
                 var nbb_unformatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_formatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1812,7 +1812,7 @@ We can represent that possibility by replacing each discrete probability mass wi
 <img alt="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" src="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 94;
+                var nbb_cell_id = 48;
                 var nbb_unformatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_formatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2111,7 +2111,7 @@ Distributions” in the <em>Journal of Statistics Education</em> (Dunn 1999).</p
             </script></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">minutes</span></code> column records “the number of minutes since midnight for each birth”.
-So can use the <code class="docutils literal notranslate"><span class="pre">diff</span></code> method to compute the interval between each successive birth.</p>
+So we can use the <code class="docutils literal notranslate"><span class="pre">diff</span></code> method to compute the interval between each successive birth.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diffs</span> <span class="o">=</span> <span class="n">boom</span><span class="p">[</span><span class="s2">&quot;minutes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>

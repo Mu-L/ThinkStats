@@ -1563,7 +1563,7 @@ When we normalize the new <code class="docutils literal notranslate"><span class
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 63;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "actual_pmf.mean()";
                 var nbb_formatted_code = "actual_pmf.mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1598,8 +1598,8 @@ So the probability of observing a class is proportional to its size.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 33;
-                var nbb_unformatted_code = "def bias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps * pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
-                var nbb_formatted_code = "def bias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps * pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_unformatted_code = "def bias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps * pmf.qs\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_formatted_code = "def bias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps * pmf.qs\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1764,7 +1764,7 @@ Here’s the function that unbiases a <code class="docutils literal notranslate"
 </section>
 <section id="nsfg-data">
 <h2><span class="section-number">3.4. </span>NSFG Data<a class="headerlink" href="#nsfg-data" title="Link to this heading">#</a></h2>
-<p>In the previous chapter, we plotting histograms for the distributions of pregnancy lengths for first babies and others.
+<p>In the previous chapter, we plotted histograms of pregnancy lengths for first babies and others.
 But the sizes of the groups are not the same, so we can’t compare the histograms directly.
 Because PMFs are normalized, we can compare them.
 So let’s load the NSFG data again and make <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to represent distributions of pregnancy lengths.</p>
@@ -1888,7 +1888,7 @@ It returns three <code class="docutils literal notranslate"><span class="pre">Da
 <img alt="_images/f89951ee9108b82276d0fd4341fe899227bc628535f0f92e1374684a207ed7c5.png" src="_images/f89951ee9108b82276d0fd4341fe899227bc628535f0f92e1374684a207ed7c5.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "two_bar_plots(first_pmf, other_pmf)\ndecorate(xlabel=\"weeks\", ylabel=\"probability\", xlim=[20, 50])";
                 var nbb_formatted_code = "two_bar_plots(first_pmf, other_pmf)\ndecorate(xlabel=\"weeks\", ylabel=\"probability\", xlim=[20, 50])";
                 var nbb_cells = Jupyter.notebook.get_cells();
