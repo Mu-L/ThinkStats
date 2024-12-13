@@ -1106,7 +1106,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">query</s
 </section>
 <section id="cdfs">
 <h2><span class="section-number">4.2. </span>CDFs<a class="headerlink" href="#cdfs" title="Link to this heading">#</a></h2>
-<p>A <strong>cumulative distribution function</strong>, or CDF, is a way to describe the distribution of a set of values.
+<p>A <strong>cumulative distribution function</strong>, or CDF, is a another to describe the distribution of a set of values, along with a histogram or PMF.
 Given a value <code class="docutils literal notranslate"><span class="pre">x</span></code>, the CDF computes the fraction of values less than or equal to <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 As an example, we’ll start with a short sequence.</p>
 <div class="cell docutils container">
@@ -1707,7 +1707,7 @@ As another possibility, the distributions might have the same shape, but differe
             }, 500);
             </script></div>
 </div>
-<p>But it doesn’t work very well.</p>
+<p>But as we can see in the following figure, it doesn’t work very well.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">two_bar_plots</span>
@@ -2011,7 +2011,8 @@ To demonstrate, let’s load the NSFG data again without doing any data cleaning
             </script></div>
 </div>
 <p>Now let’s imagine two scenarios.
-In one scenario, we clean these variables by replacing missing and invalid values with <code class="docutils literal notranslate"><span class="pre">nan</span></code>, and then compute total weight in pounds.</p>
+In one scenario, we clean these variables by replacing missing and invalid values with <code class="docutils literal notranslate"><span class="pre">nan</span></code>, and then compute total weight in pounds.
+Dividing <code class="docutils literal notranslate"><span class="pre">birthwgt_oz_clean</span></code> by 16 converts it to pounds in decimal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birthwgt_lb_clean</span> <span class="o">=</span> <span class="n">birthwgt_lb</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="mi">51</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">99</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>

@@ -581,7 +581,7 @@ But even if it is not realistic, this model makes some surprisingly accurate pre
             </script></div>
 </div>
 <p>Here’s an example that simulates a round of 25 targets where the probability of hitting each one is 90%.</p>
-<div class="cell tag_remove--print docutils container">
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seed the random number generator so we get the same results every time</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -818,14 +818,6 @@ Mathematically, the distribution of these outcomes follows a <strong>binomial di
 
 
 <span class="k">def</span> <span class="nf">binomial_pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the binomial PMF.</span>
-
-<span class="sd">    k (int or array-like): number of successes</span>
-<span class="sd">    n (int): number of trials</span>
-<span class="sd">    p (float): probability of success on a single trial</span>
-
-<span class="sd">    returns: float or ndarray</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -848,7 +840,8 @@ Mathematically, the distribution of these outcomes follows a <strong>binomial di
             }, 500);
             </script></div>
 </div>
-<p>This function computes the probability of getting <code class="docutils literal notranslate"><span class="pre">k</span></code> hits out of <code class="docutils literal notranslate"><span class="pre">n</span></code> attempts, given <code class="docutils literal notranslate"><span class="pre">p</span></code>.
+<p>SciPy provides the <code class="docutils literal notranslate"><span class="pre">comb</span></code> function, which computes the number of combinations of <code class="docutils literal notranslate"><span class="pre">n</span></code> things taken <code class="docutils literal notranslate"><span class="pre">k</span></code> at a time, often pronounced “n choose k”.</p>
+<p><code class="docutils literal notranslate"><span class="pre">binomial_pmf</span></code> computes the probability of getting <code class="docutils literal notranslate"><span class="pre">k</span></code> hits out of <code class="docutils literal notranslate"><span class="pre">n</span></code> attempts, given <code class="docutils literal notranslate"><span class="pre">p</span></code>.
 If we call this function with a range of <code class="docutils literal notranslate"><span class="pre">k</span></code> values, we can make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of the outcomes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1321,7 +1314,7 @@ We’ll select the columns that contain the results and use the NumPy function <
             }, 500);
             </script></div>
 </div>
-<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a <strong>Poisson distribution</strong>, which has just one parameter, denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (because <code class="docutils literal notranslate"><span class="pre">lambda</span></code> is a Python keyword).
+<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a <strong>Poisson distribution</strong>, which has just one parameter, denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (<code class="docutils literal notranslate"><span class="pre">lambda</span></code> is not a legal variable name because it is a Python keyword).
 <code class="docutils literal notranslate"><span class="pre">lam</span></code> represents the goal-scoring rate, which is 6 goals per game in the example.</p>
 <p>The PMF of the Poisson distribution is easy to compute – given <code class="docutils literal notranslate"><span class="pre">lam</span></code>, we can use the following function to compute the probability of seeing <code class="docutils literal notranslate"><span class="pre">k</span></code> goals in a game.</p>
 <div class="cell docutils container">
@@ -1359,7 +1352,8 @@ We’ll select the columns that contain the results and use the NumPy function <
             }, 500);
             </script></div>
 </div>
-<p>If we call this function with a range of <code class="docutils literal notranslate"><span class="pre">k</span></code> values, we can make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of outcomes.</p>
+<p>SciPy provides the <code class="docutils literal notranslate"><span class="pre">factorial</span></code> function, which computes the product of the integers from <code class="docutils literal notranslate"><span class="pre">1</span></code> to <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<p>If we call <code class="docutils literal notranslate"><span class="pre">poisson_pmf</span></code> with a range of <code class="docutils literal notranslate"><span class="pre">k</span></code> values, we can make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of outcomes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lam</span> <span class="o">=</span> <span class="mi">6</span>
@@ -1689,7 +1683,7 @@ dtype: int64
             }, 500);
             </script></div>
 </div>
-<p>The data fit the Poisson model remarkably well.</p>
+<p>The Poisson distribution fits the data well, which suggests that it is a good model of the goal-scoring process in hockey.</p>
 </section>
 <section id="the-exponential-distribution">
 <h2><span class="section-number">5.3. </span>The Exponential Distribution<a class="headerlink" href="#the-exponential-distribution" title="Link to this heading">#</a></h2>
@@ -1876,7 +1870,8 @@ We can use the mean of the simulated results to compute lam.</p>
             }, 500);
             </script></div>
 </div>
-<p>If we call this function with a range of time values, we can approximate the distribution of first goal times.</p>
+<p>If we call this function with a range of time values, we can approximate the distribution of first goal times.
+The NumPy function <code class="docutils literal notranslate"><span class="pre">linspace</span></code> creates an array of equally-spaced values; in this example, it computes 201 values from 0 to 3600, including both.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
@@ -2183,6 +2178,7 @@ And suppose the weather each day is bad, fair, or good with the same probability
             }, 500);
             </script></div>
 </div>
+<p>NumPy’s <code class="docutils literal notranslate"><span class="pre">random</span></code> module provides a <code class="docutils literal notranslate"><span class="pre">choice</span></code> function that generates an array of <code class="docutils literal notranslate"><span class="pre">n</span></code> random selections from a sequence of values, <code class="docutils literal notranslate"><span class="pre">choices</span></code> in this example.</p>
 <p>Now suppose 1001 people grow giant pumpkins in different places with different weather.
 If we simulate the growth process for 100 days, we get a list of 1001 weights.</p>
 <div class="cell docutils container">
@@ -2222,10 +2218,6 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 
 
 <span class="k">def</span> <span class="nf">make_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make the Cdf of a normal distribution based on data.</span>
-
-<span class="sd">    data: sequence of numbers</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
@@ -2302,17 +2294,12 @@ To see whether the weights follow a normal distribution, we’ll use the followi
             }, 500);
             </script></div>
 </div>
-<p>We’ll use the following function to compare the distributions.</p>
+<p>We’ll use the following function to compare the distributions.
+<code class="docutils literal notranslate"><span class="pre">cdf_model</span></code> and <code class="docutils literal notranslate"><span class="pre">cdf_data</span></code> are <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> objects.
+<code class="docutils literal notranslate"><span class="pre">xlabel</span></code> is a string, and <code class="docutils literal notranslate"><span class="pre">options</span></code> is a dictionary of options that control the way <code class="docutils literal notranslate"><span class="pre">cdf_data</span></code> is plotted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">two_cdf_plots</span><span class="p">(</span><span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_data</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot an empirical CDF and a theoretical model.</span>
-
-<span class="sd">    cdf_model: Cdf object</span>
-<span class="sd">    cdf_data: Cdf object</span>
-<span class="sd">    xlabel: string</span>
-<span class="sd">    options: control the way cdf_data is plotted</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdf_model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
     <span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
 
@@ -2697,7 +2684,7 @@ We could use logarithms with any base, but I’ll use base 10 because it makes t
             }, 500);
             </script></div>
 </div>
-<p>The model fits the simulation result very well.</p>
+<p>The model fits the simulation result very well, which is what we expected.</p>
 <p>If people are like pumpkins, where the change in weight from year to year is proportionate to their current weight, we might expect the distribution of adult weights to follow a lognormal distribution.
 Let’s find out.</p>
 <p>The National Center for Chronic Disease Prevention and Health Promotion conducts an annual survey as part of the Behavioral Risk Factor Surveillance System (BRFSS).

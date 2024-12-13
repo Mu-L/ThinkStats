@@ -686,7 +686,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
             }, 500);
             </script></div>
 </div>
-<p>The following loop simulates the experiment many times and computes the number of excess heads for each one.</p>
+<p>The following loop simulates the experiment many times, computes the number of excess heads for each one, and uses a list comprehension to collect the results in a list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">excess_heads</span><span class="p">(</span><span class="n">simulate_flips</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
@@ -989,7 +989,7 @@ Now let’s see if that difference could be due to chance.</p>
 <p>So the hypothesis we’ll test is whether pregnancy length is generally longer for first babies.
 The null hypothesis is that pregnancy lengths are actually the same for both groups, and the apparent difference is due to chance.
 If pregnancy lengths are the same for both groups, we can combine the two groups into a single pool.
-Then, to simulate the experiment, we can shuffle the pool and divide it into two groups with the same sizes as the original.</p>
+To simulate the experiment, we can use the NumPy function <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> to put the pooled values in random order, and then use slice indexes to select two groups with the same sizes as the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -1332,17 +1332,17 @@ Again, the shaded region shows where the test statistic under the null hypothesi
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_diff</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute difference in standard deviation (weeks)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute difference in std (weeks)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f9393571af11b6de84b2717beb2bb7fa2c8609122b275d72dfaec7e54f9d708a.png" src="_images/f9393571af11b6de84b2717beb2bb7fa2c8609122b275d72dfaec7e54f9d708a.png" />
+<img alt="_images/56e0118623edbd2754415076d30da8b51219da8e2b2d7a7334a6630e441e4b79.png" src="_images/56e0118623edbd2754415076d30da8b51219da8e2b2d7a7334a6630e441e4b79.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 31;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in standard deviation (weeks)\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in standard deviation (weeks)\", ylabel=\"Density\")";
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1980,8 +1980,8 @@ For a problem like this, it would be more conventional to use the chi-squared st
 Dividing through by <code class="docutils literal notranslate"><span class="pre">expected</span></code> standardizes the deviations – although in this case it has no effect on the results because the expected frequencies are all equal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_chi_squared</span> <span class="o">=</span> <span class="n">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
-<span class="n">observed_chi_squared</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_chi2</span> <span class="o">=</span> <span class="n">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
+<span class="n">observed_chi2</span>
 </pre></div>
 </div>
 </div>
@@ -1992,8 +1992,8 @@ Dividing through by <code class="docutils literal notranslate"><span class="pre"
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 51;
-                var nbb_unformatted_code = "observed_chi_squared = chi_squared_stat(observed)\nobserved_chi_squared";
-                var nbb_formatted_code = "observed_chi_squared = chi_squared_stat(observed)\nobserved_chi_squared";
+                var nbb_unformatted_code = "observed_chi2 = chi_squared_stat(observed)\nobserved_chi2";
+                var nbb_formatted_code = "observed_chi2 = chi_squared_stat(observed)\nobserved_chi2";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2011,7 +2011,7 @@ By itself, this number doesn’t mean very much, but we can compare it to the re
 The following loop generates many simulated datasets and computes the chi-squared statistic for each one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_chi_squared</span> <span class="o">=</span> <span class="p">[</span><span class="n">chi_squared_stat</span><span class="p">(</span><span class="n">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_chi2</span> <span class="o">=</span> <span class="p">[</span><span class="n">chi_squared_stat</span><span class="p">(</span><span class="n">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -2019,8 +2019,8 @@ The following loop generates many simulated datasets and computes the chi-square
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 52;
-                var nbb_unformatted_code = "simulated_chi_squared = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
-                var nbb_formatted_code = "simulated_chi_squared = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
+                var nbb_unformatted_code = "simulated_chi2 = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
+                var nbb_formatted_code = "simulated_chi2 = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2037,9 +2037,9 @@ The following loop generates many simulated datasets and computes the chi-square
 The shaded region shows the results that exceed the observed value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_chi_squared</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_chi2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_chi_squared</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_chi2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Chi-Squared Statistic&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2049,8 +2049,8 @@ The shaded region shows the results that exceed the observed value.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 53;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_chi_squared, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi_squared, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_chi_squared, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi_squared, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2066,7 +2066,7 @@ The shaded region shows the results that exceed the observed value.</p>
 <p>Again, the area of the shaded region is the p-value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compute_p_value</span><span class="p">(</span><span class="n">simulated_chi_squared</span><span class="p">,</span> <span class="n">observed_chi_squared</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compute_p_value</span><span class="p">(</span><span class="n">simulated_chi2</span><span class="p">,</span> <span class="n">observed_chi2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2077,8 +2077,8 @@ The shaded region shows the results that exceed the observed value.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 54;
-                var nbb_unformatted_code = "compute_p_value(simulated_chi_squared, observed_chi_squared)";
-                var nbb_formatted_code = "compute_p_value(simulated_chi_squared, observed_chi_squared)";
+                var nbb_unformatted_code = "compute_p_value(simulated_chi2, observed_chi2)";
+                var nbb_formatted_code = "compute_p_value(simulated_chi2, observed_chi2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {

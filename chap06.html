@@ -966,7 +966,7 @@ But for audiences that are not familiar with CDFs, there is one more option: pro
             }, 500);
             </script></div>
 </div>
-<p>The result looks like a bell curve, which is characteristic of the normal distribution.</p>
+<p>And plot it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;normal model&quot;</span><span class="p">)</span>
@@ -993,6 +993,7 @@ But for audiences that are not familiar with CDFs, there is one more option: pro
             }, 500);
             </script></div>
 </div>
+<p>The result looks like a bell curve, which is characteristic of the normal distribution.</p>
 <p>When we evaluate <code class="docutils literal notranslate"><span class="pre">normal_pdf</span></code>, the result is a probability density.
 For example, here’s the density function evaluated at the mean, which is where the density is highest.</p>
 <div class="cell docutils container">
@@ -1024,7 +1025,7 @@ For example, here’s the density function evaluated at the mean, which is where
 </div>
 <p>By itself, a probability density doesn’t mean much – most importantly, it is <em>not</em> a probability.
 It would be incorrect to say that the probability is 32% that a randomly-chosen birth weight equals <code class="docutils literal notranslate"><span class="pre">m</span></code>.
-In fact, the probability that a birth weight is truly, exactly, and precisely equal to <code class="docutils literal notranslate"><span class="pre">m</span></code> – or any other specific value – is effectively zero.</p>
+In fact, the probability that a birth weight is truly, exactly, and precisely equal to <code class="docutils literal notranslate"><span class="pre">m</span></code> – or any other specific value – is zero.</p>
 <p>However, we can use these probability densities to compute the probability that a birth weight falls in an interval between two values, by computing the area under the curve.</p>
 <p>We can do that with the <code class="docutils literal notranslate"><span class="pre">normal_pdf</span></code> function, but it will be more convenient to use a <code class="docutils literal notranslate"><span class="pre">NormalPdf</span></code> object, which is defined in the <code class="docutils literal notranslate"><span class="pre">thinkstats</span></code> module.
 Here’s how we can use it to create a <code class="docutils literal notranslate"><span class="pre">NormalPdf</span></code> with the same mean and standard deviation as the birth weights in the NSFG dataset.</p>
@@ -1087,19 +1088,14 @@ Here’s how we can use it to create a <code class="docutils literal notranslate
             </script></div>
 </div>
 <p>Now, to compute the area under the PDF, we can use the following function, which takes a <code class="docutils literal notranslate"><span class="pre">NormalPdf</span></code> object and the bounds of an interval, <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>.
-It evaluates the normal PDF at equally-spaced quantities between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>, and uses Simpson’s method to estimate the area under the curve.</p>
+It evaluates the normal PDF at equally-spaced quantities between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>, and uses the SciPy function <code class="docutils literal notranslate"><span class="pre">simpson</span></code> to estimate the area under the curve.
+As the name suggests, <code class="docutils literal notranslate"><span class="pre">simpson</span></code> uses an algorithm called Simpson’s method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">simpson</span>
 
 
 <span class="k">def</span> <span class="nf">area_under</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the area under a PDF.</span>
-
-<span class="sd">    pdf: Pdf object</span>
-<span class="sd">    low: low end of the interval</span>
-<span class="sd">    high: high end of the interval</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">501</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">ps</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">qs</span><span class="p">)</span>

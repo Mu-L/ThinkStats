@@ -692,7 +692,7 @@ To find out, we’ll use the following function to generate hypothetical samples
             </script></div>
 </div>
 <p>As a first experiment, let’s see how the sample mean and sample median behave as the sample size increases.
-We’ll use <code class="docutils literal notranslate"><span class="pre">logspace</span></code> to make a range of <code class="docutils literal notranslate"><span class="pre">ns</span></code> from 1 to 10,000, equally spaced on a logarithmic scale.</p>
+We’ll use the NumPy function <code class="docutils literal notranslate"><span class="pre">logspace</span></code> to make a range of <code class="docutils literal notranslate"><span class="pre">ns</span></code> from 1 to 10,000, equally spaced on a logarithmic scale.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -804,7 +804,8 @@ This demonstrates that they are <strong>consistent</strong>, which is one of the
 Based on this property, the mean and median seem equally good.</p>
 <p>In the previous figure, you might notice that the estimates are sometimes too high and sometimes too low – and it looks like the variation is roughly symmetric around the true value.
 That suggests another experiment: if we collect many samples with the same size and compute many estimates, what is the average of the estimates?</p>
-<p>The following loop simulates this scenario, collecting 10,001 samples of 10 penguins and computing the mean of each sample.</p>
+<p>The following loop simulates this scenario by generating 10,001 samples of 10 penguins and computing the mean of each sample.
+Then it uses a list comprehension to collect the results in a list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">make_sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
@@ -833,7 +834,7 @@ That suggests another experiment: if we collect many samples with the same size 
             }, 500);
             </script></div>
 </div>
-<p>The average of the means is very close to the actual mean we used to generate the samples: 3.7 kg.</p>
+<p>The average of the means is close to the actual mean we used to generate the samples: 3.7 kg.</p>
 <p>The following loop simulates the same scenario, but this time it computes the median of each sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -869,8 +870,8 @@ The word “bias” means different things in different contexts, which can be a
 In this context, “unbiased” means that the average of the estimates is the actual value.</p>
 <p>So far, we’ve shown that both estimators are consistent and unbiased, but it’s still not clear which is better.
 Let’s try one more experiment: let’s see which estimator is more accurate.
-The word “accurate” also means different things in different contexts – as an example, let’s consider the <strong>mean squared error</strong> (MSE).</p>
-<p>The following function computes the differences between the estimates and the actual value, and returns the average of the squares of these errors.</p>
+The word “accurate” also means different things in different contexts – as one way to quantify it, let’s consider the <strong>mean squared error</strong> (MSE).
+The following function computes the differences between the estimates and the actual value, and returns the mean of the squares of these errors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mse</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
@@ -2150,9 +2151,9 @@ The sampling distribution does not account for other sources of error, notably s
 <h2><span class="section-number">8.7. </span>Sources of Error<a class="headerlink" href="#sources-of-error" title="Link to this heading">#</a></h2>
 <p>Suppose that instead of the average weight of penguins in Antarctica, you want to know the average weight of women in the city where you live.
 You can’t randomly choose a representative sample of women and weigh them.</p>
-<p>A simple alternative would be “telephone sampling” – that is, you could choose random numbers from the phone book, call and ask to speak to an adult woman, and ask how much she weighs.</p>
-<p>But telephone sampling has obvious problems.
-For example, the sample is limited to people whose telephone numbers are listed, so it eliminates people without phones (who might be poorer than average) and people with unlisted numbers (who might be richer).
+<p>A simple alternative would be “telephone sampling” – that is, you could choose random numbers from the phone book, call and ask to speak to an adult woman, and ask how much she weighs.
+But telephone sampling has obvious problems.</p>
+<p>For example, the sample is limited to people whose telephone numbers are listed, so it eliminates people without phones (who might be poorer than average) and people with unlisted numbers (who might be richer).
 Also, if you call home telephones during the day, you are less likely to sample people with jobs.
 And if you only sample the person who answers the phone, you are less likely to sample people who share a phone line.</p>
 <p>If factors like income, employment, and household size are related to weight – and it is plausible that they are – the results of your survey would be affected one way or another.

@@ -827,7 +827,7 @@ In this example, the quantity <code class="docutils literal notranslate"><span c
             }, 500);
             </script></div>
 </div>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">items</span></code> to loop through quantity-frequency pairs:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Hist</span></code> provides an <code class="docutils literal notranslate"><span class="pre">items</span></code> method we can use to loop through quantity-frequency pairs:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">hist</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -866,7 +866,7 @@ In this example, the quantity <code class="docutils literal notranslate"><span c
 <p>When you start working with a new dataset, I suggest you explore the variables you are planning to use one at a time, and a good way to start is by looking at histograms.</p>
 <p>As an example, let’s look at data from the National Survey of Family Growth (NSFG).
 In the previous chapter, we downloaded this dataset, read it into a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, and cleaned a few of the variables.
-The code we used to load and clean the data is in a module called <code class="docutils literal notranslate"><span class="pre">nsfg.py</span></code></p>
+The code we used to load and clean the data is in a module called <code class="docutils literal notranslate"><span class="pre">nsfg.py</span></code> – instructions for installing this module are in the notebook for this chapter.</p>
 <p>The following cells download the data files and install <code class="docutils literal notranslate"><span class="pre">statadict</span></code>, which we need to read the data.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -974,6 +974,8 @@ We can use the <code class="docutils literal notranslate"><span class="pre">quer
             }, 500);
             </script></div>
 </div>
+<p>In the string that’s passed to <code class="docutils literal notranslate"><span class="pre">query</span></code>, variable names like <code class="docutils literal notranslate"><span class="pre">outcome</span></code> refer to column names in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.
+This string can also contain operators like <code class="docutils literal notranslate"><span class="pre">==</span></code> and operands like <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">Hist.from_seq</span></code> to count the number of times each quantity appears in <code class="docutils literal notranslate"><span class="pre">birthwgt_lb</span></code>, which is the pounds part of the birth weights.
 The <code class="docutils literal notranslate"><span class="pre">name</span></code> argument gives the <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object a name, which is used as a label when we plot it.</p>
 <div class="cell docutils container">
@@ -1759,13 +1761,6 @@ To compute it, we’ll start with the variances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cohen_effect_size</span><span class="p">(</span><span class="n">group1</span><span class="p">,</span> <span class="n">group2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes Cohen&#39;s effect size for two groups.</span>
-
-<span class="sd">    group1: Series</span>
-<span class="sd">    group2: Series</span>
-
-<span class="sd">    returns: float</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">group2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
     <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>

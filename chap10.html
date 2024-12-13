@@ -730,7 +730,7 @@ For that, we need to choose a <strong>line of best fit</strong>.</p>
 <p>There are many ways to define the “best” line, but for data like this a common choice is a <strong>linear least squares</strong> fit, which is the straight line that minimizes the mean squared error (MSE).</p>
 <p>SciPy provides a function called <code class="docutils literal notranslate"><span class="pre">linregress</span></code> that computes a least squares fit.
 The name is short for <strong>linear regression</strong>, which is another term for a model like this.
-Here’s how we use it.</p>
+The arguments of <code class="docutils literal notranslate"><span class="pre">linregress</span></code> are the <code class="docutils literal notranslate"><span class="pre">x</span></code> values and the <code class="docutils literal notranslate"><span class="pre">y</span></code> values, in that order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">linregress</span>
@@ -762,7 +762,7 @@ Here’s how we use it.</p>
             </script></div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">LinregressResult</span></code> object that contains the slope and intercept of the fitted line, along with other information we’ll unpack soon.
-The slope is about 32.8, which means that each additional millimeter of flipper length is associated with an addition 32.8 grams of body weight.</p>
+The slope is about 32.8, which means that each additional millimeter of flipper length is associated with an additional 32.8 grams of body weight.</p>
 <p>The intercept is -2535 grams, which might seem nonsensical, since a measured weight can’t be negative.
 It might make more sense if we use the slope and intercept to evaluate the fitted line at the average flipper length.</p>
 <div class="cell docutils container">
@@ -1266,7 +1266,7 @@ As you might guess based on the notation, <span class="math notranslate nohighli
 <h2><span class="section-number">10.3. </span>Minimizing MSE<a class="headerlink" href="#minimizing-mse" title="Link to this heading">#</a></h2>
 <p>Earlier I said that the least squares fit is the straight line that minimizes the mean squared error (MSE).
 We won’t prove that, but we can test it by adding small random values to the intercept and slope, and checking whether the MSE gets worse.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">types</span></code> module provides a <code class="docutils literal notranslate"><span class="pre">SimpleNamespace</span></code> object we can use to make a an object with <code class="docutils literal notranslate"><span class="pre">intercept</span></code> and <code class="docutils literal notranslate"><span class="pre">slope</span></code> attributes.</p>
+<p>To run the test, we need to make an object with <code class="docutils literal notranslate"><span class="pre">intercept</span></code> and <code class="docutils literal notranslate"><span class="pre">slope</span></code> attributes – we’ll use the <code class="docutils literal notranslate"><span class="pre">SimpleNamespace</span></code> object provides by the <code class="docutils literal notranslate"><span class="pre">types</span></code> module.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">SimpleNamespace</span>

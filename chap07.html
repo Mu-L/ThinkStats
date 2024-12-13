@@ -1004,17 +1004,11 @@ Overplotting tends to give too much visual weight to outliers.</p>
 <p>Now we can see that the markers are aligned in rows and columns, because scores are rounded off to the nearest multiple of 10.
 Some information is lost in the process.</p>
 <p>We can’t get that information back, but we can minimize the effect on the scatter plot by <strong>jittering</strong> the data, which means adding random noise to reverse the effect of rounding off.
-The following function takes a sequence and jitters it by adding random values from a normal distribution with mean 0 and the given standard deviation.</p>
+The following function takes a sequence and jitters it by adding random values from a normal distribution with mean 0 and the given standard deviation.
+The result is a NumPy array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jitter</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Jitters the values by adding random Gaussian noise.</span>
-
-<span class="sd">    seq: sequence of numbers</span>
-<span class="sd">    std: standard deviation of the added noise</span>
-
-<span class="sd">    returns: new Numpy array</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">seq</span>
 </pre></div>
@@ -1580,20 +1574,10 @@ By design, the mean of the standard scores is close to 0 and the standard deviat
             </script></div>
 </div>
 <p>The following figure shows sequences of these scores for the first 100 participants.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">piat_math_standard</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;PIAT math&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;z-score&quot;</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="p">[])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sat_math_standard</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;SAT math&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;z-score&quot;</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="p">[])</span>
-</pre></div>
-</div>
-</div>
+<p>Calling <code class="docutils literal notranslate"><span class="pre">subplot</span></code> with the arguments <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">1</span></code> tells Matplotlib to create multiple plots, arranged in two rows and one column, and initializes the first plot.
+Calling it again with the arguments <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">2</span></code> initializes the second plot.
+<code class="docutils literal notranslate"><span class="pre">axhline</span></code> draws a horizontal line that spans the width of the axes.</p>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/85359b9bf1ca8c386def6307c8772911b0da361affc16dcea0fa4d821c45a863.png" src="_images/85359b9bf1ca8c386def6307c8772911b0da361affc16dcea0fa4d821c45a863.png" />
 <script type="application/javascript">

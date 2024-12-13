@@ -391,8 +391,9 @@ document.write(`
 <section id="probability-mass-functions">
 <h1><span class="section-number">3. </span>Probability Mass Functions<a class="headerlink" href="#probability-mass-functions" title="Link to this heading">#</a></h1>
 <p>In the previous chapter we represented distributions using a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object, which contains a set of quantities and their frequencies – that is, the number of times each quantity appears.
-In this chapter we’ll introduce another way to represent a distribution: a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object, which contains a set of quantities and their probabilities.</p>
-<p>We’ll use <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to compute the mean and variance of a distribution, and the skewness, which indicates whether it is skewed to the left or right.
+In this chapter we’ll introduce another way to describe a distribution, a probability mass function (PMF).</p>
+<p>To represent a PMF, we’ll use an object called a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, which contains a set of quantities and their probabilities.
+We’ll use <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to compute the mean and variance of a distribution, and the skewness, which indicates whether it is skewed to the left or right.
 Finally, we will explore how a phenomenon called the “inspection paradox” can cause a sample to give a biased view of a distribution.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap03.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
@@ -1489,7 +1490,8 @@ Suppose that a college offers 65 classes in a given semester, and we are given t
             </script></div>
 </div>
 <p>The Pandas function <code class="docutils literal notranslate"><span class="pre">interval_range</span></code> makes an <code class="docutils literal notranslate"><span class="pre">Index</span></code> where each label represents a range of values.
-Since we don’t know the sizes of the classes in each range, let’s assume that all sizes are at the midpoint of the range.</p>
+The notation <code class="docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">10)</span></code> means that <code class="docutils literal notranslate"><span class="pre">5</span></code> is included in the interval and <code class="docutils literal notranslate"><span class="pre">10</span></code> is not.
+Since we don’t know the sizes of the classes in each interval, let’s assume that all sizes are at the midpoint of the range.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sizes</span> <span class="o">=</span> <span class="n">ranges</span><span class="o">.</span><span class="n">left</span> <span class="o">+</span> <span class="mi">2</span>
