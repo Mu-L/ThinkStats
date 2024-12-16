@@ -1543,7 +1543,7 @@ To understand correlation, let’s start with standardization.</p>
             </script></div>
 </div>
 <p>The results are <strong>standard scores</strong>, also called “z-scores”.
-By design, the mean of the standard scores is close to 0 and the standard deviation is close to 1.</p>
+Because of the way the standard scores are calculated, the mean is close to 0 and the standard deviation is close to 1.</p>
 <p>Let’s also standardize the SAT math scores.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1598,11 +1598,11 @@ Calling it again with the arguments <code class="docutils literal notranslate"><
             </script></div>
 </div>
 <p>These variables are clearly related: when one is above the mean, the other is likely to be above the mean, too.
-To quantify the strength of this relationship, we’ll multiply the standard scores element-wise and compute the mean of the products.</p>
-<p>When both scores are positive, their product is positive, so it tends to increase the mean.
-And when both scores are negative, their product is positive, so it also tends to increase the mean.
-When the scores have opposite signs, the product is negative, so it decreases the mean.
-As a result, the mean of the product measures the similarity between the sequences.</p>
+To quantify the strength of this relationship, we’ll multiply the standard scores element-wise and compute the average of the products.</p>
+<p>When both scores are positive, their product is positive, so it tends to increase the average product.
+And when both scores are negative, their product is positive, so it also tends to increase the average product.
+When the scores have opposite signs, the product is negative, so it decreases the average product.
+As a result, the average product measures the similarity between the sequences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">piat_math_standard</span> <span class="o">*</span> <span class="n">sat_math_standard</span><span class="p">)</span>

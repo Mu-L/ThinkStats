@@ -549,7 +549,7 @@ Then we’ll see how well real data agrees with the model.</p>
 <h2><span class="section-number">5.1. </span>The Binomial Distribution<a class="headerlink" href="#the-binomial-distribution" title="Link to this heading">#</a></h2>
 <p>As a first example, we’ll consider the sport of skeet shooting, in which competitors use shotguns to shoot clay disks that are thrown into the air.
 In international competition, including the Olympics, there are five rounds with 25 targets per round, with additional rounds as needed to determine a winner.</p>
-<p>As a model of a skeet-shooting competition, suppose that every participant has the same probability of hitting every target, <code class="docutils literal notranslate"><span class="pre">p</span></code>.
+<p>As a model of a skeet-shooting competition, suppose that every participant has the same probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>, of hitting every target.
 Of course, this model is a simplification – in reality, some competitors have a higher probability than others, and even for a single competitor, it might vary from one attempt to the next.
 But even if it is not realistic, this model makes some surprisingly accurate predictions, as we’ll see.</p>
 <p>To simulate the model, I’ll use the following function, which takes the number of targets, <code class="docutils literal notranslate"><span class="pre">n</span></code>, and the probability of hitting each one, <code class="docutils literal notranslate"><span class="pre">p</span></code>, and returns a sequence of 1s and 0s to indicate hits and misses.</p>
@@ -1228,7 +1228,7 @@ We’ll select the columns that contain the results and use the NumPy function <
 <section id="the-poisson-distribution">
 <h2><span class="section-number">5.2. </span>The Poisson Distribution<a class="headerlink" href="#the-poisson-distribution" title="Link to this heading">#</a></h2>
 <p>As another example where the outcomes of sports events follow predictable patterns, let’s look at the number of goals scored in ice hockey games.</p>
-<p>We’ll start by simulating a 60-minute game, which is 3600 seconds, assuming that the teams score a total of 6 goals per game, on average, and that the probability of scoring a goal, <code class="docutils literal notranslate"><span class="pre">p</span></code>,  is the same during any second.</p>
+<p>We’ll start by simulating a 60-minute game, which is 3600 seconds, assuming that the teams score a total of 6 goals per game, on average, and that the goal-scoring probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>,  is the same during any second.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">3600</span>
@@ -1657,7 +1657,7 @@ dtype: int64
 <p>And here’s what it looks like compared to the PMF of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_goals</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">goals</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;home goals&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_goals</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">goals</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;goals scored&quot;</span><span class="p">)</span>
 
 <span class="n">two_bar_plots</span><span class="p">(</span><span class="n">pmf_goals</span><span class="p">,</span> <span class="n">pmf_poisson</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Goals&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;PMF&quot;</span><span class="p">)</span>

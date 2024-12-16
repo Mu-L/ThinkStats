@@ -410,15 +410,9 @@ As an example, we’ll use data from the National Survey of Family Growth (NSFG)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The nb_black extension is already loaded. To reload it, use:
-  %reload_ext nb_black
-The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre></div>
-</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 5;
+                var nbb_cell_id = 1;
                 var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -460,7 +454,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 6;
+                var nbb_cell_id = 2;
                 var nbb_unformatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -493,7 +487,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 7;
+                var nbb_cell_id = 3;
                 var nbb_unformatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_formatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -528,7 +522,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 73;
+                var nbb_cell_id = 4;
                 var nbb_unformatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom IPython.display import HTML\nfrom thinkstats import decorate";
                 var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom IPython.display import HTML\nfrom thinkstats import decorate";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -628,7 +622,7 @@ We will come back to this point later.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 9;
+                var nbb_cell_id = 5;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -655,7 +649,7 @@ We will come back to this point later.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 10;
+                var nbb_cell_id = 6;
                 var nbb_unformatted_code = "try:\n    import statadict\nexcept ImportError:\n    !pip install statadict";
                 var nbb_formatted_code = "try:\n    import statadict\nexcept ImportError:\n    !pip install statadict";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -681,7 +675,7 @@ We will come back to this point later.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 89;
+                var nbb_cell_id = 7;
                 var nbb_unformatted_code = "dct_file = \"2002FemPreg.dct\"\ndat_file = \"2002FemPreg.dat.gz\"";
                 var nbb_formatted_code = "dct_file = \"2002FemPreg.dct\"\ndat_file = \"2002FemPreg.dat.gz\"";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -719,7 +713,7 @@ It is called <code class="docutils literal notranslate"><span class="pre">read_s
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 90;
+                var nbb_cell_id = 8;
                 var nbb_unformatted_code = "from statadict import parse_stata_dict\n\n\ndef read_stata(dct_file, dat_file):\n    stata_dict = parse_stata_dict(dct_file)\n    resp = pd.read_fwf(\n        dat_file,\n        names=stata_dict.names,\n        colspecs=stata_dict.colspecs,\n        compression=\"gzip\",\n    )\n    return resp";
                 var nbb_formatted_code = "from statadict import parse_stata_dict\n\n\ndef read_stata(dct_file, dat_file):\n    stata_dict = parse_stata_dict(dct_file)\n    resp = pd.read_fwf(\n        dat_file,\n        names=stata_dict.names,\n        colspecs=stata_dict.colspecs,\n        compression=\"gzip\",\n    )\n    return resp";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -744,7 +738,7 @@ It is called <code class="docutils literal notranslate"><span class="pre">read_s
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 91;
+                var nbb_cell_id = 9;
                 var nbb_unformatted_code = "preg = read_stata(dct_file, dat_file)";
                 var nbb_formatted_code = "preg = read_stata(dct_file, dat_file)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -775,7 +769,7 @@ In addition to the data, a <code class="docutils literal notranslate"><span clas
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 92;
+                var nbb_cell_id = 10;
                 var nbb_unformatted_code = "preg.shape";
                 var nbb_formatted_code = "preg.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -965,7 +959,7 @@ In addition to the data, a <code class="docutils literal notranslate"><span clas
 <p>5 rows × 243 columns</p>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 93;
+                var nbb_cell_id = 11;
                 var nbb_unformatted_code = "preg.head()";
                 var nbb_formatted_code = "preg.head()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1000,7 +994,7 @@ In this case, the labels are integers starting from 0, but they can also be stri
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 94;
+                var nbb_cell_id = 12;
                 var nbb_unformatted_code = "preg.columns";
                 var nbb_formatted_code = "preg.columns";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1030,7 +1024,7 @@ To access a column from a <code class="docutils literal notranslate"><span class
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 95;
+                var nbb_cell_id = 13;
                 var nbb_unformatted_code = "pregordr = preg[\"pregordr\"]\ntype(pregordr)";
                 var nbb_formatted_code = "pregordr = preg[\"pregordr\"]\ntype(pregordr)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1064,7 +1058,7 @@ Name: pregordr, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 96;
+                var nbb_cell_id = 14;
                 var nbb_unformatted_code = "pregordr.head()";
                 var nbb_formatted_code = "pregordr.head()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1155,7 +1149,7 @@ Here is the table for <code class="docutils literal notranslate"><span class="pr
   </tbody>
 </table></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 98;
+                var nbb_cell_id = 16;
                 var nbb_unformatted_code = "d = {\n    \"Value\": [1, 2, 3, 4, 5, 6, \"Total\"],\n    \"Label\": [\n        \"LIVE BIRTH\",\n        \"INDUCED ABORTION\",\n        \"STILLBIRTH\",\n        \"MISCARRIAGE\",\n        \"ECTOPIC PREGNANCY\",\n        \"CURRENT PREGNANCY\",\n        \"\",\n    ],\n    \"Total\": [9148, 1862, 120, 1921, 190, 352, 13593],\n}\n\nshow_table(d)";
                 var nbb_formatted_code = "d = {\n    \"Value\": [1, 2, 3, 4, 5, 6, \"Total\"],\n    \"Label\": [\n        \"LIVE BIRTH\",\n        \"INDUCED ABORTION\",\n        \"STILLBIRTH\",\n        \"MISCARRIAGE\",\n        \"ECTOPIC PREGNANCY\",\n        \"CURRENT PREGNANCY\",\n        \"\",\n    ],\n    \"Total\": [9148, 1862, 120, 1921, 190, 352, 13593],\n}\n\nshow_table(d)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1191,7 +1185,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 99;
+                var nbb_cell_id = 17;
                 var nbb_unformatted_code = "preg[\"outcome\"].value_counts().sort_index()";
                 var nbb_formatted_code = "preg[\"outcome\"].value_counts().sort_index()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1272,7 +1266,7 @@ Similarly, here is the published table for <code class="docutils literal notrans
   </tbody>
 </table></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 100;
+                var nbb_cell_id = 18;
                 var nbb_unformatted_code = "d = {\n    \"Value\": [\".\", \"0-5\", \"6\", \"7\", \"8\", \"9-95\", \"97\", \"98\", \"99\", \"Total\"],\n    \"Label\": [\n        \"inapplicable\",\n        \"UNDER 6 POUNDS\",\n        \"6 POUNDS\",\n        \"7 POUNDS\",\n        \"8 POUNDS\",\n        \"9 POUNDS OR MORE\",\n        \"Not ascertained\",\n        \"REFUSED\",\n        \"DON'T KNOW\",\n        \"\",\n    ],\n    \"Total\": [4449, 1125, 2223, 3049, 1889, 799, 1, 1, 57, 13593],\n}\n\nshow_table(d)";
                 var nbb_formatted_code = "d = {\n    \"Value\": [\".\", \"0-5\", \"6\", \"7\", \"8\", \"9-95\", \"97\", \"98\", \"99\", \"Total\"],\n    \"Label\": [\n        \"inapplicable\",\n        \"UNDER 6 POUNDS\",\n        \"6 POUNDS\",\n        \"7 POUNDS\",\n        \"8 POUNDS\",\n        \"9 POUNDS OR MORE\",\n        \"Not ascertained\",\n        \"REFUSED\",\n        \"DON'T KNOW\",\n        \"\",\n    ],\n    \"Total\": [4449, 1125, 2223, 3049, 1889, 799, 1, 1, 57, 13593],\n}\n\nshow_table(d)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1326,7 +1320,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 101;
+                var nbb_cell_id = 19;
                 var nbb_unformatted_code = "counts = preg[\"birthwgt_lb\"].value_counts(dropna=False).sort_index()\ncounts";
                 var nbb_formatted_code = "counts = preg[\"birthwgt_lb\"].value_counts(dropna=False).sort_index()\ncounts";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1364,7 +1358,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 84;
+                var nbb_cell_id = 20;
                 var nbb_unformatted_code = "counts.loc[0:5]";
                 var nbb_formatted_code = "counts.loc[0:5]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1392,7 +1386,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 85;
+                var nbb_cell_id = 21;
                 var nbb_unformatted_code = "counts.loc[0:5].sum()";
                 var nbb_formatted_code = "counts.loc[0:5].sum()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1422,7 +1416,7 @@ At the same time, we will also replace a value that is clearly wrong, 51 pounds.
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 103;
+                var nbb_cell_id = 22;
                 var nbb_unformatted_code = "preg[\"birthwgt_lb\"] = preg[\"birthwgt_lb\"].replace([51, 97, 98, 99], np.nan)";
                 var nbb_formatted_code = "preg[\"birthwgt_lb\"] = preg[\"birthwgt_lb\"].replace([51, 97, 98, 99], np.nan)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1459,7 +1453,7 @@ According to the codebook, it is an integer number of centiyears (hundredths of 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 104;
+                var nbb_cell_id = 23;
                 var nbb_unformatted_code = "preg[\"agepreg\"].mean()";
                 var nbb_formatted_code = "preg[\"agepreg\"].mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1488,7 +1482,7 @@ According to the codebook, it is an integer number of centiyears (hundredths of 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 105;
+                var nbb_cell_id = 24;
                 var nbb_unformatted_code = "preg[\"agepreg\"] /= 100.0\npreg[\"agepreg\"].mean()";
                 var nbb_formatted_code = "preg[\"agepreg\"] /= 100.0\npreg[\"agepreg\"].mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1540,7 +1534,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 106;
+                var nbb_cell_id = 25;
                 var nbb_unformatted_code = "preg[\"birthwgt_oz\"].value_counts(dropna=False).sort_index()";
                 var nbb_formatted_code = "preg[\"birthwgt_oz\"].value_counts(dropna=False).sort_index()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1564,7 +1558,7 @@ Name: count, dtype: int64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 107;
+                var nbb_cell_id = 26;
                 var nbb_unformatted_code = "preg[\"birthwgt_oz\"] = preg[\"birthwgt_oz\"].replace([97, 98, 99], np.nan)";
                 var nbb_formatted_code = "preg[\"birthwgt_oz\"] = preg[\"birthwgt_oz\"].replace([97, 98, 99], np.nan)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1593,7 +1587,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 108;
+                var nbb_cell_id = 27;
                 var nbb_unformatted_code = "preg[\"totalwgt_lb\"] = preg[\"birthwgt_lb\"] + preg[\"birthwgt_oz\"] / 16.0\npreg[\"totalwgt_lb\"].mean()";
                 var nbb_formatted_code = "preg[\"totalwgt_lb\"] = preg[\"birthwgt_lb\"] + preg[\"birthwgt_oz\"] / 16.0\npreg[\"totalwgt_lb\"].mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1629,7 +1623,7 @@ Examples include the count, mean, variance, and standard deviation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 29;
+                var nbb_cell_id = 28;
                 var nbb_unformatted_code = "weights = preg[\"totalwgt_lb\"]\nn = weights.count()\nn";
                 var nbb_formatted_code = "weights = preg[\"totalwgt_lb\"]\nn = weights.count()\nn";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1658,7 +1652,7 @@ Examples include the count, mean, variance, and standard deviation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 30;
+                var nbb_cell_id = 29;
                 var nbb_unformatted_code = "mean = weights.sum() / n\nmean";
                 var nbb_formatted_code = "mean = weights.sum() / n\nmean";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1686,7 +1680,7 @@ Examples include the count, mean, variance, and standard deviation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 31;
+                var nbb_cell_id = 30;
                 var nbb_unformatted_code = "weights.mean()";
                 var nbb_formatted_code = "weights.mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1713,7 +1707,7 @@ It is the mean of the squared deviations, which are the distances of each point 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 109;
+                var nbb_cell_id = 31;
                 var nbb_unformatted_code = "squared_deviations = (weights - mean) ** 2";
                 var nbb_formatted_code = "squared_deviations = (weights - mean) ** 2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1742,7 +1736,7 @@ It is the mean of the squared deviations, which are the distances of each point 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 110;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "var = squared_deviations.sum() / n\nvar";
                 var nbb_formatted_code = "var = squared_deviations.sum() / n\nvar";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1770,7 +1764,7 @@ It is the mean of the squared deviations, which are the distances of each point 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 111;
+                var nbb_cell_id = 33;
                 var nbb_unformatted_code = "weights.var()";
                 var nbb_formatted_code = "weights.var()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1801,7 +1795,7 @@ If you prefer the version with <code class="docutils literal notranslate"><span 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 35;
+                var nbb_cell_id = 34;
                 var nbb_unformatted_code = "weights.var(ddof=0)";
                 var nbb_formatted_code = "weights.var(ddof=0)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1833,7 +1827,7 @@ We can compute it like this.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 36;
+                var nbb_cell_id = 35;
                 var nbb_unformatted_code = "std = np.sqrt(var)\nstd";
                 var nbb_formatted_code = "std = np.sqrt(var)\nstd";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1861,7 +1855,7 @@ We can compute it like this.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 37;
+                var nbb_cell_id = 36;
                 var nbb_unformatted_code = "weights.std(ddof=0)";
                 var nbb_formatted_code = "weights.std(ddof=0)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1897,7 +1891,7 @@ The <code class="docutils literal notranslate"><span class="pre">query</span></c
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 38;
+                var nbb_cell_id = 37;
                 var nbb_unformatted_code = "subset = preg.query(\"caseid == 10229\")\nsubset.shape";
                 var nbb_formatted_code = "subset = preg.query(\"caseid == 10229\")\nsubset.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1916,26 +1910,19 @@ The <code class="docutils literal notranslate"><span class="pre">query</span></c
 This respondent reported seven pregnancies – here are their outcomes, which are recorded in chronological order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span><span class="p">[</span><span class="s2">&quot;outcome&quot;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span><span class="p">[</span><span class="s2">&quot;outcome&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11093    4
-11094    4
-11095    4
-11096    4
-11097    4
-11098    4
-11099    1
-Name: outcome, dtype: int64
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4, 4, 4, 4, 4, 4, 1])
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 39;
-                var nbb_unformatted_code = "subset[\"outcome\"]";
-                var nbb_formatted_code = "subset[\"outcome\"]";
+                var nbb_cell_id = 38;
+                var nbb_unformatted_code = "subset[\"outcome\"].values";
+                var nbb_formatted_code = "subset[\"outcome\"].values";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
