@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="533.33331"
-   height="320"
+   width="256.33044"
+   height="129.40311"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -18,17 +18,17 @@
    inkscape:export-filename="/home/downey/ThinkStats/figs/distribution_framework.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300"
-   viewBox="0 0 500 300">
+   viewBox="0 0 240.30981 121.31543">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="3.588193"
-     inkscape:cx="181.69137"
-     inkscape:cy="199.37878"
+     inkscape:cx="101.64498"
+     inkscape:cy="25.729088"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -36,7 +36,12 @@
      inkscape:window-height="1030"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1">
+     inkscape:window-maximized="1"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-right="5"
+     fit-margin-bottom="5"
+     showborder="false">
     <inkscape:grid
        spacingy="4"
        spacingx="4.0000002"
@@ -46,24 +51,25 @@
        empspacing="4"
        id="grid2818"
        type="xygrid"
-       originx="0"
-       originy="0" />
+       originx="-28.928711"
+       originy="-161.75152" />
   </sodipodi:namedview>
   <defs
      id="defs4">
     <marker
        inkscape:stockid="Arrow1Mend"
        orient="auto"
-       refY="0.0"
-       refX="0.0"
+       refY="0"
+       refX="0"
        id="marker1583"
-       style="overflow:visible;"
+       style="overflow:visible"
        inkscape:isstock="true">
       <path
          id="path1329"
-         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#006d2c;stroke-width:1pt;stroke-opacity:0.53333333;fill:#006d2c;fill-opacity:0.53333333"
-         transform="scale(0.4) rotate(180) translate(10,0)" />
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        inkscape:stockid="Arrow1Sstart"
@@ -109,59 +115,59 @@
     </marker>
     <inkscape:perspective
        id="perspective10"
-       inkscape:persp3d-origin="372.04725 : 350.78739 : 1"
-       inkscape:vp_z="744.09451 : 526.18109 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04727 : 350.78744 : 1"
+       inkscape:vp_z="744.09453 : 526.18117 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 526.18117 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-8" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-0" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-04" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-4" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-7" />
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
+       inkscape:vp_x="0 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
        id="perspective3604-9" />
     <marker
        style="overflow:visible"
@@ -179,10 +185,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4429"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -200,45 +206,45 @@
     </marker>
     <inkscape:perspective
        id="perspective4457"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4479"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4532"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4532-5"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4532-9"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4628"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -256,10 +262,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4656"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -277,10 +283,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4656-0"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -298,10 +304,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4697"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -319,10 +325,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4725"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -340,10 +346,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4725-0"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -361,17 +367,17 @@
     </marker>
     <inkscape:perspective
        id="perspective4766"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <inkscape:perspective
        id="perspective4821"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        style="overflow:visible"
@@ -417,10 +423,10 @@
     </marker>
     <inkscape:perspective
        id="perspective4967"
-       inkscape:persp3d-origin="0.50000002 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
+       inkscape:persp3d-origin="0.50000005 : 0.33333338 : 1"
+       inkscape:vp_z="0.99999999 : 0.50000008 : 1"
+       inkscape:vp_y="0 : 1000.0002 : 0"
+       inkscape:vp_x="0 : 0.50000008 : 1"
        sodipodi:type="inkscape:persp3d" />
     <marker
        inkscape:stockid="Arrow1SstartB"
@@ -490,7 +496,7 @@
          inkscape:connector-curvature="0"
          id="path1329-9"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -505,7 +511,7 @@
          inkscape:connector-curvature="0"
          id="path1329-5"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -520,7 +526,7 @@
          inkscape:connector-curvature="0"
          id="path1329-5-9"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -535,7 +541,7 @@
          inkscape:connector-curvature="0"
          id="path1329-9-6"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -550,7 +556,7 @@
          inkscape:connector-curvature="0"
          id="path1329-9-6-0"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -565,7 +571,7 @@
          inkscape:connector-curvature="0"
          id="path1329-9-6-4"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
     <marker
@@ -580,7 +586,7 @@
          inkscape:connector-curvature="0"
          id="path1329-9-6-4-1"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#006d2c;fill-opacity:0.53333333;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333333"
+         style="fill:#006d2c;fill-opacity:0.53333303;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.00000003pt;stroke-opacity:0.53333303"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
   </defs>
@@ -592,19 +598,18 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(0,-752.3622)"
+     transform="translate(-28.92871,-769.29529)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
     <g
        id="g1156"
-       transform="translate(43.125,7.5)"
-       style="">
+       transform="translate(43.125,7.5)">
       <rect
          ry="6.0000186"
          style="opacity:0.28048784;fill:#000000;fill-opacity:0.53333285;stroke:none;stroke-width:0.86602581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -648,8 +653,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#084488;fill-opacity:1" /></text>
     <g
        transform="translate(42.500001,-63.25)"
-       id="g1156-5"
-       style="">
+       id="g1156-5">
       <rect
          ry="6.0000186"
          style="opacity:0.28048784;fill:#000000;fill-opacity:0.53333285;stroke:none;stroke-width:0.86602581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -677,8 +681,7 @@
     </g>
     <g
        transform="translate(152.25,-63.000004)"
-       id="g1156-5-2"
-       style="">
+       id="g1156-5-2">
       <rect
          ry="6.0000186"
          style="opacity:0.28048784;fill:#000000;fill-opacity:0.53333285;stroke:none;stroke-width:0.86602581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -706,8 +709,7 @@
     </g>
     <g
        transform="translate(152.25,8.249996)"
-       id="g1156-5-8"
-       style="">
+       id="g1156-5-8">
       <rect
          ry="6.0000186"
          style="opacity:0.28048784;fill:#000000;fill-opacity:0.53333285;stroke:none;stroke-width:0.86602581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -787,49 +789,49 @@
          id="tspan4785-6-3"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;line-height:1.25;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#084488;fill-opacity:1;stroke-width:0.99999982" /></text>
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583)"
        d="m 209,849.8622 c -12.04416,-10.10071 -9.20881,-22.54782 0,-35.99999"
        id="path1318-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-1)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-1)"
        d="m 98.125,850.3622 c -12.04416,-10.10071 -9.20881,-22.54782 0,-35.99999"
        id="path1318-4-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-2)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-2)"
        d="m 108.4453,812.94686 c 12.04416,10.10071 9.20881,22.54782 0,35.99999"
        id="path1318-4-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749982;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-2-4)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:0.93749982;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-2-4)"
        d="m 219.0703,813.44686 c 12.04416,10.10071 9.20881,22.54782 0,35.99999"
        id="path1318-4-4-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-1-3)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-1-3)"
        d="m 135.8725,793.73971 c 11.78487,-12.04416 26.30737,-9.20881 42.00251,0"
        id="path1318-4-6-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-1-3-5)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-1-3-5)"
        d="m 135.6225,864.73971 c 11.78487,-12.04416 26.30737,-9.20881 42.00251,0"
        id="path1318-4-6-0-2"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-1-3-9)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-1-3-9)"
        d="m 179.23432,799.36361 c -11.78487,12.04416 -26.30737,9.20881 -42.00251,0"
        id="path1318-4-6-0-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333336;marker-end:url(#marker1583-1-3-9-5)"
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#006d2c;stroke-width:1.01264596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.53333285;marker-end:url(#marker1583-1-3-9-5)"
        d="m 179.73432,870.86361 c -11.78487,12.04415 -26.30737,9.2088 -42.00251,0"
        id="path1318-4-6-0-3-7"
        inkscape:connector-curvature="0"
@@ -858,7 +860,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749994px">diff</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25000012px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93749994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93749994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="147.62502"
        y="853.98718"
        id="text6048-33"><tspan
@@ -866,7 +868,7 @@
          id="tspan6046-3"
          x="147.62502"
          y="853.98718"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25000012px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749994px;">KDE</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749994px">KDE</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93749994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -913,7 +915,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749988px">discretize</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25000012px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93749982px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.93749982px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="137.75002"
        y="782.73718"
        id="text6048-33-9-6"><tspan
@@ -921,6 +923,6 @@
          id="tspan6046-3-0-8"
          x="137.75002"
          y="782.73718"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25000012px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749982px;">interpolate</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.25px;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#006d2c;fill-opacity:1;stroke-width:0.93749982px">interpolate</tspan></text>
   </g>
 </svg>
