@@ -369,7 +369,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-functions">13.1. Survival Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-function">13.2. Hazard Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marriage-data">13.3. Marriage Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-resampling">13.4. Weighted Resampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-bootstrap">13.4. Weighted Bootstrap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-survival-functions">13.5. Estimating Survival Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-survival-function">13.6. Estimating the Survival Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lifelines">13.7. Lifelines</a></li>
@@ -729,7 +729,7 @@ For example, 78% of the bulbs expire at or before 1656 hours.</p>
             }, 500);
             </script></div>
 </div>
-<p>The survival function is fraction of bulbs that expire <em>after</em> each value of <code class="docutils literal notranslate"><span class="pre">h</span></code>, which is the complement of the CDF.
+<p>The survival function is the fraction of bulbs that expire <em>after</em> each value of <code class="docutils literal notranslate"><span class="pre">h</span></code>, which is the complement of the CDF.
 So we can compute it like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1277,18 +1277,19 @@ The <code class="docutils literal notranslate"><span class="pre">dropna=False</s
 However, we should not interpret these results yet, because they are not correct.
 There are two problems we have to address:</p>
 <ul class="simple">
-<li><p>As discussed in Section XXX, the NSFG uses stratified sampling, which means that it deliberately oversamples some groups.</p></li>
+<li><p>As discussed in Section &lt;&lt;section_nsfg&gt;&gt;, the NSFG uses stratified sampling, which means that it deliberately oversamples some groups.</p></li>
 <li><p>Also, this way of computing the survival function does not properly take into account people who are not married yet.</p></li>
 </ul>
-<p>For the first problem, we have already seen a solution, weighted resampling.
-For the second problem, we will need a new method, Kaplan-Meier estimation.
+<p>For the first problem, we’ll use a kind of resampling called a weighted bootstrap.
+For the second problem, we will need a method called Kaplan-Meier estimation.
 We’ll start with resampling.</p>
 </section>
-<section id="weighted-resampling">
-<h2><span class="section-number">13.4. </span>Weighted Resampling<a class="headerlink" href="#weighted-resampling" title="Link to this heading">#</a></h2>
+<section id="weighted-bootstrap">
+<h2><span class="section-number">13.4. </span>Weighted Bootstrap<a class="headerlink" href="#weighted-bootstrap" title="Link to this heading">#</a></h2>
 <p>The NSFG dataset includes a column called <code class="docutils literal notranslate"><span class="pre">finalwgt</span></code> that contains each respondent’s sampling weight, which is the number of people in the population they represent.
 We can use these weights during the resampling process to correct for stratified sampling.
-Here’s the function from Section XXX that does it.</p>
+The following function takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and the name of the column that contains the sampling weights.
+It resamples the rows of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, taking the sampling weights into account, and returns a new <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample_rows_weighted</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;finalwgt&quot;</span><span class="p">):</span>
@@ -3057,7 +3058,7 @@ After about age 5, life expectancy returns to the pattern we expect – young pe
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#survival-functions">13.1. Survival Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hazard-function">13.2. Hazard Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marriage-data">13.3. Marriage Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-resampling">13.4. Weighted Resampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-bootstrap">13.4. Weighted Bootstrap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-survival-functions">13.5. Estimating Survival Functions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-survival-function">13.6. Estimating the Survival Function</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lifelines">13.7. Lifelines</a></li>

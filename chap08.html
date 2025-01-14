@@ -403,7 +403,7 @@ In theory, you could ask everyone in town who they plan to vote for, and if they
 Fortunately, is it not necessary.
 If you survey a random subset of the people, you can use the sample to infer the voting preferences of the population.
 This process – using a sample to make inferences about a population – is called statistical inference.</p>
-<p>Two steps of statistical inference are estimation, which is the topic of this chapter, and hypothesis testing, which is the topic of the next chapter.</p>
+<p>Statistical inference includes estimation, which is the topic of this chapter, and hypothesis testing, which is the topic of the next chapter.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap08.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -1388,7 +1388,7 @@ The following function computes the biased estimator, which is the sum of the sq
             }, 500);
             </script></div>
 </div>
-<p>The average of the unbiased sample variances is very close to the actual value – which confirms that it is unbiased.</p>
+<p>The average of the unbiased sample variances is very close to the actual value – which is what we expect if it is unbiased.</p>
 <p>With sample size 10, the difference between the biased and unbiased estimators is about 10%, which might be non-negligible.
 With sample size 100, the difference is only 1%, which is small enough that is probably doesn’t matter in practice.</p>
 <div class="cell tag_remove-print docutils container">
@@ -1670,13 +1670,14 @@ But if we knew the actual population mean, we wouldn’t have to estimate it!</p
 The core idea is to use the sample to make a model of the population, then use the model to simulate the sampling process.</p>
 <p>More specifically, we’ll use <strong>bootstrap resampling</strong>, which works by treating the sample as if it is the entire population, and drawing new samples from it.
 Even more specifically, we’ll use <strong>parametric</strong> bootstrap resampling, which means we’ll use the sample to estimate the parameters of the population – the mean and standard deviation – and then use a normal distribution to generate new samples.</p>
-<p>The following function implements this process.</p>
+<p>The following function implements this process.
+Notice that the new samples have the same size as the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a sample from a normal distribution.&quot;&quot;&quot;</span>
-    <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+    <span class="c1"># Generate a sample from a normal distribution</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1900,7 +1901,7 @@ The sample mean for Adélie penguins is about 3.7 kg.</p>
             }, 500);
             </script></div>
 </div>
-<p>The sample distribution for Adélie penguins is narrower because the sample size is bigger. And the standard error is smaller, too.</p>
+<p>The sampling distribution for Adélie penguins is narrower because the sample size is bigger. And the standard error is smaller, too.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standard_error2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample_means2</span><span class="p">)</span>
@@ -1994,7 +1995,7 @@ The sample mean for Adélie penguins is about 3.7 kg.</p>
 Standard error tells you how precise an estimate is.
 They are answers to different questions.</p>
 <p>However, there is a relationship between them.
-If we know the standard deviation and sample size, we can approximate the standard error like this:</p>
+If we know the standard deviation and sample size, we can approximate the standard error of the mean like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">approximate_standard_error</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>

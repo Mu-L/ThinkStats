@@ -373,9 +373,9 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">1.7. Interpretation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">1.8. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">1.9. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">1.9.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.9.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.9.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-1">1.9.1. Exercise 1.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-2">1.9.2. Exercise 1.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-3">1.9.3. Exercise 1.3</a></li>
 </ul>
 </li>
 </ul>
@@ -575,7 +575,7 @@ By those standards, anecdotal evidence usually fails, because:</p>
 <p>By performing these steps with care to avoid pitfalls, we can reach conclusions that are more justified and more likely to be correct.</p>
 </section>
 <section id="the-national-survey-of-family-growth">
-<h2><span class="section-number">1.2. </span>The National Survey of Family Growth<a class="headerlink" href="#the-national-survey-of-family-growth" title="Link to this heading">#</a></h2>
+<span id="section-nsfg"></span><h2><span class="section-number">1.2. </span>The National Survey of Family Growth<a class="headerlink" href="#the-national-survey-of-family-growth" title="Link to this heading">#</a></h2>
 <p>Since 1973 the U.S. Centers for Disease Control and Prevention (CDC) have conducted the National Survey of Family Growth (NSFG), which is intended to gather “information on family life, marriage and divorce, pregnancy, infertility, use of contraception, and men’s and women’s health. The survey results are used…to plan health services and health education programs, and to do statistical studies of families, fertility, and health.”</p>
 <p>You can read more about the NSFG at <a class="reference external" href="http://cdc.gov/nchs/nsfg.htm">http://cdc.gov/nchs/nsfg.htm</a>.</p>
 <p>We will use data collected by this survey to investigate whether first babies tend to come late, and other questions.
@@ -588,10 +588,10 @@ We will use data from Cycle 6, which was conducted from January 2002 to March 20
 Ideally surveys would collect data from every member of the population, but that’s seldom possible.
 Instead we collect data from a subset of the population called a <strong>sample</strong>.
 The people who participate in a survey are called <strong>respondents</strong>.</p>
-<p>In general, cross-sectional studies are meant to be <strong>representative</strong>, which means that every member of the target population has an equal chance of participating.
+<p>In general, cross-sectional studies are meant to be <strong>representative</strong>, which means that the sample is similar to the target population in all ways that are important for the purposes of the study.
 That ideal is hard to achieve in practice, but people who conduct surveys come as close as they can.</p>
-<p>The NSFG is not representative; instead it is deliberately <strong>oversampled</strong>.
-The designers of the study recruited three groups – Hispanics, African-Americans and teenagers – at rates higher than their representation in the U.S. population, in order to make sure that the number of respondents in each of these groups is large enough to draw valid statistical inferences.</p>
+<p>The NSFG is not representative; instead it is <strong>stratified</strong>, which means that it deliberately <strong>oversamples</strong> some groups.
+The designers of the study recruited three groups – Hispanics, African-Americans and teenagers – at rates higher than their representation in the U.S. population, in order to make sure that the number of respondents in each of these groups is large enough to draw valid conclusions.</p>
 <p>The drawback of oversampling is that it is not as easy to draw conclusions about the general population based on statistics from the survey.
 We will come back to this point later.</p>
 <p>When working with this kind of data, it is important to be familiar with the <strong>codebook</strong>, which documents the design of the study, the survey questions, and the encoding of the responses.</p>
@@ -1957,7 +1957,8 @@ At the same time, we have an obligation to consider the people represented by th
 <li><p><strong>population:</strong> The entire group of individuals or items that is the subject of a study.</p></li>
 <li><p><strong>sample:</strong> A subset of a population, often chosen at random.</p></li>
 <li><p><strong>respondents:</strong> People who participate in a survey and respond to questions.</p></li>
-<li><p><strong>representative:</strong> A sample is representative if it accurately reflects the characteristics of the population.</p></li>
+<li><p><strong>representative:</strong> A sample is representative if it is similar to the population in ways that are important for the purposes of the study.</p></li>
+<li><p><strong>stratified:</strong> A sample is stratified if it deliberately oversamples some groups, usually to make sure that enough members are included to support valid conclusions.</p></li>
 <li><p><strong>oversampled:</strong> A subset of the population is oversampled if its members have a higher chance of appearing in a sample.</p></li>
 <li><p><strong>codebook:</strong> A document that describes the variables in a dataset, and provides other information about the data.</p></li>
 <li><p><strong>recode:</strong> A variable that is computed based on other variables in a dataset.</p></li>
@@ -1970,17 +1971,17 @@ At the same time, we have an obligation to consider the people represented by th
 <section id="exercises">
 <h2><span class="section-number">1.9. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <p>The exercises are based on the NSFG pregnancy file.</p>
-<section id="exercise">
-<h3><span class="section-number">1.9.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<section id="exercise-1-1">
+<h3><span class="section-number">1.9.1. </span>Exercise 1.1<a class="headerlink" href="#exercise-1-1" title="Link to this heading">#</a></h3>
 <p>Select the <code class="docutils literal notranslate"><span class="pre">birthord</span></code> column from <code class="docutils literal notranslate"><span class="pre">preg</span></code>, print the value counts, and compare to results published in the  codebook at <a class="reference external" href="https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NSFG/Cycle6Codebook-Pregnancy.pdf">https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NSFG/Cycle6Codebook-Pregnancy.pdf</a>.</p>
 </section>
-<section id="id1">
-<h3><span class="section-number">1.9.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="exercise-1-2">
+<h3><span class="section-number">1.9.2. </span>Exercise 1.2<a class="headerlink" href="#exercise-1-2" title="Link to this heading">#</a></h3>
 <p>Create a new column named <code class="docutils literal notranslate"><span class="pre">totalwgt_kg</span></code> that contains birth weight in kilograms (there are approximately 2.2 pounds per kilogram).
 Compute the mean and standard deviation of the new column.</p>
 </section>
-<section id="id2">
-<h3><span class="section-number">1.9.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="exercise-1-3">
+<h3><span class="section-number">1.9.3. </span>Exercise 1.3<a class="headerlink" href="#exercise-1-3" title="Link to this heading">#</a></h3>
 <p>What are the pregnancy lengths for the respondent with <code class="docutils literal notranslate"><span class="pre">caseid</span></code> 2298?</p>
 <p>What was the birth weight of the first baby born to the respondent with <code class="docutils literal notranslate"><span class="pre">caseid</span></code> 5013?
 Hint: You can use <code class="docutils literal notranslate"><span class="pre">and</span></code> to check more than one condition in a query.</p>
@@ -2065,9 +2066,9 @@ Hint: You can use <code class="docutils literal notranslate"><span class="pre">a
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">1.7. Interpretation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">1.8. Glossary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">1.9. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">1.9.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1.9.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.9.3. Exercise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-1">1.9.1. Exercise 1.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-2">1.9.2. Exercise 1.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-3">1.9.3. Exercise 1.3</a></li>
 </ul>
 </li>
 </ul>

@@ -997,7 +997,7 @@ The p-value for <code class="docutils literal notranslate"><span class="pre">fli
 <p>The p-value is very small, which means that if there were actually no relationship between weight and flipper length, it is very unlikely we would see a slope as big as the estimated value by chance.</p>
 <p>The last two columns, labeled <code class="docutils literal notranslate"><span class="pre">[0.025</span></code> and <code class="docutils literal notranslate"><span class="pre">0.975]</span></code>, report 95% confidence intervals for the intercept and slope.
 So the 95% CI for the slope is [22.8, 42.9].</p>
-<p>The last line reports the <span class="math notranslate nohighlight">\(R^2\)</span> value of the model, which is about 0.22 – that means we can reduce MSE by about 22% if we use flipper length to predict weight.</p>
+<p>The last line reports the <span class="math notranslate nohighlight">\(R^2\)</span> value of the model, which is about 0.22 – that means we can reduce MSE by about 22% if we use flipper length to predict weight, compared to using only the average weight.</p>
 <p>The <span class="math notranslate nohighlight">\(R^2\)</span> value we get from simple correlation is the square of the correlation coefficient, <span class="math notranslate nohighlight">\(r\)</span>.
 So we can compare <code class="docutils literal notranslate"><span class="pre">rsquared</span></code> computed by <code class="docutils literal notranslate"><span class="pre">ols</span></code> with the square of the <code class="docutils literal notranslate"><span class="pre">rvalue</span></code> computed by <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
@@ -2145,7 +2145,7 @@ For example:</p>
 <p>We won’t cover all of them in this book – just <strong>logistic regression</strong>, which is the most widely used.
 As an example, we’ll use the penguin dataset again, and see if we can tell whether a penguin is male or female, based on its weight and other measurements.</p>
 <p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides a function that does logistic regression – it’s called <code class="docutils literal notranslate"><span class="pre">logit</span></code> because that’s the name of a mathematical function that appears in the definition of logistic regression.
-Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the dependent variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and `1’.</p>
+Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the dependent variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;MALE&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -2381,7 +2381,7 @@ Here’s what the predicted values look like.</p>
 </div>
 <p>The pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value of this model is 0.662, higher than the previous model (0.526) – so the additional measurements contain additional information that distinguishes male and female penguins.</p>
 <p>The p-values for culmen length and depth are small, which indicates that they contribute more information than we expect by chance.
-The p-value for flipper length is large, which suggests that if you know a penguin’s weight a bill dimensions, flipper length doesn’t contribute any additional information.</p>
+The p-value for flipper length is large, which suggests that if you know a penguin’s weight and bill dimensions, flipper length doesn’t contribute additional information.</p>
 <p>To understand this model, let’s look at some of its predictions.
 We’ll use the following function, which takes a sequence of masses and a specific value for <code class="docutils literal notranslate"><span class="pre">culmen_length</span></code>.
 It sets the other measurements to their mean values, computes predicted probabilities as a function of mass, and plots the results.</p>

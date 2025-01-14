@@ -1118,8 +1118,8 @@ To find the mode, we can use the method <code class="docutils literal notranslat
             }, 500);
             </script></div>
 </div>
-<p>In theory we expect this distribution to be <strong>uniform</strong> – that is, all quantities should have the same frequency.
-In fact, 0 is more common than the other quantities, and 1 and 15 are less common, probably because respondents round off birth weights that are close to a whole number of pounds.</p>
+<p>Because nature doesn’t know about pounds and ounces, we might expect all values of <code class="docutils literal notranslate"><span class="pre">birthwgt_oz</span></code> to be equally likely – that is, this distribution should be <strong>uniform</strong>.
+But it looks like <code class="docutils literal notranslate"><span class="pre">0</span></code> is more common than the other quantities, and <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">15</span></code> are less common, which suggests that respondents round off birth weights that are close to a whole number of pounds.</p>
 <p>As another example, let’s look at the histogram of <code class="docutils literal notranslate"><span class="pre">agepreg</span></code>, which is the mother’s age at the end of pregnancy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1826,7 +1826,7 @@ To put that in perspective, the difference in height between men and women is ab
 How should we report these results?</p>
 <p>The answer depends on who is asking the question.
 A scientist might be interested in any (real) effect, no matter how small.
-A doctor might only care about effects that are <strong>clinically significant</strong> – that is, differences that affect treatment decisions.
+A doctor might only care about effects that are <strong>practically significant</strong> – that is, differences that affect treatment decisions.
 A pregnant woman might be interested in results that are relevant to her, like the probability of delivering early or late.</p>
 <p>How you report results also depends on your goals.
 If you are trying to demonstrate the importance of an effect, you might choose summary statistics that emphasize differences.
@@ -1848,7 +1848,7 @@ But you should also do your best to make your reports honest, and to acknowledge
 <li><p><strong>standardized:</strong> A statistic is standardized if it is expressed in terms that are comparable across different datasets and domains.</p></li>
 <li><p><strong>pooled standard deviation:</strong> A statistic that combines data from two or more groups to compute a common standard deviation.</p></li>
 <li><p><strong>Cohen’s effect size:</strong> A standardized statistic that quantifies the difference in the means of two groups.</p></li>
-<li><p><strong>clinically significant:</strong> An effect is clinically significant if it is big enough to matter in practice.</p></li>
+<li><p><strong>practically significant:</strong> An effect is practically significant if it is big enough to matter in practice.</p></li>
 </ul>
 </section>
 <section id="exercises">
