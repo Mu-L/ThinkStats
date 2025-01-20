@@ -15,6 +15,10 @@ This book is available under a Creative Commons license, which means that you ar
 
 ## The notebooks
 
+**Introduction to Jupyter**:
+
+* If you are not familiar with running Jupyter notebooks on Colab, you might want to [start with this introduction](https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/jupyter_intro.ipynb)
+
 **Chapter 1**:
 
 * [Click here to run Chapter 1 on Colab](https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap01.ipynb)
