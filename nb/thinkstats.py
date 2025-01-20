@@ -26,7 +26,11 @@ from statsmodels.iolib.table import SimpleTable
 # The following are magic commands from thinkpython.py
 
 from IPython.core.magic import register_cell_magic
-from IPython.core.magic_arguments import argument, magic_arguments, parse_argstring
+from IPython.core.magic_arguments import (
+    argument,
+    magic_arguments,
+    parse_argstring,
+)
 
 
 def extract_function_name(text):
@@ -81,18 +85,17 @@ def add_method_to(args, cell):
     if old_func is not None:
         namespace[func_name] = old_func
 
-    
+
 @register_cell_magic
 def expect_error(line, cell):
     try:
         get_ipython().run_cell(cell)
     except Exception as e:
-        get_ipython().run_cell('%tb')
-
+        get_ipython().run_cell("%tb")
 
 
 @magic_arguments()
-@argument('exception', help='Type of exception to catch')
+@argument("exception", help="Type of exception to catch")
 @register_cell_magic
 def expect(line, cell):
     args = parse_argstring(expect, line)
@@ -101,40 +104,43 @@ def expect(line, cell):
         get_ipython().run_cell(cell)
     except exception as e:
         get_ipython().run_cell("%tb")
-        
+
 
 # Make the figures smaller to save some screen real estate.
 # The figures generated for the book have DPI 400, so scaling
 # them by a factor of 4 restores them to the size in the notebooks.
-plt.rcParams['figure.dpi'] = 75
-plt.rcParams['figure.figsize'] = [6, 3.5]
+plt.rcParams["figure.dpi"] = 75
+plt.rcParams["figure.figsize"] = [6, 3.5]
+
 
 def remove_spines():
     """Remove the spines of a plot but keep the ticks visible."""
     ax = plt.gca()
     for spine in ax.spines.values():
         spine.set_visible(False)
-    
+
     # Ensure ticks stay visible
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position("bottom")
+    ax.yaxis.set_ticks_position("left")
 
 
-def value_counts(series, **options):
+def value_counts(seq, **options):
     """Counts the values in a series and returns sorted.
 
-    series: pd.Series
+    seq: sequence
+    options: passed to pd.Series.value_counts
 
     returns: pd.Series
     """
     options = underride(options, dropna=False)
-    return series.value_counts(**options).sort_index()
+    return pd.Series(seq).value_counts(**options).sort_index()
 
 
 ## Chapter 1
-        
+
 
 ## Chapter 2
+
 
 def two_bar_plots(dist1, dist2, width=0.45, xlabel="", **options):
     """Makes two back-to-back bar plots.
@@ -170,10 +176,12 @@ def cohen_effect_size(group1, group2):
 ## Chapter 3
 
 
-
 ## Chapter 5
 
-def read_brfss(filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None):
+
+def read_brfss(
+    filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None
+):
     """Reads the BRFSS data.
 
     filename: string
@@ -182,7 +190,7 @@ def read_brfss(filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None):
 
     returns: DataFrame
     """
-    # column names and column specs from 
+    # column names and column specs from
     # https://www.cdc.gov/brfss/annual_data/2008/varLayout_table_08.htm
     var_info = [
         ("age", 100, 102, int),
@@ -198,11 +206,13 @@ def read_brfss(filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None):
     colspecs = variables[["start", "end"]].values.tolist()
     names = variables["name"].tolist()
 
-    df = pd.read_fwf(filename,
-                     colspecs=colspecs,
-                     names=names,
-                     compression=compression,
-                     nrows=nrows)
+    df = pd.read_fwf(
+        filename,
+        colspecs=colspecs,
+        names=names,
+        compression=compression,
+        nrows=nrows,
+    )
 
     clean_brfss(df)
     return df
@@ -217,7 +227,10 @@ def clean_brfss(df):
     df["htm3"] = df["htm3"].replace([999], np.nan)
     df["wtkg2"] = df["wtkg2"].replace([99999], np.nan) / 100
     df["wtyrago"] = df.wtyrago.replace([7777, 9999], np.nan)
-    df["wtyrago"] = df.wtyrago.apply(lambda x: x / 2.2 if x < 9000 else x - 9000)
+    df["wtyrago"] = df.wtyrago.apply(
+        lambda x: x / 2.2 if x < 9000 else x - 9000
+    )
+
 
 from scipy.special import comb
 
@@ -253,7 +266,7 @@ def exponential_cdf(x, lam):
 
     x: float or sequence of floats
     lam: rate parameter
-    
+
     returns: float or NumPy array of cumulative probability
     """
     return 1 - np.exp(-lam * x)
@@ -284,7 +297,9 @@ def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
 
     decorate(xlabel=xlabel, ylabel="CDF")
 
+
 # Chapter 6
+
 
 def normal_pdf(xs, mu, sigma):
     """Evaluates the normal probability density function.
@@ -320,11 +335,11 @@ class Density:
         """Evaluates this Density at qs.
 
         qs: float or sequence of floats
-        
+
         returns: float or NumPy array of probability density
         """
         return self.density_func(qs)
-    
+
     def plot(self, qs=None, **options):
         """Plots this Density.
 
@@ -364,7 +379,7 @@ class Pdf(Density):
 
 def area_under(pdf, low, high):
     """Find the area under a PDF.
-    
+
     pdf: Pdf object
     low: low end of the interval
     high: high end of the interval
@@ -394,7 +409,7 @@ class ContinuousCdf(Density):
         underride(options, name=self.name)
         cdf = Cdf(ps, qs, **options)
         return cdf
-    
+
 
 class NormalPdf(Pdf):
     """Represents the PDF of a Normal distribution."""
@@ -415,7 +430,9 @@ class NormalPdf(Pdf):
 
     def __repr__(self):
         """Returns a string representation."""
-        return f"NormalPdf({self.mu}, {self.sigma}, name='{self.name}')"
+        return (
+            f"NormalPdf({self.mu}, {self.sigma}, name='{self.name}')"
+        )
 
     def __call__(self, qs):
         """Evaluates this PDF at qs.
@@ -446,8 +463,10 @@ class NormalCdf(ContinuousCdf):
 
     def __repr__(self):
         """Returns a string representation."""
-        return f"NormalCdf({self.mu}, {self.sigma}, name='{self.name}')"
-    
+        return (
+            f"NormalCdf({self.mu}, {self.sigma}, name='{self.name}')"
+        )
+
     def __call__(self, qs):
         """Evaluates this CDF at qs.
 
@@ -456,7 +475,7 @@ class NormalCdf(ContinuousCdf):
         returns: float or NumPy array of cumulative probability
         """
         return norm.cdf(qs, self.mu, self.sigma)
-    
+
 
 def exponential_pdf(x, lam):
     """Evaluates the exponential PDF.
@@ -487,7 +506,7 @@ class ExponentialPdf(Pdf):
     def __repr__(self):
         """Returns a string representation."""
         return f"ExponentialPdf({self.lam}, name='{self.name}')"
-    
+
     def __call__(self, qs):
         """Evaluates this PDF at qs.
 
@@ -496,7 +515,7 @@ class ExponentialPdf(Pdf):
         returns: float or NumPy array of probability density
         """
         return exponential_pdf(qs, self.lam)
-    
+
 
 class ExponentialCdf(ContinuousCdf):
     """Represents the CDF of an exponential distribution."""
@@ -516,7 +535,7 @@ class ExponentialCdf(ContinuousCdf):
     def __repr__(self):
         """Returns a string representation."""
         return f"ExponentialCdf({self.lam}, name='{self.name}')"
-    
+
     def __call__(self, qs):
         """Evaluates this CDF at qs.
 
@@ -536,11 +555,14 @@ def read_baby_boom(filename="babyboom.dat"):
     """
     colspecs = [(1, 8), (9, 16), (17, 24), (25, 32)]
     column_names = ["time", "sex", "weight_g", "minutes"]
-    df = pd.read_fwf(filename, colspecs=colspecs, names=column_names, skiprows=59)
+    df = pd.read_fwf(
+        filename, colspecs=colspecs, names=column_names, skiprows=59
+    )
     return df
 
 
 ## Chapter 7
+
 
 def jitter(seq, std=1):
     """Jitters the values by adding random Gaussian noise.
@@ -552,6 +574,7 @@ def jitter(seq, std=1):
     """
     n = len(seq)
     return np.random.normal(0, std, n) + seq
+
 
 def standardize(xs):
     """Standardizes a sequence of numbers.
@@ -565,9 +588,10 @@ def standardize(xs):
 
 ## Chapter 8
 
+
 def plot_kde(sample, name="", **options):
     """Plot an estimated PDF."""
-    
+
     kde = gaussian_kde(sample)
     m, s = np.mean(sample), np.std(sample)
     plt.axvline(m, ls=":", color="0.3")
@@ -579,13 +603,14 @@ def plot_kde(sample, name="", **options):
 
 ## Chapter 9
 
+
 def make_pmf(sample, low, high):
     """Make a PMF based on KDE.
-    
+
     sample: sequence of values
     low: low end of the range
     high: high end of the range
-    
+
     returns: Pmf
     """
     kde = gaussian_kde(sample)
@@ -593,13 +618,13 @@ def make_pmf(sample, low, high):
     ps = kde(qs)
     return Pmf(ps, qs)
 
-## Chapter 10
 
+## Chapter 10
 
 
 def display_summary(result):
     """Prints summary statistics from a regression model.
-    
+
     result: RegressionResults object
     """
     params = result.summary().tables[1]
@@ -610,13 +635,13 @@ def display_summary(result):
     elif hasattr(result, "prsquared"):
         row = ["Pseudo R-squared:", f"{result.prsquared:0.4}"]
     else:
-        return   
+        return
     table = SimpleTable([row])
     display(table)
 
 
-
 ## Chapter 13
+
 
 def estimate_hazard(complete, ongoing):
     """Estimates the hazard function.
@@ -634,15 +659,19 @@ def estimate_hazard(complete, ongoing):
 
     ts = pd.Index.union(hist_complete.index, hist_ongoing.index)
 
-    at_risk = hist_complete(ts) + hist_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)
+    at_risk = (
+        hist_complete(ts)
+        + hist_ongoing(ts)
+        + surv_complete(ts)
+        + surv_ongoing(ts)
+    )
 
     hs = hist_complete(ts) / at_risk
 
     return Hazard(hs, ts)
 
+
 ## unassigned
-
-
 
 
 def scatter(df, var1, var2, jitter_std=None, **options):
@@ -686,7 +715,7 @@ def decile_plot(df, var1, var2, **options):
     xs = df_groupby[var1].median()
 
     plt.fill_between(xs, low, high, alpha=0.2)
-    underride(options, color="C0", label='median')
+    underride(options, color="C0", label="median")
     plt.plot(xs, median, **options)
 
 
@@ -720,11 +749,9 @@ def rankcorr(df, var1, var2):
     return np.corrcoef(xs, ys)[0, 1]
 
 
-
-
 def make_correlated_scatter(xs, ys, rho, **options):
     """Makes a scatter plot with given correlation.
-    
+
     xs: sequence of values
     ys: sequence of values
     rho: target correlation
@@ -740,7 +767,10 @@ def make_correlated_scatter(xs, ys, rho, **options):
 def add_rho(rho):
     """Adds a label to a figure to indicate the correlation."""
     ax = plt.gca()
-    plt.text(0.5, 0.05, f"ρ = {rho}",
+    plt.text(
+        0.5,
+        0.05,
+        f"ρ = {rho}",
         fontsize="x-large",
         transform=ax.transAxes,
         ha="center",
@@ -793,6 +823,7 @@ def cov(xs, ys):
     cov = np.mean(dx * dy)
     return cov
 
+
 def corr(xs, ys):
     """Correlation coefficient for two variables.
 
@@ -809,6 +840,7 @@ def corr(xs, ys):
 
 ## Chapter 12
 
+
 def percentile_rows(row_seq, percentiles):
     """Generates a sequence of percentiles from a sequence of rows.
 
@@ -822,12 +854,6 @@ def percentile_rows(row_seq, percentiles):
 
 
 ## Chapter 14
-
-
-
-
-
-
 
 
 def predict(xs, inter, slope):
@@ -910,9 +936,6 @@ def confidence_interval(cdf, percent=90):
     return cdf.inverse([alpha / 2, 1 - alpha / 2])
 
 
-
-
-
 class Interpolator(object):
     """Represents a mapping between sorted sequences; performs linear interp.
 
@@ -957,7 +980,6 @@ def make_uniform_pmf(low, high, n):
         pmf.set(x, 1)
     pmf.normalize()
     return pmf
-
 
 
 def resample(xs, n=None):
@@ -1056,7 +1078,11 @@ class Normal:
     def __repr__(self):
         """Returns a string representation."""
         if self.label:
-            return "Normal(%g, %g, %s)" % (self.mu, self.sigma2, self.label)
+            return "Normal(%g, %g, %s)" % (
+                self.mu,
+                self.sigma2,
+                self.label,
+            )
         else:
             return "Normal(%g, %g)" % (self.mu, self.sigma2)
 
@@ -1075,7 +1101,9 @@ class Normal:
         returns: new Normal
         """
         if isinstance(other, Normal):
-            return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)
+            return Normal(
+                self.mu + other.mu, self.sigma2 + other.sigma2
+            )
         else:
             return Normal(self.mu + other, self.sigma2)
 
@@ -1099,7 +1127,9 @@ class Normal:
         returns: new Normal
         """
         if isinstance(other, Normal):
-            return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)
+            return Normal(
+                self.mu - other.mu, self.sigma2 + other.sigma2
+            )
         else:
             return Normal(self.mu - other, self.sigma2)
 
@@ -1164,7 +1194,7 @@ class Normal:
 
         returns: float or array
         """
-        return scipy.stats.norm.ppf(p/100, self.mu, self.sigma)
+        return scipy.stats.norm.ppf(p / 100, self.mu, self.sigma)
 
 
 def student_cdf(n):
@@ -1190,8 +1220,6 @@ def chi_squared_cdf(n):
     xs = np.linspace(0, 25, 101)
     ps = scipy.stats.chi2.cdf(xs, df=n - 1)
     return Cdf(ps, xs)
-
-
 
 
 ##  Plotting functions
