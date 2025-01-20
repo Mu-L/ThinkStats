@@ -393,10 +393,10 @@ document.write(`
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="regression">
 <h1><span class="section-number">11. </span>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h1>
-<p>The linear least squares fit in the previous chapter is an example of <strong>regression</strong>, which is the more general problem of modeling the relationship between one set of variables, called <strong>dependent variables</strong> or outcomes, and another set of variables, called <strong>independent variables</strong> or predictors.</p>
-<p>In the examples in the previous chapter, there is only one dependent and one explanatory variable, which is called <strong>simple regression</strong>.
-In this chapter, we move on to <strong>multiple regression</strong>, with more than one explanatory variable, but still only one dependent variable.
-If there is more than one dependent variable, that’s multivariate regression, which we won’t cover in this book.</p>
+<p>The linear least squares fit in the previous chapter is an example of <strong>regression</strong>, which is the more general problem of modeling the relationship between one set of variables, called <strong>response variables</strong> or dependent variables, and another set of variables, called <strong>explanatory variables</strong> or independent variables.</p>
+<p>In the examples in the previous chapter, there is only one response variable and one explanatory variable, which is called <strong>simple regression</strong>.
+In this chapter, we move on to <strong>multiple regression</strong>, with more than one explanatory variable, but still only one response variable.
+If there is more than one response variable, that’s multivariate regression, which we won’t cover in this book.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap11.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -724,8 +724,8 @@ We’ll work with just the Adélie penguins.</p>
             }, 500);
             </script></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides two interfaces (APIs) – we’ll use the “formula” API, which uses the Patsy formula language to identify the dependent and explanatory variables.
-The following formula string specifies that the dependent variable, <code class="docutils literal notranslate"><span class="pre">mass</span></code>, is a linear function of one explanatory variable, <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides two interfaces (APIs) – we’ll use the “formula” API, which uses the Patsy formula language to specify the response and explanatory variables.
+The following formula string specifies that the response variable, <code class="docutils literal notranslate"><span class="pre">mass</span></code>, is a linear function of one explanatory variable, <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;mass ~ flipper_length&quot;</span>
@@ -784,7 +784,7 @@ The following formula string specifies that the dependent variable, <code class=
 <p>The name <code class="docutils literal notranslate"><span class="pre">ols</span></code> stands for “ordinary least squares”, which indicates that this function computes a least squares fit under the most common, or “ordinary”, set of assumptions.</p>
 <p>The result is an <code class="docutils literal notranslate"><span class="pre">OLS</span></code> object that represents the model.
 In general, a model is a simplified description of the relationship between variables.
-In this example, it’s a linear model, which means that it assumes that the dependent variable is a linear function of the explanatory variables.</p>
+In this example, it’s a linear model, which means that it assumes that the response variable is a linear function of the explanatory variables.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">fit</span></code> method fits the model to the data and returns a <code class="docutils literal notranslate"><span class="pre">RegressionResults</span></code> object that contains the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -880,8 +880,8 @@ In this example, it’s a linear model, which means that it assumes that the dep
             }, 500);
             </script></div>
 </div>
-<p>The first column contains the intercept and slope, which are the <strong>coefficients</strong> of the model, also called parameters.
-We can confirm that they are are same as the parameters we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+<p>The first column contains the intercept and slope, which are the <strong>coefficients</strong> of the model.
+We can confirm that they are are same as the coefficients we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">slope</span>
@@ -909,7 +909,7 @@ We can confirm that they are are same as the parameters we got from <code class=
             }, 500);
             </script></div>
 </div>
-<p>The second column contains the standard errors of the estimated parameters – again, they are the same as as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+<p>The second column contains the standard errors of the coefficients – again, they are the same as as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">intercept_stderr</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
@@ -1183,7 +1183,7 @@ The reason is that the explanatory variables are correlated with each other.</p>
             </script></div>
 </div>
 <p>A penguin with a longer flipper also has a longer culmen, on average.
-The explanatory variables contain some information about each other, which means that they contain some of the same information about the dependent variable.
+The explanatory variables contain some information about each other, which means that they contain some of the same information about the response variable.
 When we add an explanatory variable to the model, the improvement in <span class="math notranslate nohighlight">\(R^2\)</span> reflects only the new information provided by the new variable.</p>
 <p>We see the same pattern if we add culmen depth as a third explanatory variable.</p>
 <div class="cell docutils container">
@@ -1627,7 +1627,7 @@ Name: count, dtype: int64
             }, 500);
             </script></div>
 </div>
-<p>Here’s the formula for a model with birth weight as the dependent variable and <code class="docutils literal notranslate"><span class="pre">is_first</span></code> as the explanatory variable.
+<p>Here’s the formula for a model with birth weight as the response variable and <code class="docutils literal notranslate"><span class="pre">is_first</span></code> as the explanatory variable.
 In the Patsy formula language, <code class="docutils literal notranslate"><span class="pre">C</span></code> and the parentheses around the variable name indicate that it is <strong>categorical</strong> – that is, it represents categories like “first baby” rather than measurements like birth weight.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1995,7 +1995,7 @@ So let’s see if that’s true.</p>
 </div>
 <p>The p-value associated with the quadratic term, <code class="docutils literal notranslate"><span class="pre">agepreg2</span></code>, is very small, which suggests that it contributes more information about birth weight than we would expect by chance.
 And the <span class="math notranslate nohighlight">\(R^2\)</span> value for this model is 0.0072, higher than for the linear model (0.0047).</p>
-<p>By estimating parameters for <code class="docutils literal notranslate"><span class="pre">agepreg</span></code> and <code class="docutils literal notranslate"><span class="pre">agepreg2</span></code>, we are effectively fitting a parabola to the data.
+<p>By estimating coefficients for <code class="docutils literal notranslate"><span class="pre">agepreg</span></code> and <code class="docutils literal notranslate"><span class="pre">agepreg2</span></code>, we are effectively fitting a parabola to the data.
 To see that, we can use the <code class="docutils literal notranslate"><span class="pre">RegressionResults</span></code> object to generate predictions for a range of maternal ages.</p>
 <p>First we’ll create a temporary <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> that contains columns named <code class="docutils literal notranslate"><span class="pre">agepreg</span></code> and <code class="docutils literal notranslate"><span class="pre">agepreg2</span></code>, based on the range of ages in <code class="docutils literal notranslate"><span class="pre">agepreg_range</span></code>.</p>
 <div class="cell docutils container">
@@ -2132,12 +2132,12 @@ And the p-value associated with <code class="docutils literal notranslate"><span
 </section>
 <section id="logistic-regression">
 <h2><span class="section-number">11.5. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
-<p>Linear regression is based on a model where the expected value of the dependent variable is the weighted sum of the explanatory variables and an intercept.
-This model is appropriate when the dependent variable is a continuous quantity like birth weight or penguin weight, but not when the dependent variable is discrete quantity like a count or a category.</p>
-<p>For these kinds of dependent variables, we can use <strong>generalized linear models</strong> or GLMs.
+<p>Linear regression is based on a model where the expected value of the response variable is the weighted sum of the explanatory variables and an intercept.
+This model is appropriate when the response variable is a continuous quantity like birth weight or penguin weight, but not when the response variable is a discrete quantity like a count or a category.</p>
+<p>For these kinds of response variables, we can use <strong>generalized linear models</strong> or GLMs.
 For example:</p>
 <ul class="simple">
-<li><p>If the dependent variable is a count, we can use Poisson regression.</p></li>
+<li><p>If the response variable is a count, we can use Poisson regression.</p></li>
 <li><p>If it’s categorical with only two categories, we can use logistic regression.</p></li>
 <li><p>If it’s categorical with more than two categories, we can use multinomial logistic regression</p></li>
 <li><p>If it’s categorical and the categories can be arranged in order, we can use ordered logistic regression.</p></li>
@@ -2145,7 +2145,7 @@ For example:</p>
 <p>We won’t cover all of them in this book – just <strong>logistic regression</strong>, which is the most widely used.
 As an example, we’ll use the penguin dataset again, and see if we can tell whether a penguin is male or female, based on its weight and other measurements.</p>
 <p><code class="docutils literal notranslate"><span class="pre">StatsModels</span></code> provides a function that does logistic regression – it’s called <code class="docutils literal notranslate"><span class="pre">logit</span></code> because that’s the name of a mathematical function that appears in the definition of logistic regression.
-Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the dependent variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+Before we can use the <code class="docutils literal notranslate"><span class="pre">logit</span></code> function, we have to transform the response variable so the values are <code class="docutils literal notranslate"><span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;MALE&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -2200,7 +2200,7 @@ Name: count, dtype: int64
             }, 500);
             </script></div>
 </div>
-<p>We’ll start with a simple model with <code class="docutils literal notranslate"><span class="pre">y</span></code> as the dependent variable and <code class="docutils literal notranslate"><span class="pre">mass</span></code> as the explanatory variable.
+<p>We’ll start with a simple model with <code class="docutils literal notranslate"><span class="pre">y</span></code> as the response variable and <code class="docutils literal notranslate"><span class="pre">mass</span></code> as the explanatory variable.
 Here’s how we make and fit the model – the argument <code class="docutils literal notranslate"><span class="pre">disp=False</span></code> suppresses messages about the fitting process.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2268,8 +2268,8 @@ Here’s how we make and fit the model – the argument <code class="docutils li
 </div>
 <p>The coefficient of determination, <span class="math notranslate nohighlight">\(R^2\)</span>, does not apply to logistic regression, but there are several alternatives that are used as “pseudo <span class="math notranslate nohighlight">\(R^2\)</span> values.”
 The pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value for this model is about 0.526, which doesn’t mean much by itself, but we will use it to compare models.</p>
-<p>The parameter of <code class="docutils literal notranslate"><span class="pre">mass</span></code> is positive, which means that heavier penguins are more likely to be male.
-Other than that, the estimated coefficients are not easy to interpret – we can understand the model better by plotting the predictions.
+<p>The coefficient of <code class="docutils literal notranslate"><span class="pre">mass</span></code> is positive, which means that heavier penguins are more likely to be male.
+Other than that, the coefficients are not easy to interpret – we can understand the model better by plotting the predictions.
 We’ll make a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with a range of values for <code class="docutils literal notranslate"><span class="pre">mass</span></code>, and use <code class="docutils literal notranslate"><span class="pre">predict</span></code> to compute a <code class="docutils literal notranslate"><span class="pre">Series</span></code> of predictions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2594,15 +2594,15 @@ That means Gentoo penguins can be classified more accurately using physical meas
 <h2><span class="section-number">11.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>regression</strong>: A method for estimating coefficients that fit a model to data.</p></li>
-<li><p><strong>dependent variables</strong>: The variables a regression model tries to predict, also known as endogenous variables.</p></li>
-<li><p><strong>explanatory variables</strong>: The variables a model uses to predict the dependent variables. Also known as independent or exogenous variables.</p></li>
-<li><p><strong>simple regression</strong>: A regression with one dependent and one explanatory variable.</p></li>
-<li><p><strong>multiple regression</strong>: A regression with multiple explanatory variables, but only one dependent variable.</p></li>
+<li><p><strong>response variables</strong>: The variables a regression model tries to predict, also known as dependent variables.</p></li>
+<li><p><strong>explanatory variables</strong>: The variables a model uses to predict the response variables. Also known as independent variables.</p></li>
+<li><p><strong>simple regression</strong>: A regression with one response variable and one explanatory variable.</p></li>
+<li><p><strong>multiple regression</strong>: A regression with multiple explanatory variables, but only one response variable.</p></li>
 <li><p><strong>coefficients:</strong> In a regression model, the coefficients are the intercept and the estimated slopes for the explanatory variables.</p></li>
 <li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of values, usually not numerical.</p></li>
 <li><p><strong>control variable</strong>: A variable included in a regression to separate the direct effect of an explanatory variable from an indirect effect.</p></li>
-<li><p><strong>generalized linear models:</strong> A set of regression models based on different mathematical relationships between the explanatory and dependent variables.</p></li>
-<li><p><strong>logistic regression</strong>: A generalized linear model used when the dependent variable is boolean – that is, it has two possible values.</p></li>
+<li><p><strong>generalized linear models:</strong> A set of regression models based on different mathematical relationships between the explanatory and response variables.</p></li>
+<li><p><strong>logistic regression</strong>: A generalized linear model used when the response variable is boolean – that is, it has two possible values.</p></li>
 </ul>
 </section>
 <section id="exercises">
@@ -2610,7 +2610,7 @@ That means Gentoo penguins can be classified more accurately using physical meas
 <section id="exercise">
 <h3><span class="section-number">11.7.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>Are baby boys heavier than baby girls? To answer this question, we’ll use the NSFG data again.</p>
-<p>Fit a linear regression model with <code class="docutils literal notranslate"><span class="pre">totalwgt_lb</span></code> as the dependent variable and <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a categorical explanatory variable – the value of this variable is <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">2</span></code> for girls.
+<p>Fit a linear regression model with <code class="docutils literal notranslate"><span class="pre">totalwgt_lb</span></code> as the response variable and <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a categorical explanatory variable – the value of this variable is <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">2</span></code> for girls.
 What is the estimated difference in weight?
 Is it statistically significant?
 What if you control for the mother’s age – does maternal age account for some or all of the apparent difference?</p>
@@ -2621,10 +2621,10 @@ What if you control for the mother’s age – does maternal age account for som
 Some studies have shown this effect among humans, but results are mixed.</p>
 <p>See <a class="reference external" href="https://en.wikipedia.org/wiki/Trivers-Willard_hypothesis">https://en.wikipedia.org/wiki/Trivers-Willard_hypothesis</a>.</p>
 <p>Let’s see if there is a relationship between mother’s age and the probability of having a boy.
-Fit a logistic regression model with the baby’s sex as the dependent variable and mother’s age as an explanatory variable.
+Fit a logistic regression model with the baby’s sex as the response variable and mother’s age as an explanatory variable.
 Are older mothers more or less likely to have boys?
 What if you use a quadratic model of maternal age?</p>
-<p>In order to use <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a dependent variable in a logistic regression, we’ll recode it with the value <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">0</span></code> for girls.</p>
+<p>In order to use <code class="docutils literal notranslate"><span class="pre">babysex</span></code> as a response variable in a logistic regression, we’ll recode it with the value <code class="docutils literal notranslate"><span class="pre">1</span></code> for boys and <code class="docutils literal notranslate"><span class="pre">0</span></code> for girls.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">valid</span><span class="p">[</span><span class="s2">&quot;babysex&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -2659,7 +2659,7 @@ Generate and plot predictions for a range of flipper lengths, for male and femal
 <section id="id3">
 <h3><span class="section-number">11.7.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>Let’s see if Chinstrap penguins are more or less dimorphic than the other penguin species in the dataset, as quantified by the pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value of the model.
-Use <code class="docutils literal notranslate"><span class="pre">get_species</span></code> to select the Chinstrap penguins, then use logistic regression to fit a logistic regression model with sex as the dependent variable and all four measurements as explanatory variables.
+Use <code class="docutils literal notranslate"><span class="pre">get_species</span></code> to select the Chinstrap penguins, then use logistic regression to fit a logistic regression model with sex as the response variable and all four measurements as explanatory variables.
 How does the pseudo <span class="math notranslate nohighlight">\(R^2\)</span> value compare to the other models?</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">

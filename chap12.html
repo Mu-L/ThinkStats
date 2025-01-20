@@ -581,7 +581,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
             </script></div>
 </details>
 </div>
-<p>After loading the data, we have make some transformations to get it into a format that’s easy to work with.</p>
+<p>After loading the data, we have to make some transformations to get it into a format that’s easy to work with.</p>
 <p>TODO: Add pointer to tidy data</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -865,7 +865,8 @@ Here’s what the monthly averages look like.</p>
             }, 500);
             </script></div>
 </div>
-<p>Electricity production is highest during the coldest and warmest months.</p>
+<p>On the x-axis, month 1 is January and month 12 is December.
+Electricity production is highest during the coldest and warmest months, and lowest during April and October.</p>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">monthly_averages</span></code> to construct the seasonal component of the data, which is a series the same length as <code class="docutils literal notranslate"><span class="pre">nuclear</span></code>, where the element for each month is the average for that month.
 Here’s what it looks like.</p>
 <div class="cell docutils container">
@@ -1150,7 +1151,7 @@ As we’ll see in the next section, it is also useful for making forecasts.</p>
 <section id="prediction">
 <h2><span class="section-number">12.3. </span>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h2>
 <p>We can use the results from seasonal decomposition to predict the future.
-To demonstrate, we’ll use the following function to split the time series into a <strong>training series</strong>, we’ll use to generate predictions, and a <strong>test series</strong>, which we’ll use to see whether they are accurate.</p>
+To demonstrate, we’ll use the following function to split the time series into a <strong>training series</strong>, which we’ll use to generate predictions, and a <strong>test series</strong>, which we’ll use to see whether they are accurate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">split_series</span><span class="p">(</span><span class="n">series</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
@@ -1208,7 +1209,8 @@ To demonstrate, we’ll use the following function to split the time series into
             </script></div>
 </div>
 <p>Now, suppose it’s June 2019 and you are asked to generate a five-year forecast for electricity production from nuclear generators.
-To answer this question, we’ll start with a seasonal decomposition of the training data.</p>
+To answer this question, we’ll use the training data to make a model and then use the model to generate predictions.
+We’ll start with a seasonal decomposition of the training data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decomposition</span> <span class="o">=</span> <span class="n">seasonal_decompose</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;additive&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -1235,7 +1237,7 @@ To answer this question, we’ll start with a seasonal decomposition of the trai
             </script></div>
 </div>
 <p>Now we’ll fit a linear model to the trend.
-The dependent variable, <code class="docutils literal notranslate"><span class="pre">months</span></code>, is the number of months from the beginning of the series.</p>
+The explanatory variable, <code class="docutils literal notranslate"><span class="pre">months</span></code>, is the number of months from the beginning of the series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
@@ -2103,8 +2105,8 @@ These columns are named <code class="docutils literal notranslate"><span class="
             }, 500);
             </script></div>
 </div>
-<p>The correlation between <code class="docutils literal notranslate"><span class="pre">diff</span></code> and <code class="docutils literal notranslate"><span class="pre">lag1</span></code> is called <strong>serial correlation</strong> because it is the correlation between successive elements in the series.
-The other correlations are called lagged correlations or <strong>autocorrelations</strong> – the prefix “auto” indicates that we’re taking the correlation of the series with itself.</p>
+<p>These correlations are called lagged correlations or <strong>autocorrelations</strong> – the prefix “auto” indicates that we’re taking the correlation of the series with itself.
+As a special case, the correlation between <code class="docutils literal notranslate"><span class="pre">diff</span></code> and <code class="docutils literal notranslate"><span class="pre">lag1</span></code> is called <strong>serial correlation</strong> because it is the correlation between successive elements in the series.</p>
 <p>These correlation are strong enough to suggest that they should help with prediction, so let’s put them into a multiple regression.
 The following function uses the columns from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make a Patsy formula with the first column as the dependent variable and the other columns as explanatory variable.</p>
 <div class="cell docutils container">
@@ -2977,9 +2979,9 @@ In this time series, the autocorrelations are not especially strong, so the adva
 <li><p><strong>retrodiction:</strong> A prediction for a value observed in the past, often used to test or validate a model.</p></li>
 <li><p><strong>window</strong>: A sequence of consecutive values in a time series, used to compute a moving average.</p></li>
 <li><p><strong>moving average</strong>: A time series computed by averaging values in overlapping windows to smooth fluctuations.</p></li>
-<li><p><strong>serial correlation</strong>: The correlation between a time series and a shifted or lagged version of itself.</p></li>
+<li><p><strong>serial correlation</strong>: The correlation between successive elements of a time series.</p></li>
+<li><p><strong>autocorrelation</strong>: A correlation between a time series and a shifted or lagged version of itself.</p></li>
 <li><p><strong>lag</strong>: The size of the shift in a serial correlation or autocorrelation.</p></li>
-<li><p><strong>autocorrelation</strong>: The correlation between a time series and its lagged values, computed with different lags.</p></li>
 </ul>
 </section>
 <section id="exercises">

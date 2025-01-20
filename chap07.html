@@ -1018,8 +1018,8 @@ The result is a NumPy array.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 15;
-                var nbb_unformatted_code = "def jitter(seq, std=1):\n    \"\"\"Jitters the values by adding random Gaussian noise.\n\n    seq: sequence of numbers\n    std: standard deviation of the added noise\n\n    returns: new Numpy array\n    \"\"\"\n    n = len(seq)\n    return np.random.normal(0, std, n) + seq";
-                var nbb_formatted_code = "def jitter(seq, std=1):\n    \"\"\"Jitters the values by adding random Gaussian noise.\n\n    seq: sequence of numbers\n    std: standard deviation of the added noise\n\n    returns: new Numpy array\n    \"\"\"\n    n = len(seq)\n    return np.random.normal(0, std, n) + seq";
+                var nbb_unformatted_code = "def jitter(seq, std=1):\n    n = len(seq)\n    return np.random.normal(0, std, n) + seq";
+                var nbb_formatted_code = "def jitter(seq, std=1):\n    n = len(seq)\n    return np.random.normal(0, std, n) + seq";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1067,7 +1067,7 @@ The result is a NumPy array.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/021b3f6c6f002efa076dffe0b3204c4e97885dbdc4c5eb3298308211392f4ef6.png" src="_images/021b3f6c6f002efa076dffe0b3204c4e97885dbdc4c5eb3298308211392f4ef6.png" />
+<img alt="_images/38a05d57c31a2f3466a045f87cc7b1b0b957d6d959cc97b074b400281506939f.png" src="_images/38a05d57c31a2f3466a045f87cc7b1b0b957d6d959cc97b074b400281506939f.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 17;
@@ -1098,7 +1098,7 @@ So let’s try one more thing: we can use the <code class="docutils literal notr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5937ccd459b732f1c1f3873f2f391f0a84a1ab29ae1eb1d6746cbe682141e491.png" src="_images/5937ccd459b732f1c1f3873f2f391f0a84a1ab29ae1eb1d6746cbe682141e491.png" />
+<img alt="_images/b524932d9b9a7fac1f2af931f36aaef5ebab1ebd329e3ba1df305ca6ed52861d.png" src="_images/b524932d9b9a7fac1f2af931f36aaef5ebab1ebd329e3ba1df305ca6ed52861d.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 18;
@@ -1175,7 +1175,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7fbc5ee75a50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f09dc2b7880&gt;
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -1205,7 +1205,7 @@ We can select the <code class="docutils literal notranslate"><span class="pre">s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7fbc5f0352a0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7f09d9f5f490&gt;
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -1315,7 +1315,7 @@ In the following figure, the line shows the median and the shaded region shows t
             }, 500);
             </script></div>
 </div>
-<p>It looks like the relationship between these variables is linear – that is, each increase the median verbal scores corresponds to a roughly equal increase in median math scores.</p>
+<p>It looks like the relationship between these variables is linear – that is, each increase in the median verbal scores corresponds to a roughly equal increase in median math scores.</p>
 <p>More generally, we could divide the respondents into any number of groups, not necessarily 10, and we could compute other summary statistics in each group, not just these percentiles.</p>
 </section>
 <section id="correlation">
@@ -1863,8 +1863,8 @@ And if the correlation is close to 0, that does <em>not</em> mean there is no re
 <p>The NLSY is longitudinal, which means that it follows the same group of people over time.
 The group we’ve been studying includes people born between 1980 and 1984.
 The ones who took the SAT probably took it in the late 1990s, when they were about 18 years old.
-So when they were asked about their income in 2021, they were in their late 30s or early 40s.</p>
-<p>Let’s give the column with the income data a more interpretable name.</p>
+So when they were asked about their income in 2021, they were in their late 30s or early 40s.
+Let’s give the column with the income data a more interpretable name.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nlsy</span><span class="p">[</span><span class="s2">&quot;income&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nlsy</span><span class="p">[</span><span class="s2">&quot;U4949700&quot;</span><span class="p">]</span>
@@ -2188,8 +2188,7 @@ If the groups are nearly identical in all variables but A and B, you can rule ou
 </ol>
 <p>These ideas are the motivation for the <strong>randomized controlled trial</strong>, in which subjects are assigned randomly to two (or more) groups: a <strong>treatment group</strong> that receives some kind of intervention, like a new medicine, and a <strong>control group</strong> that receives no intervention, or another treatment whose effects are known.
 A randomized controlled trial is the most reliable way to demonstrate a causal relationship, and the foundation of science-based medicine.</p>
-<p>Unfortunately, controlled trials are only possible in the laboratory sciences, medicine, and a few other disciplines.
-In the social sciences, controlled experiments are rare, usually because they are impossible or unethical.
+<p>Unfortunately, controlled trials are sometimes impossible or unethical.
 An alternative is to look for a <strong>natural experiment</strong>, where similar groups are exposed to different conditions due to circumstances beyond the control of the experimenter.</p>
 <p>Identifying and measuring causal relationships is the topic of a branch of statistics called <strong>causal inference</strong>.</p>
 </section>
@@ -2447,11 +2446,11 @@ Use <code class="docutils literal notranslate"><span class="pre">fill_between</s
 </section>
 <section id="id4">
 <h3><span class="section-number">7.8.5. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>The Behavioral Risk Factor Surveillance System (BRFSS) dataset includes self-reported heights and weights for more than 400,000 respondents.
+<p>The Behavioral Risk Factor Surveillance System (BRFSS) dataset includes self-reported heights and weights for about 400,000 respondents.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>Make a scatter plot that shows the relationship between height and weight.
 You might have to jitter the data to blur the visible rows and columns due to rounding.
-And with such a large sample size, you will have to adjust the marker size and transparency to avoid overplotting.
+And with such a large sample, you will have to adjust the marker size and transparency to avoid overplotting.
 Also, because there are outliers in both measurement, you might want to use <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to zoom in on a region that covers most of the respondents.</p>
 <p>Here’s how we can load the data.</p>
 <div class="cell tag_remove-print docutils container">

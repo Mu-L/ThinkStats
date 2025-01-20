@@ -580,19 +580,19 @@ By those standards, anecdotal evidence usually fails, because:</p>
 <p>You can read more about the NSFG at <a class="reference external" href="http://cdc.gov/nchs/nsfg.htm">http://cdc.gov/nchs/nsfg.htm</a>.</p>
 <p>We will use data collected by this survey to investigate whether first babies tend to come late, and other questions.
 In order to use this data effectively, we have to understand the design of the study.</p>
-<p>The NSFG is a <strong>cross-sectional</strong> study, which means that it captures a snapshot of a group at a point in time.
-The most common alternative is a <strong>longitudinal</strong> study, which observes a group repeatedly over time.</p>
-<p>The NSFG has been conducted several times now; each deployment is called a <strong>cycle</strong>.
-We will use data from Cycle 6, which was conducted from January 2002 to March 2003.</p>
-<p>The goal of the survey is to draw conclusions about a <strong>population</strong>; the target population of the NSFG is people in the United States aged 15-44.
-Ideally surveys would collect data from every member of the population, but that’s seldom possible.
+<p>In general, the goal of a statistical study is to draw conclusions about a <strong>population</strong>.
+In the NSFG, the target population is people in the United States aged 15-44.</p>
+<p>Ideally surveys would collect data from every member of the population, but that’s seldom possible.
 Instead we collect data from a subset of the population called a <strong>sample</strong>.
 The people who participate in a survey are called <strong>respondents</strong>.</p>
+<p>The NSFG is a <strong>cross-sectional</strong> study, which means that it captures a snapshot of a population at a point in time.
+The NSFG has been conducted several times now; each deployment is called a <strong>cycle</strong>.
+We will use data from Cycle 6, which was conducted from January 2002 to March 2003.</p>
 <p>In general, cross-sectional studies are meant to be <strong>representative</strong>, which means that the sample is similar to the target population in all ways that are important for the purposes of the study.
 That ideal is hard to achieve in practice, but people who conduct surveys come as close as they can.</p>
 <p>The NSFG is not representative; instead it is <strong>stratified</strong>, which means that it deliberately <strong>oversamples</strong> some groups.
-The designers of the study recruited three groups – Hispanics, African-Americans and teenagers – at rates higher than their representation in the U.S. population, in order to make sure that the number of respondents in each of these groups is large enough to draw valid conclusions.</p>
-<p>The drawback of oversampling is that it is not as easy to draw conclusions about the general population based on statistics from the survey.
+The designers of the study recruited three groups – Hispanics, African-Americans and teenagers – at rates higher than their representation in the U.S. population, in order to make sure that the number of respondents in each group is large enough to draw valid conclusions.
+The drawback of oversampling is that it is not as easy to draw conclusions about the population based on statistics from the sample.
 We will come back to this point later.</p>
 <p>When working with this kind of data, it is important to be familiar with the <strong>codebook</strong>, which documents the design of the study, the survey questions, and the encoding of the responses.</p>
 <p>The codebook and user’s guide for the NSFG data are available from <a class="reference external" href="http://www.cdc.gov/nchs/nsfg/nsfg_cycle6.htm">http://www.cdc.gov/nchs/nsfg/nsfg_cycle6.htm</a></p>
@@ -754,9 +754,10 @@ It is called <code class="docutils literal notranslate"><span class="pre">read_s
             </script></div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, which is a Pandas data structure that represents tabular data in rows and columns.
-This <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> contains a row for each record – in this case one row per pregnancy – and a column for each variable.
-In addition to the data, a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> also contains the variable names and their types, and it provides methods for accessing and modifying the data.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">shape</span></code> that contains the number of rows and columns.</p>
+This <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> contains a row for each pregnancy reported by a respondent and a column for each <strong>variable</strong>.
+A variable can contain responses to a survey question or values that are calculated based on responses to one or more questions.</p>
+<p>In addition to the data, a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> also contains the variable names and their types, and it provides methods for accessing and modifying the data.
+The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">shape</span></code> that contains the number of rows and columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preg</span><span class="o">.</span><span class="n">shape</span>
@@ -784,7 +785,8 @@ In addition to the data, a <code class="docutils literal notranslate"><span clas
             }, 500);
             </script></div>
 </div>
-<p>And it has a method called <code class="docutils literal notranslate"><span class="pre">head</span></code> that displays the first few rows.</p>
+<p>This dataset contains 243 variables with information about 13,593 pregnancies.
+The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has a method called <code class="docutils literal notranslate"><span class="pre">head</span></code> that displays the first few rows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -974,9 +976,9 @@ In addition to the data, a <code class="docutils literal notranslate"><span clas
             }, 500);
             </script></div>
 </div>
-<p>The first column is the index of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, which contains a label for each row.
+<p>The left column is the index of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, which contains a label for each row.
 In this case, the labels are integers starting from 0, but they can also be strings and other types.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">columns</span></code> that contains the names of the columns.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has an attribute called <code class="docutils literal notranslate"><span class="pre">columns</span></code> that contains the names of the variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preg</span><span class="o">.</span><span class="n">columns</span>
@@ -1751,7 +1753,7 @@ It is the mean of the squared deviations, which are the distances of each point 
             }, 500);
             </script></div>
 </div>
-<p>As you might expect, <code class="docutils literal notranslate"><span class="pre">Series</span></code> provides a <code class="docutils literal notranslate"><span class="pre">var</span></code> method that does the same thing, not <em>exactly</em> the same thing.</p>
+<p>As you might expect, <code class="docutils literal notranslate"><span class="pre">Series</span></code> provides a <code class="docutils literal notranslate"><span class="pre">var</span></code> method that does <em>almost</em> the same thing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weights</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
@@ -1942,7 +1944,7 @@ Pregnancy loss is common and there are other respondents who reported as many in
 But remembering the context, this data tells the story of a woman who was pregnant six times, each time ending in miscarriage.
 Her seventh and most recent pregnancy ended in a live birth.
 If we consider this data with empathy, it is natural to be moved by the story it tells.</p>
-<p>Each record in the NSFG dataset represents a person who provided honest answers to many personal and difficult questions.
+<p>Each row in the NSFG dataset represents a person who provided honest answers to many personal and difficult questions.
 We can use this data to answer statistical questions about family life, reproduction, and health.
 At the same time, we have an obligation to consider the people represented by the data, and to afford them respect and gratitude.</p>
 </section>
@@ -1952,14 +1954,13 @@ At the same time, we have an obligation to consider the people represented by th
 <ul class="simple">
 <li><p><strong>anecdotal evidence:</strong> Data collected informally from a small number of individual cases, often without systematic sampling.</p></li>
 <li><p><strong>cross-sectional study:</strong> A study that collects data from a representative sample of a population at a single point or interval in time.</p></li>
-<li><p><strong>longitudinal study:</strong> A study that collects data from the same group of respondents at more than one interval in time.</p></li>
 <li><p><strong>cycle:</strong> One data-collection interval in a study that collects data at multiple intervals in time.</p></li>
 <li><p><strong>population:</strong> The entire group of individuals or items that is the subject of a study.</p></li>
 <li><p><strong>sample:</strong> A subset of a population, often chosen at random.</p></li>
 <li><p><strong>respondents:</strong> People who participate in a survey and respond to questions.</p></li>
 <li><p><strong>representative:</strong> A sample is representative if it is similar to the population in ways that are important for the purposes of the study.</p></li>
 <li><p><strong>stratified:</strong> A sample is stratified if it deliberately oversamples some groups, usually to make sure that enough members are included to support valid conclusions.</p></li>
-<li><p><strong>oversampled:</strong> A subset of the population is oversampled if its members have a higher chance of appearing in a sample.</p></li>
+<li><p><strong>oversampled:</strong> A group is oversampled if its members have a higher chance of appearing in a sample.</p></li>
 <li><p><strong>codebook:</strong> A document that describes the variables in a dataset, and provides other information about the data.</p></li>
 <li><p><strong>recode:</strong> A variable that is computed based on other variables in a dataset.</p></li>
 <li><p><strong>raw data:</strong> Data that has not been processed after collection.</p></li>

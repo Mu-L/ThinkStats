@@ -392,7 +392,7 @@ document.write(`
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="cumulative-distribution-functions">
 <h1><span class="section-number">4. </span>Cumulative Distribution Functions<a class="headerlink" href="#cumulative-distribution-functions" title="Link to this heading">#</a></h1>
-<p>Histograms and PMFs are the most familiar ways to represent distributions, but as we’ll see in this chapter, they have limitations.
+<p>Frequency tables and PMFs are the most familiar ways to represent distributions, but as we’ll see in this chapter, they have limitations.
 An alternative is the cumulative distribution function (CDF), which is useful for computing percentiles, and especially useful for comparing distributions.</p>
 <p>Also in this chapter, we’ll compute percentile-based statistics to quantify the location, spread, and skewness of a distribution.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap04.ipynb">Click here to run this notebook on Colab</a>.</p>
@@ -1106,7 +1106,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">query</s
 </section>
 <section id="cdfs">
 <h2><span class="section-number">4.2. </span>CDFs<a class="headerlink" href="#cdfs" title="Link to this heading">#</a></h2>
-<p>A <strong>cumulative distribution function</strong>, or CDF, is a another to describe the distribution of a set of values, along with a histogram or PMF.
+<p>A <strong>cumulative distribution function</strong>, or CDF, is a another to describe the distribution of a set of values, along with a frequency table or PMF.
 Given a value <code class="docutils literal notranslate"><span class="pre">x</span></code>, the CDF computes the fraction of values less than or equal to <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 As an example, we’ll start with a short sequence.</p>
 <div class="cell docutils container">

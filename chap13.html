@@ -823,10 +823,11 @@ And computing a survival curve is a step toward the next important concept, the 
 </section>
 <section id="hazard-function">
 <h2><span class="section-number">13.2. </span>Hazard Function<a class="headerlink" href="#hazard-function" title="Link to this heading">#</a></h2>
-<p>Suppose we know that a light bulb has survived up to hour <code class="docutils literal notranslate"><span class="pre">h</span></code>, and we would like to know the probability that it expires during hour <code class="docutils literal notranslate"><span class="pre">h</span></code>.
-To answer this question, we can use the survival function, which indicates the fraction of bulbs that survive longer than <code class="docutils literal notranslate"><span class="pre">h</span></code>, and the PMF, which indicates the fraction that expire during hour <code class="docutils literal notranslate"><span class="pre">h</span></code>.
-The sum of these is the fraction of bulbs that <em>could</em> expire during hour <code class="docutils literal notranslate"><span class="pre">h</span></code>, which are said to be “at risk”.
-As an example, 26% of the bulbs were at risk during hour 1656.</p>
+<p>In the light bulb dataset, each value of <code class="docutils literal notranslate"><span class="pre">h</span></code> represents a 12-hour interval ending at hour <code class="docutils literal notranslate"><span class="pre">h</span></code> – which I will call “interval <code class="docutils literal notranslate"><span class="pre">h</span></code>”.
+Suppose we know that a light bulb has survived up to interval <code class="docutils literal notranslate"><span class="pre">h</span></code>, and we would like to know the probability that it expires during interval <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+To answer this question, we can use the survival function, which indicates the fraction of bulbs that survive past interval <code class="docutils literal notranslate"><span class="pre">h</span></code>, and the PMF, which indicates the fraction that expire during interval <code class="docutils literal notranslate"><span class="pre">h</span></code>.
+The sum of these is the fraction of bulbs that <em>could</em> expire during interval <code class="docutils literal notranslate"><span class="pre">h</span></code>, which are said to be “at risk”.
+As an example, 26% of the bulbs were at risk during interval 1656.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">at_risk</span> <span class="o">=</span> <span class="n">pmf_bulblife</span> <span class="o">+</span> <span class="n">surv_bulblife</span>
@@ -855,7 +856,7 @@ As an example, 26% of the bulbs were at risk during hour 1656.</p>
             }, 500);
             </script></div>
 </div>
-<p>And 4% of all bulbs expire during hour 1656.</p>
+<p>And 4% of all bulbs expire during interval 1656.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_bulblife</span><span class="p">[</span><span class="mi">1656</span><span class="p">]</span>
@@ -912,7 +913,7 @@ As an example, 26% of the bulbs were at risk during hour 1656.</p>
             }, 500);
             </script></div>
 </div>
-<p>Of all bulbs that survived up to hour 1656, about 15% expired during hour 1656.</p>
+<p>Of all bulbs that survived up to interval 1656, about 15% expired during interval 1656.</p>
 <p>Instead of computing the hazard function ourselves, we can use <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code>, which provides a <code class="docutils literal notranslate"><span class="pre">Hazard</span></code> object that represents a hazard function, and a <code class="docutils literal notranslate"><span class="pre">make_hazard</span></code> method that computes it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -970,7 +971,7 @@ As an example, 26% of the bulbs were at risk during hour 1656.</p>
             </script></div>
 </div>
 <p>We can see that the hazard is higher in some places than others, but this way of visualizing the hazard function can be misleading, especially in parts of the range where we don’t have much data.
-A better alternative is to plot the <em>cumulative</em> hazard function, which is the cumulative sum of the hazards.</p>
+A better alternative is to plot the <strong>cumulative hazard function</strong>, which is the cumulative sum of the hazards.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cumulative_hazard</span> <span class="o">=</span> <span class="n">hazard_bulblife</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
@@ -1179,8 +1180,7 @@ Name: count, dtype: int64
             }, 500);
             </script></div>
 </div>
-<p>To get started with this data, we’ll use the following function, which makes a dictionary that maps from each integer cohort to a <code class="docutils literal notranslate"><span class="pre">Surv</span></code> object.
-The parameters are the dataset and a list of cohorts.
+<p>To get started with this data, which takes as arguments a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and a list of cohorts, and returns a dictionary that maps from each cohort to a <code class="docutils literal notranslate"><span class="pre">Surv</span></code> object.
 For each cohort, it selects their ages at first marriage and uses <code class="docutils literal notranslate"><span class="pre">Surv.from_seq</span></code> to compute a survival function.
 The <code class="docutils literal notranslate"><span class="pre">dropna=False</span></code> argument includes <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values in the survival function, so the result includes people who have not married.</p>
 <div class="cell docutils container">
@@ -1280,8 +1280,8 @@ There are two problems we have to address:</p>
 <li><p>As discussed in Section &lt;&lt;section_nsfg&gt;&gt;, the NSFG uses stratified sampling, which means that it deliberately oversamples some groups.</p></li>
 <li><p>Also, this way of computing the survival function does not properly take into account people who are not married yet.</p></li>
 </ul>
-<p>For the first problem, we’ll use a kind of resampling called a weighted bootstrap.
-For the second problem, we will need a method called Kaplan-Meier estimation.
+<p>For the first problem, we’ll use a kind of resampling called a <strong>weighted bootstrap</strong>.
+For the second problem, we’ll use a method called Kaplan-Meier estimation.
 We’ll start with resampling.</p>
 </section>
 <section id="weighted-bootstrap">
@@ -1470,7 +1470,7 @@ This process is called <strong>Kaplan-Meier estimation</strong>.</p>
             </script></div>
 </div>
 <p>For respondents who were married when they were surveyed, we’ll select their age at first marriage.
-There are 9921 of them, which we’ll call “completed” cases.</p>
+There are 9921 of them, which we’ll call “complete” cases.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete</span> <span class="o">=</span> <span class="n">resp60</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;evrmarry == 1&quot;</span><span class="p">)[</span><span class="s2">&quot;agemarr&quot;</span><span class="p">]</span>
@@ -1530,13 +1530,13 @@ There are 5468 of them, which we’ll call the “ongoing” cases.</p>
             </script></div>
 </div>
 <p>Now, to estimate the hazard function, we’ll compute the total number of cases that were “at risk” at each age, including everyone who was unmarried up to that age.
-It will be convenient to make a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object that counts the number of complete and ongoing cases at each age.</p>
+It will be convenient to make a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object that counts the number of complete and ongoing cases at each age.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">FreqTab</span>
 
-<span class="n">hist_complete</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">complete</span><span class="p">)</span>
-<span class="n">hist_ongoing</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ongoing</span><span class="p">)</span>
+<span class="n">ft_complete</span> <span class="o">=</span> <span class="n">FreqTab</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">complete</span><span class="p">)</span>
+<span class="n">ft_ongoing</span> <span class="o">=</span> <span class="n">FreqTab</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ongoing</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1544,8 +1544,8 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 34;
-                var nbb_unformatted_code = "from empiricaldist import Hist\n\nhist_complete = Hist.from_seq(complete)\nhist_ongoing = Hist.from_seq(ongoing)";
-                var nbb_formatted_code = "from empiricaldist import Hist\n\nhist_complete = Hist.from_seq(complete)\nhist_ongoing = Hist.from_seq(ongoing)";
+                var nbb_unformatted_code = "from empiricaldist import FreqTab\n\nft_complete = FreqTab.from_seq(complete)\nft_ongoing = FreqTab.from_seq(ongoing)";
+                var nbb_formatted_code = "from empiricaldist import FreqTab\n\nft_complete = FreqTab.from_seq(complete)\nft_ongoing = FreqTab.from_seq(ongoing)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1561,7 +1561,7 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <p>As an example, there are 58 respondents who reported that they were married for the first time at age 25.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ft_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1572,8 +1572,8 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 35;
-                var nbb_unformatted_code = "hist_complete[25]";
-                var nbb_formatted_code = "hist_complete[25]";
+                var nbb_unformatted_code = "ft_complete[25]";
+                var nbb_formatted_code = "ft_complete[25]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1589,7 +1589,7 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <p>And another 5 respondents who were surveyed at age 25 and reported that they had never married.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ft_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -1600,8 +1600,8 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 36;
-                var nbb_unformatted_code = "hist_ongoing[25]";
-                var nbb_formatted_code = "hist_ongoing[25]";
+                var nbb_unformatted_code = "ft_ongoing[25]";
+                var nbb_formatted_code = "ft_ongoing[25]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1614,11 +1614,11 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
             }, 500);
             </script></div>
 </div>
-<p>From these <code class="docutils literal notranslate"><span class="pre">Hist</span></code> objects, we can compute unnormalized <code class="docutils literal notranslate"><span class="pre">Surv</span></code> objects that contain the number of complete and ongoing cases that exceed each age.</p>
+<p>From these <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> objects, we can compute unnormalized <code class="docutils literal notranslate"><span class="pre">Surv</span></code> objects that contain the number of complete and ongoing cases that exceed each age.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv_complete</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
-<span class="n">surv_ongoing</span> <span class="o">=</span> <span class="n">hist_ongoing</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv_complete</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
+<span class="n">surv_ongoing</span> <span class="o">=</span> <span class="n">ft_ongoing</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1626,8 +1626,8 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 37;
-                var nbb_unformatted_code = "surv_complete = hist_complete.make_surv()\nsurv_ongoing = hist_ongoing.make_surv()";
-                var nbb_formatted_code = "surv_complete = hist_complete.make_surv()\nsurv_ongoing = hist_ongoing.make_surv()";
+                var nbb_unformatted_code = "surv_complete = ft_complete.make_surv()\nsurv_ongoing = ft_ongoing.make_surv()";
+                var nbb_formatted_code = "surv_complete = ft_complete.make_surv()\nsurv_ongoing = ft_ongoing.make_surv()";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1696,10 +1696,13 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
             }, 500);
             </script></div>
 </div>
-<p>The sum of the four numbers we just computed is the number of respondents who were “at risk” – that is, people who could have married at age 25.</p>
+<p>The sum of the four numbers we just computed is the number of respondents who were at risk – that is, people who could have married at age 25.
+The term “at risk” is a legacy of survival analysis in medicine, where it often refers to risk of disease or death.
+It might seem incongruent in the context of marriage, which is generally considered a positive milestone.
+That said, here’s how we compute it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">at_risk</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">hist_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">at_risk</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">ft_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span>
 <span class="n">at_risk</span>
 </pre></div>
 </div>
@@ -1711,8 +1714,8 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 40;
-                var nbb_unformatted_code = "at_risk = hist_complete[25] + hist_ongoing[25] + surv_complete[25] + surv_ongoing[25]\nat_risk";
-                var nbb_formatted_code = "at_risk = hist_complete[25] + hist_ongoing[25] + surv_complete[25] + surv_ongoing[25]\nat_risk";
+                var nbb_unformatted_code = "at_risk = ft_complete[25] + ft_ongoing[25] + surv_complete[25] + surv_ongoing[25]\nat_risk";
+                var nbb_formatted_code = "at_risk = ft_complete[25] + ft_ongoing[25] + surv_complete[25] + surv_ongoing[25]\nat_risk";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1725,11 +1728,11 @@ It will be convenient to make a <code class="docutils literal notranslate"><span
             }, 500);
             </script></div>
 </div>
-<p>Of those, the number who actually married at age 25 is <code class="docutils literal notranslate"><span class="pre">hist_complete[25]</span></code>.
+<p>Of those, the number who actually married at age 25 is <code class="docutils literal notranslate"><span class="pre">ft_complete[25]</span></code>.
 So we can compute the hazard function at age 25 like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">/</span> <span class="n">at_risk</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">/</span> <span class="n">at_risk</span>
 <span class="n">hazard</span>
 </pre></div>
 </div>
@@ -1741,8 +1744,8 @@ So we can compute the hazard function at age 25 like this.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 41;
-                var nbb_unformatted_code = "hazard = hist_complete[25] / at_risk\nhazard";
-                var nbb_formatted_code = "hazard = hist_complete[25] / at_risk\nhazard";
+                var nbb_unformatted_code = "hazard = ft_complete[25] / at_risk\nhazard";
+                var nbb_formatted_code = "hazard = ft_complete[25] / at_risk\nhazard";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1757,10 +1760,10 @@ So we can compute the hazard function at age 25 like this.</p>
 </div>
 <p>That’s how we can compute the hazard function at a single age.
 Now let’s compute the whole function, for all ages.
-We’ll use the <code class="docutils literal notranslate"><span class="pre">union</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Index</span></code> class to compute a Pandas <code class="docutils literal notranslate"><span class="pre">Index</span></code> that contains all of the ages from <code class="docutils literal notranslate"><span class="pre">hist_complete</span></code> and <code class="docutils literal notranslate"><span class="pre">hist_ongoing</span></code>, in order.</p>
+We’ll use the <code class="docutils literal notranslate"><span class="pre">union</span></code> method of the <code class="docutils literal notranslate"><span class="pre">Index</span></code> class to compute a Pandas <code class="docutils literal notranslate"><span class="pre">Index</span></code> that contains all of the ages from <code class="docutils literal notranslate"><span class="pre">ft_complete</span></code> and <code class="docutils literal notranslate"><span class="pre">ft_ongoing</span></code>, in order.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">hist_complete</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">hist_ongoing</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">ft_complete</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ft_ongoing</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1768,8 +1771,8 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 42;
-                var nbb_unformatted_code = "ts = pd.Index.union(hist_complete.index, hist_ongoing.index)";
-                var nbb_formatted_code = "ts = pd.Index.union(hist_complete.index, hist_ongoing.index)";
+                var nbb_unformatted_code = "ts = pd.Index.union(ft_complete.index, ft_ongoing.index)";
+                var nbb_formatted_code = "ts = pd.Index.union(ft_complete.index, ft_ongoing.index)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1782,10 +1785,10 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
             }, 500);
             </script></div>
 </div>
-<p>Now we can compute the number of people at risk at every age, by looking up the ages in <code class="docutils literal notranslate"><span class="pre">ts</span></code> in each of the  <code class="docutils literal notranslate"><span class="pre">Hist</span></code> and <code class="docutils literal notranslate"><span class="pre">Surv</span></code> objects.</p>
+<p>Now we can compute the number of people at risk at every age, by looking up the ages in <code class="docutils literal notranslate"><span class="pre">ts</span></code> in each of the  <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> and <code class="docutils literal notranslate"><span class="pre">Surv</span></code> objects.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">at_risk</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">hist_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">at_risk</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">ft_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1793,8 +1796,8 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 43;
-                var nbb_unformatted_code = "at_risk = hist_complete(ts) + hist_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)";
-                var nbb_formatted_code = "at_risk = hist_complete(ts) + hist_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)";
+                var nbb_unformatted_code = "at_risk = ft_complete(ts) + ft_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)";
+                var nbb_formatted_code = "at_risk = ft_complete(ts) + ft_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1812,7 +1815,7 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hazard</span>
 
-<span class="n">hs</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">/</span> <span class="n">at_risk</span>
+<span class="n">hs</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">/</span> <span class="n">at_risk</span>
 <span class="n">hazard</span> <span class="o">=</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1821,8 +1824,8 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 44;
-                var nbb_unformatted_code = "from empiricaldist import Hazard\n\nhs = hist_complete(ts) / at_risk\nhazard = Hazard(hs, ts)";
-                var nbb_formatted_code = "from empiricaldist import Hazard\n\nhs = hist_complete(ts) / at_risk\nhazard = Hazard(hs, ts)";
+                var nbb_unformatted_code = "from empiricaldist import Hazard\n\nhs = ft_complete(ts) / at_risk\nhazard = Hazard(hs, ts)";
+                var nbb_formatted_code = "from empiricaldist import Hazard\n\nhs = ft_complete(ts) / at_risk\nhazard = Hazard(hs, ts)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1863,7 +1866,7 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">uni
             }, 500);
             </script></div>
 </div>
-<p>The cumulative hazard function is steepest between ages 20 and 30, which means that an unmarried person is in the greatest “danger” of getting married at these ages.
+<p>It is steepest between ages 20 and 30, which means that an unmarried person is at the greatest “risk” of getting married at these ages.
 After that, the hazard gradually decreases.</p>
 </section>
 <section id="estimating-the-survival-function">
@@ -1872,7 +1875,7 @@ After that, the hazard gradually decreases.</p>
 Now let’s go in the other direction.</p>
 <p>Here’s one way to think of it.
 The hazard function indicates the probability of getting married at each age, if you have not already married.
-So the complement of the hazard function if the probability of staying unmarried at each age.</p>
+So the complement of the hazard function is the probability of staying unmarried at each age.</p>
 <p>In order to “survive” past a given age, <code class="docutils literal notranslate"><span class="pre">t</span></code>, you have at stay unmarried at every age up to and including <code class="docutils literal notranslate"><span class="pre">t</span></code>.
 And the probability of doing that is the product of the complementary hazard function, which we can compute like this.</p>
 <div class="cell docutils container">
@@ -1966,18 +1969,16 @@ It takes as arguments sequences of survival times for complete and ongoing cases
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">estimate_hazard</span><span class="p">(</span><span class="n">complete</span><span class="p">,</span> <span class="n">ongoing</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kaplan-Meier estimation.&quot;&quot;&quot;</span>
-    <span class="n">hist_complete</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">complete</span><span class="p">)</span>
-    <span class="n">hist_ongoing</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ongoing</span><span class="p">)</span>
+    <span class="n">ft_complete</span> <span class="o">=</span> <span class="n">FreqTab</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">complete</span><span class="p">)</span>
+    <span class="n">ft_ongoing</span> <span class="o">=</span> <span class="n">FreqTab</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ongoing</span><span class="p">)</span>
 
-    <span class="n">surv_complete</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
-    <span class="n">surv_ongoing</span> <span class="o">=</span> <span class="n">hist_ongoing</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
+    <span class="n">surv_complete</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
+    <span class="n">surv_ongoing</span> <span class="o">=</span> <span class="n">ft_ongoing</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span>
 
-    <span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">hist_complete</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">hist_ongoing</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-    <span class="n">at_risk</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">hist_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">hist_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">ft_complete</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ft_ongoing</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">at_risk</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">ft_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">+</span> <span class="n">surv_ongoing</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
-    <span class="n">hs</span> <span class="o">=</span> <span class="n">hist_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">/</span> <span class="n">at_risk</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">ft_complete</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span> <span class="o">/</span> <span class="n">at_risk</span>
     <span class="k">return</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">hs</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1986,8 +1987,8 @@ It takes as arguments sequences of survival times for complete and ongoing cases
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 49;
-                var nbb_unformatted_code = "def estimate_hazard(complete, ongoing):\n    \"\"\"Kaplan-Meier estimation.\"\"\"\n    hist_complete = Hist.from_seq(complete)\n    hist_ongoing = Hist.from_seq(ongoing)\n\n    surv_complete = hist_complete.make_surv()\n    surv_ongoing = hist_ongoing.make_surv()\n\n    ts = pd.Index.union(hist_complete.index, hist_ongoing.index)\n    at_risk = (\n        hist_complete(ts) + hist_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)\n    )\n\n    hs = hist_complete(ts) / at_risk\n    return Hazard(hs, ts)";
-                var nbb_formatted_code = "def estimate_hazard(complete, ongoing):\n    \"\"\"Kaplan-Meier estimation.\"\"\"\n    hist_complete = Hist.from_seq(complete)\n    hist_ongoing = Hist.from_seq(ongoing)\n\n    surv_complete = hist_complete.make_surv()\n    surv_ongoing = hist_ongoing.make_surv()\n\n    ts = pd.Index.union(hist_complete.index, hist_ongoing.index)\n    at_risk = (\n        hist_complete(ts) + hist_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)\n    )\n\n    hs = hist_complete(ts) / at_risk\n    return Hazard(hs, ts)";
+                var nbb_unformatted_code = "def estimate_hazard(complete, ongoing):\n    \"\"\"Kaplan-Meier estimation.\"\"\"\n    ft_complete = FreqTab.from_seq(complete)\n    ft_ongoing = FreqTab.from_seq(ongoing)\n\n    surv_complete = ft_complete.make_surv()\n    surv_ongoing = ft_ongoing.make_surv()\n\n    ts = pd.Index.union(ft_complete.index, ft_ongoing.index)\n    at_risk = (\n        ft_complete(ts) + ft_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)\n    )\n\n    hs = ft_complete(ts) / at_risk\n    return Hazard(hs, ts)";
+                var nbb_formatted_code = "def estimate_hazard(complete, ongoing):\n    \"\"\"Kaplan-Meier estimation.\"\"\"\n    ft_complete = FreqTab.from_seq(complete)\n    ft_ongoing = FreqTab.from_seq(ongoing)\n\n    surv_complete = ft_complete.make_surv()\n    surv_ongoing = ft_ongoing.make_surv()\n\n    ts = pd.Index.union(ft_complete.index, ft_ongoing.index)\n    at_risk = ft_complete(ts) + ft_ongoing(ts) + surv_complete(ts) + surv_ongoing(ts)\n\n    hs = ft_complete(ts) / at_risk\n    return Hazard(hs, ts)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2771,7 +2772,9 @@ For people waiting anxiously for a baby to be born, this behavior seems quite cr
 <ul class="simple">
 <li><p><strong>survival analysis</strong>: A set of methods for describing and predicting the time until an event of interest, often focused on lifetimes or durations.</p></li>
 <li><p><strong>survival function</strong>: A function that maps from a time, <span class="math notranslate nohighlight">\(t\)</span>, to the probability of surviving beyond <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
-<li><p><strong>hazard function</strong>: A function that maps from <span class="math notranslate nohighlight">\(t\)</span> to the fraction of cases that survive until <span class="math notranslate nohighlight">\(t\)</span> and experience the event at <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
+<li><p><strong>hazard function</strong>: A function that maps from <span class="math notranslate nohighlight">\(t\)</span> to the fraction of cases that experience the event at <span class="math notranslate nohighlight">\(t\)</span>, out of all cases that survive until <span class="math notranslate nohighlight">\(t\)</span> .</p></li>
+<li><p><strong>cumulative hazard function</strong>: The cumulative sum of the hazard function, often useful for visualization.</p></li>
+<li><p><strong>weighted bootstrap:</strong> A form of resampling that uses sampling weights to correct for stratified sampling by simulating a representative sample.</p></li>
 <li><p><strong>censored data</strong>: Data that is only partially known because the event of interest has not yet occurred or was unobserved.</p></li>
 <li><p><strong>Kaplan-Meier estimation</strong>: A method for estimating survival and hazard functions in datasets with censored observations.</p></li>
 <li><p><strong>cohort</strong>: A group of subjects with shared characteristics – like decade of birth – analyzed as a group.</p></li>
@@ -2823,7 +2826,7 @@ Plot the survival function – what fraction of marriages end in divorce?</p>
 <section id="id1">
 <h3><span class="section-number">13.11.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In 2012, a team of demographers at the University of Southern California estimated life expectancy for people born in Sweden in the early 1800s and 1900s.
-For ages from 0 to 91 years, they estimated the age-specific mortality rate, which is the fraction of people who survive until a certain age and then die at that age – which you might recognize as the hazard function.</p>
+For ages from 0 to 91 years, they estimated the age-specific mortality rate, which is the fraction of people who die at a given age, out of all who survive until that age – which you might recognize as the hazard function.</p>
 <p>I used an online graph digitizer to get the data from the figure in their paper and store it in a CSV file.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>Data source: Beltrán-Sánchez, H., Crimmins, E. M., &amp; Finch, C. E. (2012). Early cohort mortality predicts the rate of aging in the cohort: a historical analysis. <em>Journal of developmental origins of health and disease</em>, 3(5), 380-386.</p>
@@ -2981,7 +2984,7 @@ Plot the result.</p>
 <p>In the remaining lifetime curve, you should see a counterintuitive pattern – for the first few years of life, remaining lifetime increases.
 Because infant mortality was so high in the early 1800s, an older child was expected to live longer than a younger child.
 After about age 5, life expectancy returns to the pattern we expect – young people are expected to live longer than old people.</p>
-<p>If you are interested in this topic, you might like Chapter 5 of my book, <em>Probably Overthinking It</em>, which includes similarly counterintuitive results from many areas of statistics.</p>
+<p>If you are interested in this topic, you might like Chapter 5 of my book, <em>Probably Overthinking It</em>, which presents similarly counterintuitive results from many areas of statistics.</p>
 <p>Available from <a class="reference external" href="https://probablyoverthinking.it">https://probablyoverthinking.it</a>.</p>
 <p><a class="reference external" href="https://allendowney.github.io/ThinkStats/index.html">Think Stats: Exploratory Data Analysis in Python, 3rd Edition</a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>

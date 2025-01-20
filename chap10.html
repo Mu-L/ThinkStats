@@ -394,7 +394,7 @@ document.write(`
 <section id="least-squares">
 <h1><span class="section-number">10. </span>Least Squares<a class="headerlink" href="#least-squares" title="Link to this heading">#</a></h1>
 <p>This chapter and the next introduce the idea of fitting a model to data.
-In this context, a <strong>model</strong> consists a mathematical description of the relationship between variables – like a straight line – and a description of random variation – like a normal distribution.</p>
+In this context, a <strong>model</strong> consists of a mathematical description of the relationship between variables – like a straight line – and a description of random variation – like a normal distribution.</p>
 <p>When we say that a model fits data, we usually mean that it minimizes errors, which are the distances between the model and the data.
 We’ll start with one of the most widely-used ways of fitting a model, minimizing the sum of the squared errors, which is called a least squares fit.</p>
 <p>We’ll also start with models that work with just two variables at a time.
@@ -1026,10 +1026,10 @@ We can make more sense of it by computing the coefficient of determination.</p>
 <section id="coefficient-of-determination">
 <h2><span class="section-number">10.2. </span>Coefficient of Determination<a class="headerlink" href="#coefficient-of-determination" title="Link to this heading">#</a></h2>
 <p>Suppose you want to guess the weight of a penguin.
-If you know it’s flipper length, you can use the least squares fit to inform your guess, and the MSE quantifies the accuracy of your guesses, on average.</p>
+If you know its flipper length, you can use the least squares fit to inform your guess, and the MSE quantifies the accuracy of your guesses, on average.</p>
 <p>But what if you don’t know the flipper length – what would you guess?
-It turns out that the best strategy is to guess the mean.
-In that case, the prediction errors are the deviations from the mean.</p>
+It turns out that guessing the mean is the best strategy in the sense that it minimizes the MSE.
+If we always guess the mean, the prediction errors are the deviations from the mean.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deviations</span> <span class="o">=</span> <span class="n">body_mass</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">body_mass</span><span class="p">)</span>
@@ -1082,7 +1082,7 @@ In that case, the prediction errors are the deviations from the mean.</p>
             }, 500);
             </script></div>
 </div>
-<p>And you might remember that the mean squared deviation is the variance.</p>
+<p>You might remember that the mean squared deviation is the variance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">body_mass</span><span class="p">)</span>
@@ -1483,7 +1483,7 @@ But that’s no longer the case, so it is worth considering whether squared resi
 Like other estimates, they are vulnerable to non-representative sampling, measurement error, and variability due to random sampling.
 As usual, it’s hard to quantify the effect of non-representative sampling and measurement error.
 It’s easier to quantify the effect of random sampling.</p>
-<p>One way to do that is a kind of resampling called <strong>non-parametric bootstrapping</strong>: we’ll treat the sample as if it were the whole population and draw new samples, with replacement, from the observed data.
+<p>One way to do that is a kind of resampling called <strong>bootstrapping</strong>: we’ll treat the sample as if it were the whole population and draw new samples, with replacement, from the observed data.
 The following function takes a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> and uses the <code class="docutils literal notranslate"><span class="pre">sample</span></code> method to resample the rows and return a new <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1884,7 +1884,7 @@ We can do that by collecting the fitted lines as a list of arrays.</p>
             }, 500);
             </script></div>
 </div>
-<p>This is my favorite way of to represent the variability of a fitted line due to random sampling.</p>
+<p>This is my favorite way to represent the variability of a fitted line due to random sampling.</p>
 </section>
 <section id="transformation">
 <h2><span class="section-number">10.6. </span>Transformation<a class="headerlink" href="#transformation" title="Link to this heading">#</a></h2>
@@ -2408,7 +2408,7 @@ Here’s what the fitted line looks like after the inverse transformation, along
 <li><p><strong>residual</strong>: The difference between an observed value and a value predicted by a line of best fit.</p></li>
 <li><p><strong>linear least squares fit:</strong> A line that minimizes the sum of squared residuals.</p></li>
 <li><p><strong>coefficient of determination</strong>: A statistic, denoted <span class="math notranslate nohighlight">\(R^2\)</span> and often pronounced “R squared”, that quantifies how well a model fits the data.</p></li>
-<li><p><strong>non-parametric bootstrapping</strong>: A way of resampling by treating the sample as a population and drawing new samples with the same size as the original, with replacement.</p></li>
+<li><p><strong>bootstrap resampling</strong>: A way of resampling by treating the sample as a population and drawing new samples with the same size as the original, with replacement.</p></li>
 </ul>
 </section>
 <section id="exercises">
@@ -2453,8 +2453,8 @@ Which is a better predictor of weight, culmen length or flipper length?</p>
 </section>
 <section id="id1">
 <h3><span class="section-number">10.8.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>In this chapter we used resampling to compute the sampling distribution for the slope of a fitted line.
-We can compute the sampling distribution of the intercept the same way:</p>
+<p>In this chapter we used resampling to approximate the sampling distribution for the slope of a fitted line.
+We can approximate the sampling distribution of the intercept the same way:</p>
 <ol class="arabic simple">
 <li><p>Write a function called <code class="docutils literal notranslate"><span class="pre">estimate_intercept</span></code> that takes a resampled <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> as an argument, computes the least squares fit of penguin weight as a function of flipper length, and returns the intercept.</p></li>
 <li><p>Call the function with many resampled versions of <code class="docutils literal notranslate"><span class="pre">adelie</span></code> and collect the intercepts.</p></li>

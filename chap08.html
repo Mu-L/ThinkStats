@@ -419,9 +419,15 @@ This process – using a sample to make inferences about a population – is cal
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The nb_black extension is already loaded. To reload it, use:
+  %reload_ext nb_black
+The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre></div>
+</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 1;
+                var nbb_cell_id = 52;
                 var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -463,7 +469,7 @@ This process – using a sample to make inferences about a population – is cal
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 2;
+                var nbb_cell_id = 53;
                 var nbb_unformatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -496,7 +502,7 @@ This process – using a sample to make inferences about a population – is cal
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 3;
+                var nbb_cell_id = 54;
                 var nbb_unformatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_formatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -530,7 +536,7 @@ This process – using a sample to make inferences about a population – is cal
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 4;
+                var nbb_cell_id = 55;
                 var nbb_unformatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -553,7 +559,7 @@ One of your tasks is to monitor the average weight of the penguins as it varies 
 It would be impractical to weigh every penguin in the environment, so your plan is to collect a random sample of 10 penguins each week, weigh them, and use the sample to estimate the mean of the entire population – which is called the <strong>population mean</strong>.</p>
 <p>There are many ways you could use the sample to estimate the population mean, but we’ll consider just two: the sample mean and the sample median.
 They are both reasonable choices, but let’s see which is better – and think about what we mean by “better”.</p>
-<p>For purposes of experiment, we’ll assume that the penguins’ weights are drawn from a normal distribution, and we know the actual mean and standard deviation of that distribution, in kilograms – which I’ll denote <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
+<p>For purposes of demonstration, we’ll assume that penguin weights are drawn from a normal distribution with known mean and standard deviation, which I’ll denote <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code> and assign values in kilograms.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mf">3.7</span>
@@ -564,7 +570,7 @@ They are both reasonable choices, but let’s see which is better – and think 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 5;
+                var nbb_cell_id = 56;
                 var nbb_unformatted_code = "mu = 3.7\nsigma = 0.46";
                 var nbb_formatted_code = "mu = 3.7\nsigma = 0.46";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -592,7 +598,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 6;
+                var nbb_cell_id = 57;
                 var nbb_unformatted_code = "# Seed the random number generator so we get the same results every time\nnp.random.seed(1)";
                 var nbb_formatted_code = "# Seed the random number generator so we get the same results every time\nnp.random.seed(1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -621,7 +627,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 7;
+                var nbb_cell_id = 58;
                 var nbb_unformatted_code = "sample = np.random.normal(mu, sigma, size=10)\nsample";
                 var nbb_formatted_code = "sample = np.random.normal(mu, sigma, size=10)\nsample";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -649,7 +655,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 8;
+                var nbb_cell_id = 59;
                 var nbb_unformatted_code = "np.mean(sample), np.median(sample)";
                 var nbb_formatted_code = "np.mean(sample), np.median(sample)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -676,7 +682,7 @@ To find out, we’ll use the following function to generate hypothetical samples
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 9;
+                var nbb_cell_id = 60;
                 var nbb_unformatted_code = "def make_sample(n):\n    return np.random.normal(mu, sigma, size=n)";
                 var nbb_formatted_code = "def make_sample(n):\n    return np.random.normal(mu, sigma, size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -702,7 +708,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 10;
+                var nbb_cell_id = 61;
                 var nbb_unformatted_code = "ns = np.logspace(1, 5).astype(int)";
                 var nbb_formatted_code = "ns = np.logspace(1, 5).astype(int)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -727,7 +733,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 11;
+                var nbb_cell_id = 62;
                 var nbb_unformatted_code = "means = [np.mean(make_sample(n)) for n in ns]";
                 var nbb_formatted_code = "means = [np.mean(make_sample(n)) for n in ns]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -752,7 +758,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 12;
+                var nbb_cell_id = 63;
                 var nbb_unformatted_code = "medians = [np.median(make_sample(n)) for n in ns]";
                 var nbb_formatted_code = "medians = [np.median(make_sample(n)) for n in ns]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -784,7 +790,7 @@ The horizontal line shows the actual mean in the population.</p>
 <img alt="_images/09313891d81800f0ce4fa1b173661d991eff5a6351fbb6e024f81ab0507a715f.png" src="_images/09313891d81800f0ce4fa1b173661d991eff5a6351fbb6e024f81ab0507a715f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 13;
+                var nbb_cell_id = 64;
                 var nbb_unformatted_code = "plt.axhline(mu, color=\"0.9\")\nplt.plot(ns, means, \"--\", label=\"mean\")\nplt.plot(ns, medians, label=\"median\")\n\ndecorate(xlabel=\"Sample size\", xscale=\"log\", ylabel=\"Estimate\")";
                 var nbb_formatted_code = "plt.axhline(mu, color=\"0.9\")\nplt.plot(ns, means, \"--\", label=\"mean\")\nplt.plot(ns, medians, label=\"median\")\n\ndecorate(xlabel=\"Sample size\", xscale=\"log\", ylabel=\"Estimate\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -819,7 +825,7 @@ Then it uses a list comprehension to collect the results in a list.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 14;
+                var nbb_cell_id = 65;
                 var nbb_unformatted_code = "means = [np.mean(make_sample(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_formatted_code = "means = [np.mean(make_sample(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -849,7 +855,7 @@ Then it uses a list comprehension to collect the results in a list.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 15;
+                var nbb_cell_id = 66;
                 var nbb_unformatted_code = "medians = [np.median(make_sample(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_formatted_code = "medians = [np.median(make_sample(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -884,7 +890,7 @@ The following function computes the differences between the estimates and the ac
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 16;
+                var nbb_cell_id = 67;
                 var nbb_unformatted_code = "def mse(estimates, actual):\n    \"\"\"Mean squared error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(errors**2)";
                 var nbb_formatted_code = "def mse(estimates, actual):\n    \"\"\"Mean squared error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(errors**2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -914,7 +920,7 @@ But in our experiment, we know that the actual population mean is 3.7 kg, so we 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 17;
+                var nbb_cell_id = 68;
                 var nbb_unformatted_code = "mse(means, mu)";
                 var nbb_formatted_code = "mse(means, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -929,8 +935,8 @@ But in our experiment, we know that the actual population mean is 3.7 kg, so we 
             }, 500);
             </script></div>
 </div>
-<p>If we have samples with size 10 and we use the sample mean to estimate the population mean, the average squared error is about 0.021 kilograms squared.</p>
-<p>And here’s the MSE of the sample medians.</p>
+<p>If we have samples with size 10 and we use the sample mean to estimate the population mean, the average squared error is about 0.021 kilograms squared.
+Now here’s the MSE of the sample medians.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mse</span><span class="p">(</span><span class="n">medians</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
@@ -943,7 +949,7 @@ But in our experiment, we know that the actual population mean is 3.7 kg, so we 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 18;
+                var nbb_cell_id = 69;
                 var nbb_unformatted_code = "mse(medians, mu)";
                 var nbb_formatted_code = "mse(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -958,8 +964,8 @@ But in our experiment, we know that the actual population mean is 3.7 kg, so we 
             }, 500);
             </script></div>
 </div>
-<p>If we use the sample medians to estimate the population mean, the average squared error is about 0.029 kilograms squared
-So the sample mean is better than the sample median; in fact, if the data are drawn from a normal distribution, it is the <em>best</em> unbiased estimator of the population mean, in the sense that it minimizes MSE.</p>
+<p>If we use the sample medians to estimate the population mean, the average squared error is about 0.029 kilograms squared.
+In this example, the sample mean is better than the sample median; and in general, if the data are drawn from a normal distribution, it is the <em>best</em> unbiased estimator of the population mean, in the sense that it minimizes MSE.</p>
 <p>Minimizing MSE is a good property for an estimator to have, but MSE is not always the best way to quantify estimation error.
 For one thing, it is hard to interpret.
 In this example, the units of MSE are kilograms squared, so it’s hard to say what that means.</p>
@@ -978,7 +984,7 @@ The following function computes MAE for a sequence of estimates.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 19;
+                var nbb_cell_id = 70;
                 var nbb_unformatted_code = "def mae(estimates, actual):\n    \"\"\"Mean absolute error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(np.abs(errors))";
                 var nbb_formatted_code = "def mae(estimates, actual):\n    \"\"\"Mean absolute error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(np.abs(errors))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1006,7 +1012,7 @@ The following function computes MAE for a sequence of estimates.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 20;
+                var nbb_cell_id = 71;
                 var nbb_unformatted_code = "mae(means, mu)";
                 var nbb_formatted_code = "mae(means, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1034,7 +1040,7 @@ The following function computes MAE for a sequence of estimates.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 21;
+                var nbb_cell_id = 72;
                 var nbb_unformatted_code = "mae(medians, mu)";
                 var nbb_formatted_code = "mae(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1071,7 +1077,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 22;
+                var nbb_cell_id = 73;
                 var nbb_unformatted_code = "def make_sample_with_errors(n):\n    sample = np.random.normal(mu, sigma, size=n)\n    factor = np.random.choice([1, 2.2], p=[0.98, 0.02], size=n)\n    return sample * factor";
                 var nbb_formatted_code = "def make_sample_with_errors(n):\n    sample = np.random.normal(mu, sigma, size=n)\n    factor = np.random.choice([1, 2.2], p=[0.98, 0.02], size=n)\n    return sample * factor";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1096,7 +1102,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 23;
+                var nbb_cell_id = 74;
                 var nbb_unformatted_code = "sample = make_sample_with_errors(n=1000)";
                 var nbb_formatted_code = "sample = make_sample_with_errors(n=1000)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1129,7 +1135,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 <img alt="_images/efda79896d9b34713a8f5b94d271aece5eb0b4b81c755f7fa12b1b13e6cc5252.png" src="_images/efda79896d9b34713a8f5b94d271aece5eb0b4b81c755f7fa12b1b13e6cc5252.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 24;
+                var nbb_cell_id = 75;
                 var nbb_unformatted_code = "from scipy.stats import gaussian_kde\nfrom thinkstats import Pdf\n\nkde = gaussian_kde(sample)\ndomain = 0, 10\npdf = Pdf(kde, domain)\npdf.plot()\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "from scipy.stats import gaussian_kde\nfrom thinkstats import Pdf\n\nkde = gaussian_kde(sample)\ndomain = 0, 10\npdf = Pdf(kde, domain)\npdf.plot()\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1159,7 +1165,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 25;
+                var nbb_cell_id = 76;
                 var nbb_unformatted_code = "means = [np.mean(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_formatted_code = "means = [np.mean(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1189,7 +1195,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 26;
+                var nbb_cell_id = 77;
                 var nbb_unformatted_code = "medians = [np.median(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_formatted_code = "medians = [np.median(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1218,7 +1224,7 @@ If we compare the MSE of the estimates, we see that the sample medians are subst
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 27;
+                var nbb_cell_id = 78;
                 var nbb_unformatted_code = "mse(means, mu), mse(medians, mu)";
                 var nbb_formatted_code = "mse(means, mu), mse(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1247,7 +1253,7 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">biased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Population variance with n in the denominator&quot;&quot;&quot;</span>
+    <span class="c1"># Compute variance with n in the denominator</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="n">deviations</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">deviations</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
@@ -1257,7 +1263,7 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 28;
+                var nbb_cell_id = 79;
                 var nbb_unformatted_code = "def biased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
                 var nbb_formatted_code = "def biased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1286,7 +1292,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 29;
+                var nbb_cell_id = 80;
                 var nbb_unformatted_code = "biased_vars = [biased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(biased_vars)";
                 var nbb_formatted_code = "biased_vars = [biased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(biased_vars)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1315,7 +1321,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 30;
+                var nbb_cell_id = 81;
                 var nbb_unformatted_code = "actual_var = sigma**2\nactual_var";
                 var nbb_formatted_code = "actual_var = sigma**2\nactual_var";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1334,7 +1340,7 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbiased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Population variance with n in the denominator&quot;&quot;&quot;</span>
+    <span class="c1"># Compute variance with n-1 in the denominator</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="n">deviations</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">deviations</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -1344,7 +1350,7 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 31;
+                var nbb_cell_id = 82;
                 var nbb_unformatted_code = "def unbiased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
                 var nbb_formatted_code = "def unbiased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1373,7 +1379,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 32;
+                var nbb_cell_id = 83;
                 var nbb_unformatted_code = "unbiased_vars = [unbiased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(unbiased_vars)";
                 var nbb_formatted_code = "unbiased_vars = [unbiased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(unbiased_vars)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1404,7 +1410,7 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 33;
+                var nbb_cell_id = 84;
                 var nbb_unformatted_code = "n = 10\n1 - (n - 1) / n";
                 var nbb_formatted_code = "n = 10\n1 - (n - 1) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1432,7 +1438,7 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 34;
+                var nbb_cell_id = 85;
                 var nbb_unformatted_code = "n = 100\n1 - (n - 1) / n";
                 var nbb_formatted_code = "n = 100\n1 - (n - 1) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1450,9 +1456,8 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </section>
 <section id="sampling-distributions">
 <span id="section-sampling-distributions"></span><h2><span class="section-number">8.4. </span>Sampling Distributions<a class="headerlink" href="#sampling-distributions" title="Link to this heading">#</a></h2>
-<p>This section introduces an important idea in statistical inference, the sampling distribution.
-To demonstrate, we’ll use a sample of penguin weights.
-So let’s start with the data.</p>
+<p>So far we’ve been working with simulated data, assuming that penguin weights are drawn from a normal distribution with known parameters.
+Now let’s see what happens with real data.</p>
 <p>Between 2007 and 2010, researchers at Palmer Station in Antarctica measured and weighed 342 penguins from local populations.
 The data they collected is freely available – instructions for downloading it are in the notebook for this chapter.</p>
 <p>The following cell downloads the data from a repository created by Allison Horst.</p>
@@ -1469,7 +1474,7 @@ The data they collected is freely available – instructions for downloading it 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 35;
+                var nbb_cell_id = 86;
                 var nbb_unformatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_formatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1498,7 +1503,7 @@ The data they collected is freely available – instructions for downloading it 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 36;
+                var nbb_cell_id = 87;
                 var nbb_unformatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\npenguins.shape";
                 var nbb_formatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\npenguins.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1530,7 +1535,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 37;
+                var nbb_cell_id = 88;
                 var nbb_unformatted_code = "penguins[\"Species\"].value_counts()";
                 var nbb_formatted_code = "penguins[\"Species\"].value_counts()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1555,7 +1560,7 @@ Name: count, dtype: int64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 38;
+                var nbb_cell_id = 89;
                 var nbb_unformatted_code = "chinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')";
                 var nbb_formatted_code = "chinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1574,8 +1579,6 @@ Name: count, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot an estimated PDF.&quot;&quot;&quot;</span>
-
     <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
@@ -1589,7 +1592,7 @@ Name: count, dtype: int64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 39;
+                var nbb_cell_id = 90;
                 var nbb_unformatted_code = "def plot_kde(sample, name=\"\", **options):\n    \"\"\"Plot an estimated PDF.\"\"\"\n\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
                 var nbb_formatted_code = "def plot_kde(sample, name=\"\", **options):\n    \"\"\"Plot an estimated PDF.\"\"\"\n\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1618,7 +1621,7 @@ The vertical dotted line shows the sample mean.</p>
 <img alt="_images/76e04d901d5038d0947d004a136a5a1d0a1be5d8071dec068e031c5a03d3a043.png" src="_images/76e04d901d5038d0947d004a136a5a1d0a1be5d8071dec068e031c5a03d3a043.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 40;
+                var nbb_cell_id = 91;
                 var nbb_unformatted_code = "weights = chinstrap[\"Body Mass (g)\"] / 1000\nplot_kde(weights)\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "weights = chinstrap[\"Body Mass (g)\"] / 1000\nplot_kde(weights)\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1647,7 +1650,7 @@ The vertical dotted line shows the sample mean.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 41;
+                var nbb_cell_id = 92;
                 var nbb_unformatted_code = "sample_mean = np.mean(weights)\nsample_mean";
                 var nbb_formatted_code = "sample_mean = np.mean(weights)\nsample_mean";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1663,15 +1666,14 @@ The vertical dotted line shows the sample mean.</p>
             </script></div>
 </div>
 <p>If you are asked to estimate the population mean, 3.7 kg is a reasonable choice – but how precise is that estimate?</p>
-<p>One way to answer that question is to compute a <strong>sampling distribution</strong>, which shows how much the mean varies from one sample to another.
-If we knew the actual mean and standard deviation in the population, we could simulate the sampling process and compute the sampling distribution.
+<p>One way to answer that question is to compute the <strong>sampling distribution</strong> of the mean, which shows how much the estimated mean varies from one sample to another.
+If we knew the actual mean and standard deviation in the population, we could model the sampling process and compute the sampling distribution.
 But if we knew the actual population mean, we wouldn’t have to estimate it!</p>
 <p>Fortunately, there’s a simple way to approximate the sampling distribution, called <strong>resampling</strong>.
 The core idea is to use the sample to make a model of the population, then use the model to simulate the sampling process.</p>
-<p>More specifically, we’ll use <strong>bootstrap resampling</strong>, which works by treating the sample as if it is the entire population, and drawing new samples from it.
-Even more specifically, we’ll use <strong>parametric</strong> bootstrap resampling, which means we’ll use the sample to estimate the parameters of the population – the mean and standard deviation – and then use a normal distribution to generate new samples.</p>
-<p>The following function implements this process.
-Notice that the new samples have the same size as the original.</p>
+<p>More specifically, we’ll use <strong>parametric resampling</strong>, which means we’ll use the sample to estimate the parameters of the population and then use a theoretical distribution to generate new samples.</p>
+<p>The following function implements this process with a normal distribution.
+Notice that the new samples are the same size as the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
@@ -1684,9 +1686,9 @@ Notice that the new samples have the same size as the original.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 42;
-                var nbb_unformatted_code = "def resample(weights):\n    \"\"\"Generate a sample from a normal distribution.\"\"\"\n    m, s = np.mean(weights), np.std(weights)\n    return np.random.normal(m, s, len(weights))";
-                var nbb_formatted_code = "def resample(weights):\n    \"\"\"Generate a sample from a normal distribution.\"\"\"\n    m, s = np.mean(weights), np.std(weights)\n    return np.random.normal(m, s, len(weights))";
+                var nbb_cell_id = 93;
+                var nbb_unformatted_code = "def resample(sample):\n    # Generate a sample from a normal distribution\n    m, s = np.mean(sample), np.std(sample)\n    return np.random.normal(m, s, len(sample))";
+                var nbb_formatted_code = "def resample(sample):\n    # Generate a sample from a normal distribution\n    m, s = np.mean(sample), np.std(sample)\n    return np.random.normal(m, s, len(sample))";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1709,7 +1711,7 @@ Notice that the new samples have the same size as the original.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 43;
+                var nbb_cell_id = 94;
                 var nbb_unformatted_code = "sample_means = [np.mean(resample(weights)) for i in range(1001)]";
                 var nbb_formatted_code = "sample_means = [np.mean(resample(weights)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1736,7 +1738,7 @@ Notice that the new samples have the same size as the original.</p>
 <img alt="_images/55de8fafe9185b12768dab797f4817c3e6dccff3f957a6f489572084cb29fbc1.png" src="_images/55de8fafe9185b12768dab797f4817c3e6dccff3f957a6f489572084cb29fbc1.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 95;
                 var nbb_unformatted_code = "plot_kde(sample_means, \"Chinstrap\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "plot_kde(sample_means, \"Chinstrap\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1751,9 +1753,9 @@ Notice that the new samples have the same size as the original.</p>
             }, 500);
             </script></div>
 </div>
-<p>This result is the sampling distribution of the sample mean.
+<p>This result approximates the sampling distribution of the sample mean.
 It shows how much we expect the sample mean to vary if we collect many samples of the same size – assuming that our model of the population is accurate.</p>
-<p>Informally, we can see that the sample mean could be as low as 3.55, if we collected another sample, or as high as 3.9.</p>
+<p>Informally, we can see that the sample mean could be as low as 3.55, if we collected another sample with the same size, or as high as 3.9.</p>
 </section>
 <section id="standard-error">
 <h2><span class="section-number">8.5. </span>Standard Error<a class="headerlink" href="#standard-error" title="Link to this heading">#</a></h2>
@@ -1771,7 +1773,7 @@ It shows how much we expect the sample mean to vary if we collect many samples o
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 45;
+                var nbb_cell_id = 96;
                 var nbb_unformatted_code = "standard_error = np.std(sample_means)\nstandard_error";
                 var nbb_formatted_code = "standard_error = np.std(sample_means)\nstandard_error";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1787,170 +1789,27 @@ It shows how much we expect the sample mean to vary if we collect many samples o
             </script></div>
 </div>
 <p>In this case, the standard error is about 0.045 kg – so if we collect many samples, we expect the sample means to vary by about 0.045 kg, on average.</p>
-<p>With larger samples, there is less variation in the sample means, so the standard error is smaller.
-To demonstrate, let’s compute the sampling distribution and standard error for the Adélie penguins.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adelie</span> <span class="o">=</span> <span class="n">penguins</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;Species.str.startswith(&quot;Adelie&quot;)&#39;</span><span class="p">)</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">adelie</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">chinstrap</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(151, 68)
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 46;
-                var nbb_unformatted_code = "adelie = penguins.query('Species.str.startswith(\"Adelie\")')\nlen(adelie), len(chinstrap)";
-                var nbb_formatted_code = "adelie = penguins.query('Species.str.startswith(\"Adelie\")')\nlen(adelie), len(chinstrap)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>The dataset includes weights for 151 Adélie penguins, compared to only 68 chinstraps.
-The sample mean for Adélie penguins is about 3.7 kg.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weights2</span> <span class="o">=</span> <span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>
-<span class="n">sample_mean2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weights2</span><span class="p">)</span>
-<span class="n">sample_mean2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.7006622516556287
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 47;
-                var nbb_unformatted_code = "weights2 = adelie[\"Body Mass (g)\"] / 1000\nsample_mean2 = np.mean(weights2)\nsample_mean2";
-                var nbb_formatted_code = "weights2 = adelie[\"Body Mass (g)\"] / 1000\nsample_mean2 = np.mean(weights2)\nsample_mean2";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>The following loop uses <code class="docutils literal notranslate"><span class="pre">resample</span></code> to generate simulated samples and compute their means.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_means2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">resample</span><span class="p">(</span><span class="n">weights2</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 48;
-                var nbb_unformatted_code = "sample_means2 = [np.mean(resample(weights2)) for i in range(1001)]";
-                var nbb_formatted_code = "sample_means2 = [np.mean(resample(weights2)) for i in range(1001)]";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>Here’s the sampling distribution for Adélie penguins, compared to the sampling distribution for chinstraps.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_kde</span><span class="p">(</span><span class="n">sample_means</span><span class="p">,</span> <span class="s2">&quot;Chinstrap&quot;</span><span class="p">)</span>
-<span class="n">plot_kde</span><span class="p">(</span><span class="n">sample_means2</span><span class="p">,</span> <span class="s2">&quot;Adélie&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Sample mean of weight (kg)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ed169fe2672841e1bf6d4e048331a0320efc25cc0397f2ab6ab75f5a316423a1.png" src="_images/ed169fe2672841e1bf6d4e048331a0320efc25cc0397f2ab6ab75f5a316423a1.png" />
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 49;
-                var nbb_unformatted_code = "plot_kde(sample_means, \"Chinstrap\")\nplot_kde(sample_means2, \"Ad\u00e9lie\", ls=\"--\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
-                var nbb_formatted_code = "plot_kde(sample_means, \"Chinstrap\")\nplot_kde(sample_means2, \"Ad\u00e9lie\", ls=\"--\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>The sampling distribution for Adélie penguins is narrower because the sample size is bigger. And the standard error is smaller, too.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standard_error2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample_means2</span><span class="p">)</span>
-<span class="n">standard_error2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03637933631301007
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 50;
-                var nbb_unformatted_code = "standard_error2 = np.std(sample_means2)\nstandard_error2";
-                var nbb_formatted_code = "standard_error2 = np.std(sample_means2)\nstandard_error2";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
 <p>People often confuse standard error and standard deviation. Remember:</p>
 <ul class="simple">
 <li><p>Standard deviation quantifies variation in measurements.</p></li>
 <li><p>Standard error quantifies the precision of an estimate.</p></li>
 </ul>
-<p>In this dataset, the standard deviation of penguin weights is about 0.38 kg for chinstrap penguins and 0.46 kg for Adélie penguins.</p>
+<p>In this dataset, the standard deviation of penguin weights is about 0.38 kg for chinstrap penguins.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">weights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">weights2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.3814986213564681, 0.457045172712245)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3814986213564681
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 51;
-                var nbb_unformatted_code = "np.std(weights), np.std(weights2)";
-                var nbb_formatted_code = "np.std(weights), np.std(weights2)";
+                var nbb_cell_id = 97;
+                var nbb_unformatted_code = "np.std(weights)";
+                var nbb_formatted_code = "np.std(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1963,22 +1822,22 @@ The sample mean for Adélie penguins is about 3.7 kg.</p>
             }, 500);
             </script></div>
 </div>
-<p>The standard error of the average weight is about 0.046 kg for chinstrap penguins and 0.036 kg for Adélie penguins.</p>
+<p>The standard error of the average weight is about 0.046 kg.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample_means</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample_means2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample_means</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.04626531069684985, 0.03637933631301007)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.04626531069684985
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 52;
-                var nbb_unformatted_code = "np.std(sample_means), np.std(sample_means2)";
-                var nbb_formatted_code = "np.std(sample_means), np.std(sample_means2)";
+                var nbb_cell_id = 98;
+                var nbb_unformatted_code = "np.std(sample_means)";
+                var nbb_formatted_code = "np.std(sample_means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2007,7 +1866,7 @@ If we know the standard deviation and sample size, we can approximate the standa
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 53;
+                var nbb_cell_id = 99;
                 var nbb_unformatted_code = "def approximate_standard_error(sample):\n    n = len(sample)\n    return np.std(sample) / np.sqrt(n)";
                 var nbb_formatted_code = "def approximate_standard_error(sample):\n    n = len(sample)\n    return np.std(sample) / np.sqrt(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2034,7 +1893,7 @@ If we know the standard deviation and sample size, we can approximate the standa
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 54;
+                var nbb_cell_id = 100;
                 var nbb_unformatted_code = "approximate_standard_error(weights)";
                 var nbb_formatted_code = "approximate_standard_error(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2049,34 +1908,7 @@ If we know the standard deviation and sample size, we can approximate the standa
             }, 500);
             </script></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">approximate_standard_error</span><span class="p">(</span><span class="n">weights2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.037193808669029625
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 55;
-                var nbb_unformatted_code = "approximate_standard_error(weights2)";
-                var nbb_formatted_code = "approximate_standard_error(weights2)";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>These results are close to what we got by resampling.</p>
+<p>This result is close to what we got by resampling.</p>
 </section>
 <section id="confidence-intervals">
 <h2><span class="section-number">8.6. </span>Confidence Intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
@@ -2096,38 +1928,9 @@ Here’s the 90% confidence interval for the average weight of chinstrap penguin
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 56;
+                var nbb_cell_id = 101;
                 var nbb_unformatted_code = "ci90 = np.percentile(sample_means, [5, 95])\nci90";
                 var nbb_formatted_code = "ci90 = np.percentile(sample_means, [5, 95])\nci90";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>And here’s the 90% confidence interval for the average weight of Adélie penguins.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample_means2</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
-<span class="n">ci90</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.64335199, 3.76389419])
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 57;
-                var nbb_unformatted_code = "ci90 = np.percentile(sample_means2, [5, 95])\nci90";
-                var nbb_formatted_code = "ci90 = np.percentile(sample_means2, [5, 95])\nci90";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2165,25 +1968,24 @@ Some people will refuse to answer the question, and if the tendency to refuse is
 Even helpful respondents might round up or down if they are uncomfortable with their actual weight.
 And not all respondents are helpful.
 These inaccuracies are examples of <strong>measurement error</strong>.</p>
-<p>When you report an estimated quantity, it is useful to quantify variability due to sampling by reporting a standard error a confidence interval.
-But remember that sampling error is only one source of error, and often it is not the biggest.</p>
+<p>When you report an estimated quantity, it is useful to quantify variability due to sampling by reporting a standard error or a confidence interval.
+But remember that this variability is only one source of error, and often it is not the biggest.</p>
 </section>
 <section id="glossary">
 <h2><span class="section-number">8.8. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>population mean:</strong> The true mean of a quantity in an entire population, as opposed to the sample mean, which is calculated from a subset.</p></li>
-<li><p><strong>parameter</strong>: One of the values that specifies a particular distribution in a set of distributions – for example, the parameters of a normal distribution are the population mean and population standard deviation.</p></li>
+<li><p><strong>parameter</strong>: One of the values that specifies a particular distribution in a set of distributions – for example, the parameters of a normal distribution are the mean and standard deviation.</p></li>
 <li><p><strong>estimator</strong>: A statistic calculated from a sample that is used to estimate a parameter of the population.</p></li>
 <li><p><strong>consistent:</strong> An estimator is consistent if it converges to the actual value of the parameter as the sample size increases.</p></li>
 <li><p><strong>unbiased:</strong> An estimator is unbiased if, for a particular sample size, the average of the sample estimates is the actual value of the parameter.</p></li>
 <li><p><strong>mean squared error (MSE)</strong>: A measure of the accuracy of an estimator – it’s the average squared difference between estimated and true parameter values, assuming the true value is known.</p></li>
 <li><p><strong>robust:</strong> An estimator is robust if it remains accurate even when a dataset contains outliers or errors – or does not perfectly follow a theoretical distribution.</p></li>
-<li><p><strong>sampling distribution</strong>: The distribution of a statistic if an experiment is repeated many times.</p></li>
-<li><p><strong>resampling:</strong> A way to quantify the precision of an estimate by simulating the sampling process.</p></li>
-<li><p><strong>bootstrap resampling:</strong> A kind of resampling that treats the sample as if it were the population and draws new samples from it, with replacement.</p></li>
-<li><p><strong>parametric resampling:</strong> A type of resampling that estimates population parameters from sample data and then uses a theoretical distribution to simulate the sampling process.”</p></li>
+<li><p><strong>resampling:</strong> A way to approximate the sampling distribution of an estimate by simulating the sampling process.</p></li>
+<li><p><strong>sampling distribution</strong>: The distribution of a statistic across possible samples from the same population.</p></li>
+<li><p><strong>parametric resampling:</strong> A kind of resampling that estimates population parameters from sample data and then uses a theoretical distribution to simulate the sampling process.”</p></li>
 <li><p><strong>standard error</strong>: The standard deviation of a sampling distribution, which quantifies the variability of an estimate due to random sampling (but not measurement error or non-representative sampling).</p></li>
-<li><p><strong>confidence interval</strong>: An interval that contains the most likely values of a sample statistic if an experiment were repeated many times.</p></li>
+<li><p><strong>confidence interval</strong>: An interval that contains the most likely values of a sample drawn from a population.</p></li>
 </ul>
 </section>
 <section id="exercises">
@@ -2214,7 +2016,7 @@ But other sources of error might be bigger – what other sources of error do yo
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 63;
+                var nbb_cell_id = 107;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2240,7 +2042,7 @@ But other sources of error might be bigger – what other sources of error do yo
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 108;
                 var nbb_unformatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()";
                 var nbb_formatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2277,7 +2079,7 @@ Name: htm3, dtype: float64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 65;
+                var nbb_cell_id = 109;
                 var nbb_unformatted_code = "male = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"]\nheights.describe()";
                 var nbb_formatted_code = "male = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"]\nheights.describe()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2310,7 +2112,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 71;
+                var nbb_cell_id = 115;
                 var nbb_unformatted_code = "actual_mean = 10";
                 var nbb_formatted_code = "actual_mean = 10";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2336,7 +2138,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 72;
+                var nbb_cell_id = 116;
                 var nbb_unformatted_code = "def make_exponential(n):\n    return np.random.exponential(actual_mean, size=n)";
                 var nbb_formatted_code = "def make_exponential(n):\n    return np.random.exponential(actual_mean, size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2352,7 +2154,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
             </script></div>
 </div>
 <p>Use this function to generate samples with a range of sizes and compute the mean of each one. As <code class="docutils literal notranslate"><span class="pre">n</span></code> increases, do the sample means converge to the actual mean?</p>
-<p>Next, generate samples with a range of size and compute the median of each one.
+<p>Next, generate samples with a range of sizes and compute the median of each one.
 Do the sample medians converge to the actual median?</p>
 <p>Here’s the actual median of an exponential distribution with the given mean.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2368,7 +2170,7 @@ Do the sample medians converge to the actual median?</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 73;
+                var nbb_cell_id = 117;
                 var nbb_unformatted_code = "actual_median = np.log(2) * actual_mean\nactual_median";
                 var nbb_formatted_code = "actual_median = np.log(2) * actual_mean\nactual_median";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2395,7 +2197,7 @@ Now let’s try standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">biased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Square root of the biased estimator of variance.&quot;&quot;&quot;</span>
+    <span class="c1"># Square root of the biased estimator of variance</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">biased_var</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
 </pre></div>
@@ -2404,7 +2206,7 @@ Now let’s try standard deviation.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 79;
+                var nbb_cell_id = 123;
                 var nbb_unformatted_code = "def biased_std(sample):\n    \"\"\"Square root of the biased estimator of variance.\"\"\"\n    var = biased_var(sample)\n    return np.sqrt(var)";
                 var nbb_formatted_code = "def biased_std(sample):\n    \"\"\"Square root of the biased estimator of variance.\"\"\"\n    var = biased_var(sample)\n    return np.sqrt(var)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2422,7 +2224,7 @@ Now let’s try standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbiased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Square root of the unbiased estimator of variance.&quot;&quot;&quot;</span>
+    <span class="c1"># Square root of the unbiased estimator of variance</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">unbiased_var</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
 </pre></div>
@@ -2431,7 +2233,7 @@ Now let’s try standard deviation.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 80;
+                var nbb_cell_id = 124;
                 var nbb_unformatted_code = "def unbiased_std(sample):\n    \"\"\"Square root of the unbiased estimator of variance.\"\"\"\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
                 var nbb_formatted_code = "def unbiased_std(sample):\n    \"\"\"Square root of the unbiased estimator of variance.\"\"\"\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2458,13 +2260,13 @@ Check whether either of these is an unbiased estimator of standard deviation.</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([3.12391738, 3.42108139, 2.72577285, 3.9949709 , 3.969503  ,
-       4.05017156, 4.08291732, 4.14870438, 3.52032859, 3.66219622])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([4.5279695 , 3.75698359, 4.09347143, 3.56308034, 3.17123233,
+       4.40734952, 3.70858308, 4.15706704, 4.06716703, 3.7203591 ])
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 81;
+                var nbb_cell_id = 125;
                 var nbb_unformatted_code = "# Here's an example using `make_sample`\n\nmu, sigma = 3.7, 0.46\nmake_sample(n=10)";
                 var nbb_formatted_code = "# Here's an example using `make_sample`\n\nmu, sigma = 3.7, 0.46\nmake_sample(n=10)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2499,7 +2301,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 85;
+                var nbb_cell_id = 129;
                 var nbb_unformatted_code = "def estimate_tanks(sample):\n    m = np.max(sample)\n    k = len(sample)\n    return m + (m - k) / k";
                 var nbb_formatted_code = "def estimate_tanks(sample):\n    m = np.max(sample)\n    k = len(sample)\n    return m + (m - k) / k";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2525,7 +2327,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 86;
+                var nbb_cell_id = 130;
                 var nbb_unformatted_code = "N = 122\ntanks = np.arange(1, N + 1)";
                 var nbb_formatted_code = "N = 122\ntanks = np.arange(1, N + 1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2551,7 +2353,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 87;
+                var nbb_cell_id = 131;
                 var nbb_unformatted_code = "def sample_tanks(k):\n    return np.random.choice(tanks, replace=False, size=k)";
                 var nbb_formatted_code = "def sample_tanks(k):\n    return np.random.choice(tanks, replace=False, size=k)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2576,7 +2378,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 88;
+                var nbb_cell_id = 132;
                 var nbb_unformatted_code = "np.random.seed(17)";
                 var nbb_formatted_code = "np.random.seed(17)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2604,7 +2406,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 89;
+                var nbb_cell_id = 133;
                 var nbb_unformatted_code = "sample = sample_tanks(5)\nsample";
                 var nbb_formatted_code = "sample = sample_tanks(5)\nsample";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2632,7 +2434,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 90;
+                var nbb_cell_id = 134;
                 var nbb_unformatted_code = "estimate_tanks(sample)";
                 var nbb_formatted_code = "estimate_tanks(sample)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2667,7 +2469,7 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_hits_and_misses</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a sequence of 0s and 1s.&quot;&quot;&quot;</span>
+    <span class="c1"># Generate a random sequence of 0s and 1s</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2675,7 +2477,7 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 92;
+                var nbb_cell_id = 136;
                 var nbb_unformatted_code = "def make_hits_and_misses(n):\n    \"\"\"Generate a sequence of 0s and 1s.\"\"\"\n    return np.random.choice([0, 1], size=n)";
                 var nbb_formatted_code = "def make_hits_and_misses(n):\n    \"\"\"Generate a sequence of 0s and 1s.\"\"\"\n    return np.random.choice([0, 1], size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2730,7 +2532,7 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 93;
+                var nbb_cell_id = 137;
                 var nbb_unformatted_code = "import numpy as np\n\n\ndef get_successors(seq, target_sum=3):\n    \"\"\"Get the successors of each subsequence that sums to a target value.\n\n    Parameters:\n    seq (array-like): Sequence of 1s and 0s.\n    target_sum (int): The target sum of the subsequence. Default is 3.\n\n    Returns:\n    np.ndarray: Array of successors to subsequences that sum to `target_sum`.\n    \"\"\"\n    # Check if the input sequence is too short\n    if len(seq) < 3:\n        return np.array([])\n\n    # Compute the sum of each subsequence of length 3\n    kernel = [1, 1, 1]\n    corr = np.correlate(seq, kernel, mode=\"valid\")\n\n    # Find the indices where the subsequence sums to the target value\n    indices = np.nonzero(corr == target_sum)[0]\n\n    # Remove cases where the subsequence is at the end of the sequence\n    indices = indices[indices < len(seq) - 3]\n\n    # Find the successors of each valid subsequence\n    successors = seq[indices + 3] if len(indices) > 0 else np.array([])\n\n    return successors";
                 var nbb_formatted_code = "import numpy as np\n\n\ndef get_successors(seq, target_sum=3):\n    \"\"\"Get the successors of each subsequence that sums to a target value.\n\n    Parameters:\n    seq (array-like): Sequence of 1s and 0s.\n    target_sum (int): The target sum of the subsequence. Default is 3.\n\n    Returns:\n    np.ndarray: Array of successors to subsequences that sum to `target_sum`.\n    \"\"\"\n    # Check if the input sequence is too short\n    if len(seq) < 3:\n        return np.array([])\n\n    # Compute the sum of each subsequence of length 3\n    kernel = [1, 1, 1]\n    corr = np.correlate(seq, kernel, mode=\"valid\")\n\n    # Find the indices where the subsequence sums to the target value\n    indices = np.nonzero(corr == target_sum)[0]\n\n    # Remove cases where the subsequence is at the end of the sequence\n    indices = indices[indices < len(seq) - 3]\n\n    # Find the successors of each valid subsequence\n    successors = seq[indices + 3] if len(indices) > 0 else np.array([])\n\n    return successors";
                 var nbb_cells = Jupyter.notebook.get_cells();

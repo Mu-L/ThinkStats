@@ -390,9 +390,9 @@ document.write(`
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="probability-mass-functions">
 <h1><span class="section-number">3. </span>Probability Mass Functions<a class="headerlink" href="#probability-mass-functions" title="Link to this heading">#</a></h1>
-<p>In the previous chapter we represented distributions using a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object, which contains a set of quantities and their frequencies – that is, the number of times each quantity appears.
+<p>In the previous chapter we represented distributions using a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object, which contains a set of values and their frequencies – that is, the number of times each value appears.
 In this chapter we’ll introduce another way to describe a distribution, a probability mass function (PMF).</p>
-<p>To represent a PMF, we’ll use an object called a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, which contains a set of quantities and their probabilities.
+<p>To represent a PMF, we’ll use an object called a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, which contains a set of values and their probabilities.
 We’ll use <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to compute the mean and variance of a distribution, and the skewness, which indicates whether it is skewed to the left or right.
 Finally, we will explore how a phenomenon called the “inspection paradox” can cause a sample to give a biased view of a distribution.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap03.ipynb">Click here to run this notebook on Colab</a>.</p>
@@ -539,15 +539,15 @@ Finally, we will explore how a phenomenon called the “inspection paradox” ca
 </div>
 <section id="pmfs">
 <h2><span class="section-number">3.1. </span>PMFs<a class="headerlink" href="#pmfs" title="Link to this heading">#</a></h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object is like a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> that contains probabilities instead of frequencies.
-So one way to make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> is to start with a <code class="docutils literal notranslate"><span class="pre">Hist</span></code>.
-For example, here’s a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> that represents the distribution of values in a short sequence.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object is like a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> that contains probabilities instead of frequencies.
+So one way to make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> is to start with a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code>.
+For example, here’s a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> that represents the distribution of values in a short sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">FreqTab</span>
 
-<span class="n">hist</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="n">hist</span>
+<span class="n">ftab</span> <span class="o">=</span> <span class="n">FreqTab</span><span class="o">.</span><span class="n">from_seq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">ftab</span>
 </pre></div>
 </div>
 </div>
@@ -612,7 +612,7 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
 <p>The sum of the frequencies is the size of the original sequence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">hist</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">ftab</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">n</span>
 </pre></div>
 </div>
@@ -641,7 +641,7 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
 <p>If we divide the frequencies by <code class="docutils literal notranslate"><span class="pre">n</span></code>, they represent proportions, rather than counts.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">hist</span> <span class="o">/</span> <span class="n">n</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">ftab</span> <span class="o">/</span> <span class="n">n</span>
 <span class="n">pmf</span>
 </pre></div>
 </div>
@@ -734,8 +734,8 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
             }, 500);
             </script></div>
 </div>
-<p>A normalized <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object represents a <strong>probability mass function</strong> (PMF), so-called because probabilities associated with discrete quantities are also called “probability masses”.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> library provides a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object that represents a probability mass function, so instead of creating a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object and then normalizing it, we can create a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object directly.</p>
+<p>A normalized <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object represents a <strong>probability mass function</strong> (PMF), so-called because probabilities associated with discrete values are also called “probability masses”.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> library provides a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object that represents a probability mass function, so instead of creating a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object and then normalizing it, we can create a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object directly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
@@ -831,7 +831,7 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
             }, 500);
             </script></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Pmf</span></code> and <code class="docutils literal notranslate"><span class="pre">Hist</span></code> objects are similar in many ways.
+<p><code class="docutils literal notranslate"><span class="pre">Pmf</span></code> and <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> objects are similar in many ways.
 To look up the probability associated with a value, we can use the bracket operator.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -888,7 +888,7 @@ To look up the probability associated with a value, we can use the bracket opera
             }, 500);
             </script></div>
 </div>
-<p>To assign a probability to a quantity, you have to use the bracket operator.</p>
+<p>To assign a probability to a value, you have to use the bracket operator.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>
@@ -1096,7 +1096,7 @@ To look up the probability associated with a value, we can use the bracket opera
             }, 500);
             </script></div>
 </div>
-<p>Like a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object, a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object has a <code class="docutils literal notranslate"><span class="pre">qs</span></code> attribute that accesses the quantities and a <code class="docutils literal notranslate"><span class="pre">ps</span></code> attribute that accesses the probabilities.</p>
+<p>Like a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object, a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object has a <code class="docutils literal notranslate"><span class="pre">qs</span></code> attribute that accesses the quantities and a <code class="docutils literal notranslate"><span class="pre">ps</span></code> attribute that accesses the probabilities.</p>
 <p>It also has a <code class="docutils literal notranslate"><span class="pre">bar</span></code> method that plots the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> as a bar graph and a <code class="docutils literal notranslate"><span class="pre">plot</span></code> method that plots it as a line graph.</p>
 </section>
 <section id="summary-statistics">
@@ -1768,8 +1768,8 @@ Here’s the function that unbiases a <code class="docutils literal notranslate"
 </section>
 <section id="nsfg-data">
 <h2><span class="section-number">3.4. </span>NSFG Data<a class="headerlink" href="#nsfg-data" title="Link to this heading">#</a></h2>
-<p>In the previous chapter, we plotted histograms of pregnancy lengths for first babies and others.
-But the sizes of the groups are not the same, so we can’t compare the histograms directly.
+<p>In the previous chapter, we plotted frequency tables of pregnancy lengths for first babies and others.
+But the sizes of the groups are not the same, so we can’t compare the frequency tables directly.
 Because PMFs are normalized, we can compare them.
 So let’s load the NSFG data again and make <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to represent distributions of pregnancy lengths.</p>
 <p>The following cells download the data files and install <code class="docutils literal notranslate"><span class="pre">statadict</span></code>, which we need to read the data.</p>
@@ -1907,12 +1907,12 @@ It returns three <code class="docutils literal notranslate"><span class="pre">Da
             }, 500);
             </script></div>
 </div>
-<p>By plotting the PMF instead of the histogram, we can compare the two distributions without being misled by the difference in sample size.
+<p>By plotting the PMF instead of the frequency table, we can compare the two distributions without being misled by the difference in sizes of the samples.
 Based on this figure, first babies seem to be less likely than others to arrive on time (week 39) and more likely to be late (weeks 41 and 42).</p>
 </section>
 <section id="other-visualizations">
 <h2><span class="section-number">3.5. </span>Other Visualizations<a class="headerlink" href="#other-visualizations" title="Link to this heading">#</a></h2>
-<p>Histograms and PMFs are useful while you are exploring data and trying to identify patterns and relationships.
+<p>FreqTabograms and PMFs are useful while you are exploring data and trying to identify patterns and relationships.
 Once you have an idea what is going on, a good next step is to design a visualization that makes the patterns you have identified as clear as possible.</p>
 <p>In the NSFG data, the biggest differences in the distributions are near the mode.
 So it makes sense to zoom in on that part of the graph, and select data from weeks 35 to 46.</p>
@@ -2111,7 +2111,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <section id="exercise">
 <h3><span class="section-number">3.7.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>Select the column <code class="docutils literal notranslate"><span class="pre">numbabes</span></code>, which records the “number of babies born alive” to each respondent.
-Make a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object and display the frequencies of the values in this column.
+Make a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object and display the frequencies of the values in this column.
 Check that they are consistent with the frequencies in the code book.
 Are there any special values that should be replaced with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>?</p>
 <p>Then make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object and plot it as a bar graph. Is the distribution symmetric, skewed to the left, or skewed to the right?</p>

@@ -392,8 +392,8 @@ document.write(`
 <p>In the datasets we have explored in this book, we’ve seen differences between groups of people – and penguins – correlations between variables, and slopes of regression lines.
 Results like these are called <strong>observed effects</strong> because they appear in a sample, as contrasted with actual effects in the population, which we usually can’t observe directly.
 When we see an apparent effect, we should consider whether it is likely to be present in the larger population or whether it might appear in the sample by chance.</p>
-<p>There are several ways to formulate this question, including Fisher null hypothesis testing, Neyman-Pearson decision theory, and Bayesian inference.
-What I present here is a subset of all three that is most often used in practice, which I will call <strong>classical hypothesis testing</strong>.</p>
+<p>There are several ways to formulate this question, including Fisher null hypothesis testing, Neyman-Pearson decision theory, and Bayesian hypothesis testing.
+What I present here is a mixture of these approaches that is often used in practice.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap09.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -541,18 +541,18 @@ What I present here is a subset of all three that is most often used in practice
 <p>We’ll start with a simple example.
 When Euro coins were introduced in 2002, a curious coin enthusiast spun a Belgian one-Euro coin on edge 250 times and noted that it landed with the heads side up 140 times and tails side up 110 times.
 If the coin is perfectly balanced, we expect only 125 heads, so this data suggests the coin is biased.
-On the other hand, we don’t expect to get exactly 125 heads every time, so it’s possible that the coin is actually fair, and the apparent excess of heads is due to chance.
+On the other hand, we don’t expect to get exactly 125 heads every time, so it’s possible that the coin is actually fair, and the apparent deviation from the expected value is due to chance.
 To see whether that’s plausible, we can perform a hypothesis test.</p>
-<p>We’ll use the following function to compute the excess number of heads, which is the difference between the observed number and the expected number if the coin is fair.</p>
+<p>We’ll use the following function to compute the absolute difference between the observed number and the expected number if the coin is fair.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">250</span>
 <span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
 
 
-<span class="k">def</span> <span class="nf">excess_heads</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span>
-    <span class="k">return</span> <span class="n">heads</span> <span class="o">-</span> <span class="n">expected</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">heads</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -560,8 +560,8 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 5;
-                var nbb_unformatted_code = "n = 250\np = 0.5\n\n\ndef excess_heads(heads):\n    expected = n * p\n    return heads - expected";
-                var nbb_formatted_code = "n = 250\np = 0.5\n\n\ndef excess_heads(heads):\n    expected = n * p\n    return heads - expected";
+                var nbb_unformatted_code = "n = 250\np = 0.5\n\n\ndef deviation(heads):\n    expected = n * p\n    return np.abs(heads - expected)";
+                var nbb_formatted_code = "n = 250\np = 0.5\n\n\ndef deviation(heads):\n    expected = n * p\n    return np.abs(heads - expected)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -574,13 +574,13 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
             }, 500);
             </script></div>
 </div>
-<p>In the observed data, the number of excess heads is 15.</p>
+<p>In the observed data, this deviation is 15.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heads</span> <span class="o">=</span> <span class="mi">140</span>
 <span class="n">tails</span> <span class="o">=</span> <span class="mi">110</span>
 
-<span class="n">observed_stat</span> <span class="o">=</span> <span class="n">excess_heads</span><span class="p">(</span><span class="n">heads</span><span class="p">)</span>
+<span class="n">observed_stat</span> <span class="o">=</span> <span class="n">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">)</span>
 <span class="n">observed_stat</span>
 </pre></div>
 </div>
@@ -592,8 +592,8 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 6;
-                var nbb_unformatted_code = "heads = 140\ntails = 110\n\nobserved_stat = excess_heads(heads)\nobserved_stat";
-                var nbb_formatted_code = "heads = 140\ntails = 110\n\nobserved_stat = excess_heads(heads)\nobserved_stat";
+                var nbb_unformatted_code = "heads = 140\ntails = 110\n\nobserved_stat = deviation(heads)\nobserved_stat";
+                var nbb_formatted_code = "heads = 140\ntails = 110\n\nobserved_stat = deviation(heads)\nobserved_stat";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -686,10 +686,10 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
             }, 500);
             </script></div>
 </div>
-<p>The following loop simulates the experiment many times, computes the number of excess heads for each one, and uses a list comprehension to collect the results in a list.</p>
+<p>The following loop simulates the experiment many times, computes the deviation for each one, and uses a list comprehension to collect the results in a list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">excess_heads</span><span class="p">(</span><span class="n">simulate_flips</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">deviation</span><span class="p">(</span><span class="n">simulate_flips</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -697,8 +697,8 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 10;
-                var nbb_unformatted_code = "simulated_stats = [excess_heads(simulate_flips()) for i in range(10001)]";
-                var nbb_formatted_code = "simulated_stats = [excess_heads(simulate_flips()) for i in range(10001)]";
+                var nbb_unformatted_code = "simulated_stats = [deviation(simulate_flips()) for i in range(10001)]";
+                var nbb_formatted_code = "simulated_stats = [deviation(simulate_flips()) for i in range(10001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -711,7 +711,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
             }, 500);
             </script></div>
 </div>
-<p>The result is a sample from the distribution of excess heads under the assumption that the coin is fair.
+<p>The result is a sample from the distribution of deviations under the assumption that the coin is fair.
 Here’s what the distribution of these values looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -720,17 +720,17 @@ Here’s what the distribution of these values looks like.</p>
 <span class="n">pmf_effects</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">simulated_stats</span><span class="p">)</span>
 <span class="n">pmf_effects</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Excess Heads&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;PMF&quot;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute deviation&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;PMF&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/adf788170b9dbfd95bebb66f4f3eecff2b836d0cddd1daa77beb405b14ab19ea.png" src="_images/adf788170b9dbfd95bebb66f4f3eecff2b836d0cddd1daa77beb405b14ab19ea.png" />
+<img alt="_images/9f6c2042bcbbe5eb8fc3bda5aa8c5e1dcbdfa6e8da805ce2bea9df2ce04d2700.png" src="_images/9f6c2042bcbbe5eb8fc3bda5aa8c5e1dcbdfa6e8da805ce2bea9df2ce04d2700.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 11;
-                var nbb_unformatted_code = "from empiricaldist import Pmf\n\npmf_effects = Pmf.from_seq(simulated_stats)\npmf_effects.bar(alpha=0.5)\n\ndecorate(xlabel=\"Excess Heads\", ylabel=\"PMF\")";
-                var nbb_formatted_code = "from empiricaldist import Pmf\n\npmf_effects = Pmf.from_seq(simulated_stats)\npmf_effects.bar(alpha=0.5)\n\ndecorate(xlabel=\"Excess Heads\", ylabel=\"PMF\")";
+                var nbb_unformatted_code = "from empiricaldist import Pmf\n\npmf_effects = Pmf.from_seq(simulated_stats)\npmf_effects.bar(alpha=0.5)\n\ndecorate(xlabel=\"Absolute deviation\", ylabel=\"PMF\")";
+                var nbb_formatted_code = "from empiricaldist import Pmf\n\npmf_effects = Pmf.from_seq(simulated_stats)\npmf_effects.bar(alpha=0.5)\n\ndecorate(xlabel=\"Absolute deviation\", ylabel=\"PMF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -744,9 +744,9 @@ Here’s what the distribution of these values looks like.</p>
             </script></div>
 </div>
 <p>Values near 0 are the most common.
-Values greater than 10 and less than -10 are less common.
-Remembering that in the observed data, there were 15 excess heads, we see that excesses of that magnitude are rare, but not impossible.
-In this example, the simulated results exceed or equal 15 about 3.5% of the time.</p>
+Values greater than 10 are less common.
+Remembering that the deviation in the observed data is 15, we see that deviations of that magnitude are rare, but not impossible.
+In this example, the simulated results equal or exceed about 7.1% of the time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">simulated_stats</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
@@ -754,7 +754,7 @@ In this example, the simulated results exceed or equal 15 about 3.5% of the time
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.5296470352964704
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.079292070792921
 </pre></div>
 </div>
 <script type="application/javascript">
@@ -774,49 +774,20 @@ In this example, the simulated results exceed or equal 15 about 3.5% of the time
             }, 500);
             </script></div>
 </div>
-<p>And about as often the number of excess heads is less than or equal to -15.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">simulated_stats</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.54964503549645
-</pre></div>
-</div>
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 13;
-                var nbb_unformatted_code = "(np.array(simulated_stats) <= -15).mean() * 100";
-                var nbb_formatted_code = "(np.array(simulated_stats) <= -15).mean() * 100";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</div>
-<p>If the coin is fair, we expect the excess to be 15 or more 3.5% of the time, just by chance.
-And we expect the the magnitude of the excess, in either direction, to be 15 or more about 7% of the time.</p>
-<p>In conclusion, an effect of this size is not common, but it is certainly not impossible, even if the coin is fair.
+<p>So, if the coin is fair, we expect a deviation as big as the one we saw about 7.1% of the time, just by chance.</p>
+<p>We can conclude that an effect of this size is not common, but it is certainly not impossible, even if the coin is fair.
 On the basis of this experiment, we can’t rule out the possibility that the coin is fair.</p>
 <p>This example demonstrates the logic of statistical hypothesis testing.</p>
 <ul class="simple">
-<li><p>We started with an observation, 140 heads out of 250 spins, and the hypothesis that the coin is biased – that is, that the probability of heads is greater than 50%.</p></li>
-<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the observed effect. In this example, the test statistic is the number of excess heads.</p></li>
+<li><p>We started with an observation, 140 heads out of 250 spins, and the hypothesis that the coin is biased – that is, that the probability of heads differs from 50%.</p></li>
+<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the observed effect. In this example, the test statistic is the deviation from the expected outcome.</p></li>
 <li><p>We defined a <strong>null hypothesis</strong>, which is a model based on the assumption that the observed effect is due to chance. In this example, the null hypothesis is that the coin is fair.</p></li>
-<li><p>Next, we computed a <strong>p-value</strong>, which is the probability of seeing the observed effect if the null hypothesis is true. In this example, the p-value is the probability of 15 or more excess heads.</p></li>
+<li><p>Next, we computed a <strong>p-value</strong>, which is the probability of seeing the observed effect if the null hypothesis is true. In this example, the p-value is the probability of a deviation as big as 15 or bigger.</p></li>
 </ul>
 <p>The last step is to interpret the result.
 If the p-value is small, we conclude that the effect would be unlikely to happen by chance.
-In this example, the p-value is either 3.5% or 7%, depending on how we define the effect.
-So the effect is unlikely to happen by chance, but we can’t rule out the possibility.</p>
+If it is large, we conclude that the effect could plausibly be explained by chance.
+And if it falls somewhere in the middle, as in this example, we can say that the effect is unlikely to happen by chance, but we can’t rule out the possibility.</p>
 <p>All hypothesis tests are based on these elements – a test statistic, a null hypothesis, and a p-value.</p>
 </section>
 <section id="testing-a-difference-in-means">
@@ -835,7 +806,7 @@ Now let’s see if that difference could be due to chance.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 14;
+                var nbb_cell_id = 13;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/nsfg.py\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/nsfg.py\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -862,7 +833,7 @@ Now let’s see if that difference could be due to chance.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 15;
+                var nbb_cell_id = 14;
                 var nbb_unformatted_code = "try:\n    import statadict\nexcept ImportError:\n    !pip install statadict";
                 var nbb_formatted_code = "try:\n    import statadict\nexcept ImportError:\n    !pip install statadict";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -889,7 +860,7 @@ Now let’s see if that difference could be due to chance.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 16;
+                var nbb_cell_id = 15;
                 var nbb_unformatted_code = "from nsfg import get_nsfg_groups\n\nlive, firsts, others = get_nsfg_groups()";
                 var nbb_formatted_code = "from nsfg import get_nsfg_groups\n\nlive, firsts, others = get_nsfg_groups()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -914,7 +885,7 @@ Now let’s see if that difference could be due to chance.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 17;
+                var nbb_cell_id = 16;
                 var nbb_unformatted_code = "data = firsts[\"prglngth\"].values, others[\"prglngth\"].values";
                 var nbb_formatted_code = "data = firsts[\"prglngth\"].values, others[\"prglngth\"].values";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -929,22 +900,22 @@ Now let’s see if that difference could be due to chance.</p>
             }, 500);
             </script></div>
 </div>
-<p>The following function takes the data as a tuple of two sequences, and computes the difference in means.</p>
+<p>The following function takes the data as a tuple of two sequences, and computes absolute difference in means.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">abs_diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">diff</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 18;
-                var nbb_unformatted_code = "def diff_means(data):\n    group1, group2 = data\n    diff = np.mean(group1) - np.mean(group2)\n    return diff";
-                var nbb_formatted_code = "def diff_means(data):\n    group1, group2 = data\n    diff = np.mean(group1) - np.mean(group2)\n    return diff";
+                var nbb_cell_id = 17;
+                var nbb_unformatted_code = "def abs_diff_means(data):\n    group1, group2 = data\n    diff = np.mean(group1) - np.mean(group2)\n    return np.abs(diff)";
+                var nbb_formatted_code = "def abs_diff_means(data):\n    group1, group2 = data\n    diff = np.mean(group1) - np.mean(group2)\n    return np.abs(diff)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -957,10 +928,10 @@ Now let’s see if that difference could be due to chance.</p>
             }, 500);
             </script></div>
 </div>
-<p>The average pregnancy length is 0.078 weeks longer for first babies.</p>
+<p>Between first babies and others, the observed difference in pregnancy length is 0.078 weeks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_diff</span> <span class="o">=</span> <span class="n">diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_diff</span> <span class="o">=</span> <span class="n">abs_diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">observed_diff</span>
 </pre></div>
 </div>
@@ -971,9 +942,9 @@ Now let’s see if that difference could be due to chance.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 19;
-                var nbb_unformatted_code = "observed_diff = diff_means(data)\nobserved_diff";
-                var nbb_formatted_code = "observed_diff = diff_means(data)\nobserved_diff";
+                var nbb_cell_id = 18;
+                var nbb_unformatted_code = "observed_diff = abs_diff_means(data)\nobserved_diff";
+                var nbb_formatted_code = "observed_diff = abs_diff_means(data)\nobserved_diff";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1005,7 +976,7 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 20;
+                var nbb_cell_id = 19;
                 var nbb_unformatted_code = "def simulate_groups(data):\n    group1, group2 = data\n    n, m = len(group1), len(group2)\n\n    pool = np.hstack(data)\n    np.random.shuffle(pool)\n    return pool[:n], pool[-m:]";
                 var nbb_formatted_code = "def simulate_groups(data):\n    group1, group2 = data\n    n, m = len(group1), len(group2)\n\n    pool = np.hstack(data)\n    np.random.shuffle(pool)\n    return pool[:n], pool[-m:]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1020,10 +991,10 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
             }, 500);
             </script></div>
 </div>
-<p>Each time we call this function, it returns a tuple of sequences, which we can pass to <code class="docutils literal notranslate"><span class="pre">diff_means</span></code>.</p>
+<p>Each time we call this function, it returns a tuple of sequences, which we can pass to <code class="docutils literal notranslate"><span class="pre">abs_diff_means</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff_means</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_diff_means</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1033,9 +1004,9 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 21;
-                var nbb_unformatted_code = "diff_means(simulate_groups(data))";
-                var nbb_formatted_code = "diff_means(simulate_groups(data))";
+                var nbb_cell_id = 20;
+                var nbb_unformatted_code = "abs_diff_means(simulate_groups(data))";
+                var nbb_formatted_code = "abs_diff_means(simulate_groups(data))";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1051,16 +1022,16 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <p>The following loop simulates the experiment many times and computes the difference in means for each simulated dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_diffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">diff_means</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_diffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">abs_diff_means</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 22;
-                var nbb_unformatted_code = "simulated_diffs = [diff_means(simulate_groups(data)) for i in range(1001)]";
-                var nbb_formatted_code = "simulated_diffs = [diff_means(simulate_groups(data)) for i in range(1001)]";
+                var nbb_cell_id = 21;
+                var nbb_unformatted_code = "simulated_diffs = [abs_diff_means(simulate_groups(data)) for i in range(1001)]";
+                var nbb_formatted_code = "simulated_diffs = [abs_diff_means(simulate_groups(data)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1091,7 +1062,7 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 23;
+                var nbb_cell_id = 22;
                 var nbb_unformatted_code = "from scipy.stats import gaussian_kde\nfrom empiricaldist import Pmf\n\n\ndef make_pmf(sample, low, high):\n    kde = gaussian_kde(sample)\n    qs = np.linspace(low, high, 201)\n    ps = kde(qs)\n    return Pmf(ps, qs)";
                 var nbb_formatted_code = "from scipy.stats import gaussian_kde\nfrom empiricaldist import Pmf\n\n\ndef make_pmf(sample, low, high):\n    kde = gaussian_kde(sample)\n    qs = np.linspace(low, high, 201)\n    ps = kde(qs)\n    return Pmf(ps, qs)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1129,7 +1100,7 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 24;
+                var nbb_cell_id = 23;
                 var nbb_unformatted_code = "from thinkstats import underride\n\n\ndef fill_tail(pmf, observed, side, **options):\n    \"\"\"Fill the area under a PMF, right or left of an observed value.\"\"\"\n    options = underride(options, alpha=0.3)\n\n    if side == \"right\":\n        condition = pmf.qs >= observed\n    elif side == \"left\":\n        condition = pmf.qs <= observed\n\n    series = pmf[condition]\n    plt.fill_between(series.index, 0, series, **options)";
                 var nbb_formatted_code = "from thinkstats import underride\n\n\ndef fill_tail(pmf, observed, side, **options):\n    \"\"\"Fill the area under a PMF, right or left of an observed value.\"\"\"\n    options = underride(options, alpha=0.3)\n\n    if side == \"right\":\n        condition = pmf.qs >= observed\n    elif side == \"left\":\n        condition = pmf.qs <= observed\n\n    series = pmf[condition]\n    plt.fill_between(series.index, 0, series, **options)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1149,20 +1120,20 @@ The shaded region shows the cases where the difference in means under the null h
 The area of this region is the p-value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_diff</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Difference in means (weeks)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute difference in means (weeks)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2aedad17fd57fbe0a4f1b1645611cee9dcad83071a350f403309e540f963f3fb.png" src="_images/2aedad17fd57fbe0a4f1b1645611cee9dcad83071a350f403309e540f963f3fb.png" />
+<img alt="_images/9a30327db25bfc979236fef49ffdefc90dcd7b90c0a7f193775e0565de3f32b2.png" src="_images/9a30327db25bfc979236fef49ffdefc90dcd7b90c0a7f193775e0565de3f32b2.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 25;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, -0.2, 0.2)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Difference in means (weeks)\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, -0.2, 0.2)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Difference in means (weeks)\", ylabel=\"Density\")";
+                var nbb_cell_id = 24;
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, 0, 0.2)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in means (weeks)\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, 0, 0.2)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in means (weeks)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1187,7 +1158,7 @@ The area of this region is the p-value.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 26;
+                var nbb_cell_id = 25;
                 var nbb_unformatted_code = "def compute_p_value(simulated, observed):\n    \"\"\"Fraction of simulated values as big or bigger than the observed value.\"\"\"\n    return (np.asarray(simulated) >= observed).mean()";
                 var nbb_formatted_code = "def compute_p_value(simulated, observed):\n    \"\"\"Fraction of simulated values as big or bigger than the observed value.\"\"\"\n    return (np.asarray(simulated) >= observed).mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1202,7 +1173,7 @@ The area of this region is the p-value.</p>
             }, 500);
             </script></div>
 </div>
-<p>In this example, the p-value is about 8%, which means it is plausible that a difference as big as 0.078 weeks could happen by chance.</p>
+<p>In this example, the p-value is about 18%, which means it is plausible that a difference as big as 0.078 weeks could happen by chance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compute_p_value</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="n">observed_diff</span><span class="p">)</span>
@@ -1210,12 +1181,12 @@ The area of this region is the p-value.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0919080919080919
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1838161838161838
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 27;
+                var nbb_cell_id = 26;
                 var nbb_unformatted_code = "compute_p_value(simulated_diffs, observed_diff)";
                 var nbb_formatted_code = "compute_p_value(simulated_diffs, observed_diff)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1231,33 +1202,33 @@ The area of this region is the p-value.</p>
             </script></div>
 </div>
 <p>Based on this result, we can’t be sure that pregnancy lengths are generally longer for first babies – it’s possible that the difference in this dataset is due to chance.</p>
-<p>Notice that we’ve seen the same elements in both examples of hypothesis testing.
-In this example, the test statistic is the difference in the means.
+<p>Notice that we’ve seen the same elements in both examples of hypothesis testing: a test statistic, a null hypothesis, and a model of the null hypothesis.
+In this example, the test statistic is the absolute difference in the means.
 The null hypothesis is that the distribution of pregnancy lengths is actually the same in both groups.
-We modeled the null hypothesis by combining the data from both groups into a single pool, shuffling the pool, and splitting it into two groups with the same sizes as the originals.
+And we modeled the null hypothesis by combining the data from both groups into a single pool, shuffling the pool, and splitting it into two groups with the same sizes as the originals.
 This process is called <strong>permutation</strong>, which is another word for shuffling.</p>
 <p>This computational approach to hypothesis testing makes it easy to combine these elements to test different statistics.</p>
 </section>
 <section id="other-test-statistics">
 <h2><span class="section-number">9.3. </span>Other Test Statistics<a class="headerlink" href="#other-test-statistics" title="Link to this heading">#</a></h2>
 <p>We might wonder whether pregnancy lengths for first babies are not just longer, but maybe more variable.
-To test that hypothesis, we can use as a test statistic the difference between the standard deviations of the two groups.
+To test that hypothesis, we can use as a test statistic the absolute difference between the standard deviations of the two groups.
 The following function computes this test statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">diff</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 28;
-                var nbb_unformatted_code = "def diff_stds(data):\n    group1, group2 = data\n    diff = np.std(group1) - np.std(group2)\n    return diff";
-                var nbb_formatted_code = "def diff_stds(data):\n    group1, group2 = data\n    diff = np.std(group1) - np.std(group2)\n    return diff";
+                var nbb_cell_id = 27;
+                var nbb_unformatted_code = "def diff_stds(data):\n    group1, group2 = data\n    diff = np.std(group1) - np.std(group2)\n    return np.abs(diff)";
+                var nbb_formatted_code = "def diff_stds(data):\n    group1, group2 = data\n    diff = np.std(group1) - np.std(group2)\n    return np.abs(diff)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1270,7 +1241,7 @@ The following function computes this test statistic.</p>
             }, 500);
             </script></div>
 </div>
-<p>In the NSFG dataset, the difference in standard deviations is about 0.18, pregnancy lengths for first babies are apparently more variable.</p>
+<p>In the NSFG dataset, the difference in standard deviations is about 0.18.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_diff</span> <span class="o">=</span> <span class="n">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -1284,7 +1255,7 @@ The following function computes this test statistic.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 29;
+                var nbb_cell_id = 28;
                 var nbb_unformatted_code = "observed_diff = diff_stds(data)\nobserved_diff";
                 var nbb_formatted_code = "observed_diff = diff_stds(data)\nobserved_diff";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1310,7 +1281,7 @@ The following loop simulates the null hypothesis many times and computes the dif
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 30;
+                var nbb_cell_id = 29;
                 var nbb_unformatted_code = "simulated_diffs = [diff_stds(simulate_groups(data)) for i in range(1001)]";
                 var nbb_formatted_code = "simulated_diffs = [diff_stds(simulate_groups(data)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1329,7 +1300,7 @@ The following loop simulates the null hypothesis many times and computes the dif
 Again, the shaded region shows where the test statistic under the null hypothesis exceeds the observed difference.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_diffs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_diff</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute difference in std (weeks)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
@@ -1337,12 +1308,12 @@ Again, the shaded region shows where the test statistic under the null hypothesi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/56e0118623edbd2754415076d30da8b51219da8e2b2d7a7334a6630e441e4b79.png" src="_images/56e0118623edbd2754415076d30da8b51219da8e2b2d7a7334a6630e441e4b79.png" />
+<img alt="_images/77485ed6f5e2f755f312279c2fd94707a16352d677233602d2db4e12bb198fbc.png" src="_images/77485ed6f5e2f755f312279c2fd94707a16352d677233602d2db4e12bb198fbc.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 31;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, -0.5, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
+                var nbb_cell_id = 30;
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_diffs, 0, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_diffs, 0, 0.5)\npmf.plot()\nfill_tail(pmf, observed_diff, \"right\")\ndecorate(xlabel=\"Absolute difference in std (weeks)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1363,12 +1334,12 @@ Again, the shaded region shows where the test statistic under the null hypothesi
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.08291708291708291
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.17082917082917082
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 32;
+                var nbb_cell_id = 31;
                 var nbb_unformatted_code = "compute_p_value(simulated_diffs, observed_diff)";
                 var nbb_formatted_code = "compute_p_value(simulated_diffs, observed_diff)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1383,8 +1354,8 @@ Again, the shaded region shows where the test statistic under the null hypothesi
             }, 500);
             </script></div>
 </div>
-<p>Again, it is plausible that we could see a difference this big even if the two groups are the same.
-So we can’t be sure that pregnancy lengths are generally more variable for first babies – the difference we see in this dataset could be due to chance.</p>
+<p>The p-value is about 0.17, so it is plausible that we could see a difference this big even if the two groups are the same.
+In conclusion, we can’t be sure that pregnancy lengths are generally more variable for first babies – the difference we see in this dataset could be due to chance.</p>
 </section>
 <section id="testing-a-correlation">
 <span id="section-test-correlation"></span><h2><span class="section-number">9.4. </span>Testing a Correlation<a class="headerlink" href="#testing-a-correlation" title="Link to this heading">#</a></h2>
@@ -1406,7 +1377,7 @@ From live births, we’ll select cases where the age of the mother and birth wei
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 33;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "valid = live.dropna(subset=[\"agepreg\", \"totalwgt_lb\"])\nvalid.shape";
                 var nbb_formatted_code = "valid = live.dropna(subset=[\"agepreg\", \"totalwgt_lb\"])\nvalid.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1432,7 +1403,7 @@ From live births, we’ll select cases where the age of the mother and birth wei
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 34;
+                var nbb_cell_id = 33;
                 var nbb_unformatted_code = "ages = valid[\"agepreg\"]\nbirthweights = valid[\"totalwgt_lb\"]";
                 var nbb_formatted_code = "ages = valid[\"agepreg\"]\nbirthweights = valid[\"totalwgt_lb\"]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1460,7 +1431,7 @@ From live births, we’ll select cases where the age of the mother and birth wei
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 35;
+                var nbb_cell_id = 34;
                 var nbb_unformatted_code = "def abs_correlation(data):\n    xs, ys = data\n    corr = np.corrcoef(xs, ys)[0, 1]\n    return np.abs(corr)";
                 var nbb_formatted_code = "def abs_correlation(data):\n    xs, ys = data\n    corr = np.corrcoef(xs, ys)[0, 1]\n    return np.abs(corr)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1490,7 +1461,7 @@ From live births, we’ll select cases where the age of the mother and birth wei
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 36;
+                var nbb_cell_id = 35;
                 var nbb_unformatted_code = "data = ages, birthweights\nobserved_corr = abs_correlation(data)\nobserved_corr";
                 var nbb_formatted_code = "data = ages, birthweights\nobserved_corr = abs_correlation(data)\nobserved_corr";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1512,7 +1483,6 @@ It would also work if we shuffled the <code class="docutils literal notranslate"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">permute</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shuffle the x values.&quot;&quot;&quot;</span>
     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">new_xs</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">new_xs</span><span class="p">)</span>
@@ -1523,9 +1493,9 @@ It would also work if we shuffled the <code class="docutils literal notranslate"
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 37;
-                var nbb_unformatted_code = "def permute(data):\n    \"\"\"Shuffle the x values.\"\"\"\n    xs, ys = data\n    new_xs = xs.values.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
-                var nbb_formatted_code = "def permute(data):\n    \"\"\"Shuffle the x values.\"\"\"\n    xs, ys = data\n    new_xs = xs.values.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
+                var nbb_cell_id = 36;
+                var nbb_unformatted_code = "def permute(data):\n    xs, ys = data\n    new_xs = xs.values.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
+                var nbb_formatted_code = "def permute(data):\n    xs, ys = data\n    new_xs = xs.values.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1551,7 +1521,7 @@ It would also work if we shuffled the <code class="docutils literal notranslate"
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 38;
+                var nbb_cell_id = 37;
                 var nbb_unformatted_code = "abs_correlation(permute(data))";
                 var nbb_formatted_code = "abs_correlation(permute(data))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1576,7 +1546,7 @@ It would also work if we shuffled the <code class="docutils literal notranslate"
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 39;
+                var nbb_cell_id = 38;
                 var nbb_unformatted_code = "simulated_corrs = [abs_correlation(permute(data)) for i in range(1001)]";
                 var nbb_formatted_code = "simulated_corrs = [abs_correlation(permute(data)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1598,17 +1568,17 @@ The vertical dotted line shows the observed correlation.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_corrs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">observed_corr</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Correlation&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Absolute value of correlation&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ce5238014da4b8165a020135b55788bd1960a822ca8bd8b68e3dc02f4331ecda.png" src="_images/ce5238014da4b8165a020135b55788bd1960a822ca8bd8b68e3dc02f4331ecda.png" />
+<img alt="_images/a18733ad5bca707aa4f8159f617f716e2eb7c77d1544550bca6931089d91c02b.png" src="_images/a18733ad5bca707aa4f8159f617f716e2eb7c77d1544550bca6931089d91c02b.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 40;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_corrs, 0, 0.07)\npmf.plot()\nplt.axvline(observed_corr, ls=\":\")\ndecorate(xlabel=\"Correlation\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_corrs, 0, 0.07)\npmf.plot()\nplt.axvline(observed_corr, ls=\":\")\ndecorate(xlabel=\"Correlation\", ylabel=\"Density\")";
+                var nbb_cell_id = 39;
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_corrs, 0, 0.07)\npmf.plot()\nplt.axvline(observed_corr, ls=\":\")\ndecorate(xlabel=\"Absolute value of correlation\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_corrs, 0, 0.07)\npmf.plot()\nplt.axvline(observed_corr, ls=\":\")\ndecorate(xlabel=\"Absolute value of correlation\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1635,7 +1605,7 @@ If we try to compute a p-value, the result is 0, indicating that the correlation
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 41;
+                var nbb_cell_id = 40;
                 var nbb_unformatted_code = "compute_p_value(simulated_corrs, observed_corr)";
                 var nbb_formatted_code = "compute_p_value(simulated_corrs, observed_corr)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1650,7 +1620,8 @@ If we try to compute a p-value, the result is 0, indicating that the correlation
             }, 500);
             </script></div>
 </div>
-<p>The actual p-value is not exactly zero – it is possible for the correlation of the shuffled data to exceed the observed value – but it is very unlikely.</p>
+<p>Based on this calculation, we can conclude that the p-value is probably less that 1 per 1000, but it is not actually zero.
+It is unlikely for the correlation of the shuffled data to exceed the observed value – but it is not impossible.</p>
 <p>When the p-value is small, traditionally less than 0.05, we can say that the result is <strong>statistically significant</strong>.
 But this way of interpreting p-values has always been problematic, and it is slowly becoming less widely used.</p>
 <p>One problem is that the traditional threshold is arbitrary and not appropriate for all applications.
@@ -1736,7 +1707,7 @@ Here are the results in a <code class="docutils literal notranslate"><span class
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 42;
+                var nbb_cell_id = 41;
                 var nbb_unformatted_code = "from empiricaldist import Hist\n\nqs = np.arange(1, 7)\nfreqs = [8, 9, 19, 5, 8, 11]\nobserved = Hist(freqs, qs)\nobserved.index.name = \"outcome\"\nobserved";
                 var nbb_formatted_code = "from empiricaldist import Hist\n\nqs = np.arange(1, 7)\nfreqs = [8, 9, 19, 5, 8, 11]\nobserved = Hist(freqs, qs)\nobserved.index.name = \"outcome\"\nobserved";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1766,7 +1737,7 @@ But could these differences happen by chance?</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 43;
+                var nbb_cell_id = 42;
                 var nbb_unformatted_code = "num_rolls = observed.sum()\noutcomes = observed.qs\nexpected = Hist(num_rolls / 6, outcomes)";
                 var nbb_formatted_code = "num_rolls = observed.sum()\noutcomes = observed.qs\nexpected = Hist(num_rolls / 6, outcomes)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1792,7 +1763,7 @@ But could these differences happen by chance?</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "def total_deviation(observed):\n    return np.sum(np.abs(observed - expected))";
                 var nbb_formatted_code = "def total_deviation(observed):\n    return np.sum(np.abs(observed - expected))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1821,7 +1792,7 @@ But could these differences happen by chance?</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 45;
+                var nbb_cell_id = 44;
                 var nbb_unformatted_code = "observed_dev = total_deviation(observed)\nobserved_dev";
                 var nbb_formatted_code = "observed_dev = total_deviation(observed)\nobserved_dev";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1850,7 +1821,7 @@ But could these differences happen by chance?</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 46;
+                var nbb_cell_id = 45;
                 var nbb_unformatted_code = "def simulate_dice(observed):\n    num_rolls = np.sum(observed)\n    rolls = np.random.choice(observed.qs, num_rolls, replace=True)\n    hist = Hist.from_seq(rolls)\n    return hist";
                 var nbb_formatted_code = "def simulate_dice(observed):\n    num_rolls = np.sum(observed)\n    rolls = np.random.choice(observed.qs, num_rolls, replace=True)\n    hist = Hist.from_seq(rolls)\n    return hist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1875,7 +1846,7 @@ But could these differences happen by chance?</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 47;
+                var nbb_cell_id = 46;
                 var nbb_unformatted_code = "simulated_devs = [total_deviation(simulate_dice(observed)) for i in range(1001)]";
                 var nbb_formatted_code = "simulated_devs = [total_deviation(simulate_dice(observed)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1905,7 +1876,7 @@ Notice that the total is always even, because every time an outcome appears more
 <img alt="_images/228703779dff13038fd10404783efbba04bf988766c52eb281a97f4f748fbe2f.png" src="_images/228703779dff13038fd10404783efbba04bf988766c52eb281a97f4f748fbe2f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 48;
+                var nbb_cell_id = 47;
                 var nbb_unformatted_code = "pmf_devs = Pmf.from_seq(simulated_devs)\npmf_devs.bar(alpha=0.5)\n\ndecorate(xlabel=\"Total absolute deviation\", ylabel=\"PMF\")";
                 var nbb_formatted_code = "pmf_devs = Pmf.from_seq(simulated_devs)\npmf_devs.bar(alpha=0.5)\n\ndecorate(xlabel=\"Total absolute deviation\", ylabel=\"PMF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1933,7 +1904,7 @@ Notice that the total is always even, because every time an outcome appears more
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 49;
+                var nbb_cell_id = 48;
                 var nbb_unformatted_code = "compute_p_value(simulated_devs, observed_dev)";
                 var nbb_formatted_code = "compute_p_value(simulated_devs, observed_dev)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1961,7 +1932,7 @@ For a problem like this, it would be more conventional to use the chi-squared st
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 50;
+                var nbb_cell_id = 49;
                 var nbb_unformatted_code = "def chi_squared_stat(observed):\n    diffs = (observed - expected) ** 2\n    return np.sum(diffs / expected)";
                 var nbb_formatted_code = "def chi_squared_stat(observed):\n    diffs = (observed - expected) ** 2\n    return np.sum(diffs / expected)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1991,7 +1962,7 @@ Dividing through by <code class="docutils literal notranslate"><span class="pre"
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 51;
+                var nbb_cell_id = 50;
                 var nbb_unformatted_code = "observed_chi2 = chi_squared_stat(observed)\nobserved_chi2";
                 var nbb_formatted_code = "observed_chi2 = chi_squared_stat(observed)\nobserved_chi2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2018,7 +1989,7 @@ The following loop generates many simulated datasets and computes the chi-square
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 52;
+                var nbb_cell_id = 51;
                 var nbb_unformatted_code = "simulated_chi2 = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
                 var nbb_formatted_code = "simulated_chi2 = [chi_squared_stat(simulate_dice(observed)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2040,17 +2011,17 @@ The shaded region shows the results that exceed the observed value.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span> <span class="o">=</span> <span class="n">make_pmf</span><span class="p">(</span><span class="n">simulated_chi2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
 <span class="n">pmf</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed_chi2</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Chi-Squared Statistic&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Chi-Squared statistic&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/65da8b0d96cbd45b769c5cae3f57a453486a8f135faf3e3898b7ee35f2a06150.png" src="_images/65da8b0d96cbd45b769c5cae3f57a453486a8f135faf3e3898b7ee35f2a06150.png" />
+<img alt="_images/db69fc59e33c0a458f5b8e363fa90bb4a34c028897e87877ef266cb8d14ca08f.png" src="_images/db69fc59e33c0a458f5b8e363fa90bb4a34c028897e87877ef266cb8d14ca08f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 53;
-                var nbb_unformatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
-                var nbb_formatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared Statistic\", ylabel=\"Density\")";
+                var nbb_cell_id = 52;
+                var nbb_unformatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared statistic\", ylabel=\"Density\")";
+                var nbb_formatted_code = "pmf = make_pmf(simulated_chi2, 0, 20)\npmf.plot()\nfill_tail(pmf, observed_chi2, \"right\")\ndecorate(xlabel=\"Chi-Squared statistic\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2076,7 +2047,7 @@ The shaded region shows the results that exceed the observed value.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 54;
+                var nbb_cell_id = 53;
                 var nbb_unformatted_code = "compute_p_value(simulated_chi2, observed_chi2)";
                 var nbb_formatted_code = "compute_p_value(simulated_chi2, observed_chi2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2100,9 +2071,9 @@ I would not rule out the possibility that the die is crooked, but I would not co
 <section id="glossary">
 <h2><span class="section-number">9.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>classical hypothesis testing</strong>: A set of methods methods for checking whether an observed effect could plausibly be due to random sampling.</p></li>
-<li><p><strong>test statistic</strong>: A statistic used in a hypothesis test to quantify an effect size.</p></li>
-<li><p><strong>null hypothesis</strong>: A model of a system based on the assumption that an observed effect is due to chance.</p></li>
+<li><p><strong>hypothesis testing</strong>: A set of methods for checking whether an observed effect could plausibly be due to random sampling.</p></li>
+<li><p><strong>test statistic</strong>: A statistic used in a hypothesis test to quantify the size of an observed effect.</p></li>
+<li><p><strong>null hypothesis</strong>: A model of a system based on the assumption that an effect observed in a sample does not exist in the population.</p></li>
 <li><p><strong>permutation</strong>: A way to simulate a null hypothesis by randomly shuffling a dataset.</p></li>
 <li><p><strong>p-value</strong>: The probability of an effect as big as the observed effect, under the null hypothesis.</p></li>
 <li><p><strong>statistically significant</strong>: An effect is statistically significant if the p-value is smaller than a chosen threshold, often 5%. In a large dataset, an observed effect can be statistically significant even if it is too small to matter in practice.</p></li>
@@ -2128,7 +2099,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 55;
+                var nbb_cell_id = 54;
                 var nbb_unformatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_formatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2158,7 +2129,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 56;
+                var nbb_cell_id = 55;
                 var nbb_unformatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\nchinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')\nchinstrap.shape";
                 var nbb_formatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\nchinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')\nchinstrap.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2173,7 +2144,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
             }, 500);
             </script></div>
 </div>
-<p>And here’s how we can extract the weights for make and female penguins in kilograms.</p>
+<p>And here’s how we can extract the weights for male and female penguins in kilograms.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">male</span> <span class="o">=</span> <span class="n">chinstrap</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;Sex == &#39;MALE&#39;&quot;</span><span class="p">)</span>
@@ -2188,7 +2159,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 57;
+                var nbb_cell_id = 56;
                 var nbb_unformatted_code = "male = chinstrap.query(\"Sex == 'MALE'\")\nweights_male = male[\"Body Mass (g)\"] / 1000\nweights_male.mean()";
                 var nbb_formatted_code = "male = chinstrap.query(\"Sex == 'MALE'\")\nweights_male = male[\"Body Mass (g)\"] / 1000\nweights_male.mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2217,7 +2188,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 58;
+                var nbb_cell_id = 57;
                 var nbb_unformatted_code = "female = chinstrap.query(\"Sex == 'FEMALE'\")\nweights_female = female[\"Body Mass (g)\"] / 1000\nweights_female.mean()";
                 var nbb_formatted_code = "female = chinstrap.query(\"Sex == 'FEMALE'\")\nweights_female = female[\"Body Mass (g)\"] / 1000\nweights_female.mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2232,13 +2203,13 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
             }, 500);
             </script></div>
 </div>
-<p>Use <code class="docutils literal notranslate"><span class="pre">diff_means</span></code> and <code class="docutils literal notranslate"><span class="pre">simulate_groups</span></code> to generate a large number of simulated datasets under the null hypothesis that the two groups have the same distribution of weights, and compute the difference in means for each one.
+<p>Use <code class="docutils literal notranslate"><span class="pre">abs_diff_means</span></code> and <code class="docutils literal notranslate"><span class="pre">simulate_groups</span></code> to generate a large number of simulated datasets under the null hypothesis that the two groups have the same distribution of weights, and compute the difference in means for each one.
 Compare the simulation results to the observed difference and compute a p-value.
 Is it plausible that the apparent difference between the groups is due to chance?</p>
 </section>
 <section id="id1">
 <h3><span class="section-number">9.7.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Using the penguin data from the previous exercise, we can extract the culmen depths and lengths for the female penguins.</p>
+<p>Using the penguin data from the previous exercise, we can extract the culmen depths and lengths for the female penguins (the culmen is the top ridge of the bill).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">female</span><span class="p">[</span><span class="s2">&quot;Culmen Depth (mm)&quot;</span><span class="p">],</span> <span class="n">female</span><span class="p">[</span><span class="s2">&quot;Culmen Length (mm)&quot;</span><span class="p">]</span>
@@ -2248,7 +2219,7 @@ Is it plausible that the apparent difference between the groups is due to chance
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 63;
                 var nbb_unformatted_code = "data = female[\"Culmen Depth (mm)\"], female[\"Culmen Length (mm)\"]";
                 var nbb_formatted_code = "data = female[\"Culmen Depth (mm)\"], female[\"Culmen Length (mm)\"]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2277,7 +2248,7 @@ Is it plausible that the apparent difference between the groups is due to chance
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 65;
+                var nbb_cell_id = 64;
                 var nbb_unformatted_code = "observed_corr = abs_correlation(data)\nobserved_corr";
                 var nbb_formatted_code = "observed_corr = abs_correlation(data)\nobserved_corr";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2293,7 +2264,7 @@ Is it plausible that the apparent difference between the groups is due to chance
             </script></div>
 </div>
 <p>Let’s see whether this correlation could happen by chance, even if there is actually no correlation between the measurements.
-Use <code class="docutils literal notranslate"><span class="pre">permute</span></code> to generate many permutation of this data and <code class="docutils literal notranslate"><span class="pre">abs_correlation</span></code> to compute the correlation for each one.
+Use <code class="docutils literal notranslate"><span class="pre">permute</span></code> to generate many permutations of this data and <code class="docutils literal notranslate"><span class="pre">abs_correlation</span></code> to compute the correlation for each one.
 Plot the distribution of the correlations under the null hypothesis and compute a p-value for the observed correlation.
 How do you interpret the result?</p>
 <p><a class="reference external" href="https://allendowney.github.io/ThinkStats/index.html">Think Stats: Exploratory Data Analysis in Python, 3rd Edition</a></p>

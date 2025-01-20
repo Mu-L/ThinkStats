@@ -1,12 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Time Series Analysis with StatsModels](#time-series-analysis-with-statsmodels)
-  - [The notebooks](#the-notebooks)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Time Series Analysis with StatsModels
 
 This is the landing page for a tutorial on time series analysis, based on [Chapter 12 of *Think Stats*](https://allendowney.github.io/ThinkStats/chap12.html), third edition.

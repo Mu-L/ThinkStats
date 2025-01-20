@@ -1,12 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Think Stats, 3rd edition](#think-stats-3rd-edition)
-  - [The notebooks](#the-notebooks)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Think Stats, 3rd edition
 
 *Think Stats* is an introduction to Probability and Statistics for Python programmers. If you have basic skills in Python, you can use them to learn concepts in probability and statistics and practical skills for working with data.

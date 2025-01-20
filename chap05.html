@@ -900,7 +900,7 @@ If we call this function with a range of <code class="docutils literal notransla
 </div>
 <p>They are similar, with small differences because of random variation in the simulation results.
 This agreement should not be surprising, because the simulation and the model are based on the same assumptions – particularly the assumption that every attempt has the same probability of success.
-The real test of a model is how it compares to real data.</p>
+A stronger test of a model is how it compares to real data.</p>
 <p>From the Wikipedia page for the men’s skeet shooting competition at the 2020 Summer Olympics, we can extract a table that shows the results for the qualification rounds.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>Downloaded from <a class="reference external" href="https://en.wikipedia.org/wiki/Shooting_at_the_2020_Summer_Olympics_%E2%80%93_Men's_skeet">https://en.wikipedia.org/wiki/Shooting_at_the_2020_Summer_Olympics_–_Men’s_skeet</a> on July 15, 2024.</p>
@@ -1083,7 +1083,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
             </script></div>
 </div>
 <p>The table has one row for each competitor, with one column for each of five rounds.
-We’ll select the columns that contain the results and use the NumPy function <code class="docutils literal notranslate"><span class="pre">flatten</span></code> to put them into a single array.</p>
+We’ll select the columns that contain these results and use the NumPy function <code class="docutils literal notranslate"><span class="pre">flatten</span></code> to put them into a single array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span> <span class="s2">&quot;4&quot;</span><span class="p">,</span> <span class="s2">&quot;5&quot;</span><span class="p">]</span>
@@ -2351,7 +2351,7 @@ To see whether the weights follow a normal distribution, we’ll use the followi
             </script></div>
 </div>
 <p>The normal model fits the distribution of the weights very well.
-In general, when we add up random factors, the sum tends to follow a normal distribution.
+In general, when we add up enough random factors, the sum tends to follow a normal distribution.
 That’s a consequence of the Central Limit Theorem, which we’ll come back to in Chapter xxx.</p>
 <p>But first let’s see how well the normal distribution fits real data.
 As an example, we’ll look at the distribution of birth weights in the National Survey of Family Growth (NSFG).
