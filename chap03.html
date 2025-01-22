@@ -181,16 +181,23 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -365,7 +372,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmfs">3.1. PMFs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">3.2. Summary Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-a-pmf">3.2. Summarizing a PMF</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-class-size-paradox">3.3. The Class Size Paradox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nsfg-data">3.4. NSFG Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-visualizations">3.5. Other Visualizations</a></li>
@@ -595,8 +602,8 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
 </div></div><script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 5;
-                var nbb_unformatted_code = "from empiricaldist import Hist\n\nhist = Hist.from_seq([1, 2, 2, 3, 5])\nhist";
-                var nbb_formatted_code = "from empiricaldist import Hist\n\nhist = Hist.from_seq([1, 2, 2, 3, 5])\nhist";
+                var nbb_unformatted_code = "from empiricaldist import FreqTab\n\nftab = FreqTab.from_seq([1, 2, 2, 3, 5])\nftab";
+                var nbb_formatted_code = "from empiricaldist import FreqTab\n\nftab = FreqTab.from_seq([1, 2, 2, 3, 5])\nftab";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -624,8 +631,8 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 6;
-                var nbb_unformatted_code = "n = hist.sum()\nn";
-                var nbb_formatted_code = "n = hist.sum()\nn";
+                var nbb_unformatted_code = "n = ftab.sum()\nn";
+                var nbb_formatted_code = "n = ftab.sum()\nn";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -690,8 +697,8 @@ For example, here’s a <code class="docutils literal notranslate"><span class="
 </div></div><script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 7;
-                var nbb_unformatted_code = "pmf = hist / n\npmf";
-                var nbb_formatted_code = "pmf = hist / n\npmf";
+                var nbb_unformatted_code = "pmf = ftab / n\npmf";
+                var nbb_formatted_code = "pmf = ftab / n\npmf";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1099,15 +1106,16 @@ To look up the probability associated with a value, we can use the bracket opera
 <p>Like a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object, a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object has a <code class="docutils literal notranslate"><span class="pre">qs</span></code> attribute that accesses the quantities and a <code class="docutils literal notranslate"><span class="pre">ps</span></code> attribute that accesses the probabilities.</p>
 <p>It also has a <code class="docutils literal notranslate"><span class="pre">bar</span></code> method that plots the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> as a bar graph and a <code class="docutils literal notranslate"><span class="pre">plot</span></code> method that plots it as a line graph.</p>
 </section>
-<section id="summary-statistics">
-<h2><span class="section-number">3.2. </span>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Link to this heading">#</a></h2>
-<p>In Section XXX we computed the mean of a sample by adding up the elements and dividing by <code class="docutils literal notranslate"><span class="pre">n</span></code>.
+<section id="summarizing-a-pmf">
+<span id="section-summarizing-pmfs"></span><h2><span class="section-number">3.2. </span>Summarizing a PMF<a class="headerlink" href="#summarizing-a-pmf" title="Link to this heading">#</a></h2>
+<p>In <a class="reference internal" href="chap01.html#section-summary-statistics"><span class="std std-ref">Chapter 1</span></a> we computed the mean of a sample by adding up the elements and dividing by the number of elements.
 Here’s a simple example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 
-<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
 <span class="n">mean</span>
 </pre></div>
 </div>
@@ -1119,8 +1127,8 @@ Here’s a simple example.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 19;
-                var nbb_unformatted_code = "seq = [1, 2, 2, 3, 5]\n\nmean = np.sum(seq) / len(seq)\nmean";
-                var nbb_formatted_code = "seq = [1, 2, 2, 3, 5]\n\nmean = np.sum(seq) / len(seq)\nmean";
+                var nbb_unformatted_code = "seq = [1, 2, 2, 3, 5]\n\nn = len(seq)\nmean = np.sum(seq) / n\nmean";
+                var nbb_formatted_code = "seq = [1, 2, 2, 3, 5]\n\nn = len(seq)\nmean = np.sum(seq) / n\nmean";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1590,7 +1598,7 @@ So the probability of observing a class is proportional to its size.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bias</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
     <span class="c1"># multiply each probability by class size</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">pmf</span><span class="o">.</span><span class="n">ps</span> <span class="o">*</span> <span class="n">pmf</span><span class="o">.</span><span class="n">qs</span>
-    
+
     <span class="c1"># make a new Pmf and normalize it</span>
     <span class="n">new_pmf</span> <span class="o">=</span> <span class="n">Pmf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">pmf</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="n">new_pmf</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
@@ -1602,8 +1610,8 @@ So the probability of observing a class is proportional to its size.</p>
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 33;
-                var nbb_unformatted_code = "def bias(pmf, name):    \n    # multiply each probability by class size\n    ps = pmf.ps * pmf.qs \n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
-                var nbb_formatted_code = "def bias(pmf, name):\n    # multiply each probability by class size\n    ps = pmf.ps * pmf.qs\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_unformatted_code = "def bias(pmf, name):\n    # multiply each probability by class size\n    ps = pmf.ps * pmf.qs\n    \n    # make a new Pmf and normalize it\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_formatted_code = "def bias(pmf, name):\n    # multiply each probability by class size\n    ps = pmf.ps * pmf.qs\n\n    # make a new Pmf and normalize it\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1720,8 +1728,8 @@ Here’s the function that unbiases a <code class="docutils literal notranslate"
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 37;
-                var nbb_unformatted_code = "def unbias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps / pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
-                var nbb_formatted_code = "def unbias(pmf, name):\n    qs = pmf.qs\n    ps = pmf.ps / pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_unformatted_code = "def unbias(pmf, name):\n    # divide each probability by class size\n    ps = pmf.ps / pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
+                var nbb_formatted_code = "def unbias(pmf, name):\n    # divide each probability by class size\n    ps = pmf.ps / pmf.qs\n\n    new_pmf = Pmf(ps, pmf.qs, name=name)\n    new_pmf.normalize()\n    return new_pmf";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2291,7 +2299,7 @@ Make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pmfs">3.1. PMFs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-statistics">3.2. Summary Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summarizing-a-pmf">3.2. Summarizing a PMF</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-class-size-paradox">3.3. The Class Size Paradox</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nsfg-data">3.4. NSFG Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-visualizations">3.5. Other Visualizations</a></li>

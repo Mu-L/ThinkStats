@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. Modeling Distributions &#8212; Think Stats</title>
+    <title>5. The Binomial Distribution &#8212; Think Stats</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap05';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Probability Density Functions" href="chap06.html" />
+    <link rel="next" title="13. Probability Density Functions" href="chap06.html" />
     <link rel="prev" title="4. Cumulative Distribution Functions" href="chap04.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,16 +181,23 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Modeling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. The Binomial Distribution</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -354,7 +361,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Modeling Distributions</h1>
+    <h1>The Binomial Distribution</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -364,20 +371,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-binomial-distribution">5.1. The Binomial Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">5.2. The Poisson Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">5.3. The Exponential Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.8.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.3. Exercise</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. The Binomial Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">6. The Poisson Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">7. The Exponential Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">8. The Normal Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">9. The Lognormal Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">10. Why model?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">11. Glossary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12. Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">12.1. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.3. Exercise</a></li>
 </ul>
 </li>
 </ul>
+
             </nav>
         </div>
     </div>
@@ -388,54 +396,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
-<section id="modeling-distributions">
-<h1><span class="section-number">5. </span>Modeling Distributions<a class="headerlink" href="#modeling-distributions" title="Link to this heading">#</a></h1>
-<p>The distributions we have used so far are called empirical distributions because they are based on empirical observations – in other words, data.
-Many datasets we see in the real world can be closely approximated by a theoretical distribution, which is usually based on a simple mathematical function.
-This chapter presents some of these theoretical distributions and datasets they can be used to model.</p>
-<p>As examples, we’ll see that:</p>
-<ul class="simple">
-<li><p>In a skeet shooting competition, the number of hits and misses is well modeled by a binomial distribution.</p></li>
-<li><p>In games like hockey and soccer (football), the number of goals in a game follows a Poisson distribution, and the time between goals follows an exponential distribution.</p></li>
-<li><p>Birth weights follow a normal distribution, also called a Gaussian, and adult weights follow a lognormal distribution.</p></li>
-</ul>
-<p>If you are not familiar with these distributions – or these sports – I will explain what you need to know.
-For each example, we’ll start with a simulation based on a simple model, and show that the simulation results follow an theoretical distribution.
-Then we’ll see how well real data agrees with the model.</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap05.ipynb">Click here to run this notebook on Colab</a>.</p>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-            setTimeout(function() {
-                var nbb_cell_id = 1;
-                var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
-                var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
-                var nbb_cells = Jupyter.notebook.get_cells();
-                for (var i = 0; i < nbb_cells.length; ++i) {
-                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
-                             nbb_cells[i].set_text(nbb_formatted_code);
-                        }
-                        break;
-                    }
-                }
-            }, 500);
-            </script></div>
-</details>
-</div>
+  <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap05.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -546,7 +507,7 @@ Then we’ll see how well real data agrees with the model.</p>
 </details>
 </div>
 <section id="the-binomial-distribution">
-<h2><span class="section-number">5.1. </span>The Binomial Distribution<a class="headerlink" href="#the-binomial-distribution" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">5. </span>The Binomial Distribution<a class="headerlink" href="#the-binomial-distribution" title="Link to this heading">#</a></h1>
 <p>As a first example, we’ll consider the sport of skeet shooting, in which competitors use shotguns to shoot clay disks that are thrown into the air.
 In international competition, including the Olympics, there are five rounds with 25 targets per round, with additional rounds as needed to determine a winner.</p>
 <p>As a model of a skeet-shooting competition, suppose that every participant has the same probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>, of hitting every target.
@@ -1226,7 +1187,7 @@ We’ll select the columns that contain these results and use the NumPy function
 <p>The binomial model is a good fit for the distribution of the data – even though it makes the unrealistic assumption that all competitors have the same, unchanging capability.</p>
 </section>
 <section id="the-poisson-distribution">
-<h2><span class="section-number">5.2. </span>The Poisson Distribution<a class="headerlink" href="#the-poisson-distribution" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">6. </span>The Poisson Distribution<a class="headerlink" href="#the-poisson-distribution" title="Link to this heading">#</a></h1>
 <p>As another example where the outcomes of sports events follow predictable patterns, let’s look at the number of goals scored in ice hockey games.</p>
 <p>We’ll start by simulating a 60-minute game, which is 3600 seconds, assuming that the teams score a total of 6 goals per game, on average, and that the goal-scoring probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>,  is the same during any second.</p>
 <div class="cell docutils container">
@@ -1686,7 +1647,7 @@ dtype: int64
 <p>The Poisson distribution fits the data well, which suggests that it is a good model of the goal-scoring process in hockey.</p>
 </section>
 <section id="the-exponential-distribution">
-<h2><span class="section-number">5.3. </span>The Exponential Distribution<a class="headerlink" href="#the-exponential-distribution" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">7. </span>The Exponential Distribution<a class="headerlink" href="#the-exponential-distribution" title="Link to this heading">#</a></h1>
 <p>In the previous section, we simulated a simple model of a hockey game where a goal has the same probability of being scored during any second of the game.
 Under the same model, it turns out, the time until the first goal follows an <strong>exponential distribution</strong>.</p>
 <p>To demonstrate, let’s assume again that the teams score a total of 6 goals, on average, and compute the probability of a goal during each second.</p>
@@ -2145,7 +2106,7 @@ If you ask a hockey fan whether that’s true, they would say no, and they would
 Nevertheless, theoretical distributions often fit real data remarkably well.</p>
 </section>
 <section id="the-normal-distribution">
-<span id="section-normal"></span><h2><span class="section-number">5.4. </span>The Normal Distribution<a class="headerlink" href="#the-normal-distribution" title="Link to this heading">#</a></h2>
+<span id="section-normal"></span><h1><span class="section-number">8. </span>The Normal Distribution<a class="headerlink" href="#the-normal-distribution" title="Link to this heading">#</a></h1>
 <p>Many things we measure in the real world follow a <strong>normal distribution</strong>, also known as a Gaussian distribution or a “bell curve”.
 To see where these distributions come from, let’s consider a model of the way giant pumpkins grow.
 Suppose that each day, a pumpkin gains 1 pound if the weather is bad, 2 pounds if the weather is fair, and 3 pounds if the weather is good.
@@ -2352,7 +2313,7 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 </div>
 <p>The normal model fits the distribution of the weights very well.
 In general, when we add up enough random factors, the sum tends to follow a normal distribution.
-That’s a consequence of the Central Limit Theorem, which we’ll come back to in Chapter xxx.</p>
+That’s a consequence of the Central Limit Theorem, which we’ll come back to in <a class="reference internal" href="chap14.html#section-central-limit-theorem"><span class="std std-ref">Chapter 14</span></a>.</p>
 <p>But first let’s see how well the normal distribution fits real data.
 As an example, we’ll look at the distribution of birth weights in the National Survey of Family Growth (NSFG).
 We can use <code class="docutils literal notranslate"><span class="pre">read_fem_preg</span></code> to read the data, then select the <code class="docutils literal notranslate"><span class="pre">totalwgt_lb</span></code> column, which records birth weights in pounds.</p>
@@ -2556,7 +2517,7 @@ We’ll use the trimmed data to make a normal model.</p>
 The real world is more complicated than simple mathematical models.</p>
 </section>
 <section id="the-lognormal-distribution">
-<h2><span class="section-number">5.5. </span>The Lognormal Distribution<a class="headerlink" href="#the-lognormal-distribution" title="Link to this heading">#</a></h2>
+<span id="section-lognormal-distribution"></span><h1><span class="section-number">9. </span>The Lognormal Distribution<a class="headerlink" href="#the-lognormal-distribution" title="Link to this heading">#</a></h1>
 <p>In the previous section, we simulated pumpkin growth under the assumption that pumpkins grow 1-3 pounds per day, depending on the weather.
 Instead, let’s suppose their growth is proportional to their current weight, so big pumpkins gain more weight per day than small pumpkins – which is probably more realistic.</p>
 <p>The following function simulates this kind of proportional growth, where a pumpkin gains 3% of its weight if the weather is bad, 5% if the weather is fair, and 7% if the weather is good.
@@ -2859,7 +2820,7 @@ Before we compute logarithms, let’s see if the weights follow a normal distrib
 <p>The normal model fits the logarithms better than it fits the weights themselves, which suggests that proportional growth is a better model of weight gain than additive growth.</p>
 </section>
 <section id="why-model">
-<h2><span class="section-number">5.6. </span>Why model?<a class="headerlink" href="#why-model" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">10. </span>Why model?<a class="headerlink" href="#why-model" title="Link to this heading">#</a></h1>
 <p>At the beginning of this chapter, I said that many real world phenomena can be modeled with theoretical distributions.
 But it might not have been clear why we should care.</p>
 <p>Like all models, theoretical distributions are abstractions, which means they leave out details that are considered irrelevant.
@@ -2869,7 +2830,7 @@ When a model fits a dataset well, a small set of parameters can summarize a larg
 <p>It is sometimes surprising when data from a natural phenomenon fit a theoretical distribution, but these observations can provide insight into physical systems.
 Sometimes we can explain why an observed distribution has a particular form.
 For example, in the previous section we found that adult weight are well-modeled by a lognormal distribution, which suggests that changes in weight from year to year might be proportional to current weight.</p>
-<p>Also, theoretical distributions lend themselves to mathematical analysis, as we will see in Chapter xxx.</p>
+<p>Also, theoretical distributions lend themselves to mathematical analysis, as we will see in <a class="reference internal" href="chap14.html#chapter-analytic-methods"><span class="std std-ref">Chapter 14</span></a>.</p>
 <p>But it is important to remember that all models are imperfect.
 Data from the real world never fit a theoretical distribution perfectly.
 People sometimes talk as if data are generated by models; for example, they might say that the distribution of human heights is normal, or the distribution of income is lognormal.
@@ -2878,7 +2839,7 @@ Taken literally, these claims cannot be true – there are always differences be
 But what is relevant or unneeded depends on what you are planning to use the model for.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">5.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
 <ul class="simple">
 <li><p><strong>binomial distribution:</strong> A theoretical distribution often use to model the number of successes or hit in a sequence of hits and misses.</p></li>
 <li><p><strong>Poisson distribution:</strong> A theoretical distribution often used to model the number of events that occur in an interval of time.</p></li>
@@ -2888,9 +2849,9 @@ But what is relevant or unneeded depends on what you are planning to use the mod
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">5.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h1><span class="section-number">12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
 <section id="exercise">
-<h3><span class="section-number">5.8.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">12.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
 <p>In the NSFG respondent file, the <code class="docutils literal notranslate"><span class="pre">numfmhh</span></code> column records the “number of family members in” each respondent’s household.
 We can use <code class="docutils literal notranslate"><span class="pre">read_fem_resp</span></code> to read the file, and <code class="docutils literal notranslate"><span class="pre">query</span></code> to select respondents who were 25 or older when they were interviewed.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2973,8 +2934,8 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 How well does the Poisson model fit the data?</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">5.8.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>In Section xxx, we saw that the time until the first goal in a hockey game follows an exponential distribution.
+<h2><span class="section-number">12.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Earlier in this chapter we saw that the time until the first goal in a hockey game follows an exponential distribution.
 If our model of goal-scoring is correct, a goal is equally likely at any time, regardless of how long it has been since the previous goal.
 And if that’s true, we expect the time between goals to follow an exponential distribution.</p>
 <p>The following loop reads the hockey data again, computes the time between successive goals, if there is more than one in a game, and collects the inter-goal times in a list.</p>
@@ -3037,7 +2998,7 @@ And if that’s true, we expect the time between goals to follow an exponential 
 <p>Use <code class="docutils literal notranslate"><span class="pre">exponential_cdf</span></code> to compute the CDF of an exponential distribution with the same mean as the observed intervals and compare this model to the CDF of the data.</p>
 </section>
 <section id="id2">
-<h3><span class="section-number">5.8.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">12.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>Is the distribution of human height more like a normal or a lognormal distribution?
 To find out, we can select height data from the BRFSS like this:</p>
 <div class="cell docutils container">
@@ -3076,7 +3037,6 @@ Which model fits the data better?</p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
 <p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
-</section>
 </section>
 </section>
 
@@ -3124,7 +3084,7 @@ Which model fits the data better?</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Probability Density Functions</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Probability Density Functions</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3144,20 +3104,21 @@ Which model fits the data better?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-binomial-distribution">5.1. The Binomial Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">5.2. The Poisson Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">5.3. The Exponential Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">5.8.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.8.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.8.3. Exercise</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. The Binomial Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">6. The Poisson Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">7. The Exponential Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">8. The Normal Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">9. The Lognormal Distribution</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">10. Why model?</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">11. Glossary</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12. Exercises</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">12.1. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.3. Exercise</a></li>
 </ul>
 </li>
 </ul>
+
   </nav></div>
 
 </div></div>

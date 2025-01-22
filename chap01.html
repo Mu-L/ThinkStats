@@ -181,16 +181,23 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -1607,7 +1614,7 @@ Name: count, dtype: int64
 <p>The average of the result seems plausible.</p>
 </section>
 <section id="summary-statistics">
-<h2><span class="section-number">1.6. </span>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Link to this heading">#</a></h2>
+<span id="section-summary-statistics"></span><h2><span class="section-number">1.6. </span>Summary Statistics<a class="headerlink" href="#summary-statistics" title="Link to this heading">#</a></h2>
 <p>A <strong>statistic</strong> is a number derived from a dataset, usually intended to quantify some aspect of the data.
 Examples include the count, mean, variance, and standard deviation.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">Series</span></code> object has a <code class="docutils literal notranslate"><span class="pre">count</span></code> method that returns the number of values that are not <code class="docutils literal notranslate"><span class="pre">nan</span></code>.</p>
@@ -1783,7 +1790,7 @@ It is the mean of the squared deviations, which are the distances of each point 
 </div>
 <p>The result is slightly different because when the <code class="docutils literal notranslate"><span class="pre">var</span></code> method computes the mean of the squared deviations, it divides by <code class="docutils literal notranslate"><span class="pre">n-1</span></code> rather than <code class="docutils literal notranslate"><span class="pre">n</span></code>.
 That’s because there are two ways to compute the variance of a sample, depending on what you are trying to do.
-I’ll explain the difference in Chapter XXX – but in practice it usually doesn’t matter.
+I’ll explain the difference in <a class="reference internal" href="chap08.html#section-estimating-variance"><span class="std std-ref">Chapter 8</span></a> – but in practice it usually doesn’t matter.
 If you prefer the version with <code class="docutils literal notranslate"><span class="pre">n</span></code> in the denominator, you can get it by passing <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> as a keyword argument to the <code class="docutils literal notranslate"><span class="pre">var</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
