@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>21. Analytic Methods &#8212; Think Stats</title>
+    <title>14. Analytic Methods &#8212; Think Stats</title>
   
   
   
@@ -16,19 +16,21 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -63,9 +66,10 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Rip-off ETF?" href="ripoff_etf.html" />
-    <link rel="prev" title="20. Survival analysis" href="chap13.html" />
+    <link rel="prev" title="13. Survival analysis" href="chap13.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,6 +134,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -154,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -183,23 +174,16 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
-
-
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">21. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -218,9 +202,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -332,24 +321,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -373,22 +354,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-probability-plots">21.1. Normal Probability Plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">21.2. Normal Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-sample-means">21.3. Distribution of Sample Means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-differences">21.4. Distribution of Differences</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-limit-theorem">21.5. Central Limit Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limits-of-the-central-limit-theorem">21.6. The Limits of the Central Limit Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-clt">21.7. Applying the CLT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">21.8. Correlation Test</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">21.9. Chi-squared Test</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">21.10. Computation and Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">21.11. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">21.12. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">21.12.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">21.12.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">21.12.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">21.12.4. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-probability-plots">14.1. Normal Probability Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">14.2. Normal Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-sample-means">14.3. Distribution of Sample Means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-differences">14.4. Distribution of Differences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-limit-theorem">14.5. Central Limit Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limits-of-the-central-limit-theorem">14.6. The Limits of the Central Limit Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-clt">14.7. Applying the CLT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">14.8. Correlation Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">14.9. Chi-squared Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">14.10. Computation and Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">14.11. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.12. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-1">14.12.1. Exercise 14.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-2">14.12.2. Exercise 14.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-3">14.12.3. Exercise 14.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.12.4. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -404,7 +385,7 @@ document.write(`
                   
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="analytic-methods">
-<span id="chapter-analytic-methods"></span><h1><span class="section-number">21. </span>Analytic Methods<a class="headerlink" href="#analytic-methods" title="Link to this heading">#</a></h1>
+<span id="chapter-analytic-methods"></span><h1><span class="section-number">14. </span>Analytic Methods<a class="headerlink" href="#analytic-methods" title="Link to this heading">#</a></h1>
 <p>This book has focused on computational methods like simulation and resampling, but some of the problems we solved have analytic solutions that can be much faster to compute.</p>
 <p>This chapter presents some of these methods and explains how they work.
 At the end of the chapter, I make suggestions for integrating computational and analytic methods for data analysis.</p>
@@ -425,7 +406,7 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 2;
+                var nbb_cell_id = 1;
                 var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -448,13 +429,13 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
@@ -467,7 +448,7 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 3;
+                var nbb_cell_id = 2;
                 var nbb_unformatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -491,7 +472,7 @@ At the end of the chapter, I make suggestions for integrating computational and 
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
@@ -500,7 +481,7 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 4;
+                var nbb_cell_id = 3;
                 var nbb_unformatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_formatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -523,18 +504,18 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 5;
+                var nbb_cell_id = 4;
                 var nbb_unformatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -551,7 +532,7 @@ At the end of the chapter, I make suggestions for integrating computational and 
 </details>
 </div>
 <section id="normal-probability-plots">
-<h2><span class="section-number">21.1. </span>Normal Probability Plots<a class="headerlink" href="#normal-probability-plots" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.1. </span>Normal Probability Plots<a class="headerlink" href="#normal-probability-plots" title="Link to this heading">#</a></h2>
 <p>Many analytic methods are based on the properties of the normal distribution, for two reasons: distributions of many measurements in the real world are well-approximated by normal distributions, and normal distributions have mathematical properties that make them useful for analysis.</p>
 <p>To demonstrate the first point, we’ll look at some of the measurements in the penguin dataset.
 Then we’ll explore the mathematical properties of the normal distribution.
@@ -570,7 +551,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 6;
+                var nbb_cell_id = 5;
                 var nbb_unformatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_formatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -599,7 +580,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 7;
+                var nbb_cell_id = 6;
                 var nbb_unformatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\")\npenguins.shape";
                 var nbb_formatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\")\npenguins.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -629,7 +610,7 @@ For this example, we’ll select the Adélie penguins.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 8;
+                var nbb_cell_id = 7;
                 var nbb_unformatted_code = "adelie = penguins.query('Species.str.startswith(\"Adelie\")').copy()\nlen(adelie)";
                 var nbb_formatted_code = "adelie = penguins.query('Species.str.startswith(\"Adelie\")').copy()\nlen(adelie)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -647,7 +628,7 @@ For this example, we’ll select the Adélie penguins.</p>
 <p>To see if penguin weights follow a normal distribution, we’ll compute the empirical CDF of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cdf</span>
 
 <span class="n">weights</span> <span class="o">=</span> <span class="n">adelie</span><span class="p">[</span><span class="s2">&quot;Body Mass (g)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">cdf_weights</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
@@ -657,7 +638,7 @@ For this example, we’ll select the Adélie penguins.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 9;
+                var nbb_cell_id = 8;
                 var nbb_unformatted_code = "from empiricaldist import Cdf\n\nweights = adelie[\"Body Mass (g)\"].dropna()\ncdf_weights = Cdf.from_seq(weights)";
                 var nbb_formatted_code = "from empiricaldist import Cdf\n\nweights = adelie[\"Body Mass (g)\"].dropna()\ncdf_weights = Cdf.from_seq(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -686,7 +667,7 @@ For this example, we’ll select the Adélie penguins.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 10;
+                var nbb_cell_id = 9;
                 var nbb_unformatted_code = "m, s = weights.mean(), weights.std()\nm, s";
                 var nbb_formatted_code = "m, s = weights.mean(), weights.std()\nm, s";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -703,7 +684,7 @@ For this example, we’ll select the Adélie penguins.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
 
 <span class="n">dist</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mf">3.5</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mf">3.5</span> <span class="o">*</span> <span class="n">s</span><span class="p">)</span>
@@ -714,7 +695,7 @@ For this example, we’ll select the Adélie penguins.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 11;
+                var nbb_cell_id = 10;
                 var nbb_unformatted_code = "from scipy.stats import norm\n\ndist = norm(m, s)\nqs = np.linspace(m - 3.5 * s, m + 3.5 * s)\nps = dist.cdf(qs)";
                 var nbb_formatted_code = "from scipy.stats import norm\n\ndist = norm(m, s)\nqs = np.linspace(m - 3.5 * s, m + 3.5 * s)\nps = dist.cdf(qs)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -740,10 +721,10 @@ For this example, we’ll select the Adélie penguins.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e4b5a93329f20f72a34ce93745475352ec2227df178411c60af31d3d9cd67951.png" src="_images/e4b5a93329f20f72a34ce93745475352ec2227df178411c60af31d3d9cd67951.png" />
+<img alt="_images/1d24c9af3446e0e8f1897d259fc50750c18c1f477ec6108cd0481f76e19ba259.png" src="_images/1d24c9af3446e0e8f1897d259fc50750c18c1f477ec6108cd0481f76e19ba259.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 12;
+                var nbb_cell_id = 11;
                 var nbb_unformatted_code = "plt.plot(qs, ps, color=\"gray\", alpha=0.5, label=\"Normal model\")\ncdf_weights.plot(label=\"data\")\n\ndecorate(ylabel=\"CDF\")";
                 var nbb_formatted_code = "plt.plot(qs, ps, color=\"gray\", alpha=0.5, label=\"Normal model\")\ncdf_weights.plot(label=\"data\")\n\ndecorate(ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -772,7 +753,7 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 13;
+                var nbb_cell_id = 12;
                 var nbb_unformatted_code = "ys = np.sort(weights)";
                 var nbb_formatted_code = "ys = np.sort(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -799,7 +780,7 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 14;
+                var nbb_cell_id = 13;
                 var nbb_unformatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
                 var nbb_formatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -818,7 +799,7 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 To see how well they do, we can use <code class="docutils literal notranslate"><span class="pre">linregress</span></code> to fit a line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">linregress</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">linregress</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
 <span class="n">intercept</span><span class="p">,</span> <span class="n">slope</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">slope</span>
@@ -831,7 +812,7 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 15;
+                var nbb_cell_id = 14;
                 var nbb_unformatted_code = "from scipy.stats import linregress\n\nresults = linregress(xs, ys)\nintercept, slope = results.intercept, results.slope\n\nfit_xs = np.linspace(-3, 3)\nfit_ys = intercept + slope * fit_xs";
                 var nbb_formatted_code = "from scipy.stats import linregress\n\nresults = linregress(xs, ys)\nintercept, slope = results.intercept, results.slope\n\nfit_xs = np.linspace(-3, 3)\nfit_ys = intercept + slope * fit_xs";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -857,10 +838,10 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ec55f1403e540894f25edcdbbd8526246025fbdcaac2aa4a5a22b0a8601a0e7b.png" src="_images/ec55f1403e540894f25edcdbbd8526246025fbdcaac2aa4a5a22b0a8601a0e7b.png" />
+<img alt="_images/72521d1a0eccd9ef92541d5b90b9ef1d182870ce1fe47a1fb138fcb698feda64.png" src="_images/72521d1a0eccd9ef92541d5b90b9ef1d182870ce1fe47a1fb138fcb698feda64.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 16;
+                var nbb_cell_id = 15;
                 var nbb_unformatted_code = "plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5, label=\"model\")\nplt.plot(xs, ys, label=\"data\")\n\ndecorate(xlabel=\"Standard normal\", ylabel=\"Body mass (g)\")";
                 var nbb_formatted_code = "plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5, label=\"model\")\nplt.plot(xs, ys, label=\"data\")\n\ndecorate(xlabel=\"Standard normal\", ylabel=\"Body mass (g)\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -880,7 +861,7 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
 The following function encapsulates the steps we used to make a normal probability plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_probability_plot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normal_probability_plot</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Makes a normal probability plot with a fitted line.&quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
@@ -902,7 +883,7 @@ The following function encapsulates the steps we used to make a normal probabili
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 17;
+                var nbb_cell_id = 16;
                 var nbb_unformatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    ps = (np.arange(n) + 0.5) / n\n    xs = norm.ppf(ps)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
                 var nbb_formatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    ps = (np.arange(n) + 0.5) / n\n    xs = norm.ppf(ps)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -933,10 +914,10 @@ The following function encapsulates the steps we used to make a normal probabili
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5fbe40d4b70d3e526372f12e548b1ed979a97c6735ef1300ade01fa959a97219.png" src="_images/5fbe40d4b70d3e526372f12e548b1ed979a97c6735ef1300ade01fa959a97219.png" />
+<img alt="_images/3228633c629575d9db9898f048c4f9b19a5404e8c39759532acf4aaca28b9d0a.png" src="_images/3228633c629575d9db9898f048c4f9b19a5404e8c39759532acf4aaca28b9d0a.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 18;
+                var nbb_cell_id = 17;
                 var nbb_unformatted_code = "grouped = adelie.groupby(\"Sex\")\n\nweights_male = grouped.get_group(\"MALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_male, ls=\"--\", label=\"Male\")\n\nweights_female = grouped.get_group(\"FEMALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_female, label=\"Female\")\n\ndecorate(ylabel=\"Weight (g)\")";
                 var nbb_formatted_code = "grouped = adelie.groupby(\"Sex\")\n\nweights_male = grouped.get_group(\"MALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_male, ls=\"--\", label=\"Male\")\n\nweights_female = grouped.get_group(\"FEMALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_female, label=\"Female\")\n\ndecorate(ylabel=\"Weight (g)\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -956,16 +937,16 @@ When we put the groups together, the distribution of their weights is a mixture 
 <p>Now let’s consider some of the mathematical properties of normal distributions that make them so useful for analysis.</p>
 </section>
 <section id="normal-distributions">
-<h2><span class="section-number">21.2. </span>Normal Distributions<a class="headerlink" href="#normal-distributions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.2. </span>Normal Distributions<a class="headerlink" href="#normal-distributions" title="Link to this heading">#</a></h2>
 <p>The following class defines an object that represents a normal distribution.
 It contains as attributes the parameters <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma2</span></code>, which represent the mean and variance of the distribution.
 The name <code class="docutils literal notranslate"><span class="pre">sigma2</span></code> is a reminder that variance is the square of the standard deviation, which is usually denoted <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Normal</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Normal</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a Normal distribution&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Make a Normal object.</span>
 
 <span class="sd">        mu: mean</span>
@@ -974,7 +955,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigma2</span> <span class="o">=</span> <span class="n">sigma2</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Normal(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma2</span><span class="si">}</span><span class="s2">)&quot;</span>
 
@@ -985,7 +966,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 19;
+                var nbb_cell_id = 18;
                 var nbb_unformatted_code = "class Normal:\n    \"\"\"Represents a Normal distribution\"\"\"\n\n    def __init__(self, mu, sigma2):\n        \"\"\"Make a Normal object.\n\n        mu: mean\n        sigma2: variance\n        \"\"\"\n        self.mu = mu\n        self.sigma2 = sigma2\n\n    def __repr__(self):\n        \"\"\"Returns a string representation.\"\"\"\n        return f\"Normal({self.mu}, {self.sigma2})\"\n\n    __str__ = __repr__";
                 var nbb_formatted_code = "class Normal:\n    \"\"\"Represents a Normal distribution\"\"\"\n\n    def __init__(self, mu, sigma2):\n        \"\"\"Make a Normal object.\n\n        mu: mean\n        sigma2: variance\n        \"\"\"\n        self.mu = mu\n        self.sigma2 = sigma2\n\n    def __repr__(self):\n        \"\"\"Returns a string representation.\"\"\"\n        return f\"Normal({self.mu}, {self.sigma2})\"\n\n    __str__ = __repr__";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1015,7 +996,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 20;
+                var nbb_cell_id = 19;
                 var nbb_unformatted_code = "m, s = weights_male.mean(), weights_male.std()\ndist_male = Normal(m, s**2)\ndist_male";
                 var nbb_formatted_code = "m, s = weights_male.mean(), weights_male.std()\ndist_male = Normal(m, s**2)\ndist_male";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1045,7 +1026,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 21;
+                var nbb_cell_id = 20;
                 var nbb_unformatted_code = "m, s = weights_female.mean(), weights_female.std()\ndist_female = Normal(m, s**2)\ndist_female";
                 var nbb_formatted_code = "m, s = weights_female.mean(), weights_female.std()\ndist_female = Normal(m, s**2)\ndist_female";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1077,7 +1058,7 @@ def sample(self, n):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 22;
+                var nbb_cell_id = 21;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1092,7 +1073,7 @@ def sample(self, n):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 22;
+                var nbb_cell_id = 21;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1119,10 +1100,10 @@ def sample(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0b050023424db26f89f663467329a01dd0c3cf5de4fb8a50ab4d0580f2e4701b.png" src="_images/0b050023424db26f89f663467329a01dd0c3cf5de4fb8a50ab4d0580f2e4701b.png" />
+<img alt="_images/c21c3dfe57bec93bb094f4a4695899648d28efcd05d6b121719dd690f8f98b47.png" src="_images/c21c3dfe57bec93bb094f4a4695899648d28efcd05d6b121719dd690f8f98b47.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 23;
+                var nbb_cell_id = 22;
                 var nbb_unformatted_code = "sample_sum = dist_male.sample(1000) + dist_female.sample(1000)\nnormal_probability_plot(sample_sum)\n\ndecorate(ylabel=\"Total weight (g)\")";
                 var nbb_formatted_code = "sample_sum = dist_male.sample(1000) + dist_female.sample(1000)\nnormal_probability_plot(sample_sum)\n\ndecorate(ylabel=\"Total weight (g)\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1154,7 +1135,7 @@ def __add__(self, other):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 24;
+                var nbb_cell_id = 23;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1169,7 +1150,7 @@ def __add__(self, other):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 24;
+                var nbb_cell_id = 23;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1199,7 +1180,7 @@ Now that we’ve defined the special method <code class="docutils literal notran
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 25;
+                var nbb_cell_id = 24;
                 var nbb_unformatted_code = "dist_sum = dist_male + dist_female\ndist_sum";
                 var nbb_formatted_code = "dist_sum = dist_male + dist_female\ndist_sum";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1233,7 +1214,7 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 26;
+                var nbb_cell_id = 25;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1248,7 +1229,7 @@ def plot_cdf(self, n_sigmas=3.5, **options):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 26;
+                var nbb_cell_id = 25;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1274,10 +1255,10 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/be4790cc26a7c3481e50bf07b36698e3f2423eacdec6c08e13259190bdd58be0.png" src="_images/be4790cc26a7c3481e50bf07b36698e3f2423eacdec6c08e13259190bdd58be0.png" />
+<img alt="_images/3542d73cf3fb91523fb4ad286db6712fa84a1ed35b2b96fc80066f35289a56ac.png" src="_images/3542d73cf3fb91523fb4ad286db6712fa84a1ed35b2b96fc80066f35289a56ac.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 27;
+                var nbb_cell_id = 26;
                 var nbb_unformatted_code = "dist_sum.plot_cdf(color=\"gray\", alpha=0.4, label=\"model\")\nCdf.from_seq(sample_sum).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weight (g)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "dist_sum.plot_cdf(color=\"gray\", alpha=0.4, label=\"model\")\nCdf.from_seq(sample_sum).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weight (g)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1310,7 +1291,7 @@ The following loop does that 1001 times, so the result is a sample from the dist
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 28;
+                var nbb_cell_id = 27;
                 var nbb_unformatted_code = "n = len(weights_male)\nsample_sums_male = [dist_male.sample(n).sum() for i in range(1001)]\nn";
                 var nbb_formatted_code = "n = len(weights_male)\nsample_sums_male = [dist_male.sample(n).sum() for i in range(1001)]\nn";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1341,7 +1322,7 @@ def sum(self, n):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 29;
+                var nbb_cell_id = 28;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1356,7 +1337,7 @@ def sum(self, n):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 29;
+                var nbb_cell_id = 28;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1381,7 +1362,7 @@ def sum(self, n):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 30;
+                var nbb_cell_id = 29;
                 var nbb_unformatted_code = "dist_sums_male = dist_male.sum(n)";
                 var nbb_formatted_code = "dist_sums_male = dist_male.sum(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1409,10 +1390,10 @@ def sum(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/161753d007d8d81950e93456ca0210b5764029816d40fd529c0f3f81ef8a2f85.png" src="_images/161753d007d8d81950e93456ca0210b5764029816d40fd529c0f3f81ef8a2f85.png" />
+<img alt="_images/3d4bf467bf0ae27d9b2f8fcfdab9bb7c0d8ee87dd02d10309c7f9f2389626691.png" src="_images/3d4bf467bf0ae27d9b2f8fcfdab9bb7c0d8ee87dd02d10309c7f9f2389626691.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 31;
+                var nbb_cell_id = 30;
                 var nbb_unformatted_code = "model_options = dict(color=\"gray\", alpha=0.4, label=\"model\")\n\ndist_sums_male.plot_cdf(**model_options)\nCdf.from_seq(sample_sums_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weights (g)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "model_options = dict(color=\"gray\", alpha=0.4, label=\"model\")\n\ndist_sums_male.plot_cdf(**model_options)\nCdf.from_seq(sample_sums_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weights (g)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1431,7 +1412,7 @@ def sum(self, n):
 So if we collect a sample of <code class="docutils literal notranslate"><span class="pre">n</span></code> measurements, we can compute the distribution of their sum.</p>
 </section>
 <section id="distribution-of-sample-means">
-<h2><span class="section-number">21.3. </span>Distribution of Sample Means<a class="headerlink" href="#distribution-of-sample-means" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.3. </span>Distribution of Sample Means<a class="headerlink" href="#distribution-of-sample-means" title="Link to this heading">#</a></h2>
 <p>If we can compute the distribution of a sample sum, we can also compute the distribution of a sample mean.
 To do that, we’ll use a third property of a normal distribution: if we multiply or divide by a constant, the result is a normal distribution.
 The following methods show how we compute the parameters of the distribution of a product or quotient.</p>
@@ -1449,7 +1430,7 @@ def __mul__(self, factor):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 32;
+                var nbb_cell_id = 31;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1464,7 +1445,7 @@ def __mul__(self, factor):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 32;
+                var nbb_cell_id = 31;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1493,7 +1474,7 @@ def __truediv__(self, factor):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 33;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1/factor)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1/factor)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1508,7 +1489,7 @@ def __truediv__(self, factor):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 33;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1/factor)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1/factor)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1534,7 +1515,7 @@ We can use this property to compute the distribution of the sample means.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 34;
+                var nbb_cell_id = 33;
                 var nbb_unformatted_code = "dist_mean_male = dist_sums_male / n";
                 var nbb_formatted_code = "dist_mean_male = dist_sums_male / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1559,7 +1540,7 @@ We can use this property to compute the distribution of the sample means.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 35;
+                var nbb_cell_id = 34;
                 var nbb_unformatted_code = "sample_means_male = np.array(sample_sums_male) / n";
                 var nbb_formatted_code = "sample_means_male = np.array(sample_sums_male) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1585,10 +1566,10 @@ We can use this property to compute the distribution of the sample means.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f5b3e97deae53290363f4e359aca986c35aae828d4aaf837ca9920b8ec81e53f.png" src="_images/f5b3e97deae53290363f4e359aca986c35aae828d4aaf837ca9920b8ec81e53f.png" />
+<img alt="_images/44d7f8ed7e247f0871b48d32fd11cab3121107dd5d403d986c4ebc1558f8c67a.png" src="_images/44d7f8ed7e247f0871b48d32fd11cab3121107dd5d403d986c4ebc1558f8c67a.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 36;
+                var nbb_cell_id = 35;
                 var nbb_unformatted_code = "dist_mean_male.plot_cdf(**model_options)\nCdf.from_seq(sample_means_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Average weight (g)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "dist_mean_male.plot_cdf(**model_options)\nCdf.from_seq(sample_means_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Average weight (g)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1618,7 +1599,7 @@ We can use this property to compute the distribution of the sample means.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 37;
+                var nbb_cell_id = 36;
                 var nbb_unformatted_code = "standard_error = np.sqrt(dist_mean_male.sigma2)\nstandard_error";
                 var nbb_formatted_code = "standard_error = np.sqrt(dist_mean_male.sigma2)\nstandard_error";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1649,7 +1630,7 @@ In the sequence of steps we followed, we multiplied the variance by <code class=
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 38;
+                var nbb_cell_id = 37;
                 var nbb_unformatted_code = "standard_error = weights_male.std() / np.sqrt(n)\nstandard_error";
                 var nbb_formatted_code = "standard_error = weights_male.std() / np.sqrt(n)\nstandard_error";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1667,7 +1648,7 @@ In the sequence of steps we followed, we multiplied the variance by <code class=
 <p>Now let’s consider one more result we can compute with normal distributions, the distribution of differences.</p>
 </section>
 <section id="distribution-of-differences">
-<h2><span class="section-number">21.4. </span>Distribution of Differences<a class="headerlink" href="#distribution-of-differences" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.4. </span>Distribution of Differences<a class="headerlink" href="#distribution-of-differences" title="Link to this heading">#</a></h2>
 <p>Putting together the steps from the previous section, here’s how we can compute the distribution of sample means for the weights of the female penguins.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1683,7 +1664,7 @@ In the sequence of steps we followed, we multiplied the variance by <code class=
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 39;
+                var nbb_cell_id = 38;
                 var nbb_unformatted_code = "n = len(weights_female)\ndist_mean_female = dist_female.sum(n) / n\ndist_mean_female";
                 var nbb_formatted_code = "n = len(weights_female)\ndist_mean_female = dist_female.sum(n) / n\ndist_mean_female";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1713,7 +1694,7 @@ def __sub__(self, other):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 40;
+                var nbb_cell_id = 39;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1728,7 +1709,7 @@ def __sub__(self, other):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 40;
+                var nbb_cell_id = 39;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1765,7 +1746,7 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 41;
+                var nbb_cell_id = 40;
                 var nbb_unformatted_code = "dist_diff_means = dist_mean_male - dist_mean_female\ndist_diff_means";
                 var nbb_formatted_code = "dist_diff_means = dist_mean_male - dist_mean_female\ndist_diff_means";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1792,7 +1773,7 @@ Here’s the analytic distribution of the differences.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 42;
+                var nbb_cell_id = 41;
                 var nbb_unformatted_code = "sample_sums_female = [dist_female.sample(n).sum() for i in range(1001)]\nsample_means_female = np.array(sample_sums_female) / n\nsample_diff_means = sample_means_male - sample_means_female";
                 var nbb_formatted_code = "sample_sums_female = [dist_female.sample(n).sum() for i in range(1001)]\nsample_means_female = np.array(sample_sums_female) / n\nsample_diff_means = sample_means_male - sample_means_female";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1818,10 +1799,10 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a48bf974e4b5f2ae3c006c6c65fb75e8417ab840efa02ce855ba46a8581bf33b.png" src="_images/a48bf974e4b5f2ae3c006c6c65fb75e8417ab840efa02ce855ba46a8581bf33b.png" />
+<img alt="_images/ea61f2da6c7a9feae2c4055b137be3061e5258e92938a56eeed60a899dd960a1.png" src="_images/ea61f2da6c7a9feae2c4055b137be3061e5258e92938a56eeed60a899dd960a1.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 43;
+                var nbb_cell_id = 42;
                 var nbb_unformatted_code = "dist_diff_means.plot_cdf(**model_options)\nCdf.from_seq(sample_diff_means).plot(label=\"sample\")\n\ndecorate(xlabel=\"Difference in average weight (g)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "dist_diff_means.plot_cdf(**model_options)\nCdf.from_seq(sample_diff_means).plot(label=\"sample\")\n\ndecorate(xlabel=\"Difference in average weight (g)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1852,7 +1833,7 @@ def ppf(self, xs):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1867,7 +1848,7 @@ def ppf(self, xs):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1896,7 +1877,7 @@ def ppf(self, xs):
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 45;
+                var nbb_cell_id = 44;
                 var nbb_unformatted_code = "ci90 = dist_diff_means.ppf([0.05, 0.95])\nci90";
                 var nbb_formatted_code = "ci90 = dist_diff_means.ppf([0.05, 0.95])\nci90";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1919,12 +1900,12 @@ def ppf(self, xs):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([583.7462217 , 756.74789484])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([589.01470284, 760.1276391 ])
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 46;
+                var nbb_cell_id = 45;
                 var nbb_unformatted_code = "np.percentile(sample_diff_means, [5, 95])";
                 var nbb_formatted_code = "np.percentile(sample_diff_means, [5, 95])";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1946,7 +1927,7 @@ But even if the distribution of the measurements isn’t normal, if we add up ma
 That is the power of the Central Limit Theorem.</p>
 </section>
 <section id="central-limit-theorem">
-<span id="section-central-limit-theorem"></span><h2><span class="section-number">21.5. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Link to this heading">#</a></h2>
+<span id="section-central-limit-theorem"></span><h2><span class="section-number">14.5. </span>Central Limit Theorem<a class="headerlink" href="#central-limit-theorem" title="Link to this heading">#</a></h2>
 <p>As we saw in the previous sections, if we add values drawn from normal distributions, the distribution of the sum is normal.
 Most other distributions don’t have this property – for example, if we add values drawn from an exponential distribution, the distribution of the sum is not exponential.</p>
 <p>But for many distributions, if we generate <code class="docutils literal notranslate"><span class="pre">n</span></code> values and add them up, the distribution of the sum converges to normal as <code class="docutils literal notranslate"><span class="pre">n</span></code> increases.
@@ -1976,7 +1957,7 @@ The following loop generates samples from an exponential distribution, adds them
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 47;
+                var nbb_cell_id = 46;
                 var nbb_unformatted_code = "lam = 1\ndf_sample_expo = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_expo[n] = [np.sum(np.random.exponential(lam, n)) for _ in range(1001)]";
                 var nbb_formatted_code = "lam = 1\ndf_sample_expo = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_expo[n] = [np.sum(np.random.exponential(lam, n)) for _ in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1999,15 +1980,15 @@ The following loop generates samples from an exponential distribution, adds them
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        0.958912
-10      10.004721
-100    100.004576
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        1.010255
+10       9.993695
+100    100.416396
 dtype: float64
 </pre></div>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 48;
+                var nbb_cell_id = 47;
                 var nbb_unformatted_code = "df_sample_expo.mean()";
                 var nbb_formatted_code = "df_sample_expo.mean()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2026,7 +2007,7 @@ dtype: float64
 <p>This function takes the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we just made and makes a normal probability plot for each list of sums.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_plot_samples</span><span class="p">(</span><span class="n">df_sample</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normal_plot_samples</span><span class="p">(</span><span class="n">df_sample</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normal probability plots for samples of sums.&quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.8</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df_sample</span><span class="p">):</span>
@@ -2045,7 +2026,7 @@ dtype: float64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 49;
+                var nbb_cell_id = 48;
                 var nbb_unformatted_code = "def normal_plot_samples(df_sample, ylabel=\"\"):\n    \"\"\"Normal probability plots for samples of sums.\"\"\"\n    plt.figure(figsize=(6.8, 2.6))\n    for i, n in enumerate(df_sample):\n        plt.subplot(1, 3, i + 1)\n        normal_probability_plot(df_sample[n])\n        decorate(\n            title=\"n=%d\" % n,\n            xticks=[],\n            yticks=[],\n            xlabel=\"Standard normal\",\n            ylabel=ylabel,\n        )";
                 var nbb_formatted_code = "def normal_plot_samples(df_sample, ylabel=\"\"):\n    \"\"\"Normal probability plots for samples of sums.\"\"\"\n    plt.figure(figsize=(6.8, 2.6))\n    for i, n in enumerate(df_sample):\n        plt.subplot(1, 3, i + 1)\n        normal_probability_plot(df_sample[n])\n        decorate(\n            title=\"n=%d\" % n,\n            xticks=[],\n            yticks=[],\n            xlabel=\"Standard normal\",\n            ylabel=ylabel,\n        )";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2068,10 +2049,10 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b0a27261dc3087fc92ffcb17db566ba55070d5efb0e976df66796cfd3cc7221e.png" src="_images/b0a27261dc3087fc92ffcb17db566ba55070d5efb0e976df66796cfd3cc7221e.png" />
+<img alt="_images/8aa27287b4ec4ea9152b3cc6fd35ca417e5f3748d513e0549dfa6ffe83407db6.png" src="_images/8aa27287b4ec4ea9152b3cc6fd35ca417e5f3748d513e0549dfa6ffe83407db6.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 50;
+                var nbb_cell_id = 49;
                 var nbb_unformatted_code = "normal_plot_samples(df_sample_expo, ylabel=\"Sum of exponential values\")";
                 var nbb_formatted_code = "normal_plot_samples(df_sample_expo, ylabel=\"Sum of exponential values\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2105,7 +2086,7 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 51;
+                var nbb_cell_id = 50;
                 var nbb_unformatted_code = "mu, sigma = 1.0, 1.0\ndf_sample_lognormal = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_lognormal[n] = [\n        np.sum(np.random.lognormal(mu, sigma, n)) for _ in range(1001)\n    ]";
                 var nbb_formatted_code = "mu, sigma = 1.0, 1.0\ndf_sample_lognormal = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_lognormal[n] = [\n        np.sum(np.random.lognormal(mu, sigma, n)) for _ in range(1001)\n    ]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2128,10 +2109,10 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3281a2a6cb95f104196056bbcd31778c4da9e0a0705ccc676d436c7930c55225.png" src="_images/3281a2a6cb95f104196056bbcd31778c4da9e0a0705ccc676d436c7930c55225.png" />
+<img alt="_images/0197ea44f3de4f5893685efa5d4a049cfdd803e285b31b4ead6b3ffb0f14031e.png" src="_images/0197ea44f3de4f5893685efa5d4a049cfdd803e285b31b4ead6b3ffb0f14031e.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 52;
+                var nbb_cell_id = 51;
                 var nbb_unformatted_code = "normal_plot_samples(df_sample_lognormal, ylabel=\"Sum of lognormal values\")";
                 var nbb_formatted_code = "normal_plot_samples(df_sample_lognormal, ylabel=\"Sum of lognormal values\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2153,7 +2134,7 @@ But for some highly skewed distributions, it might not converge at any practical
 And in some cases, it doesn’t happen at all.</p>
 </section>
 <section id="the-limits-of-the-central-limit-theorem">
-<h2><span class="section-number">21.6. </span>The Limits of the Central Limit Theorem<a class="headerlink" href="#the-limits-of-the-central-limit-theorem" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.6. </span>The Limits of the Central Limit Theorem<a class="headerlink" href="#the-limits-of-the-central-limit-theorem" title="Link to this heading">#</a></h2>
 <p>Pareto distributions are even more skewed than lognormal.
 Depending on the parameters, some Pareto distributions do not have finite mean and variance – in those cases, the Central Limit Theorem does not apply.</p>
 <p>To demonstrate, we’ll generate values from a Pareto distribution with parameter <code class="docutils literal notranslate"><span class="pre">alpha=1</span></code>, which has infinite mean and variance.</p>
@@ -2169,7 +2150,7 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 53;
+                var nbb_cell_id = 52;
                 var nbb_unformatted_code = "alpha = 1.0\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(np.random.pareto(alpha, n)) for _ in range(1001)]";
                 var nbb_formatted_code = "alpha = 1.0\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(np.random.pareto(alpha, n)) for _ in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2192,10 +2173,10 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/02edc666d308dc9aa97d8cd4f1ff7b5a6a7140b951e70a89e7d53e72e3043dd3.png" src="_images/02edc666d308dc9aa97d8cd4f1ff7b5a6a7140b951e70a89e7d53e72e3043dd3.png" />
+<img alt="_images/2ba488c852a69dc243756218e3dd737fe117eb44d0785c32cd11d64c1ac20ca7.png" src="_images/2ba488c852a69dc243756218e3dd737fe117eb44d0785c32cd11d64c1ac20ca7.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 54;
+                var nbb_cell_id = 53;
                 var nbb_unformatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of Pareto values\")";
                 var nbb_formatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of Pareto values\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2216,7 +2197,7 @@ To test that, we’ll use a function called <code class="docutils literal notran
 This function is defined in the notebook for this chapter.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_normal_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_normal_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates an array of correlated values from a standard normal dist.&quot;&quot;&quot;</span>
     <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -2232,7 +2213,7 @@ This function is defined in the notebook for this chapter.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 55;
+                var nbb_cell_id = 54;
                 var nbb_unformatted_code = "def generate_normal_correlated(n, rho):\n    \"\"\"Generates an array of correlated values from a standard normal dist.\"\"\"\n    xs = np.empty(n)\n    xs[0] = np.random.normal(0, 1)\n\n    sigma = np.sqrt(1 - rho**2)\n    for i in range(1, n):\n        xs[i] = rho * xs[i - 1] + np.random.normal(0, sigma)\n\n    return xs";
                 var nbb_formatted_code = "def generate_normal_correlated(n, rho):\n    \"\"\"Generates an array of correlated values from a standard normal dist.\"\"\"\n    xs = np.empty(n)\n    xs[0] = np.random.normal(0, 1)\n\n    sigma = np.sqrt(1 - rho**2)\n    for i in range(1, n):\n        xs[i] = rho * xs[i - 1] + np.random.normal(0, sigma)\n\n    return xs";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2250,10 +2231,10 @@ This function is defined in the notebook for this chapter.</p>
 <p>Given a correlated sequence from a normal distribution, the following function generates a correlated sequence from an exponential distribution.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">expon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">expon</span>
 
 
-<span class="k">def</span> <span class="nf">generate_expo_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_expo_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a sequence of correlated values from an exponential dist.&quot;&quot;&quot;</span>
     <span class="n">normal</span> <span class="o">=</span> <span class="n">generate_normal_correlated</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
     <span class="n">uniform</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">normal</span><span class="p">)</span>
@@ -2265,7 +2246,7 @@ This function is defined in the notebook for this chapter.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 56;
+                var nbb_cell_id = 55;
                 var nbb_unformatted_code = "from scipy.stats import expon\n\n\ndef generate_expo_correlated(n, rho):\n    \"\"\"Generates a sequence of correlated values from an exponential dist.\"\"\"\n    normal = generate_normal_correlated(n, rho)\n    uniform = norm.cdf(normal)\n    expo = expon.ppf(uniform)\n    return expo";
                 var nbb_formatted_code = "from scipy.stats import expon\n\n\ndef generate_expo_correlated(n, rho):\n    \"\"\"Generates a sequence of correlated values from an exponential dist.\"\"\"\n    normal = generate_normal_correlated(n, rho)\n    uniform = norm.cdf(normal)\n    expo = expon.ppf(uniform)\n    return expo";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2295,7 +2276,7 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 129;
+                var nbb_cell_id = 56;
                 var nbb_unformatted_code = "rho = 0.8\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(generate_expo_correlated(n, rho)) for _ in range(1001)]";
                 var nbb_formatted_code = "rho = 0.8\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(generate_expo_correlated(n, rho)) for _ in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2318,10 +2299,10 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2d535d22f637ddf8787c5ce5a773246764cbc563defbb70b092b4da4040904fb.png" src="_images/2d535d22f637ddf8787c5ce5a773246764cbc563defbb70b092b4da4040904fb.png" />
+<img alt="_images/36fdbc1cbf17bf9f9691dbd0db272a6faa006f4d9bd616939ab007d762aa7bb3.png" src="_images/36fdbc1cbf17bf9f9691dbd0db272a6faa006f4d9bd616939ab007d762aa7bb3.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 130;
+                var nbb_cell_id = 57;
                 var nbb_unformatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of correlated values\")";
                 var nbb_formatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of correlated values\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2342,7 +2323,7 @@ If there is also a strong correlation between distant elements of the sequence, 
 Now let’s see how we can use it.</p>
 </section>
 <section id="applying-the-clt">
-<h2><span class="section-number">21.7. </span>Applying the CLT<a class="headerlink" href="#applying-the-clt" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.7. </span>Applying the CLT<a class="headerlink" href="#applying-the-clt" title="Link to this heading">#</a></h2>
 <p>To see why the Central Limit Theorem is useful, let’s get back to the example in <a class="reference internal" href="chap09.html#section-diff-means"><span class="std std-ref">Chapter 9</span></a>: testing the apparent difference in mean pregnancy length for first babies and others.
 We’ll use the NSFG data again – instructions for downloading it are in the notebook for this chapter.</p>
 <p>The following cell downloads the data.</p>
@@ -2357,7 +2338,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 59;
+                var nbb_cell_id = 58;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/nsfg.py\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/nsfg.py\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2375,7 +2356,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <p>We’ll use <code class="docutils literal notranslate"><span class="pre">get_nsfg_groups</span></code> to read the data and divide it into first babies and others.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">get_nsfg_groups</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nsfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_nsfg_groups</span>
 
 <span class="n">live</span><span class="p">,</span> <span class="n">firsts</span><span class="p">,</span> <span class="n">others</span> <span class="o">=</span> <span class="n">get_nsfg_groups</span><span class="p">()</span>
 </pre></div>
@@ -2384,7 +2365,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 60;
+                var nbb_cell_id = 59;
                 var nbb_unformatted_code = "from nsfg import get_nsfg_groups\n\nlive, firsts, others = get_nsfg_groups()";
                 var nbb_formatted_code = "from nsfg import get_nsfg_groups\n\nlive, firsts, others = get_nsfg_groups()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2413,7 +2394,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 61;
+                var nbb_cell_id = 60;
                 var nbb_unformatted_code = "delta = firsts[\"prglngth\"].mean() - others[\"prglngth\"].mean()\ndelta";
                 var nbb_formatted_code = "delta = firsts[\"prglngth\"].mean() - others[\"prglngth\"].mean()\ndelta";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2439,7 +2420,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 62;
+                var nbb_cell_id = 61;
                 var nbb_unformatted_code = "all_lengths = live[\"prglngth\"]\nm, s2 = all_lengths.mean(), all_lengths.var()";
                 var nbb_formatted_code = "all_lengths = live[\"prglngth\"]\nm, s2 = all_lengths.mean(), all_lengths.var()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2458,7 +2439,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <p>The following function takes a sequence of values and returns a <code class="docutils literal notranslate"><span class="pre">Normal</span></code> object that represents the sampling distribution of the mean of a sample with the given size, <code class="docutils literal notranslate"><span class="pre">n</span></code>, drawn from a normal distribution with the same mean and variance as the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sampling_dist_mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sampling_dist_mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="n">mean</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
@@ -2468,7 +2449,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 63;
+                var nbb_cell_id = 62;
                 var nbb_unformatted_code = "def sampling_dist_mean(data, n):\n    mean, var = data.mean(), data.var()\n    dist = Normal(mean, var)\n    return dist.sum(n) / n";
                 var nbb_formatted_code = "def sampling_dist_mean(data, n):\n    mean, var = data.mean(), data.var()\n    dist = Normal(mean, var)\n    return dist.sum(n) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2498,7 +2479,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 63;
                 var nbb_unformatted_code = "n1 = firsts[\"totalwgt_lb\"].count()\ndist_firsts = sampling_dist_mean(all_lengths, n1)\nn1";
                 var nbb_formatted_code = "n1 = firsts[\"totalwgt_lb\"].count()\ndist_firsts = sampling_dist_mean(all_lengths, n1)\nn1";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2528,7 +2509,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 65;
+                var nbb_cell_id = 64;
                 var nbb_unformatted_code = "n2 = others[\"totalwgt_lb\"].count()\ndist_others = sampling_dist_mean(all_lengths, n2)\nn2";
                 var nbb_formatted_code = "n2 = others[\"totalwgt_lb\"].count()\ndist_others = sampling_dist_mean(all_lengths, n2)\nn2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2557,7 +2538,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 66;
+                var nbb_cell_id = 65;
                 var nbb_unformatted_code = "dist_diff = dist_firsts - dist_others\ndist_diff";
                 var nbb_formatted_code = "dist_diff = dist_firsts - dist_others\ndist_diff";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2586,7 +2567,7 @@ The variance of the sampling distribution is 0.0032, which indicates how much va
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 67;
+                var nbb_cell_id = 66;
                 var nbb_unformatted_code = "sample_firsts = [np.random.choice(all_lengths, n1).mean() for i in range(1001)]\nsample_others = [np.random.choice(all_lengths, n2).mean() for i in range(1001)]\nsample_diffs = np.subtract(sample_firsts, sample_others)";
                 var nbb_formatted_code = "sample_firsts = [np.random.choice(all_lengths, n1).mean() for i in range(1001)]\nsample_others = [np.random.choice(all_lengths, n2).mean() for i in range(1001)]\nsample_diffs = np.subtract(sample_firsts, sample_others)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2615,10 +2596,10 @@ The vertical dotted lines show the observed difference, positive and negative.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a18007c942ea7865bb9f786187ed2060f01de20df570e4536a5e9a81bb152d27.png" src="_images/a18007c942ea7865bb9f786187ed2060f01de20df570e4536a5e9a81bb152d27.png" />
+<img alt="_images/8a4442bd2b2fc962013dce9d59ace01f25b7338e5286cf7a36f59bfcca5d5847.png" src="_images/8a4442bd2b2fc962013dce9d59ace01f25b7338e5286cf7a36f59bfcca5d5847.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 68;
+                var nbb_cell_id = 67;
                 var nbb_unformatted_code = "dist_diff.plot_cdf(**model_options)\nCdf.from_seq(sample_diffs).plot(label=\"sample\")\nplt.axvline(delta, ls=\":\")\nplt.axvline(-delta, ls=\":\")\n\ndecorate(xlabel=\"Difference in pregnancy length\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "dist_diff.plot_cdf(**model_options)\nCdf.from_seq(sample_diffs).plot(label=\"sample\")\nplt.axvline(delta, ls=\":\")\nplt.axvline(-delta, ls=\":\")\n\ndecorate(xlabel=\"Difference in pregnancy length\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2649,7 +2630,7 @@ def cdf(self, xs):
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 69;
+                var nbb_cell_id = 68;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2664,7 +2645,7 @@ def cdf(self, xs):
             }, 500);
             </script><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 69;
+                var nbb_cell_id = 68;
                 var nbb_unformatted_code = "%%add_method_to Normal\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
                 var nbb_formatted_code = "%%add_method_to Normal\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2693,7 +2674,7 @@ def cdf(self, xs):
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 70;
+                var nbb_cell_id = 69;
                 var nbb_unformatted_code = "right = 1 - dist_diff.cdf(delta)\nright";
                 var nbb_formatted_code = "right = 1 - dist_diff.cdf(delta)\nright";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2722,7 +2703,7 @@ def cdf(self, xs):
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 71;
+                var nbb_cell_id = 70;
                 var nbb_unformatted_code = "left = dist_diff.cdf(-delta)\nleft";
                 var nbb_formatted_code = "left = dist_diff.cdf(-delta)\nleft";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2751,7 +2732,7 @@ The sum of the two is the probability of a difference as large as <code class="d
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 72;
+                var nbb_cell_id = 71;
                 var nbb_unformatted_code = "left + right";
                 var nbb_formatted_code = "left + right";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2771,7 +2752,7 @@ The sum of the two is the probability of a difference as large as <code class="d
 SciPy provides a function called <code class="docutils literal notranslate"><span class="pre">ttest_ind</span></code> that takes two samples and computes a p-value for the difference in their means.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ttest_ind</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ttest_ind</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">ttest_ind</span><span class="p">(</span><span class="n">firsts</span><span class="p">[</span><span class="s2">&quot;prglngth&quot;</span><span class="p">],</span> <span class="n">others</span><span class="p">[</span><span class="s2">&quot;prglngth&quot;</span><span class="p">])</span>
 <span class="n">result</span><span class="o">.</span><span class="n">pvalue</span>
@@ -2784,7 +2765,7 @@ SciPy provides a function called <code class="docutils literal notranslate"><spa
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 73;
+                var nbb_cell_id = 72;
                 var nbb_unformatted_code = "from scipy.stats import ttest_ind\n\nresult = ttest_ind(firsts[\"prglngth\"], others[\"prglngth\"])\nresult.pvalue";
                 var nbb_formatted_code = "from scipy.stats import ttest_ind\n\nresult = ttest_ind(firsts[\"prglngth\"], others[\"prglngth\"])\nresult.pvalue";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2804,13 +2785,13 @@ The <span class="math notranslate nohighlight">\(t\)</span> test is so called be
 The <span class="math notranslate nohighlight">\(t\)</span> distribution is also useful for testing whether a correlation is statistically significant, as we’ll see in the next section.</p>
 </section>
 <section id="correlation-test">
-<h2><span class="section-number">21.8. </span>Correlation Test<a class="headerlink" href="#correlation-test" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.8. </span>Correlation Test<a class="headerlink" href="#correlation-test" title="Link to this heading">#</a></h2>
 <p>In <a class="reference internal" href="chap09.html#section-test-correlation"><span class="std std-ref">Chapter 9</span></a> we used a permutation test for the correlation between birth weight and mother’s age, and found that it is statistically significant, with p-value less than 0.001.</p>
 <p>Now we can do the same thing analytically.
 The method is based on this mathematical result: If we generate two samples with size <code class="docutils literal notranslate"><span class="pre">n</span></code> from normal distributions, compute Pearson’s correlation, <code class="docutils literal notranslate"><span class="pre">r</span></code>, and then transform the correlation with this function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">transform_correlation</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">transform_correlation</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -2818,7 +2799,7 @@ The method is based on this mathematical result: If we generate two samples with
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 74;
+                var nbb_cell_id = 73;
                 var nbb_unformatted_code = "def transform_correlation(r, n):\n    return r * np.sqrt((n - 2) / (1 - r**2))";
                 var nbb_formatted_code = "def transform_correlation(r, n):\n    return r * np.sqrt((n - 2) / (1 - r**2))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2837,7 +2818,7 @@ The method is based on this mathematical result: If we generate two samples with
 To see what that looks like, we’ll use the following function to generate uncorrelated samples from a standard normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_data</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">generate_data</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Uncorrelated sequences from a standard normal.&quot;&quot;&quot;</span>
     <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
     <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
@@ -2848,7 +2829,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 75;
+                var nbb_cell_id = 74;
                 var nbb_unformatted_code = "def generate_data(n):\n    \"\"\"Uncorrelated sequences from a standard normal.\"\"\"\n    xs = np.random.normal(0, 1, n)\n    ys = np.random.normal(0, 1, n)\n    return xs, ys";
                 var nbb_formatted_code = "def generate_data(n):\n    \"\"\"Uncorrelated sequences from a standard normal.\"\"\"\n    xs = np.random.normal(0, 1, n)\n    ys = np.random.normal(0, 1, n)\n    return xs, ys";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2866,7 +2847,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <p>And the following function to compute their correlation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">correlation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">correlation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">data</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
@@ -2875,7 +2856,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 76;
+                var nbb_cell_id = 75;
                 var nbb_unformatted_code = "def correlation(data):\n    xs, ys = data\n    return np.corrcoef(xs, ys)[0, 1]";
                 var nbb_formatted_code = "def correlation(data):\n    xs, ys = data\n    return np.corrcoef(xs, ys)[0, 1]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2901,7 +2882,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 77;
+                var nbb_cell_id = 76;
                 var nbb_unformatted_code = "n = 100\nrs = [correlation(generate_data(n)) for i in range(1001)]";
                 var nbb_formatted_code = "n = 100\nrs = [correlation(generate_data(n)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2926,7 +2907,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 78;
+                var nbb_cell_id = 77;
                 var nbb_unformatted_code = "ts = transform_correlation(np.array(rs), n)";
                 var nbb_formatted_code = "ts = transform_correlation(np.array(rs), n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2944,10 +2925,10 @@ To see what that looks like, we’ll use the following function to generate unco
 <p>To check whether these <code class="docutils literal notranslate"><span class="pre">ts</span></code> follow a <span class="math notranslate nohighlight">\(t\)</span> distribution, we’ll use the following function, which makes an object that represents the CDF of a <span class="math notranslate nohighlight">\(t\)</span> distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">t</span> <span class="k">as</span> <span class="n">student_t</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">t</span> <span class="k">as</span> <span class="n">student_t</span>
 
 
-<span class="k">def</span> <span class="nf">make_student_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_student_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the CDF of a Student t distributions.&quot;&quot;&quot;</span>
     <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">student_t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
@@ -2958,7 +2939,7 @@ To see what that looks like, we’ll use the following function to generate unco
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 79;
+                var nbb_cell_id = 78;
                 var nbb_unformatted_code = "from scipy.stats import t as student_t\n\n\ndef make_student_cdf(df):\n    \"\"\"Computes the CDF of a Student t distributions.\"\"\"\n    ts = np.linspace(-3, 3, 101)\n    ps = student_t.cdf(ts, df=df)\n    return Cdf(ps, ts)";
                 var nbb_formatted_code = "from scipy.stats import t as student_t\n\n\ndef make_student_cdf(df):\n    \"\"\"Computes the CDF of a Student t distributions.\"\"\"\n    ts = np.linspace(-3, 3, 101)\n    ps = student_t.cdf(ts, df=df)\n    return Cdf(ps, ts)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2987,10 +2968,10 @@ The following figure shows the CDF of a <span class="math notranslate nohighligh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e831ba7010d55076fadca0e88b180d9f341696309cb3b12949c13a233667861d.png" src="_images/e831ba7010d55076fadca0e88b180d9f341696309cb3b12949c13a233667861d.png" />
+<img alt="_images/18b74c75ae7f9b53e9cad2b962b836f13167e0b2e5a07131663e2f969c7be3b9.png" src="_images/18b74c75ae7f9b53e9cad2b962b836f13167e0b2e5a07131663e2f969c7be3b9.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 80;
+                var nbb_cell_id = 79;
                 var nbb_unformatted_code = "make_student_cdf(df=n - 2).plot(**model_options)\n\ncdf_ts = Cdf.from_seq(ts)\ncdf_ts.plot(label=\"random normals\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "make_student_cdf(df=n - 2).plot(**model_options)\n\ncdf_ts = Cdf.from_seq(ts)\ncdf_ts.plot(label=\"random normals\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3023,7 +3004,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 81;
+                var nbb_cell_id = 80;
                 var nbb_unformatted_code = "valid = live.dropna(subset=[\"agepreg\", \"totalwgt_lb\"])\nn = len(valid)\nn";
                 var nbb_formatted_code = "valid = live.dropna(subset=[\"agepreg\", \"totalwgt_lb\"])\nn = len(valid)\nn";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3053,7 +3034,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 82;
+                var nbb_cell_id = 81;
                 var nbb_unformatted_code = "data = valid[\"agepreg\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
                 var nbb_formatted_code = "data = valid[\"agepreg\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3071,7 +3052,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <p>As we did in <a class="reference internal" href="chap09.html#section-test-correlation"><span class="std std-ref">Chapter 9</span></a>, we can simulate the null hypothesis by permuting the samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">permute</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">permute</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Shuffle the x values.&quot;&quot;&quot;</span>
     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">new_xs</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -3083,7 +3064,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 83;
+                var nbb_cell_id = 82;
                 var nbb_unformatted_code = "def permute(data):\n    \"\"\"Shuffle the x values.\"\"\"\n    xs, ys = data\n    new_xs = xs.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
                 var nbb_formatted_code = "def permute(data):\n    \"\"\"Shuffle the x values.\"\"\"\n    xs, ys = data\n    new_xs = xs.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3108,7 +3089,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 84;
+                var nbb_cell_id = 83;
                 var nbb_unformatted_code = "permuted_corrs = [correlation(permute(data)) for i in range(1001)]";
                 var nbb_formatted_code = "permuted_corrs = [correlation(permute(data)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3133,7 +3114,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 85;
+                var nbb_cell_id = 84;
                 var nbb_unformatted_code = "ts = transform_correlation(np.array(permuted_corrs), n)";
                 var nbb_formatted_code = "ts = transform_correlation(np.array(permuted_corrs), n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3159,10 +3140,10 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ba89a69096427168ee821a60490db0034b1916dc8788b4a008b962f8dec1ebf7.png" src="_images/ba89a69096427168ee821a60490db0034b1916dc8788b4a008b962f8dec1ebf7.png" />
+<img alt="_images/58aa2fabd041bf28bec62736ef687facff32fd671ffd5e1db12ecc38e9323dff.png" src="_images/58aa2fabd041bf28bec62736ef687facff32fd671ffd5e1db12ecc38e9323dff.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 86;
+                var nbb_cell_id = 85;
                 var nbb_unformatted_code = "make_student_cdf(n - 2).plot(**model_options)\nCdf.from_seq(ts).plot(label=\"permuted data\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "make_student_cdf(n - 2).plot(**model_options)\nCdf.from_seq(ts).plot(label=\"permuted data\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3188,7 +3169,7 @@ First we’ll transform the observed correlation.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 87;
+                var nbb_cell_id = 86;
                 var nbb_unformatted_code = "t_actual = transform_correlation(r_actual, n)";
                 var nbb_formatted_code = "t_actual = transform_correlation(r_actual, n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3217,7 +3198,7 @@ First we’ll transform the observed correlation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 88;
+                var nbb_cell_id = 87;
                 var nbb_unformatted_code = "right = 1 - student_t.cdf(t_actual, df=n - 2)\nright";
                 var nbb_formatted_code = "right = 1 - student_t.cdf(t_actual, df=n - 2)\nright";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3246,7 +3227,7 @@ First we’ll transform the observed correlation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 89;
+                var nbb_cell_id = 88;
                 var nbb_unformatted_code = "left = student_t.cdf(-t_actual, df=n - 2)\nleft";
                 var nbb_formatted_code = "left = student_t.cdf(-t_actual, df=n - 2)\nleft";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3274,7 +3255,7 @@ First we’ll transform the observed correlation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 90;
+                var nbb_cell_id = 89;
                 var nbb_unformatted_code = "left + right";
                 var nbb_formatted_code = "left + right";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3292,7 +3273,7 @@ First we’ll transform the observed correlation.</p>
 <p>SciPy provides a function that does the same calculation and returns the p-value of the observed correlation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearsonr</span>
 
 <span class="n">corr</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">)</span>
 <span class="n">p_value</span>
@@ -3305,7 +3286,7 @@ First we’ll transform the observed correlation.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 91;
+                var nbb_cell_id = 90;
                 var nbb_unformatted_code = "from scipy.stats import pearsonr\n\ncorr, p_value = pearsonr(*data)\np_value";
                 var nbb_formatted_code = "from scipy.stats import pearsonr\n\ncorr, p_value = pearsonr(*data)\np_value";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3328,11 +3309,11 @@ Generally, if a p-value is smaller than 0.001, we can conclude that the observed
 It is not usually important to know precisely how unlikely.</p>
 </section>
 <section id="chi-squared-test">
-<h2><span class="section-number">21.9. </span>Chi-squared Test<a class="headerlink" href="#chi-squared-test" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.9. </span>Chi-squared Test<a class="headerlink" href="#chi-squared-test" title="Link to this heading">#</a></h2>
 <p>In <a class="reference internal" href="chap09.html#section-testing-proportions"><span class="std std-ref">Chapter 9</span></a> we tested whether a die is crooked, based on this set of observed outcomes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Hist</span>
 
 <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">freqs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
@@ -3397,7 +3378,7 @@ It is not usually important to know precisely how unlikely.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 92;
+                var nbb_cell_id = 91;
                 var nbb_unformatted_code = "from empiricaldist import Hist\n\nqs = np.arange(1, 7)\nfreqs = [8, 9, 19, 5, 8, 11]\nobserved = Hist(freqs, qs)\nobserved.index.name = \"outcome\"\nobserved";
                 var nbb_formatted_code = "from empiricaldist import Hist\n\nqs = np.arange(1, 7)\nfreqs = [8, 9, 19, 5, 8, 11]\nobserved = Hist(freqs, qs)\nobserved.index.name = \"outcome\"\nobserved";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3424,7 +3405,7 @@ It is not usually important to know precisely how unlikely.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 93;
+                var nbb_cell_id = 92;
                 var nbb_unformatted_code = "num_rolls = observed.sum()\noutcomes = observed.qs\nexpected = Hist(num_rolls / 6, outcomes)";
                 var nbb_formatted_code = "num_rolls = observed.sum()\noutcomes = observed.qs\nexpected = Hist(num_rolls / 6, outcomes)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3442,7 +3423,7 @@ It is not usually important to know precisely how unlikely.</p>
 <p>Then we used the following function to compute the chi-squared statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">,</span> <span class="n">expected</span><span class="p">):</span>
     <span class="n">diffs</span> <span class="o">=</span> <span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="n">ratios</span> <span class="o">=</span> <span class="n">diffs</span> <span class="o">/</span> <span class="n">expected</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ratios</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
@@ -3452,7 +3433,7 @@ It is not usually important to know precisely how unlikely.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 94;
+                var nbb_cell_id = 93;
                 var nbb_unformatted_code = "def chi_squared_stat(observed, expected):\n    diffs = (observed - expected) ** 2\n    ratios = diffs / expected\n    return np.sum(ratios.values.flatten())";
                 var nbb_formatted_code = "def chi_squared_stat(observed, expected):\n    diffs = (observed - expected) ** 2\n    ratios = diffs / expected\n    return np.sum(ratios.values.flatten())";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3476,7 +3457,7 @@ It is not usually important to know precisely how unlikely.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 95;
+                var nbb_cell_id = 94;
                 var nbb_unformatted_code = "observed_chi2 = chi_squared_stat(observed, expected)";
                 var nbb_formatted_code = "observed_chi2 = chi_squared_stat(observed, expected)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3495,7 +3476,7 @@ It is not usually important to know precisely how unlikely.</p>
 To see what it looks like, we’ll use the following function, which simulates rolling a fair die.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
     <span class="n">rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">observed</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">hist</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">rolls</span><span class="p">)</span>
@@ -3506,7 +3487,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 96;
+                var nbb_cell_id = 95;
                 var nbb_unformatted_code = "def simulate_dice(observed):\n    n = np.sum(observed)\n    rolls = np.random.choice(observed.qs, n, replace=True)\n    hist = Hist.from_seq(rolls)\n    return hist";
                 var nbb_formatted_code = "def simulate_dice(observed):\n    n = np.sum(observed)\n    rolls = np.random.choice(observed.qs, n, replace=True)\n    hist = Hist.from_seq(rolls)\n    return hist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3534,7 +3515,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 97;
+                var nbb_cell_id = 96;
                 var nbb_unformatted_code = "simulated_chi_squared = [\n    chi_squared_stat(simulate_dice(observed), expected) for i in range(1001)\n]\ncdf_simulated = Cdf.from_seq(simulated_chi_squared)";
                 var nbb_formatted_code = "simulated_chi_squared = [\n    chi_squared_stat(simulate_dice(observed), expected) for i in range(1001)\n]\ncdf_simulated = Cdf.from_seq(simulated_chi_squared)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3552,10 +3533,10 @@ To see what it looks like, we’ll use the following function, which simulates r
 <p>To check whether the results follow a chi-squared distribution, we’ll use the following function, which computes the CDF of a chi-squared distribution with parameter <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span> <span class="k">as</span> <span class="n">chi2_dist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chi2</span> <span class="k">as</span> <span class="n">chi2_dist</span>
 
 
-<span class="k">def</span> <span class="nf">chi_squared_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">chi_squared_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Discrete approximation of the chi-squared CDF.&quot;&quot;&quot;</span>
     <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">chi2_dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
@@ -3566,7 +3547,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 98;
+                var nbb_cell_id = 97;
                 var nbb_unformatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF.\"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
                 var nbb_formatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF.\"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3592,7 +3573,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 99;
+                var nbb_cell_id = 98;
                 var nbb_unformatted_code = "n = len(observed)\ncdf_model = chi_squared_cdf(df=n - 1)";
                 var nbb_formatted_code = "n = len(observed)\ncdf_model = chi_squared_cdf(df=n - 1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3618,10 +3599,10 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d7a69d79066255834388eba7a7b76341e446e4341b290ec77b9e2c7f94353d17.png" src="_images/d7a69d79066255834388eba7a7b76341e446e4341b290ec77b9e2c7f94353d17.png" />
+<img alt="_images/12f3ebab4946d696cc80b0d9a2c44d3af6da12ca9ed6588e57dc97649464e19d.png" src="_images/12f3ebab4946d696cc80b0d9a2c44d3af6da12ca9ed6588e57dc97649464e19d.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 100;
+                var nbb_cell_id = 99;
                 var nbb_unformatted_code = "cdf_model.plot(**model_options)\ncdf_simulated.plot(label=\"simulation\")\n\ndecorate(xlabel=\"Chi-squared statistic\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "cdf_model.plot(**model_options)\ncdf_simulated.plot(label=\"simulation\")\n\ndecorate(xlabel=\"Chi-squared statistic\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3650,7 +3631,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 101;
+                var nbb_cell_id = 100;
                 var nbb_unformatted_code = "p_value = 1 - chi2_dist.cdf(observed_chi2, df=n - 1)\np_value";
                 var nbb_formatted_code = "p_value = 1 - chi2_dist.cdf(observed_chi2, df=n - 1)\np_value";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3668,7 +3649,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <p>SciPy provides a function that does the same computation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chisquare</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">chisquare</span>
 
 <span class="n">chi2_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">chisquare</span><span class="p">(</span><span class="n">f_obs</span><span class="o">=</span><span class="n">observed</span><span class="p">,</span> <span class="n">f_exp</span><span class="o">=</span><span class="n">expected</span><span class="p">)</span>
 </pre></div>
@@ -3677,7 +3658,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 102;
+                var nbb_cell_id = 101;
                 var nbb_unformatted_code = "from scipy.stats import chisquare\n\nchi2_stat, p_value = chisquare(f_obs=observed, f_exp=expected)";
                 var nbb_formatted_code = "from scipy.stats import chisquare\n\nchi2_stat, p_value = chisquare(f_obs=observed, f_exp=expected)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3705,7 +3686,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 103;
+                var nbb_cell_id = 102;
                 var nbb_unformatted_code = "p_value";
                 var nbb_formatted_code = "p_value";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3724,7 +3705,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 But in context, it might not be the statistic that best quantifies the difference between the observed and expected outcomes.</p>
 </section>
 <section id="computation-and-analysis">
-<h2><span class="section-number">21.10. </span>Computation and Analysis<a class="headerlink" href="#computation-and-analysis" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.10. </span>Computation and Analysis<a class="headerlink" href="#computation-and-analysis" title="Link to this heading">#</a></h2>
 <p>This book focuses on computational methods like resampling and permutation.
 These methods have several advantages over analysis:</p>
 <ul class="simple">
@@ -3746,7 +3727,7 @@ These methods have several advantages over analysis:</p>
 <p>For many practical problems, the run time of computational methods is not a problem, and we don’t have to go past the first step.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">21.11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">14.11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>normal probability plot:</strong> A plot that compares observed values with the quantiles of a normal distribution to assess if the data follow a normal distribution.</p></li>
 <li><p><strong>independent sample <span class="math notranslate nohighlight">\(t\)</span> test:</strong> A method for computing the p-value of an observed difference between the means of two independent groups.</p></li>
@@ -3756,9 +3737,9 @@ These methods have several advantages over analysis:</p>
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">21.12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<section id="exercise">
-<h3><span class="section-number">21.12.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">14.12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-14-1">
+<h3><span class="section-number">14.12.1. </span>Exercise 14.1<a class="headerlink" href="#exercise-14-1" title="Link to this heading">#</a></h3>
 <p>In this chapter we compared the weights of male and female penguins and computed a confidence interval for the difference.
 Now let’s do the same for flipper length.
 The observed difference is about 4.6 mm.</p>
@@ -3779,7 +3760,7 @@ The observed difference is about 4.6 mm.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 104;
+                var nbb_cell_id = 103;
                 var nbb_unformatted_code = "grouped = adelie.groupby(\"Sex\")\n\nlengths_male = grouped.get_group(\"MALE\")[\"Flipper Length (mm)\"]\nlengths_female = grouped.get_group(\"FEMALE\")[\"Flipper Length (mm)\"]\nobserved_diff = lengths_male.mean() - lengths_female.mean()\nobserved_diff";
                 var nbb_formatted_code = "grouped = adelie.groupby(\"Sex\")\n\nlengths_male = grouped.get_group(\"MALE\")[\"Flipper Length (mm)\"]\nlengths_female = grouped.get_group(\"FEMALE\")[\"Flipper Length (mm)\"]\nobserved_diff = lengths_male.mean() - lengths_female.mean()\nobserved_diff";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3797,8 +3778,8 @@ The observed difference is about 4.6 mm.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">sampling_dist_mean</span></code> to make <code class="docutils literal notranslate"><span class="pre">Normal</span></code> objects that represent sampling distributions for the mean flipper length in the two groups – noting that the groups are not the same size.
 Then compute the sampling distribution of the difference and a 90% confidence interval.</p>
 </section>
-<section id="id1">
-<h3><span class="section-number">21.12.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="exercise-14-2">
+<h3><span class="section-number">14.12.2. </span>Exercise 14.2<a class="headerlink" href="#exercise-14-2" title="Link to this heading">#</a></h3>
 <p>Using the NSFG data, we computed the correlation between a baby’s birth weight and the mother’s age, and we used a <span class="math notranslate nohighlight">\(t\)</span> distribution to compute a p-value.
 Now let’s do the same with birth weight and father’s age, which is recorded in the <code class="docutils literal notranslate"><span class="pre">hpagelb</span></code> column.
 The observed correlation is about 0.065.</p>
@@ -3816,7 +3797,7 @@ The observed correlation is about 0.065.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 110;
+                var nbb_cell_id = 109;
                 var nbb_unformatted_code = "valid = live.dropna(subset=[\"hpagelb\", \"totalwgt_lb\"])\nn = len(valid)\nn";
                 var nbb_formatted_code = "valid = live.dropna(subset=[\"hpagelb\", \"totalwgt_lb\"])\nn = len(valid)\nn";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3845,7 +3826,7 @@ The observed correlation is about 0.065.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 111;
+                var nbb_cell_id = 110;
                 var nbb_unformatted_code = "data = valid[\"hpagelb\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
                 var nbb_formatted_code = "data = valid[\"hpagelb\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3864,11 +3845,11 @@ The observed correlation is about 0.065.</p>
 Use the CDF of the <span class="math notranslate nohighlight">\(t\)</span> distribution to compute a p-value – is this correlation statistically significant?
 Use the SciPy function <code class="docutils literal notranslate"><span class="pre">pearsonr</span></code> to check your results.</p>
 </section>
-<section id="id2">
-<h3><span class="section-number">21.12.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="exercise-14-3">
+<h3><span class="section-number">14.12.3. </span>Exercise 14.3<a class="headerlink" href="#exercise-14-3" title="Link to this heading">#</a></h3>
 <p>In one of the exercises in <a class="reference internal" href="chap09.html#chapter-hypothesis-testing"><span class="std std-ref">Chapter 9</span></a> we considered the Trivers-Willard hypothesis, which suggests that for many mammals the sex ratio depends on “maternal condition” – that is, factors like the mother’s age, size, health, and social status.
 Some studies have shown this effect among humans, but results are mixed.</p>
-<p>As an example – and a chance to practice a chi-squared test – let’s see if there’s a relationship between the sex of a baby and the mother’s marital status.
+<p>As an example, and a chance to practice a chi-squared test, let’s see if there’s a relationship between the sex of a baby and the mother’s marital status.
 The notebook for this chapter has instructions to help you get started.</p>
 <p>First we’ll partition mothers of male and female babies.</p>
 <div class="cell tag_remove-print docutils container">
@@ -3881,7 +3862,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 115;
+                var nbb_cell_id = 114;
                 var nbb_unformatted_code = "male = live.query(\"babysex == 1\")\nfemale = live.query(\"babysex == 2\")";
                 var nbb_formatted_code = "male = live.query(\"babysex == 1\")\nfemale = live.query(\"babysex == 2\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3971,7 +3952,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 116;
+                var nbb_cell_id = 115;
                 var nbb_unformatted_code = "observed = pd.DataFrame()\nobserved[\"male\"] = male[\"fmarital\"].value_counts().sort_index()\nobserved[\"female\"] = female[\"fmarital\"].value_counts().sort_index()\nobserved";
                 var nbb_formatted_code = "observed = pd.DataFrame()\nobserved[\"male\"] = male[\"fmarital\"].value_counts().sort_index()\nobserved[\"female\"] = female[\"fmarital\"].value_counts().sort_index()\nobserved";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -3989,7 +3970,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 <p>The null hypothesis is that the distribution of marital status is the same for both groups, so we can use the whole dataset to compute it.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 <span class="n">pmf_fmarital</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">live</span><span class="p">[</span><span class="s2">&quot;fmarital&quot;</span><span class="p">])</span>
 <span class="n">pmf_fmarital</span>
@@ -4047,7 +4028,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 117;
+                var nbb_cell_id = 116;
                 var nbb_unformatted_code = "from empiricaldist import Pmf\n\npmf_fmarital = Pmf.from_seq(live[\"fmarital\"])\npmf_fmarital";
                 var nbb_formatted_code = "from empiricaldist import Pmf\n\npmf_fmarital = Pmf.from_seq(live[\"fmarital\"])\npmf_fmarital";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -4130,7 +4111,7 @@ The notebook for this chapter has instructions to help you get started.</p>
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 118;
+                var nbb_cell_id = 117;
                 var nbb_unformatted_code = "expected = pd.DataFrame()\nexpected[\"male\"] = pmf_fmarital * observed[\"male\"].sum()\nexpected[\"female\"] = pmf_fmarital * observed[\"female\"].sum()\nexpected";
                 var nbb_formatted_code = "expected = pd.DataFrame()\nexpected[\"male\"] = pmf_fmarital * observed[\"male\"].sum()\nexpected[\"female\"] = pmf_fmarital * observed[\"female\"].sum()\nexpected";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -4152,8 +4133,8 @@ Then use the SciPy function <code class="docutils literal notranslate"><span cla
 Hint: use the argument <code class="docutils literal notranslate"><span class="pre">axis=None</span></code> to treat the entire <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> as a single test rather than one test for each column.</p>
 <p>Does this test provide support for the Trivers-Willard hypothesis?</p>
 </section>
-<section id="id3">
-<h3><span class="section-number">21.12.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="exercise">
+<h3><span class="section-number">14.12.4. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
 <p>The method we used in this chapter to analyze differences between groups can be extended to analyze “differences in differences”, which is a common experimental design.
 As an example, we’ll use data from a 2014 paper that investigates the effects of an intervention intended to mitigate gender-stereotypical task allocation within student engineering teams.</p>
 <p>Stein, L. A., Aragon, D., Moreno, D., &amp; Goodman, J. (2014, October). Evidence for the persistent effects of an intervention to mitigate gender-stereotypical task allocation within student engineering teams. In <em>2014 IEEE Frontiers in Education Conference (FIE) Proceedings</em> (pp. 1-9). IEEE.</p>
@@ -4211,7 +4192,7 @@ As an example, we’ll use data from a 2014 paper that investigates the effects 
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">20. </span>Survival analysis</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Survival analysis</p>
       </div>
     </a>
     <a class="right-next"
@@ -4230,7 +4211,8 @@ As an example, we’ll use data from a 2014 paper that investigates the effects 
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -4239,22 +4221,22 @@ As an example, we’ll use data from a 2014 paper that investigates the effects 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-probability-plots">21.1. Normal Probability Plots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">21.2. Normal Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-sample-means">21.3. Distribution of Sample Means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-differences">21.4. Distribution of Differences</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-limit-theorem">21.5. Central Limit Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limits-of-the-central-limit-theorem">21.6. The Limits of the Central Limit Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-clt">21.7. Applying the CLT</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">21.8. Correlation Test</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">21.9. Chi-squared Test</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">21.10. Computation and Analysis</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">21.11. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">21.12. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">21.12.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">21.12.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">21.12.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">21.12.4. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-probability-plots">14.1. Normal Probability Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distributions">14.2. Normal Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-sample-means">14.3. Distribution of Sample Means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-of-differences">14.4. Distribution of Differences</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#central-limit-theorem">14.5. Central Limit Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limits-of-the-central-limit-theorem">14.6. The Limits of the Central Limit Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-clt">14.7. Applying the CLT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-test">14.8. Correlation Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-squared-test">14.9. Chi-squared Test</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-analysis">14.10. Computation and Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">14.11. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.12. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-1">14.12.1. Exercise 14.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-2">14.12.2. Exercise 14.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-14-3">14.12.3. Exercise 14.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">14.12.4. Exercise</a></li>
 </ul>
 </li>
 </ul>
@@ -4319,8 +4301,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

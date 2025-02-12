@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>16. Hypothesis Testing &#8212; Think Stats</title>
+    <title>9. Hypothesis Testing &#8212; Think Stats</title>
   
   
   
@@ -16,19 +16,21 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -60,10 +63,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap09';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="17. Least Squares" href="chap10.html" />
-    <link rel="prev" title="15. Estimation" href="chap08.html" />
+    <link rel="next" title="10. Least Squares" href="chap10.html" />
+    <link rel="prev" title="8. Estimation" href="chap08.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -79,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -99,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -107,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,6 +132,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -152,15 +147,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -181,23 +172,16 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
-
-
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">16. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -216,9 +200,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -330,24 +319,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -371,15 +352,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">16.1. Flipping Coins</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-difference-in-means">16.2. Testing a Difference in Means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-test-statistics">16.3. Other Test Statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-correlation">16.4. Testing a Correlation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-proportions">16.5. Testing Proportions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">16.6. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">16.7. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">16.7.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">16.7.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">9.1. Flipping Coins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-difference-in-means">9.2. Testing a Difference in Means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-test-statistics">9.3. Other Test Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-correlation">9.4. Testing a Correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-proportions">9.5. Testing Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">9.6. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.7. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-1">9.7.1. Exercise 9.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-2">9.7.2. Exercise 9.2</a></li>
 </ul>
 </li>
 </ul>
@@ -395,7 +376,7 @@ document.write(`
                   
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="hypothesis-testing">
-<span id="chapter-hypothesis-testing"></span><h1><span class="section-number">16. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h1>
+<span id="chapter-hypothesis-testing"></span><h1><span class="section-number">9. </span>Hypothesis Testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h1>
 <p>In the datasets we have explored in this book, we’ve seen differences between groups of people – and penguins – correlations between variables, and slopes of regression lines.
 Results like these are called <strong>observed effects</strong> because they appear in a sample, as contrasted with actual effects in the population, which we usually can’t observe directly.
 When we see an apparent effect, we should consider whether it is likely to be present in the larger population or whether it might appear in the sample by chance.</p>
@@ -441,13 +422,13 @@ What I present here is a mixture of these approaches that is often used in pract
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
@@ -484,7 +465,7 @@ What I present here is a mixture of these approaches that is often used in pract
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
@@ -516,11 +497,11 @@ What I present here is a mixture of these approaches that is often used in pract
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
@@ -544,7 +525,7 @@ What I present here is a mixture of these approaches that is often used in pract
 </details>
 </div>
 <section id="flipping-coins">
-<h2><span class="section-number">16.1. </span>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Link to this heading">#</a></h2>
 <p>We’ll start with a simple example.
 When Euro coins were introduced in 2002, a curious coin enthusiast spun a Belgian one-Euro coin on edge 250 times and noted that it landed with the heads side up 140 times and tails side up 110 times.
 If the coin is perfectly balanced, we expect only 125 heads, so this data suggests the coin is biased.
@@ -557,7 +538,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
 
 
-<span class="k">def</span> <span class="nf">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">heads</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span>
 </pre></div>
@@ -616,7 +597,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <p>If the coin is actually fair, we can simulate the coin-spinning experiment by generating a sequence of random strings – either <code class="docutils literal notranslate"><span class="pre">'H'</span></code> or <code class="docutils literal notranslate"><span class="pre">'T'</span></code> with equal probability – and counting the number of times <code class="docutils literal notranslate"><span class="pre">'H'</span></code> appears.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_flips</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_flips</span><span class="p">():</span>
     <span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
     <span class="n">heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">flips</span> <span class="o">==</span> <span class="s2">&quot;H&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">heads</span>
@@ -722,7 +703,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 Here’s what the distribution of these values looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 <span class="n">pmf_effects</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">simulated_stats</span><span class="p">)</span>
 <span class="n">pmf_effects</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -732,7 +713,7 @@ Here’s what the distribution of these values looks like.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9f6c2042bcbbe5eb8fc3bda5aa8c5e1dcbdfa6e8da805ce2bea9df2ce04d2700.png" src="_images/9f6c2042bcbbe5eb8fc3bda5aa8c5e1dcbdfa6e8da805ce2bea9df2ce04d2700.png" />
+<img alt="_images/ded14fcfd4896cad4beec004c490b8d38c3874fee2c0805302604068ecbf6813.png" src="_images/ded14fcfd4896cad4beec004c490b8d38c3874fee2c0805302604068ecbf6813.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 11;
@@ -798,7 +779,7 @@ And if it falls somewhere in the middle, as in this example, we can say that the
 <p>All hypothesis tests are based on these elements – a test statistic, a null hypothesis, and a p-value.</p>
 </section>
 <section id="testing-a-difference-in-means">
-<span id="section-diff-means"></span><h2><span class="section-number">16.2. </span>Testing a Difference in Means<a class="headerlink" href="#testing-a-difference-in-means" title="Link to this heading">#</a></h2>
+<span id="section-diff-means"></span><h2><span class="section-number">9.2. </span>Testing a Difference in Means<a class="headerlink" href="#testing-a-difference-in-means" title="Link to this heading">#</a></h2>
 <p>In the NSFG data, we saw that the average pregnancy length for first babies is slightly longer than for other babies.
 Now let’s see if that difference could be due to chance.</p>
 <p>The following cells download the data and install <code class="docutils literal notranslate"><span class="pre">statadict</span></code>, which we need to read the data.</p>
@@ -831,7 +812,7 @@ Now let’s see if that difference could be due to chance.</p>
 <div class="cell tag_remove-print tag_hide docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">statadict</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">statadict</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>statadict
 </pre></div>
@@ -858,7 +839,7 @@ Now let’s see if that difference could be due to chance.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">get_nsfg_groups</span></code> reads the data, selects live births, and groups live births into first babies and others.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">get_nsfg_groups</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nsfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_nsfg_groups</span>
 
 <span class="n">live</span><span class="p">,</span> <span class="n">firsts</span><span class="p">,</span> <span class="n">others</span> <span class="o">=</span> <span class="n">get_nsfg_groups</span><span class="p">()</span>
 </pre></div>
@@ -910,7 +891,7 @@ Now let’s see if that difference could be due to chance.</p>
 <p>The following function takes the data as a tuple of two sequences, and computes absolute difference in means.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">abs_diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">abs_diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
@@ -970,7 +951,7 @@ If pregnancy lengths are the same for both groups, we can combine the two groups
 To simulate the experiment, we can use the NumPy function <code class="docutils literal notranslate"><span class="pre">shuffle</span></code> to put the pooled values in random order, and then use slice indexes to select two groups with the same sizes as the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
 
@@ -1054,11 +1035,11 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <p>To visualize the results, we’ll use the following function, which takes a sample of simulated results and makes a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object that approximates its distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
-<span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 
-<span class="k">def</span> <span class="nf">make_pmf</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_pmf</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
     <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
@@ -1087,10 +1068,10 @@ To simulate the experiment, we can use the NumPy function <code class="docutils 
 <p>We’ll also use this function, which fills in the tail of the distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">underride</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">underride</span>
 
 
-<span class="k">def</span> <span class="nf">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fill_tail</span><span class="p">(</span><span class="n">pmf</span><span class="p">,</span> <span class="n">observed</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Fill the area under a PMF, right or left of an observed value.&quot;&quot;&quot;</span>
     <span class="n">options</span> <span class="o">=</span> <span class="n">underride</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
@@ -1135,7 +1116,7 @@ The area of this region is the p-value.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9a30327db25bfc979236fef49ffdefc90dcd7b90c0a7f193775e0565de3f32b2.png" src="_images/9a30327db25bfc979236fef49ffdefc90dcd7b90c0a7f193775e0565de3f32b2.png" />
+<img alt="_images/14380dd1bce4c388ee79e8644d7273a493bbd7ddc229c66da1667f74fc57b862.png" src="_images/14380dd1bce4c388ee79e8644d7273a493bbd7ddc229c66da1667f74fc57b862.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 24;
@@ -1156,7 +1137,7 @@ The area of this region is the p-value.</p>
 <p>The following function computes the p-value, which is the fraction of simulated values that are as big or bigger than the observed value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_p_value</span><span class="p">(</span><span class="n">simulated</span><span class="p">,</span> <span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_p_value</span><span class="p">(</span><span class="n">simulated</span><span class="p">,</span> <span class="n">observed</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Fraction of simulated values as big or bigger than the observed value.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">simulated</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">observed</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
@@ -1217,13 +1198,13 @@ This process is called <strong>permutation</strong>, which is another word for s
 <p>This computational approach to hypothesis testing makes it easy to combine these elements to test different statistics.</p>
 </section>
 <section id="other-test-statistics">
-<h2><span class="section-number">16.3. </span>Other Test Statistics<a class="headerlink" href="#other-test-statistics" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.3. </span>Other Test Statistics<a class="headerlink" href="#other-test-statistics" title="Link to this heading">#</a></h2>
 <p>We might wonder whether pregnancy lengths for first babies are not just longer, but maybe more variable.
 To test that hypothesis, we can use as a test statistic the absolute difference between the standard deviations of the two groups.
 The following function computes this test statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
@@ -1315,7 +1296,7 @@ Again, the shaded region shows where the test statistic under the null hypothesi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/77485ed6f5e2f755f312279c2fd94707a16352d677233602d2db4e12bb198fbc.png" src="_images/77485ed6f5e2f755f312279c2fd94707a16352d677233602d2db4e12bb198fbc.png" />
+<img alt="_images/e1cca5dec4b1865849e3a4040408b685f891e0b5274faae32d8b490a985931a9.png" src="_images/e1cca5dec4b1865849e3a4040408b685f891e0b5274faae32d8b490a985931a9.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 30;
@@ -1365,7 +1346,7 @@ Again, the shaded region shows where the test statistic under the null hypothesi
 In conclusion, we can’t be sure that pregnancy lengths are generally more variable for first babies – the difference we see in this dataset could be due to chance.</p>
 </section>
 <section id="testing-a-correlation">
-<span id="section-test-correlation"></span><h2><span class="section-number">16.4. </span>Testing a Correlation<a class="headerlink" href="#testing-a-correlation" title="Link to this heading">#</a></h2>
+<span id="section-test-correlation"></span><h2><span class="section-number">9.4. </span>Testing a Correlation<a class="headerlink" href="#testing-a-correlation" title="Link to this heading">#</a></h2>
 <p>We can use the same framework to test correlations.
 For example, in the NSFG data set, there is a correlation between birth weight and mother’s age – older mothers have heavier babies, on average.
 But could this effect be due to chance?</p>
@@ -1428,7 +1409,7 @@ From live births, we’ll select cases where the age of the mother and birth wei
 <p>The following function takes a tuple of <code class="docutils literal notranslate"><span class="pre">xs</span></code> and <code class="docutils literal notranslate"><span class="pre">ys</span></code> and computes the magnitude of the correlation, positive or negative.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">abs_correlation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">abs_correlation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span>
@@ -1489,7 +1470,7 @@ By shuffling the observed values, we can simulate a world where the distribution
 It would also work if we shuffled the <code class="docutils literal notranslate"><span class="pre">ys</span></code> instead, or shuffled both.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">permute</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">permute</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">new_xs</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">new_xs</span><span class="p">)</span>
@@ -1580,7 +1561,7 @@ The vertical dotted line shows the observed correlation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a18733ad5bca707aa4f8159f617f716e2eb7c77d1544550bca6931089d91c02b.png" src="_images/a18733ad5bca707aa4f8159f617f716e2eb7c77d1544550bca6931089d91c02b.png" />
+<img alt="_images/77dd7177d07a61ba31d9f10e0fe04f3e84197ffe8a310e6a43f9e3c0864fc5d9.png" src="_images/77dd7177d07a61ba31d9f10e0fe04f3e84197ffe8a310e6a43f9e3c0864fc5d9.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 39;
@@ -1641,7 +1622,7 @@ The correlation between mother’s age and birth weight is a good example – it
 </ul>
 </section>
 <section id="testing-proportions">
-<span id="section-testing-proportions"></span><h2><span class="section-number">16.5. </span>Testing Proportions<a class="headerlink" href="#testing-proportions" title="Link to this heading">#</a></h2>
+<span id="section-testing-proportions"></span><h2><span class="section-number">9.5. </span>Testing Proportions<a class="headerlink" href="#testing-proportions" title="Link to this heading">#</a></h2>
 <p>As a final example, let’s consider a case where the choice of the test statistic takes some thought.
 Suppose you run a casino and you suspect that a customer is using a crooked die – that is, one that has been modified to make one of the faces more likely than the others.
 You apprehend the alleged cheater and confiscate the die, but now you have to prove that it is crooked.
@@ -1649,7 +1630,7 @@ You roll the die 60 times and record the frequency of each outcome from 1 to 6.
 Here are the results in a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hist</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Hist</span>
 
 <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">freqs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
@@ -1762,7 +1743,7 @@ But could these differences happen by chance?</p>
 <p>The following function takes the observed and expected frequencies and computes the sum of the absolute differences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">total_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">total_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1817,7 +1798,7 @@ But could these differences happen by chance?</p>
 <p>The following function takes the observed data, simulates rolling a fair die the same number of times, and returns a <code class="docutils literal notranslate"><span class="pre">Hist</span></code> object that contains the simulated frequencies.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
     <span class="n">num_rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
     <span class="n">rolls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">observed</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">num_rolls</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">hist</span> <span class="o">=</span> <span class="n">Hist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">rolls</span><span class="p">)</span>
@@ -1880,7 +1861,7 @@ Notice that the total is always even, because every time an outcome appears more
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/228703779dff13038fd10404783efbba04bf988766c52eb281a97f4f748fbe2f.png" src="_images/228703779dff13038fd10404783efbba04bf988766c52eb281a97f4f748fbe2f.png" />
+<img alt="_images/242df025e36e7458a486d028f785c7e700fdd8d5196b02d5f9f396f78cf327db.png" src="_images/242df025e36e7458a486d028f785c7e700fdd8d5196b02d5f9f396f78cf327db.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 47;
@@ -1930,7 +1911,7 @@ Notice that the total is always even, because every time an outcome appears more
 For a problem like this, it would be more conventional to use the chi-squared statistic, which we can compute like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">chi_squared_stat</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
     <span class="n">diffs</span> <span class="o">=</span> <span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">diffs</span> <span class="o">/</span> <span class="n">expected</span><span class="p">)</span>
 </pre></div>
@@ -2023,7 +2004,7 @@ The shaded region shows the results that exceed the observed value.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/db69fc59e33c0a458f5b8e363fa90bb4a34c028897e87877ef266cb8d14ca08f.png" src="_images/db69fc59e33c0a458f5b8e363fa90bb4a34c028897e87877ef266cb8d14ca08f.png" />
+<img alt="_images/018fed9919e7600bd43e0c1691812eb7cb5ee1efc895f42d22fb52c5c324229c.png" src="_images/018fed9919e7600bd43e0c1691812eb7cb5ee1efc895f42d22fb52c5c324229c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 52;
@@ -2076,7 +2057,7 @@ I would not rule out the possibility that the die is crooked, but I would not co
 <p>This example demonstrates an important point: the p-value depends on the choice of test statistic and the model of the null hypothesis, and sometimes these choices determine whether an effect is statistically significant or not.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">16.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.6. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>hypothesis testing</strong>: A set of methods for checking whether an observed effect could plausibly be due to random sampling.</p></li>
 <li><p><strong>test statistic</strong>: A statistic used in a hypothesis test to quantify the size of an observed effect.</p></li>
@@ -2087,9 +2068,9 @@ I would not rule out the possibility that the die is crooked, but I would not co
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">16.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<section id="exercise">
-<h3><span class="section-number">16.7.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">9.7. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-9-1">
+<h3><span class="section-number">9.7.1. </span>Exercise 9.1<a class="headerlink" href="#exercise-9-1" title="Link to this heading">#</a></h3>
 <p>Let’s try hypothesis testing with the penguin data from <a class="reference internal" href="chap08.html#section-sampling-distributions"><span class="std std-ref">Chapter 8</span></a>.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>The following cell downloads the data from a repository created by Allison Horst.</p>
@@ -2214,8 +2195,8 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 Compare the simulation results to the observed difference and compute a p-value.
 Is it plausible that the apparent difference between the groups is due to chance?</p>
 </section>
-<section id="id1">
-<h3><span class="section-number">16.7.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="exercise-9-2">
+<h3><span class="section-number">9.7.2. </span>Exercise 9.2<a class="headerlink" href="#exercise-9-2" title="Link to this heading">#</a></h3>
 <p>Using the penguin data from the previous exercise, we can extract the culmen depths and lengths for the female penguins (the culmen is the top ridge of the bill).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2318,7 +2299,7 @@ How do you interpret the result?</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">15. </span>Estimation</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Estimation</p>
       </div>
     </a>
     <a class="right-next"
@@ -2326,7 +2307,7 @@ How do you interpret the result?</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">17. </span>Least Squares</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Least Squares</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2337,7 +2318,8 @@ How do you interpret the result?</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2346,15 +2328,15 @@ How do you interpret the result?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">16.1. Flipping Coins</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-difference-in-means">16.2. Testing a Difference in Means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-test-statistics">16.3. Other Test Statistics</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-correlation">16.4. Testing a Correlation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-proportions">16.5. Testing Proportions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">16.6. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">16.7. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">16.7.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">16.7.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flipping-coins">9.1. Flipping Coins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-difference-in-means">9.2. Testing a Difference in Means</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-test-statistics">9.3. Other Test Statistics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-a-correlation">9.4. Testing a Correlation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-proportions">9.5. Testing Proportions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">9.6. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.7. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-1">9.7.1. Exercise 9.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-9-2">9.7.2. Exercise 9.2</a></li>
 </ul>
 </li>
 </ul>
@@ -2419,8 +2401,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

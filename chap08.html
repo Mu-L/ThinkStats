@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>15. Estimation &#8212; Think Stats</title>
+    <title>8. Estimation &#8212; Think Stats</title>
   
   
   
@@ -16,19 +16,21 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -60,10 +63,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap08';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="16. Hypothesis Testing" href="chap09.html" />
-    <link rel="prev" title="14. Relationships between variables" href="chap07.html" />
+    <link rel="next" title="9. Hypothesis Testing" href="chap09.html" />
+    <link rel="prev" title="7. Relationships between variables" href="chap07.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -79,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -99,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -107,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,6 +132,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -152,15 +147,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -181,23 +172,16 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
-
-
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -216,9 +200,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -330,24 +319,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -371,23 +352,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighing-penguins">15.1. Weighing Penguins</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness">15.2. Robustness</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-variance">15.3. Estimating Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions">15.4. Sampling Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">15.5. Standard Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">15.6. Confidence Intervals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-error">15.7. Sources of Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">15.8. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.9. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.9.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">15.9.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">15.9.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">15.9.4. Exercise</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">15.10. Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">15.10.1. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighing-penguins">8.1. Weighing Penguins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness">8.2. Robustness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-variance">8.3. Estimating Variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions">8.4. Sampling Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">8.5. Standard Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">8.6. Confidence Intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-error">8.7. Sources of Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">8.8. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">8.9. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-1">8.9.1. Exercise 8.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-2">8.9.2. Exercise 8.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-3">8.9.3. Exercise 8.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-4">8.9.4. Exercise 8.4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-5">8.9.5. Exercise 8.5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-6">8.9.6. Exercise 8.6</a></li>
 </ul>
 </li>
 </ul>
@@ -403,7 +382,7 @@ document.write(`
                   
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="estimation">
-<h1><span class="section-number">15. </span>Estimation<a class="headerlink" href="#estimation" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">8. </span>Estimation<a class="headerlink" href="#estimation" title="Link to this heading">#</a></h1>
 <p>Suppose you live in a town with a population of 10,000 people, and you want to predict who will win an upcoming election.
 In theory, you could ask everyone in town who they plan to vote for, and if they all answered honestly, you could make a reliable prediction.</p>
 <p>But even in a small town, it is probably not practical to survey the entire population.
@@ -426,15 +405,9 @@ This process – using a sample to make inferences about a population – is cal
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The nb_black extension is already loaded. To reload it, use:
-  %reload_ext nb_black
-The autoreload extension is already loaded. To reload it, use:
-  %reload_ext autoreload
-</pre></div>
-</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 52;
+                var nbb_cell_id = 1;
                 var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -457,13 +430,13 @@ The autoreload extension is already loaded. To reload it, use:
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
@@ -476,7 +449,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 53;
+                var nbb_cell_id = 2;
                 var nbb_unformatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -500,7 +473,7 @@ The autoreload extension is already loaded. To reload it, use:
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
@@ -509,7 +482,7 @@ The autoreload extension is already loaded. To reload it, use:
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 54;
+                var nbb_cell_id = 3;
                 var nbb_unformatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_formatted_code = "try:\n    import empiricaldist\nexcept ImportError:\n    !pip install empiricaldist";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -532,18 +505,18 @@ The autoreload extension is already loaded. To reload it, use:
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 55;
+                var nbb_cell_id = 4;
                 var nbb_unformatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -560,7 +533,7 @@ The autoreload extension is already loaded. To reload it, use:
 </details>
 </div>
 <section id="weighing-penguins">
-<span id="section-weighing-penguins"></span><h2><span class="section-number">15.1. </span>Weighing Penguins<a class="headerlink" href="#weighing-penguins" title="Link to this heading">#</a></h2>
+<span id="section-weighing-penguins"></span><h2><span class="section-number">8.1. </span>Weighing Penguins<a class="headerlink" href="#weighing-penguins" title="Link to this heading">#</a></h2>
 <p>Suppose you are a researcher in Antarctica, studying local populations of penguins.
 One of your tasks is to monitor the average weight of the penguins as it varies over the course of the year.
 It would be impractical to weigh every penguin in the environment, so your plan is to collect a random sample of 10 penguins each week, weigh them, and use the sample to estimate the mean of the entire population – which is called the <strong>population mean</strong>.</p>
@@ -577,7 +550,7 @@ They are both reasonable choices, but let’s see which is better – and think 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 56;
+                var nbb_cell_id = 5;
                 var nbb_unformatted_code = "mu = 3.7\nsigma = 0.46";
                 var nbb_formatted_code = "mu = 3.7\nsigma = 0.46";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -605,7 +578,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 57;
+                var nbb_cell_id = 6;
                 var nbb_unformatted_code = "# Seed the random number generator so we get the same results every time\nnp.random.seed(1)";
                 var nbb_formatted_code = "# Seed the random number generator so we get the same results every time\nnp.random.seed(1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -634,7 +607,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 58;
+                var nbb_cell_id = 7;
                 var nbb_unformatted_code = "sample = np.random.normal(mu, sigma, size=10)\nsample";
                 var nbb_formatted_code = "sample = np.random.normal(mu, sigma, size=10)\nsample";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -662,7 +635,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 59;
+                var nbb_cell_id = 8;
                 var nbb_unformatted_code = "np.mean(sample), np.median(sample)";
                 var nbb_formatted_code = "np.mean(sample), np.median(sample)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -681,7 +654,7 @@ For example, here’s a hypothetical sample of 10 weights.</p>
 To find out, we’ll use the following function to generate hypothetical samples with the given size, <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_sample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_sample</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -689,7 +662,7 @@ To find out, we’ll use the following function to generate hypothetical samples
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 60;
+                var nbb_cell_id = 9;
                 var nbb_unformatted_code = "def make_sample(n):\n    return np.random.normal(mu, sigma, size=n)";
                 var nbb_formatted_code = "def make_sample(n):\n    return np.random.normal(mu, sigma, size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -715,7 +688,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 61;
+                var nbb_cell_id = 10;
                 var nbb_unformatted_code = "ns = np.logspace(1, 5).astype(int)";
                 var nbb_formatted_code = "ns = np.logspace(1, 5).astype(int)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -740,7 +713,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 62;
+                var nbb_cell_id = 11;
                 var nbb_unformatted_code = "means = [np.mean(make_sample(n)) for n in ns]";
                 var nbb_formatted_code = "means = [np.mean(make_sample(n)) for n in ns]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -765,7 +738,7 @@ We’ll use the NumPy function <code class="docutils literal notranslate"><span 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 63;
+                var nbb_cell_id = 12;
                 var nbb_unformatted_code = "medians = [np.median(make_sample(n)) for n in ns]";
                 var nbb_formatted_code = "medians = [np.median(make_sample(n)) for n in ns]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -794,10 +767,10 @@ The horizontal line shows the actual mean in the population.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/09313891d81800f0ce4fa1b173661d991eff5a6351fbb6e024f81ab0507a715f.png" src="_images/09313891d81800f0ce4fa1b173661d991eff5a6351fbb6e024f81ab0507a715f.png" />
+<img alt="_images/3eabf6a53ec23dc7af11522546fa4d049deb99a641342b019bf2e828b86bbfb8.png" src="_images/3eabf6a53ec23dc7af11522546fa4d049deb99a641342b019bf2e828b86bbfb8.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 13;
                 var nbb_unformatted_code = "plt.axhline(mu, color=\"0.9\")\nplt.plot(ns, means, \"--\", label=\"mean\")\nplt.plot(ns, medians, label=\"median\")\n\ndecorate(xlabel=\"Sample size\", xscale=\"log\", ylabel=\"Estimate\")";
                 var nbb_formatted_code = "plt.axhline(mu, color=\"0.9\")\nplt.plot(ns, means, \"--\", label=\"mean\")\nplt.plot(ns, medians, label=\"median\")\n\ndecorate(xlabel=\"Sample size\", xscale=\"log\", ylabel=\"Estimate\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -832,7 +805,7 @@ Then it uses a list comprehension to collect the results in a list.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 65;
+                var nbb_cell_id = 14;
                 var nbb_unformatted_code = "means = [np.mean(make_sample(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_formatted_code = "means = [np.mean(make_sample(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -862,7 +835,7 @@ Then it uses a list comprehension to collect the results in a list.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 66;
+                var nbb_cell_id = 15;
                 var nbb_unformatted_code = "medians = [np.median(make_sample(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_formatted_code = "medians = [np.median(make_sample(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -887,7 +860,7 @@ The word “accurate” also means different things in different contexts – as
 The following function computes the differences between the estimates and the actual value, and returns the mean of the squares of these errors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mse</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">mse</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mean squared error of a sequence of estimates.&quot;&quot;&quot;</span>
     <span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">estimates</span><span class="p">)</span> <span class="o">-</span> <span class="n">actual</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">errors</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -897,7 +870,7 @@ The following function computes the differences between the estimates and the ac
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 67;
+                var nbb_cell_id = 16;
                 var nbb_unformatted_code = "def mse(estimates, actual):\n    \"\"\"Mean squared error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(errors**2)";
                 var nbb_formatted_code = "def mse(estimates, actual):\n    \"\"\"Mean squared error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(errors**2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -927,7 +900,7 @@ But in our experiment, we know that the actual population mean is 3.7 kg, so we 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 68;
+                var nbb_cell_id = 17;
                 var nbb_unformatted_code = "mse(means, mu)";
                 var nbb_formatted_code = "mse(means, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -956,7 +929,7 @@ Now here’s the MSE of the sample medians.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 69;
+                var nbb_cell_id = 18;
                 var nbb_unformatted_code = "mse(medians, mu)";
                 var nbb_formatted_code = "mse(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -981,7 +954,7 @@ Another option is to use the average of the absolute values of the errors, calle
 The following function computes MAE for a sequence of estimates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mae</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">mae</span><span class="p">(</span><span class="n">estimates</span><span class="p">,</span> <span class="n">actual</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Mean absolute error of a sequence of estimates.&quot;&quot;&quot;</span>
     <span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">estimates</span><span class="p">)</span> <span class="o">-</span> <span class="n">actual</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span>
@@ -991,7 +964,7 @@ The following function computes MAE for a sequence of estimates.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 70;
+                var nbb_cell_id = 19;
                 var nbb_unformatted_code = "def mae(estimates, actual):\n    \"\"\"Mean absolute error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(np.abs(errors))";
                 var nbb_formatted_code = "def mae(estimates, actual):\n    \"\"\"Mean absolute error of a sequence of estimates.\"\"\"\n    errors = np.asarray(estimates) - actual\n    return np.mean(np.abs(errors))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1019,7 +992,7 @@ The following function computes MAE for a sequence of estimates.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 71;
+                var nbb_cell_id = 20;
                 var nbb_unformatted_code = "mae(means, mu)";
                 var nbb_formatted_code = "mae(means, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1047,7 +1020,7 @@ The following function computes MAE for a sequence of estimates.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 72;
+                var nbb_cell_id = 21;
                 var nbb_unformatted_code = "mae(medians, mu)";
                 var nbb_formatted_code = "mae(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1066,7 +1039,7 @@ The following function computes MAE for a sequence of estimates.</p>
 So the sample mean is probably the better choice, at least for this example.</p>
 </section>
 <section id="robustness">
-<h2><span class="section-number">15.2. </span>Robustness<a class="headerlink" href="#robustness" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.2. </span>Robustness<a class="headerlink" href="#robustness" title="Link to this heading">#</a></h2>
 <p>Now let’s consider a different scenario.
 Suppose that 2% of the time, when you try to weigh a penguin, it accidentally presses the units button on the scale and the weight gets recorded in pounds instead of kilograms.
 Assuming that the error goes unnoticed, it introduces an outlier in the sample.</p>
@@ -1074,7 +1047,7 @@ Assuming that the error goes unnoticed, it introduces an outlier in the sample.<
 conversion factor 2.2 pounds per kilogram.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_sample_with_errors</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_sample_with_errors</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
     <span class="n">factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">sample</span> <span class="o">*</span> <span class="n">factor</span>
@@ -1084,7 +1057,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 73;
+                var nbb_cell_id = 22;
                 var nbb_unformatted_code = "def make_sample_with_errors(n):\n    sample = np.random.normal(mu, sigma, size=n)\n    factor = np.random.choice([1, 2.2], p=[0.98, 0.02], size=n)\n    return sample * factor";
                 var nbb_formatted_code = "def make_sample_with_errors(n):\n    sample = np.random.normal(mu, sigma, size=n)\n    factor = np.random.choice([1, 2.2], p=[0.98, 0.02], size=n)\n    return sample * factor";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1109,7 +1082,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 74;
+                var nbb_cell_id = 23;
                 var nbb_unformatted_code = "sample = make_sample_with_errors(n=1000)";
                 var nbb_formatted_code = "sample = make_sample_with_errors(n=1000)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1127,8 +1100,8 @@ conversion factor 2.2 pounds per kilogram.</p>
 <p>To plot the distribution of the sample, we’ll use KDE and the <code class="docutils literal notranslate"><span class="pre">Pdf</span></code> object from <a class="reference internal" href="chap06.html#section-kernel-density-estimation"><span class="std std-ref">Chapter 6</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">Pdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pdf</span>
 
 <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 <span class="n">domain</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span>
@@ -1139,10 +1112,10 @@ conversion factor 2.2 pounds per kilogram.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/efda79896d9b34713a8f5b94d271aece5eb0b4b81c755f7fa12b1b13e6cc5252.png" src="_images/efda79896d9b34713a8f5b94d271aece5eb0b4b81c755f7fa12b1b13e6cc5252.png" />
+<img alt="_images/7eff29cfc7cca4eb93c9b3430a735d2adc9efb63e311df85d41699ecea8578f9.png" src="_images/7eff29cfc7cca4eb93c9b3430a735d2adc9efb63e311df85d41699ecea8578f9.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 75;
+                var nbb_cell_id = 24;
                 var nbb_unformatted_code = "from scipy.stats import gaussian_kde\nfrom thinkstats import Pdf\n\nkde = gaussian_kde(sample)\ndomain = 0, 10\npdf = Pdf(kde, domain)\npdf.plot()\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "from scipy.stats import gaussian_kde\nfrom thinkstats import Pdf\n\nkde = gaussian_kde(sample)\ndomain = 0, 10\npdf = Pdf(kde, domain)\npdf.plot()\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1172,7 +1145,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 76;
+                var nbb_cell_id = 25;
                 var nbb_unformatted_code = "means = [np.mean(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_formatted_code = "means = [np.mean(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1202,7 +1175,7 @@ conversion factor 2.2 pounds per kilogram.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 77;
+                var nbb_cell_id = 26;
                 var nbb_unformatted_code = "medians = [np.median(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_formatted_code = "medians = [np.median(make_sample_with_errors(n=10)) for i in range(10001)]\nnp.mean(medians)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1231,7 +1204,7 @@ If we compare the MSE of the estimates, we see that the sample medians are subst
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 78;
+                var nbb_cell_id = 27;
                 var nbb_unformatted_code = "mse(means, mu), mse(medians, mu)";
                 var nbb_formatted_code = "mse(means, mu), mse(medians, mu)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1251,7 +1224,7 @@ The sample median is less sensitive to outliers, so it is less biased and its MS
 Estimators that deal well with outliers – and similar violations of assumptions – are said to be <strong>robust</strong>.</p>
 </section>
 <section id="estimating-variance">
-<span id="section-estimating-variance"></span><h2><span class="section-number">15.3. </span>Estimating Variance<a class="headerlink" href="#estimating-variance" title="Link to this heading">#</a></h2>
+<span id="section-estimating-variance"></span><h2><span class="section-number">8.3. </span>Estimating Variance<a class="headerlink" href="#estimating-variance" title="Link to this heading">#</a></h2>
 <p>As another example, suppose we want to estimate variance in the penguins’ weights.
 In <a class="reference internal" href="chap01.html#section-summary-statistics"><span class="std std-ref">Chapter 1</span></a>, we saw that there are two ways to compute the variance of a sample.
 I promised to explain the difference later – and later is now.</p>
@@ -1259,7 +1232,7 @@ I promised to explain the difference later – and later is now.</p>
 The following function computes the biased estimator, which is the sum of the squared deviations divided by <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">biased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">biased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
     <span class="c1"># Compute variance with n in the denominator</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="n">deviations</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
@@ -1270,9 +1243,9 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 79;
-                var nbb_unformatted_code = "def biased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
-                var nbb_formatted_code = "def biased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
+                var nbb_cell_id = 28;
+                var nbb_unformatted_code = "def biased_var(xs):\n    # Compute variance with n in the denominator\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
+                var nbb_formatted_code = "def biased_var(xs):\n    # Compute variance with n in the denominator\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1299,7 +1272,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 80;
+                var nbb_cell_id = 29;
                 var nbb_unformatted_code = "biased_vars = [biased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(biased_vars)";
                 var nbb_formatted_code = "biased_vars = [biased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(biased_vars)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1328,7 +1301,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 81;
+                var nbb_cell_id = 30;
                 var nbb_unformatted_code = "actual_var = sigma**2\nactual_var";
                 var nbb_formatted_code = "actual_var = sigma**2\nactual_var";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1346,7 +1319,7 @@ The following function computes the biased estimator, which is the sum of the sq
 <p>The following function computes the unbiased estimator, which is the sum of the squared deviations divided by <code class="docutils literal notranslate"><span class="pre">n-1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbiased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">unbiased_var</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
     <span class="c1"># Compute variance with n-1 in the denominator</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
     <span class="n">deviations</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
@@ -1357,9 +1330,9 @@ The following function computes the biased estimator, which is the sum of the sq
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 82;
-                var nbb_unformatted_code = "def unbiased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
-                var nbb_formatted_code = "def unbiased_var(xs):\n    \"\"\"Population variance with n in the denominator\"\"\"\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
+                var nbb_cell_id = 31;
+                var nbb_unformatted_code = "def unbiased_var(xs):\n    # Compute variance with n-1 in the denominator\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
+                var nbb_formatted_code = "def unbiased_var(xs):\n    # Compute variance with n-1 in the denominator\n    n = len(xs)\n    deviations = xs - np.mean(xs)\n    return np.sum(deviations**2) / (n - 1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1386,7 +1359,7 @@ The following function computes the biased estimator, which is the sum of the sq
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 83;
+                var nbb_cell_id = 32;
                 var nbb_unformatted_code = "unbiased_vars = [unbiased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(unbiased_vars)";
                 var nbb_formatted_code = "unbiased_vars = [unbiased_var(make_sample(n=10)) for i in range(10001)]\nnp.mean(unbiased_vars)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1417,7 +1390,7 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 84;
+                var nbb_cell_id = 33;
                 var nbb_unformatted_code = "n = 10\n1 - (n - 1) / n";
                 var nbb_formatted_code = "n = 10\n1 - (n - 1) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1445,7 +1418,7 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 85;
+                var nbb_cell_id = 34;
                 var nbb_unformatted_code = "n = 100\n1 - (n - 1) / n";
                 var nbb_formatted_code = "n = 100\n1 - (n - 1) / n";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1462,7 +1435,7 @@ With sample size 100, the difference is only 1%, which is small enough that is p
 </div>
 </section>
 <section id="sampling-distributions">
-<span id="section-sampling-distributions"></span><h2><span class="section-number">15.4. </span>Sampling Distributions<a class="headerlink" href="#sampling-distributions" title="Link to this heading">#</a></h2>
+<span id="section-sampling-distributions"></span><h2><span class="section-number">8.4. </span>Sampling Distributions<a class="headerlink" href="#sampling-distributions" title="Link to this heading">#</a></h2>
 <p>So far we’ve been working with simulated data, assuming that penguin weights are drawn from a normal distribution with known parameters.
 Now let’s see what happens with real data.</p>
 <p>Between 2007 and 2010, researchers at Palmer Station in Antarctica measured and weighed 342 penguins from local populations.
@@ -1481,7 +1454,7 @@ The data they collected is freely available – instructions for downloading it 
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 86;
+                var nbb_cell_id = 35;
                 var nbb_unformatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_formatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1510,7 +1483,7 @@ The data they collected is freely available – instructions for downloading it 
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 87;
+                var nbb_cell_id = 36;
                 var nbb_unformatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\npenguins.shape";
                 var nbb_formatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\").dropna(subset=[\"Body Mass (g)\"])\npenguins.shape";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1542,7 +1515,7 @@ Name: count, dtype: int64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 88;
+                var nbb_cell_id = 37;
                 var nbb_unformatted_code = "penguins[\"Species\"].value_counts()";
                 var nbb_formatted_code = "penguins[\"Species\"].value_counts()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1567,7 +1540,7 @@ Name: count, dtype: int64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 89;
+                var nbb_cell_id = 38;
                 var nbb_unformatted_code = "chinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')";
                 var nbb_formatted_code = "chinstrap = penguins.query('Species.str.startswith(\"Chinstrap\")')";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1585,7 +1558,7 @@ Name: count, dtype: int64
 <p>We’ll use this function to plot estimated PDFs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
     <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.3&quot;</span><span class="p">)</span>
@@ -1599,9 +1572,9 @@ Name: count, dtype: int64
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 90;
-                var nbb_unformatted_code = "def plot_kde(sample, name=\"\", **options):\n    \"\"\"Plot an estimated PDF.\"\"\"\n\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
-                var nbb_formatted_code = "def plot_kde(sample, name=\"\", **options):\n    \"\"\"Plot an estimated PDF.\"\"\"\n\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
+                var nbb_cell_id = 39;
+                var nbb_unformatted_code = "def plot_kde(sample, name=\"\", **options):\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
+                var nbb_formatted_code = "def plot_kde(sample, name=\"\", **options):\n    kde = gaussian_kde(sample)\n    m, s = np.mean(sample), np.std(sample)\n    plt.axvline(m, ls=\":\", color=\"0.3\")\n\n    domain = m - 4 * s, m + 4 * s\n    pdf = Pdf(kde, domain, name)\n    pdf.plot(**options)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1625,10 +1598,10 @@ The vertical dotted line shows the sample mean.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/76e04d901d5038d0947d004a136a5a1d0a1be5d8071dec068e031c5a03d3a043.png" src="_images/76e04d901d5038d0947d004a136a5a1d0a1be5d8071dec068e031c5a03d3a043.png" />
+<img alt="_images/8b5395d9372dba1ec44f6621a309596dbf10424b6876d5593a2ae0a3f10d511f.png" src="_images/8b5395d9372dba1ec44f6621a309596dbf10424b6876d5593a2ae0a3f10d511f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 91;
+                var nbb_cell_id = 40;
                 var nbb_unformatted_code = "weights = chinstrap[\"Body Mass (g)\"] / 1000\nplot_kde(weights)\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "weights = chinstrap[\"Body Mass (g)\"] / 1000\nplot_kde(weights)\ndecorate(xlabel=\"Penguin weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1657,7 +1630,7 @@ The vertical dotted line shows the sample mean.</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 92;
+                var nbb_cell_id = 41;
                 var nbb_unformatted_code = "sample_mean = np.mean(weights)\nsample_mean";
                 var nbb_formatted_code = "sample_mean = np.mean(weights)\nsample_mean";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1683,7 +1656,7 @@ The core idea is to use the sample to make a model of the population, then use t
 Notice that the new samples are the same size as the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">resample</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
     <span class="c1"># Generate a sample from a normal distribution</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
@@ -1693,7 +1666,7 @@ Notice that the new samples are the same size as the original.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 93;
+                var nbb_cell_id = 42;
                 var nbb_unformatted_code = "def resample(sample):\n    # Generate a sample from a normal distribution\n    m, s = np.mean(sample), np.std(sample)\n    return np.random.normal(m, s, len(sample))";
                 var nbb_formatted_code = "def resample(sample):\n    # Generate a sample from a normal distribution\n    m, s = np.mean(sample), np.std(sample)\n    return np.random.normal(m, s, len(sample))";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1718,7 +1691,7 @@ Notice that the new samples are the same size as the original.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 94;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "sample_means = [np.mean(resample(weights)) for i in range(1001)]";
                 var nbb_formatted_code = "sample_means = [np.mean(resample(weights)) for i in range(1001)]";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1742,10 +1715,10 @@ Notice that the new samples are the same size as the original.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/55de8fafe9185b12768dab797f4817c3e6dccff3f957a6f489572084cb29fbc1.png" src="_images/55de8fafe9185b12768dab797f4817c3e6dccff3f957a6f489572084cb29fbc1.png" />
+<img alt="_images/79f36c8001c6c0bd054bc82da34f1a1d8908036356e61eeb4f612daa5a026a3c.png" src="_images/79f36c8001c6c0bd054bc82da34f1a1d8908036356e61eeb4f612daa5a026a3c.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 95;
+                var nbb_cell_id = 44;
                 var nbb_unformatted_code = "plot_kde(sample_means, \"Chinstrap\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "plot_kde(sample_means, \"Chinstrap\")\ndecorate(xlabel=\"Sample mean of weight (kg)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1765,7 +1738,7 @@ It shows how much we expect the sample mean to vary if we collect many samples o
 <p>Informally, we can see that the sample mean could be as low as 3.55, if we collected another sample with the same size, or as high as 3.9.</p>
 </section>
 <section id="standard-error">
-<h2><span class="section-number">15.5. </span>Standard Error<a class="headerlink" href="#standard-error" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.5. </span>Standard Error<a class="headerlink" href="#standard-error" title="Link to this heading">#</a></h2>
 <p>To quantify the width of the sampling distribution, one option is to compute its standard deviation – the result is called the <strong>standard error</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1780,7 +1753,7 @@ It shows how much we expect the sample mean to vary if we collect many samples o
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 96;
+                var nbb_cell_id = 45;
                 var nbb_unformatted_code = "standard_error = np.std(sample_means)\nstandard_error";
                 var nbb_formatted_code = "standard_error = np.std(sample_means)\nstandard_error";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1814,7 +1787,7 @@ It shows how much we expect the sample mean to vary if we collect many samples o
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 97;
+                var nbb_cell_id = 46;
                 var nbb_unformatted_code = "np.std(weights)";
                 var nbb_formatted_code = "np.std(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1842,7 +1815,7 @@ It shows how much we expect the sample mean to vary if we collect many samples o
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 98;
+                var nbb_cell_id = 47;
                 var nbb_unformatted_code = "np.std(sample_means)";
                 var nbb_formatted_code = "np.std(sample_means)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1864,7 +1837,7 @@ They are answers to different questions.</p>
 If we know the standard deviation and sample size, we can approximate the standard error of the mean like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">approximate_standard_error</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">approximate_standard_error</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
@@ -1873,7 +1846,7 @@ If we know the standard deviation and sample size, we can approximate the standa
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 99;
+                var nbb_cell_id = 48;
                 var nbb_unformatted_code = "def approximate_standard_error(sample):\n    n = len(sample)\n    return np.std(sample) / np.sqrt(n)";
                 var nbb_formatted_code = "def approximate_standard_error(sample):\n    n = len(sample)\n    return np.std(sample) / np.sqrt(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1900,7 +1873,7 @@ If we know the standard deviation and sample size, we can approximate the standa
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 100;
+                var nbb_cell_id = 49;
                 var nbb_unformatted_code = "approximate_standard_error(weights)";
                 var nbb_formatted_code = "approximate_standard_error(weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1918,7 +1891,7 @@ If we know the standard deviation and sample size, we can approximate the standa
 <p>This result is close to what we got by resampling.</p>
 </section>
 <section id="confidence-intervals">
-<h2><span class="section-number">15.6. </span>Confidence Intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.6. </span>Confidence Intervals<a class="headerlink" href="#confidence-intervals" title="Link to this heading">#</a></h2>
 <p>Another way to summarize the sampling distribution is to compute a <strong>confidence interval</strong>.
 For example, a 90% confidence interval contains 90% of the values in the sampling distribution, which we can find by computing the 5th and 95th percentiles.
 Here’s the 90% confidence interval for the average weight of chinstrap penguins.</p>
@@ -1935,7 +1908,7 @@ Here’s the 90% confidence interval for the average weight of chinstrap penguin
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 101;
+                var nbb_cell_id = 50;
                 var nbb_unformatted_code = "ci90 = np.percentile(sample_means, [5, 95])\nci90";
                 var nbb_formatted_code = "ci90 = np.percentile(sample_means, [5, 95])\nci90";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1959,7 +1932,7 @@ Under reasonable philosophies of probability, a confidence interval means what p
 The sampling distribution does not account for other sources of error, notably sampling bias and measurement error, which are the topics of the next section.</p>
 </section>
 <section id="sources-of-error">
-<h2><span class="section-number">15.7. </span>Sources of Error<a class="headerlink" href="#sources-of-error" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.7. </span>Sources of Error<a class="headerlink" href="#sources-of-error" title="Link to this heading">#</a></h2>
 <p>Suppose that instead of the average weight of penguins in Antarctica, you want to know the average weight of women in the city where you live.
 You can’t randomly choose a representative sample of women and weigh them.</p>
 <p>A simple alternative would be “telephone sampling” – that is, you could choose random numbers from the phone book, call and ask to speak to an adult woman, and ask how much she weighs.
@@ -1979,7 +1952,7 @@ These inaccuracies are examples of <strong>measurement error</strong>.</p>
 But remember that this variability is only one source of error, and often it is not the biggest.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">15.8. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.8. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>population mean:</strong> The true mean of a quantity in an entire population, as opposed to the sample mean, which is calculated from a subset.</p></li>
 <li><p><strong>parameter</strong>: One of the values that specifies a particular distribution in a set of distributions – for example, the parameters of a normal distribution are the mean and standard deviation.</p></li>
@@ -1996,9 +1969,9 @@ But remember that this variability is only one source of error, and often it is 
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">15.9. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<section id="exercise">
-<h3><span class="section-number">15.9.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">8.9. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-8-1">
+<h3><span class="section-number">8.9.1. </span>Exercise 8.1<a class="headerlink" href="#exercise-8-1" title="Link to this heading">#</a></h3>
 <p>One of the strengths of resampling methods is that they are easy to extend to other statistics.
 In this chapter, we computed the sample mean of penguin weights and then used resampling to approximate the sampling distribution of the mean.
 Now let’s do the same for standard deviation.</p>
@@ -2006,8 +1979,8 @@ Now let’s do the same for standard deviation.</p>
 Then use <code class="docutils literal notranslate"><span class="pre">resample</span></code> to approximate the sampling distribution of the standard deviation.
 Use the sampling distribution to compute the standard error of the estimate and a 90% confidence interval.</p>
 </section>
-<section id="id1">
-<h3><span class="section-number">15.9.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="exercise-8-2">
+<h3><span class="section-number">8.9.2. </span>Exercise 8.2<a class="headerlink" href="#exercise-8-2" title="Link to this heading">#</a></h3>
 <p>The Behavioral Risk Factor Surveillance System (BRFSS) dataset includes self-reported heights and weights for a sample of adults in the United States.
 Use this data to estimate the average height of male adults.
 Use resample to approximate the sampling distribution and compute a 90% confidence interval.</p>
@@ -2023,7 +1996,7 @@ But other sources of error might be bigger – what other sources of error do yo
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 107;
+                var nbb_cell_id = 56;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2040,7 +2013,7 @@ But other sources of error might be bigger – what other sources of error do yo
 </div>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">read_brfss</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_brfss</span>
 
 <span class="n">brfss</span> <span class="o">=</span> <span class="n">read_brfss</span><span class="p">()</span>
 </pre></div>
@@ -2049,7 +2022,7 @@ But other sources of error might be bigger – what other sources of error do yo
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 108;
+                var nbb_cell_id = 57;
                 var nbb_unformatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()";
                 var nbb_formatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2086,7 +2059,7 @@ Name: htm3, dtype: float64
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 109;
+                var nbb_cell_id = 58;
                 var nbb_unformatted_code = "male = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"]\nheights.describe()";
                 var nbb_formatted_code = "male = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"]\nheights.describe()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2102,8 +2075,8 @@ Name: htm3, dtype: float64
             </script></div>
 </div>
 </section>
-<section id="id2">
-<h3><span class="section-number">15.9.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="exercise-8-3">
+<h3><span class="section-number">8.9.3. </span>Exercise 8.3<a class="headerlink" href="#exercise-8-3" title="Link to this heading">#</a></h3>
 <p>In games like soccer and hockey, the time between goals tends to follow an exponential distribution (as we saw in <a class="reference internal" href="chap06.html#section-exponential-pdf"><span class="std std-ref">Chapter 6</span></a>).
 Suppose we observe a sample of times between goals.
 If we assume that the sample came from an exponential distribution, how can we estimate the actual mean of the distribution?
@@ -2119,7 +2092,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 115;
+                var nbb_cell_id = 64;
                 var nbb_unformatted_code = "actual_mean = 10";
                 var nbb_formatted_code = "actual_mean = 10";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2137,7 +2110,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
 <p>The following function generates a sample from an exponential distribution with this mean and the given sample size.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_exponential</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_exponential</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">actual_mean</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2145,7 +2118,7 @@ For the experiments, we’ll assume that the actual mean time between goals is 1
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 116;
+                var nbb_cell_id = 65;
                 var nbb_unformatted_code = "def make_exponential(n):\n    return np.random.exponential(actual_mean, size=n)";
                 var nbb_formatted_code = "def make_exponential(n):\n    return np.random.exponential(actual_mean, size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2177,7 +2150,7 @@ Do the sample medians converge to the actual median?</p>
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 117;
+                var nbb_cell_id = 66;
                 var nbb_unformatted_code = "actual_median = np.log(2) * actual_mean\nactual_median";
                 var nbb_formatted_code = "actual_median = np.log(2) * actual_mean\nactual_median";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2195,15 +2168,15 @@ Do the sample medians converge to the actual median?</p>
 <p>Next, generate many samples with size 10 and check whether the sample mean is an unbiased estimator of the population mean.</p>
 <p>Finally, check whether the sample median is an unbiased estimator of the population median.</p>
 </section>
-<section id="id3">
-<h3><span class="section-number">15.9.4. </span>Exercise<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="exercise-8-4">
+<h3><span class="section-number">8.9.4. </span>Exercise 8.4<a class="headerlink" href="#exercise-8-4" title="Link to this heading">#</a></h3>
 <p>In this chapter we tested a biased estimator of variance and showed that it is, in fact, biased.
 And we showed that the unbiased estimator is unbiased.
 Now let’s try standard deviation.</p>
 <p>To estimate the standard deviation of a population, we can compute the square root of the biased or unbiased estimator of variance, like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">biased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">biased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
     <span class="c1"># Square root of the biased estimator of variance</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">biased_var</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
@@ -2213,9 +2186,9 @@ Now let’s try standard deviation.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 123;
-                var nbb_unformatted_code = "def biased_std(sample):\n    \"\"\"Square root of the biased estimator of variance.\"\"\"\n    var = biased_var(sample)\n    return np.sqrt(var)";
-                var nbb_formatted_code = "def biased_std(sample):\n    \"\"\"Square root of the biased estimator of variance.\"\"\"\n    var = biased_var(sample)\n    return np.sqrt(var)";
+                var nbb_cell_id = 72;
+                var nbb_unformatted_code = "def biased_std(sample):\n    # Square root of the biased estimator of variance\n    var = biased_var(sample)\n    return np.sqrt(var)";
+                var nbb_formatted_code = "def biased_std(sample):\n    # Square root of the biased estimator of variance\n    var = biased_var(sample)\n    return np.sqrt(var)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2230,7 +2203,7 @@ Now let’s try standard deviation.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unbiased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">unbiased_std</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
     <span class="c1"># Square root of the unbiased estimator of variance</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">unbiased_var</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
@@ -2240,9 +2213,9 @@ Now let’s try standard deviation.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 124;
-                var nbb_unformatted_code = "def unbiased_std(sample):\n    \"\"\"Square root of the unbiased estimator of variance.\"\"\"\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
-                var nbb_formatted_code = "def unbiased_std(sample):\n    \"\"\"Square root of the unbiased estimator of variance.\"\"\"\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
+                var nbb_cell_id = 73;
+                var nbb_unformatted_code = "def unbiased_std(sample):\n    # Square root of the unbiased estimator of variance\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
+                var nbb_formatted_code = "def unbiased_std(sample):\n    # Square root of the unbiased estimator of variance\n    var = unbiased_var(sample)\n    return np.sqrt(var)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2273,7 +2246,7 @@ Check whether either of these is an unbiased estimator of standard deviation.</p
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 125;
+                var nbb_cell_id = 74;
                 var nbb_unformatted_code = "# Here's an example using `make_sample`\n\nmu, sigma = 3.7, 0.46\nmake_sample(n=10)";
                 var nbb_formatted_code = "# Here's an example using `make_sample`\n\nmu, sigma = 3.7, 0.46\nmake_sample(n=10)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2289,16 +2262,15 @@ Check whether either of these is an unbiased estimator of standard deviation.</p
             </script></div>
 </div>
 </section>
-</section>
-<section id="id4">
-<h2><span class="section-number">15.10. </span>Exercise<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<section id="exercise-8-5">
+<h3><span class="section-number">8.9.5. </span>Exercise 8.5<a class="headerlink" href="#exercise-8-5" title="Link to this heading">#</a></h3>
 <p>This exercise is based on the German tank problem, which a simplified version of an actual analysis performed by the Economic Warfare Division of the American Embassy in London during World War II.</p>
 <p>Suppose you are an Allied spy and your job is to estimate how many tanks the Germans have built.
 As data, you have serial numbers recovered from <code class="docutils literal notranslate"><span class="pre">k</span></code> captured tanks.</p>
 <p>If we assume that the Germans have <code class="docutils literal notranslate"><span class="pre">N</span></code> tanks numbered from 1 to <code class="docutils literal notranslate"><span class="pre">N</span></code>, and that all tanks in this range were equally likely to be captured, we can estimate <code class="docutils literal notranslate"><span class="pre">N</span></code> like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">estimate_tanks</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">estimate_tanks</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">m</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="o">/</span> <span class="n">k</span>
@@ -2308,7 +2280,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 129;
+                var nbb_cell_id = 78;
                 var nbb_unformatted_code = "def estimate_tanks(sample):\n    m = np.max(sample)\n    k = len(sample)\n    return m + (m - k) / k";
                 var nbb_formatted_code = "def estimate_tanks(sample):\n    m = np.max(sample)\n    k = len(sample)\n    return m + (m - k) / k";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2334,7 +2306,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 130;
+                var nbb_cell_id = 79;
                 var nbb_unformatted_code = "N = 122\ntanks = np.arange(1, N + 1)";
                 var nbb_formatted_code = "N = 122\ntanks = np.arange(1, N + 1)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2352,7 +2324,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <p>We can use the following function to generate a random sample of <code class="docutils literal notranslate"><span class="pre">k</span></code> tanks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample_tanks</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sample_tanks</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">tanks</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -2360,7 +2332,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 131;
+                var nbb_cell_id = 80;
                 var nbb_unformatted_code = "def sample_tanks(k):\n    return np.random.choice(tanks, replace=False, size=k)";
                 var nbb_formatted_code = "def sample_tanks(k):\n    return np.random.choice(tanks, replace=False, size=k)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2385,7 +2357,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 132;
+                var nbb_cell_id = 81;
                 var nbb_unformatted_code = "np.random.seed(17)";
                 var nbb_formatted_code = "np.random.seed(17)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2413,7 +2385,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 133;
+                var nbb_cell_id = 82;
                 var nbb_unformatted_code = "sample = sample_tanks(5)\nsample";
                 var nbb_formatted_code = "sample = sample_tanks(5)\nsample";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2441,7 +2413,7 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 134;
+                var nbb_cell_id = 83;
                 var nbb_unformatted_code = "estimate_tanks(sample)";
                 var nbb_formatted_code = "estimate_tanks(sample)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2459,8 +2431,9 @@ As data, you have serial numbers recovered from <code class="docutils literal no
 <p>Check whether this estimator is biased.</p>
 <p>For more on this problem, see [this Wikipedia page][<a class="reference external" href="https://en.wikipedia.org/wiki/German_tank_problem">https://en.wikipedia.org/wiki/German_tank_problem</a>] and Ruggles and Brodie, “An Empirical Approach to Economic Intelligence in World War II”, Journal of the American Statistical Association, March 1947, available <a class="reference external" href="https://web.archive.org/web/20170123132042/https://www.cia.gov/library/readingroom/docs/CIA-RDP79R01001A001300010013-3.pdf">here</a>.</p>
 <p>For an explanation of how this estimator works, you might like <a class="reference external" href="https://www.youtube.com/watch?v=WLCwMRJBhuI">this video</a>.</p>
-<section id="id5">
-<h3><span class="section-number">15.10.1. </span>Exercise<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+</section>
+<section id="exercise-8-6">
+<h3><span class="section-number">8.9.6. </span>Exercise 8.6<a class="headerlink" href="#exercise-8-6" title="Link to this heading">#</a></h3>
 <p>In several sports – especially basketball – many players and fans believe in a phenomenon called the “hot hand”, which implies that a player who has hit several consecutive shots is more likely to hit the next, and a player who has missed several times is more likely to miss.</p>
 <p>A famous paper proposed a way to test whether the hot hand is real or an illusion, by looking at sequences of hits and misses from professional basketball games.
 For each player, the authors computed the overall probability of making a shot, and the conditional probability of making a shot after three consecutive hits.
@@ -2475,7 +2448,7 @@ But we can use the methods from this chapter to check it.
 We’ll use the following function to generate a sequence of 0s and 1s with probability 0.5 and no correlation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_hits_and_misses</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_hits_and_misses</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="c1"># Generate a random sequence of 0s and 1s</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
@@ -2484,9 +2457,9 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 136;
-                var nbb_unformatted_code = "def make_hits_and_misses(n):\n    \"\"\"Generate a sequence of 0s and 1s.\"\"\"\n    return np.random.choice([0, 1], size=n)";
-                var nbb_formatted_code = "def make_hits_and_misses(n):\n    \"\"\"Generate a sequence of 0s and 1s.\"\"\"\n    return np.random.choice([0, 1], size=n)";
+                var nbb_cell_id = 85;
+                var nbb_unformatted_code = "def make_hits_and_misses(n):\n    # Generate a random sequence of 0s and 1s\n    return np.random.choice([0, 1], size=n)";
+                var nbb_formatted_code = "def make_hits_and_misses(n):\n    # Generate a random sequence of 0s and 1s\n    return np.random.choice([0, 1], size=n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2502,10 +2475,10 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <p>In the notebook for this chapter, I provide a function that finds all subsequences of three hits (1s) and returns the element of the sequence that follows.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
-<span class="k">def</span> <span class="nf">get_successors</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_successors</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">target_sum</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the successors of each subsequence that sums to a target value.</span>
 
 <span class="sd">    Parameters:</span>
@@ -2539,7 +2512,7 @@ We’ll use the following function to generate a sequence of 0s and 1s with prob
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 137;
+                var nbb_cell_id = 86;
                 var nbb_unformatted_code = "import numpy as np\n\n\ndef get_successors(seq, target_sum=3):\n    \"\"\"Get the successors of each subsequence that sums to a target value.\n\n    Parameters:\n    seq (array-like): Sequence of 1s and 0s.\n    target_sum (int): The target sum of the subsequence. Default is 3.\n\n    Returns:\n    np.ndarray: Array of successors to subsequences that sum to `target_sum`.\n    \"\"\"\n    # Check if the input sequence is too short\n    if len(seq) < 3:\n        return np.array([])\n\n    # Compute the sum of each subsequence of length 3\n    kernel = [1, 1, 1]\n    corr = np.correlate(seq, kernel, mode=\"valid\")\n\n    # Find the indices where the subsequence sums to the target value\n    indices = np.nonzero(corr == target_sum)[0]\n\n    # Remove cases where the subsequence is at the end of the sequence\n    indices = indices[indices < len(seq) - 3]\n\n    # Find the successors of each valid subsequence\n    successors = seq[indices + 3] if len(indices) > 0 else np.array([])\n\n    return successors";
                 var nbb_formatted_code = "import numpy as np\n\n\ndef get_successors(seq, target_sum=3):\n    \"\"\"Get the successors of each subsequence that sums to a target value.\n\n    Parameters:\n    seq (array-like): Sequence of 1s and 0s.\n    target_sum (int): The target sum of the subsequence. Default is 3.\n\n    Returns:\n    np.ndarray: Array of successors to subsequences that sum to `target_sum`.\n    \"\"\"\n    # Check if the input sequence is too short\n    if len(seq) < 3:\n        return np.array([])\n\n    # Compute the sum of each subsequence of length 3\n    kernel = [1, 1, 1]\n    corr = np.correlate(seq, kernel, mode=\"valid\")\n\n    # Find the indices where the subsequence sums to the target value\n    indices = np.nonzero(corr == target_sum)[0]\n\n    # Remove cases where the subsequence is at the end of the sequence\n    indices = indices[indices < len(seq) - 3]\n\n    # Find the successors of each valid subsequence\n    successors = seq[indices + 3] if len(indices) > 0 else np.array([])\n\n    return successors";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2608,7 +2581,7 @@ For an overview of the topic and an explanation of the error, <a class="referenc
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">14. </span>Relationships between variables</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Relationships between variables</p>
       </div>
     </a>
     <a class="right-next"
@@ -2616,7 +2589,7 @@ For an overview of the topic and an explanation of the error, <a class="referenc
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">16. </span>Hypothesis Testing</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Hypothesis Testing</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2627,7 +2600,8 @@ For an overview of the topic and an explanation of the error, <a class="referenc
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2636,23 +2610,21 @@ For an overview of the topic and an explanation of the error, <a class="referenc
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighing-penguins">15.1. Weighing Penguins</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness">15.2. Robustness</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-variance">15.3. Estimating Variance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions">15.4. Sampling Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">15.5. Standard Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">15.6. Confidence Intervals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-error">15.7. Sources of Error</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">15.8. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">15.9. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">15.9.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">15.9.2. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">15.9.3. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">15.9.4. Exercise</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">15.10. Exercise</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">15.10.1. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighing-penguins">8.1. Weighing Penguins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robustness">8.2. Robustness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-variance">8.3. Estimating Variance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-distributions">8.4. Sampling Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-error">8.5. Standard Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-intervals">8.6. Confidence Intervals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-error">8.7. Sources of Error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">8.8. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">8.9. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-1">8.9.1. Exercise 8.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-2">8.9.2. Exercise 8.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-3">8.9.3. Exercise 8.3</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-4">8.9.4. Exercise 8.4</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-5">8.9.5. Exercise 8.5</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-8-6">8.9.6. Exercise 8.6</a></li>
 </ul>
 </li>
 </ul>
@@ -2717,8 +2689,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

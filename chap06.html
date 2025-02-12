@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>13. Probability Density Functions &#8212; Think Stats</title>
+    <title>6. Probability Density Functions &#8212; Think Stats</title>
   
   
   
@@ -16,19 +16,21 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -62,10 +65,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap06';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="14. Relationships between variables" href="chap07.html" />
-    <link rel="prev" title="5. The Binomial Distribution" href="chap05.html" />
+    <link rel="next" title="7. Relationships between variables" href="chap07.html" />
+    <link rel="prev" title="5. Modeling Distributions" href="chap05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,6 +134,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -154,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -183,23 +174,16 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. The Binomial Distribution</a></li>
-
-
-
-
-
-
-
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -218,9 +202,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -332,24 +321,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -373,16 +354,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions">13.1. Comparing Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density">13.2. Probability Density</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-pdf">13.3. The Exponential PDF</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-pmfs-and-pdfs">13.4. Comparing PMFs and PDFs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">13.5. Kernel Density Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distribution-framework">13.6. The Distribution Framework</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">13.7. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.8. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">13.8.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.8.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions">6.1. Comparing Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density">6.2. Probability Density</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-pdf">6.3. The Exponential PDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-pmfs-and-pdfs">6.4. Comparing PMFs and PDFs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.5. Kernel Density Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distribution-framework">6.6. The Distribution Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">6.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">6.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-1">6.8.1. Exercise 6.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-2">6.8.2. Exercise 6.2</a></li>
 </ul>
 </li>
 </ul>
@@ -398,7 +379,7 @@ document.write(`
                   
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
 <section id="probability-density-functions">
-<h1><span class="section-number">13. </span>Probability Density Functions<a class="headerlink" href="#probability-density-functions" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">6. </span>Probability Density Functions<a class="headerlink" href="#probability-density-functions" title="Link to this heading">#</a></h1>
 <p>In the previous chapter, we modeled data with theoretical distributions including the binomial, Poisson, exponential, and normal distributions.</p>
 <p>The binomial and Poisson distributions are <strong>discrete</strong>, which means that the outcomes have to be distinct or separate elements, like an integer number of hits and misses, or goals scored.
 In a discrete distribution, each outcome is associated with a probability mass.</p>
@@ -414,13 +395,13 @@ As a first step, let’s think again about comparing distributions.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
@@ -457,7 +438,7 @@ As a first step, let’s think again about comparing distributions.</p>
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
@@ -489,11 +470,11 @@ As a first step, let’s think again about comparing distributions.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
@@ -517,7 +498,7 @@ As a first step, let’s think again about comparing distributions.</p>
 </details>
 </div>
 <section id="comparing-distributions">
-<h2><span class="section-number">13.1. </span>Comparing Distributions<a class="headerlink" href="#comparing-distributions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.1. </span>Comparing Distributions<a class="headerlink" href="#comparing-distributions" title="Link to this heading">#</a></h2>
 <p>In the previous chapter, when we compared discrete distributions, we used a bar plot to show their probability mass functions (PMFs).
 When we compared continuous distributions, we used a line plot to show their cumulative distribution functions (CDFs).</p>
 <p>For the discrete distributions, we could also have used CDFs.
@@ -552,7 +533,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">statadict</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">statadict</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>statadict
 </pre></div>
@@ -579,7 +560,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 <p>We can use <code class="docutils literal notranslate"><span class="pre">read_fem_resp</span></code> to read the respondent data file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">read_fem_resp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nsfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_fem_resp</span>
 
 <span class="n">resp</span> <span class="o">=</span> <span class="n">read_fem_resp</span><span class="p">()</span>
 </pre></div>
@@ -632,7 +613,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 <p>And make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 <span class="n">pmf_family</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">num_family</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
 </pre></div>
@@ -659,7 +640,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 <p>Here’s another <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents a Poisson distribution with the same mean.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">poisson_pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">poisson_pmf</span>
 
 <span class="n">lam</span> <span class="o">=</span> <span class="mf">2.2</span>
 <span class="n">ks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
@@ -690,7 +671,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 <p>And here’s how the distribution of the data compares to the Poisson model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">two_bar_plots</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">two_bar_plots</span>
 
 <span class="n">two_bar_plots</span><span class="p">(</span><span class="n">pmf_family</span><span class="p">,</span> <span class="n">pmf_poisson</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Number of family members&quot;</span><span class="p">)</span>
@@ -698,7 +679,7 @@ For example, here’s the PMF of a Poisson distribution with parameter <code cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/01f8dd62e1081b034a15bdf410a7b8a1766636c9a87c21e31d5194cabb07dc7c.png" src="_images/01f8dd62e1081b034a15bdf410a7b8a1766636c9a87c21e31d5194cabb07dc7c.png" />
+<img alt="_images/4ec34464469ec8192265959f82cae1d60c8e0f65fb081af48cf00d1bc6967dd0.png" src="_images/4ec34464469ec8192265959f82cae1d60c8e0f65fb081af48cf00d1bc6967dd0.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 11;
@@ -747,7 +728,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">make_cdf
 <p>Here’s what they look like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">two_cdf_plots</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">two_cdf_plots</span>
 
 <span class="n">two_cdf_plots</span><span class="p">(</span><span class="n">cdf_poisson</span><span class="p">,</span> <span class="n">cdf_family</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Number of family members&quot;</span><span class="p">)</span>
@@ -755,7 +736,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">make_cdf
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b0fd6c4e887a05ee50a09ba17d6550f6d849ee31d2de5492cd89229aca160fe5.png" src="_images/b0fd6c4e887a05ee50a09ba17d6550f6d849ee31d2de5492cd89229aca160fe5.png" />
+<img alt="_images/1f38dd577e468e6db69d38bb9cd9301773f3167929bfc6ed226fc950349e66ec.png" src="_images/1f38dd577e468e6db69d38bb9cd9301773f3167929bfc6ed226fc950349e66ec.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 13;
@@ -803,7 +784,7 @@ PMFs tend to emphasize small differences – sometimes CDFs provide a better sen
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">read_fem_preg</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nsfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_fem_preg</span>
 
 <span class="n">preg</span> <span class="o">=</span> <span class="n">read_fem_preg</span><span class="p">()</span>
 <span class="n">birth_weights</span> <span class="o">=</span> <span class="n">preg</span><span class="p">[</span><span class="s2">&quot;totalwgt_lb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
@@ -831,8 +812,8 @@ PMFs tend to emphasize small differences – sometimes CDFs provide a better sen
 <p>Here is the code we used in the previous chapter to fit a normal model to the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trimboth</span>
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">make_normal_model</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">trimboth</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_normal_model</span>
 
 <span class="n">trimmed</span> <span class="o">=</span> <span class="n">trimboth</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
 <span class="n">cdf_model</span> <span class="o">=</span> <span class="n">make_normal_model</span><span class="p">(</span><span class="n">trimmed</span><span class="p">)</span>
@@ -860,7 +841,7 @@ PMFs tend to emphasize small differences – sometimes CDFs provide a better sen
 <p>And here’s the distribution of the data compared to the normal model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cdf</span>
 
 <span class="n">cdf_birth_weight</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample&quot;</span><span class="p">)</span>
 <span class="n">two_cdf_plots</span><span class="p">(</span><span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_birth_weight</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Birth weight (pounds)&quot;</span><span class="p">)</span>
@@ -868,7 +849,7 @@ PMFs tend to emphasize small differences – sometimes CDFs provide a better sen
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6c2fc1d648cc49d93887a25edcbe4b9981b614b52f1c54937132cd9ba392b13c.png" src="_images/6c2fc1d648cc49d93887a25edcbe4b9981b614b52f1c54937132cd9ba392b13c.png" />
+<img alt="_images/a7d1e187e1f40fe8e067f0a7ba7749cee8e0e2c7b2da5038585415f19e2d048c.png" src="_images/a7d1e187e1f40fe8e067f0a7ba7749cee8e0e2c7b2da5038585415f19e2d048c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 17;
@@ -891,11 +872,11 @@ PMFs tend to emphasize small differences – sometimes CDFs provide a better sen
 But for audiences that are not familiar with CDFs, there is one more option: probability density functions.</p>
 </section>
 <section id="probability-density">
-<h2><span class="section-number">13.2. </span>Probability Density<a class="headerlink" href="#probability-density" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.2. </span>Probability Density<a class="headerlink" href="#probability-density" title="Link to this heading">#</a></h2>
 <p>We’ll start with the <strong>probability density function (PDF)</strong> of the normal distribution, which computes the density for the quantities, <code class="docutils literal notranslate"><span class="pre">xs</span></code>, given the parameters <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normal_pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normal_pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates the normal probability density function.&quot;&quot;&quot;</span>
     <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="n">xs</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
@@ -982,7 +963,7 @@ But for audiences that are not familiar with CDFs, there is one more option: pro
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2771a8ea2d474d2cbeec027676f9adec4c2a3889402856146d4e19866d96de49.png" src="_images/2771a8ea2d474d2cbeec027676f9adec4c2a3889402856146d4e19866d96de49.png" />
+<img alt="_images/1e077a256d8ab991a9b3e63de52ada7686246e0d7e32d875f187496e88ca8e9e.png" src="_images/1e077a256d8ab991a9b3e63de52ada7686246e0d7e32d875f187496e88ca8e9e.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 21;
@@ -1038,7 +1019,7 @@ In fact, the probability that a birth weight is truly, exactly, and precisely eq
 Here’s how we create a <code class="docutils literal notranslate"><span class="pre">NormalPdf</span></code> object with the same mean and standard deviation as the birth weights in the NSFG dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">NormalPdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">NormalPdf</span>
 
 <span class="n">pdf_model</span> <span class="o">=</span> <span class="n">NormalPdf</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;normal model&quot;</span><span class="p">)</span>
 <span class="n">pdf_model</span>
@@ -1098,10 +1079,10 @@ Here’s how we create a <code class="docutils literal notranslate"><span class=
 It evaluates the normal PDF at equally-spaced quantities between <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code>, and uses the SciPy function <code class="docutils literal notranslate"><span class="pre">simpson</span></code> to estimate the area under the curve (<code class="docutils literal notranslate"><span class="pre">simpson</span></code> is so named because it uses an algorithm called Simpson’s method).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">simpson</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">simpson</span>
 
 
-<span class="k">def</span> <span class="nf">area_under</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">area_under</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">501</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">simpson</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">ps</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">qs</span><span class="p">)</span>
@@ -1187,7 +1168,7 @@ It evaluates the normal PDF at equally-spaced quantities between <code class="do
 So we could compute the same result using the CDF of the normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
 
 <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
@@ -1275,13 +1256,13 @@ If you know calculus, another way to say the same thing is that the CDF is the i
 And conversely, the PDF is the derivative of the CDF.</p>
 </section>
 <section id="the-exponential-pdf">
-<span id="section-exponential-pdf"></span><h2><span class="section-number">13.3. </span>The Exponential PDF<a class="headerlink" href="#the-exponential-pdf" title="Link to this heading">#</a></h2>
+<span id="section-exponential-pdf"></span><h2><span class="section-number">6.3. </span>The Exponential PDF<a class="headerlink" href="#the-exponential-pdf" title="Link to this heading">#</a></h2>
 <p>To get your head around probability density, it might help to see another example.
 In the previous chapter, we used an exponential distribution to model the time until the first goal in a hockey game.
 We used the following function to compute the exponential CDF, where <code class="docutils literal notranslate"><span class="pre">lam</span></code> is the rate parameter in goals per unit of time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exponential_cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">exponential_cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the exponential CDF.</span>
 
 <span class="sd">    x: float or sequence of floats</span>
@@ -1314,7 +1295,7 @@ We used the following function to compute the exponential CDF, where <code class
 <p>We can compute the PDF of the exponential distribution like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exponential_pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">exponential_pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluates the exponential PDF.</span>
 
 <span class="sd">    x: float or sequence of floats</span>
@@ -1348,7 +1329,7 @@ We used the following function to compute the exponential CDF, where <code class
 We can use one to represent an exponential distribution with rate parameter 6 goals per game.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">ExponentialPdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExponentialPdf</span>
 
 <span class="n">lam</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="n">pdf_expo</span> <span class="o">=</span> <span class="n">ExponentialPdf</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
@@ -1387,7 +1368,7 @@ We can use one to represent an exponential distribution with rate parameter 6 go
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c1019bd2307578031c7488df0c47aee05469c42136a15b1598108276da0e42cf.png" src="_images/c1019bd2307578031c7488df0c47aee05469c42136a15b1598108276da0e42cf.png" />
+<img alt="_images/6b96bdc67977249599d5aa41ff6252987063fc95b4898f4731e8e7f5a8edbaab.png" src="_images/6b96bdc67977249599d5aa41ff6252987063fc95b4898f4731e8e7f5a8edbaab.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 34;
@@ -1439,7 +1420,7 @@ But the area under a density curve is a probability, so it should never be great
 Mathematically, it is exactly 1, as we can confirm using the exponential CDF.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">exponential_cdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">exponential_cdf</span>
 
 <span class="n">exponential_cdf</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">lam</span><span class="p">)</span>
 </pre></div>
@@ -1528,7 +1509,7 @@ However, if we compute the area under the PDF, the result is the probability tha
 Or we can find the same probability by evaluating the CDF at the beginning and end of the interval and computing the difference.</p>
 </section>
 <section id="comparing-pmfs-and-pdfs">
-<h2><span class="section-number">13.4. </span>Comparing PMFs and PDFs<a class="headerlink" href="#comparing-pmfs-and-pdfs" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.4. </span>Comparing PMFs and PDFs<a class="headerlink" href="#comparing-pmfs-and-pdfs" title="Link to this heading">#</a></h2>
 <p>It is a common error to compare the PMF of a sample with the PDF of a theoretical model.
 For example, suppose we want to compare the distribution of birth weights to a normal model.
 Here’s a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of the data.</p>
@@ -1568,7 +1549,7 @@ Here’s what happens if we plot them on the same axis.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c4dde542eea6a859a814c043c03edba4cf84511ab06d4a12ce9b1f6e6dc61063.png" src="_images/c4dde542eea6a859a814c043c03edba4cf84511ab06d4a12ce9b1f6e6dc61063.png" />
+<img alt="_images/f1af48129fe9fe86257dad8abfa8053535328f9ba9990f67512d0cdc587aa5c3.png" src="_images/f1af48129fe9fe86257dad8abfa8053535328f9ba9990f67512d0cdc587aa5c3.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 40;
@@ -1626,7 +1607,7 @@ A PMF contains probability masses and a PDF contains probability densities, so w
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9ddd9103b985364092f059ef8dfa13d589d6157987c5cad6995a74714d7c4d46.png" src="_images/9ddd9103b985364092f059ef8dfa13d589d6157987c5cad6995a74714d7c4d46.png" />
+<img alt="_images/396c90ab3c7dd06e683e2148412d6e1d178e1d724ef5b953f7a61541dac79378.png" src="_images/396c90ab3c7dd06e683e2148412d6e1d178e1d724ef5b953f7a61541dac79378.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 42;
@@ -1658,7 +1639,7 @@ One problem is that the two <code class="docutils literal notranslate"><span cla
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 44;
+                var nbb_cell_id = 43;
                 var nbb_unformatted_code = "len(pmf_model), len(pmf_birth_weight)";
                 var nbb_formatted_code = "len(pmf_model), len(pmf_birth_weight)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1677,7 +1658,7 @@ One problem is that the two <code class="docutils literal notranslate"><span cla
 So let’s try something else.</p>
 </section>
 <section id="kernel-density-estimation">
-<span id="section-kernel-density-estimation"></span><h2><span class="section-number">13.5. </span>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Link to this heading">#</a></h2>
+<span id="section-kernel-density-estimation"></span><h2><span class="section-number">6.5. </span>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Link to this heading">#</a></h2>
 <p>Instead of using the model to make a PMF, we can use the data to make a PDF.
 To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell tag_remove-print docutils container">
@@ -1690,7 +1671,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 45;
+                var nbb_cell_id = 44;
                 var nbb_unformatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_formatted_code = "# Set the random seed so we get the same results every time\nnp.random.seed(3)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1715,7 +1696,7 @@ To show how that works, I’ll start with a small sample of the data.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 46;
+                var nbb_cell_id = 45;
                 var nbb_unformatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_formatted_code = "n = 10\nsample = birth_weights.sample(n)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1743,10 +1724,10 @@ To show how that works, I’ll start with a small sample of the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" src="_images/d4da519be64ffcd67f999025412db85097a2d3fafa39805eeb33098a95524193.png" />
+<img alt="_images/ff70b8df7432186cf5132753a53c96a4e2fb45ac9d7905f6396b14a424f69aec.png" src="_images/ff70b8df7432186cf5132753a53c96a4e2fb45ac9d7905f6396b14a424f69aec.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 47;
+                var nbb_cell_id = 46;
                 var nbb_unformatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_formatted_code = "for weight in sample:\n    pmf = Pmf.from_seq([weight]) / n\n    pmf.bar(width=0.08, alpha=0.5)\n\nxlim = [1.5, 12.5]\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PMF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1777,10 +1758,10 @@ We can represent that possibility by replacing each discrete probability mass wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" src="_images/bd2daec0182480aac5b135f27d619430160506baef0c579b4ad2356fca08184f.png" />
+<img alt="_images/ae42349b16265cebdfb0b348bf218936761e533a8eb5034395adf41417cf6d0f.png" src="_images/ae42349b16265cebdfb0b348bf218936761e533a8eb5034395adf41417cf6d0f.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 48;
+                var nbb_cell_id = 47;
                 var nbb_unformatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_formatted_code = "qs = np.linspace(2, 12, 201)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    plt.plot(qs, ps, alpha=0.5)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1811,10 +1792,10 @@ We can represent that possibility by replacing each discrete probability mass wi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" src="_images/5bb99173b34233cd6cd11db681af0994e8104eb196e84abd4c4b1c6aa0baf039.png" />
+<img alt="_images/c5b0f5220b74a84f59d9cb6a43dcaeef2a28ad4e9a5fb87e8fc6d7738d199aeb.png" src="_images/c5b0f5220b74a84f59d9cb6a43dcaeef2a28ad4e9a5fb87e8fc6d7738d199aeb.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 49;
+                var nbb_cell_id = 48;
                 var nbb_unformatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_formatted_code = "low_ps = np.zeros_like(qs)\n\nfor weight in sample:\n    ps = NormalPdf(weight, 0.75)(qs) / n\n    high_ps = low_ps + ps\n    plt.fill_between(qs, low_ps, high_ps, alpha=0.5, lw=1, ec=\"white\")\n    low_ps = high_ps\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"PDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1837,7 +1818,7 @@ Because the kernels we used are normal distributions – also known as Gaussians
 Here’s how we can use it to estimate the distribution of birth weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
 
 <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">)</span>
 </pre></div>
@@ -1846,7 +1827,7 @@ Here’s how we can use it to estimate the distribution of birth weights.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 50;
+                var nbb_cell_id = 49;
                 var nbb_unformatted_code = "from scipy.stats import gaussian_kde\n\nkde = gaussian_kde(birth_weights)";
                 var nbb_formatted_code = "from scipy.stats import gaussian_kde\n\nkde = gaussian_kde(birth_weights)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1871,7 +1852,7 @@ Here’s how we can use it to estimate the distribution of birth weights.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 51;
+                var nbb_cell_id = 50;
                 var nbb_unformatted_code = "ps = kde(qs)";
                 var nbb_formatted_code = "ps = kde(qs)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1896,10 +1877,10 @@ Here’s how we can use it to estimate the distribution of birth weights.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e439502495e67aa8555711c4477a4d2040303f8d93148134e876977273e24aa4.png" src="_images/e439502495e67aa8555711c4477a4d2040303f8d93148134e876977273e24aa4.png" />
+<img alt="_images/c7417c25359bcdc8c607660c41b6198749962e5653ee73cb01e76eb777364a7b.png" src="_images/c7417c25359bcdc8c607660c41b6198749962e5653ee73cb01e76eb777364a7b.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 52;
+                var nbb_cell_id = 51;
                 var nbb_unformatted_code = "plt.plot(qs, ps)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "plt.plot(qs, ps)\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1918,7 +1899,7 @@ Here’s how we can use it to estimate the distribution of birth weights.</p>
 Here’s how we make one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">Pdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pdf</span>
 
 <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">)</span>
 <span class="n">kde_birth_weights</span> <span class="o">=</span> <span class="n">Pdf</span><span class="p">(</span><span class="n">kde</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
@@ -1928,7 +1909,7 @@ Here’s how we make one.</p>
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 53;
+                var nbb_cell_id = 52;
                 var nbb_unformatted_code = "from thinkstats import Pdf\n\ndomain = np.min(birth_weights), np.max(birth_weights)\nkde_birth_weights = Pdf(kde, domain, name=\"data\")";
                 var nbb_formatted_code = "from thinkstats import Pdf\n\ndomain = np.min(birth_weights), np.max(birth_weights)\nkde_birth_weights = Pdf(kde, domain, name=\"data\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1954,10 +1935,10 @@ Here’s how we make one.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ed907e1c413ddc96de21643297f1556345fb5db8e3d1e4306af692ff638ef529.png" src="_images/ed907e1c413ddc96de21643297f1556345fb5db8e3d1e4306af692ff638ef529.png" />
+<img alt="_images/b2c20c5e90d2f052b95bb55713cc5de11ff93d51458dc63f7bdb7aead5f2e8dc.png" src="_images/b2c20c5e90d2f052b95bb55713cc5de11ff93d51458dc63f7bdb7aead5f2e8dc.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 54;
+                var nbb_cell_id = 53;
                 var nbb_unformatted_code = "kde_birth_weights.plot()\npdf_model.plot(color=\"gray\")\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "kde_birth_weights.plot()\npdf_model.plot(color=\"gray\")\n\ndecorate(xlabel=\"Birth weight (pounds)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -1976,7 +1957,7 @@ Here’s how we make one.</p>
 But for audiences that are familiar with CDFs, comparing CDFs is often better.</p>
 </section>
 <section id="the-distribution-framework">
-<h2><span class="section-number">13.6. </span>The Distribution Framework<a class="headerlink" href="#the-distribution-framework" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.6. </span>The Distribution Framework<a class="headerlink" href="#the-distribution-framework" title="Link to this heading">#</a></h2>
 <p>At this point we have a complete set of ways to represent distributions: PMFs, CDFs, and PDFs
 The following figure shows these representations and the transitions from one to another.
 For example, if we have a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, we can use the <code class="docutils literal notranslate"><span class="pre">cumsum</span></code> function to compute the cumulative sum of the probabilities and get a <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> that represents the same distribution.</p>
@@ -2007,7 +1988,7 @@ Distributions” in the <em>Journal of Statistics Education</em> (Dunn 1999).</p
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 55;
+                var nbb_cell_id = 54;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/babyboom.dat\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/babyboom.dat\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2025,7 +2006,7 @@ Distributions” in the <em>Journal of Statistics Education</em> (Dunn 1999).</p
 <p>We can read the data like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">read_baby_boom</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_baby_boom</span>
 
 <span class="n">boom</span> <span class="o">=</span> <span class="n">read_baby_boom</span><span class="p">()</span>
 <span class="n">boom</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -2097,7 +2078,7 @@ Distributions” in the <em>Journal of Statistics Education</em> (Dunn 1999).</p
 </table>
 </div></div><script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 56;
+                var nbb_cell_id = 55;
                 var nbb_unformatted_code = "from thinkstats import read_baby_boom\n\nboom = read_baby_boom()\nboom.head()";
                 var nbb_formatted_code = "from thinkstats import read_baby_boom\n\nboom = read_baby_boom()\nboom.head()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2123,7 +2104,7 @@ So we can use the <code class="docutils literal notranslate"><span class="pre">d
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 57;
+                var nbb_cell_id = 56;
                 var nbb_unformatted_code = "diffs = boom[\"minutes\"].diff().dropna()";
                 var nbb_formatted_code = "diffs = boom[\"minutes\"].diff().dropna()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2151,10 +2132,10 @@ In reality, that assumption is not precisely true, but the exponential distribut
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/adf6f9b1013cba6c0970c5827a1cceb1b17a009fc23fb7f5022dc171bcc6cee9.png" src="_images/adf6f9b1013cba6c0970c5827a1cceb1b17a009fc23fb7f5022dc171bcc6cee9.png" />
+<img alt="_images/c0640b6c153e36460c4878973398044c4bf06f6848fcfc40ed04e78c3cee9207.png" src="_images/c0640b6c153e36460c4878973398044c4bf06f6848fcfc40ed04e78c3cee9207.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 58;
+                var nbb_cell_id = 57;
                 var nbb_unformatted_code = "pmf_diffs = Pmf.from_seq(diffs, name=\"data\")\npmf_diffs.bar(width=1)\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"PMF\")";
                 var nbb_formatted_code = "pmf_diffs = Pmf.from_seq(diffs, name=\"data\")\npmf_diffs.bar(width=1)\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"PMF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2180,10 +2161,10 @@ In reality, that assumption is not precisely true, but the exponential distribut
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8657bceb6ebce11db212f09fd7f2e39dc45cb24dff5547947954319326df52bb.png" src="_images/8657bceb6ebce11db212f09fd7f2e39dc45cb24dff5547947954319326df52bb.png" />
+<img alt="_images/8141b289bbc7e94dada7b304ab10c13f1b3e1c38ad00dc6c4ee9ebbbab835fc4.png" src="_images/8141b289bbc7e94dada7b304ab10c13f1b3e1c38ad00dc6c4ee9ebbbab835fc4.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 59;
+                var nbb_cell_id = 58;
                 var nbb_unformatted_code = "cdf_diffs = pmf_diffs.make_cdf()\ncdf_diffs.step(color=\"C1\")\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "cdf_diffs = pmf_diffs.make_cdf()\ncdf_diffs.step(color=\"C1\")\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2209,7 +2190,7 @@ To demonstrate, we’ll use the <code class="docutils literal notranslate"><span
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 60;
+                var nbb_cell_id = 59;
                 var nbb_unformatted_code = "pmf_diffs2 = cdf_diffs.make_pmf()";
                 var nbb_formatted_code = "pmf_diffs2 = cdf_diffs.make_pmf()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2238,7 +2219,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 61;
+                var nbb_cell_id = 60;
                 var nbb_unformatted_code = "np.allclose(pmf_diffs, pmf_diffs2)";
                 var nbb_formatted_code = "np.allclose(pmf_diffs, pmf_diffs2)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2264,7 +2245,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 62;
+                var nbb_cell_id = 61;
                 var nbb_unformatted_code = "kde = gaussian_kde(pmf_diffs.qs, weights=pmf_diffs.ps)";
                 var nbb_formatted_code = "kde = gaussian_kde(pmf_diffs.qs, weights=pmf_diffs.ps)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2291,10 +2272,10 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9953dd90e1fb8c63bbe1d3b5f7d38cf323ab485c36c0b00929b130f0e4f3b880.png" src="_images/9953dd90e1fb8c63bbe1d3b5f7d38cf323ab485c36c0b00929b130f0e4f3b880.png" />
+<img alt="_images/fc0f71c15e939e74a6914617be01d2cd6d86650292fbb19c9234e48ee3d47d96.png" src="_images/fc0f71c15e939e74a6914617be01d2cd6d86650292fbb19c9234e48ee3d47d96.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 63;
+                var nbb_cell_id = 62;
                 var nbb_unformatted_code = "domain = np.min(pmf_diffs.qs), np.max(pmf_diffs.qs)\nkde_diffs = Pdf(kde, domain=domain, name=\"estimated density\")\n\nkde_diffs.plot()\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"Density\")";
                 var nbb_formatted_code = "domain = np.min(pmf_diffs.qs), np.max(pmf_diffs.qs)\nkde_diffs = Pdf(kde, domain=domain, name=\"estimated density\")\n\nkde_diffs.plot()\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"Density\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2312,7 +2293,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 <p>To see whether the estimated density follows an exponential model, we can make an <code class="docutils literal notranslate"><span class="pre">ExponentialCdf</span></code> with the same mean as the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">ExponentialCdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExponentialCdf</span>
 
 <span class="n">m</span> <span class="o">=</span> <span class="n">diffs</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">lam</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">m</span>
@@ -2323,7 +2304,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 64;
+                var nbb_cell_id = 63;
                 var nbb_unformatted_code = "from thinkstats import ExponentialCdf\n\nm = diffs.mean()\nlam = 1 / m\ncdf_model = ExponentialCdf(lam, name=\"exponential CDF\")";
                 var nbb_formatted_code = "from thinkstats import ExponentialCdf\n\nm = diffs.mean()\nlam = 1 / m\ncdf_model = ExponentialCdf(lam, name=\"exponential CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2349,10 +2330,10 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a004a57306625469fd4d16222fc5a4f3ceb6b7056c6402f1a7cb47578dbf9566.png" src="_images/a004a57306625469fd4d16222fc5a4f3ceb6b7056c6402f1a7cb47578dbf9566.png" />
+<img alt="_images/19fa5eed3c7cf62877c101a127ab8d4d0d06aa9e417da782cf41554223322c0c.png" src="_images/19fa5eed3c7cf62877c101a127ab8d4d0d06aa9e417da782cf41554223322c0c.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 65;
+                var nbb_cell_id = 64;
                 var nbb_unformatted_code = "cdf_model.plot(color=\"gray\")\ncdf_diffs.step(color=\"C1\")\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "cdf_model.plot(color=\"gray\")\ncdf_diffs.step(color=\"C1\")\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2379,10 +2360,10 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6c17881a539d9618482eeaf011d8dc286b1c473dde4217a714fd06db103a6123.png" src="_images/6c17881a539d9618482eeaf011d8dc286b1c473dde4217a714fd06db103a6123.png" />
+<img alt="_images/833d373b90698f598abfa33127765b1861eef23a1897cba57726c5bdc9005e9c.png" src="_images/833d373b90698f598abfa33127765b1861eef23a1897cba57726c5bdc9005e9c.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 66;
+                var nbb_cell_id = 65;
                 var nbb_unformatted_code = "discrete_cdf_model = cdf_model.make_cdf(qs)\ndiscrete_cdf_model.step()\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "discrete_cdf_model = cdf_model.make_cdf(qs)\ndiscrete_cdf_model.step()\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2407,10 +2388,10 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d3f673a6f94e088fb5f3d6263ebc3cc165ed4bbbfa8f1adfb38af8d3c716fc37.png" src="_images/d3f673a6f94e088fb5f3d6263ebc3cc165ed4bbbfa8f1adfb38af8d3c716fc37.png" />
+<img alt="_images/56772b103c89565bf13886b843599608cfdd12189c719efbd5733e5bd7433586.png" src="_images/56772b103c89565bf13886b843599608cfdd12189c719efbd5733e5bd7433586.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 67;
+                var nbb_cell_id = 66;
                 var nbb_unformatted_code = "discrete_cdf_model.plot()\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_formatted_code = "discrete_cdf_model.plot()\n\ndecorate(xlabel=\"Interval (minutes)\", ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2429,7 +2410,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 <p>To demonstrate, we can use SymPy to define the CDF of an exponential distribution and compute its derivative.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">λ</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;λ&quot;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -2444,7 +2425,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 \[\displaystyle 1 - e^{- x λ}\]</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 68;
+                var nbb_cell_id = 67;
                 var nbb_unformatted_code = "import sympy as sp\n\nx = sp.Symbol(\"x\", real=True, positive=True)\n\u03bb = sp.Symbol(\"\u03bb\", real=True, positive=True)\n\ncdf = 1 - sp.exp(-\u03bb * x)\ncdf";
                 var nbb_formatted_code = "import sympy as sp\n\nx = sp.Symbol(\"x\", real=True, positive=True)\n\u03bb = sp.Symbol(\"\u03bb\", real=True, positive=True)\n\ncdf = 1 - sp.exp(-\u03bb * x)\ncdf";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2471,7 +2452,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 \[\displaystyle λ e^{- x λ}\]</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 69;
+                var nbb_cell_id = 68;
                 var nbb_unformatted_code = "pdf = sp.diff(cdf, x)\npdf";
                 var nbb_formatted_code = "pdf = sp.diff(cdf, x)\npdf";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2498,7 +2479,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 \[\displaystyle - e^{- x λ}\]</div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 70;
+                var nbb_cell_id = 69;
                 var nbb_unformatted_code = "sp.integrate(pdf, x)";
                 var nbb_formatted_code = "sp.integrate(pdf, x)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2516,7 +2497,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 <p>This example shows how we use <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, <code class="docutils literal notranslate"><span class="pre">Cdf</span></code>, and <code class="docutils literal notranslate"><span class="pre">Pdf</span></code> object to represent PMFs, CDFs, and PDFs, and demonstrates the process for converting from each to the others.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">13.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">6.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>continuous:</strong> A quantity is continuous if it can have any value in a range on the number line. Most things we measure in the world – like weight, distance, and time – are continuous.</p></li>
 <li><p><strong>discrete:</strong> A quantity is discrete if it can have a limited set of values, like integers or categories. Exact counts are discrete, as well as categorical variables.</p></li>
@@ -2527,17 +2508,17 @@ We can use <code class="docutils literal notranslate"><span class="pre">allclose
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">13.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<section id="exercise">
-<h3><span class="section-number">13.8.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h3>
+<h2><span class="section-number">6.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-6-1">
+<h3><span class="section-number">6.8.1. </span>Exercise 6.1<a class="headerlink" href="#exercise-6-1" title="Link to this heading">#</a></h3>
 <p>In World Cup soccer (football), suppose the time until the first goal is well modeled by an exponential distribution with rate parameter <code class="docutils literal notranslate"><span class="pre">lam=2.5</span></code> goals per game.
 Make an <code class="docutils literal notranslate"><span class="pre">ExponentialPdf</span></code> to represent this distribution and use <code class="docutils literal notranslate"><span class="pre">area_under</span></code> to compute the probability that the time until the first goal is less than half of a game.
 Then use an <code class="docutils literal notranslate"><span class="pre">ExponentialCdf</span></code> to compute the same probability and check that the results are consistent.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">ExponentialPdf</span></code> to compute the probability the first goal is scored in the second half of the game.
 Then use an <code class="docutils literal notranslate"><span class="pre">ExponentialCdf</span></code> to compute the same probability and check that the results are consistent.</p>
 </section>
-<section id="id1">
-<h3><span class="section-number">13.8.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="exercise-6-2">
+<h3><span class="section-number">6.8.2. </span>Exercise 6.2<a class="headerlink" href="#exercise-6-2" title="Link to this heading">#</a></h3>
 <p>In order to join Blue Man Group, you have to be male between 5’10” and 6’1”, which is roughly 178 to 185 centimeters.
 Let’s see what fraction of the male adult population in the United States meets this requirement.</p>
 <p>The heights of male participants in the BRFSS are well modeled by a normal distribution with mean 178 cm and standard deviation 7 cm.</p>
@@ -2550,7 +2531,7 @@ Let’s see what fraction of the male adult population in the United States meet
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 76;
+                var nbb_cell_id = 75;
                 var nbb_unformatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2567,7 +2548,7 @@ Let’s see what fraction of the male adult population in the United States meet
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">read_brfss</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_brfss</span>
 
 <span class="n">brfss</span> <span class="o">=</span> <span class="n">read_brfss</span><span class="p">()</span>
 <span class="n">male</span> <span class="o">=</span> <span class="n">brfss</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;sex == 1&quot;</span><span class="p">)</span>
@@ -2578,7 +2559,7 @@ Let’s see what fraction of the male adult population in the United States meet
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 77;
+                var nbb_cell_id = 76;
                 var nbb_unformatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()\nmale = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"].dropna()";
                 var nbb_formatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()\nmale = brfss.query(\"sex == 1\")\nheights = male[\"htm3\"].dropna()";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2595,7 +2576,7 @@ Let’s see what fraction of the male adult population in the United States meet
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trimboth</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">trimboth</span>
 
 <span class="n">trimmed</span> <span class="o">=</span> <span class="n">trimboth</span><span class="p">(</span><span class="n">heights</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
 <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">trimmed</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">trimmed</span><span class="p">)</span>
@@ -2609,7 +2590,7 @@ Let’s see what fraction of the male adult population in the United States meet
 </div>
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 78;
+                var nbb_cell_id = 77;
                 var nbb_unformatted_code = "from scipy.stats import trimboth\n\ntrimmed = trimboth(heights, 0.01)\nm, s = np.mean(trimmed), np.std(trimmed)\nm, s";
                 var nbb_formatted_code = "from scipy.stats import trimboth\n\ntrimmed = trimboth(heights, 0.01)\nm, s = np.mean(trimmed), np.std(trimmed)\nm, s";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2627,7 +2608,7 @@ Let’s see what fraction of the male adult population in the United States meet
 <p>Here’s a <code class="docutils literal notranslate"><span class="pre">NormalCdf</span></code> object that represents a normal distribution with the same mean and standard deviation as the trimmed data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">NormalCdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">NormalCdf</span>
 
 <span class="n">cdf_normal_model</span> <span class="o">=</span> <span class="n">NormalCdf</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
@@ -2636,7 +2617,7 @@ Let’s see what fraction of the male adult population in the United States meet
 <div class="cell_output docutils container">
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 79;
+                var nbb_cell_id = 78;
                 var nbb_unformatted_code = "from thinkstats import NormalCdf\n\ncdf_normal_model = NormalCdf(m, s)";
                 var nbb_formatted_code = "from thinkstats import NormalCdf\n\ncdf_normal_model = NormalCdf(m, s)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2664,10 +2645,10 @@ Let’s see what fraction of the male adult population in the United States meet
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4c89a230d5f676ee91b20ef3738e4a64770128ce76a668a5da4c666fd7418949.png" src="_images/4c89a230d5f676ee91b20ef3738e4a64770128ce76a668a5da4c666fd7418949.png" />
+<img alt="_images/ef144f66faa45c7fbf8d2fd0035ec4f95b27ef4110961d5f465f523a4ee5b5ef.png" src="_images/ef144f66faa45c7fbf8d2fd0035ec4f95b27ef4110961d5f465f523a4ee5b5ef.png" />
 <script type="application/javascript">
             setTimeout(function() {
-                var nbb_cell_id = 80;
+                var nbb_cell_id = 79;
                 var nbb_unformatted_code = "cdf_height = Cdf.from_seq(heights, name=\"data\")\ncdf_normal_model.plot(color=\"gray\")\ncdf_height.step()\n\nxlim = [140, 210]\ndecorate(xlabel=\"Height (cm)\", ylabel=\"CDF\", xlim=xlim)";
                 var nbb_formatted_code = "cdf_height = Cdf.from_seq(heights, name=\"data\")\ncdf_normal_model.plot(color=\"gray\")\ncdf_height.step()\n\nxlim = [140, 210]\ndecorate(xlabel=\"Height (cm)\", ylabel=\"CDF\", xlim=xlim)";
                 var nbb_cells = Jupyter.notebook.get_cells();
@@ -2732,7 +2713,7 @@ Finally, use the empirical <code class="docutils literal notranslate"><span clas
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>The Binomial Distribution</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Modeling Distributions</p>
       </div>
     </a>
     <a class="right-next"
@@ -2740,7 +2721,7 @@ Finally, use the empirical <code class="docutils literal notranslate"><span clas
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">14. </span>Relationships between variables</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Relationships between variables</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2751,7 +2732,8 @@ Finally, use the empirical <code class="docutils literal notranslate"><span clas
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -2760,16 +2742,16 @@ Finally, use the empirical <code class="docutils literal notranslate"><span clas
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions">13.1. Comparing Distributions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density">13.2. Probability Density</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-pdf">13.3. The Exponential PDF</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-pmfs-and-pdfs">13.4. Comparing PMFs and PDFs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">13.5. Kernel Density Estimation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distribution-framework">13.6. The Distribution Framework</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">13.7. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.8. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">13.8.1. Exercise</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.8.2. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-distributions">6.1. Comparing Distributions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-density">6.2. Probability Density</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-pdf">6.3. The Exponential PDF</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-pmfs-and-pdfs">6.4. Comparing PMFs and PDFs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation">6.5. Kernel Density Estimation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-distribution-framework">6.6. The Distribution Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">6.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">6.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-1">6.8.1. Exercise 6.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-6-2">6.8.2. Exercise 6.2</a></li>
 </ul>
 </li>
 </ul>
@@ -2834,8 +2816,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

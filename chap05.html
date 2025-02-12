@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. The Binomial Distribution &#8212; Think Stats</title>
+    <title>5. Modeling Distributions &#8212; Think Stats</title>
   
   
   
@@ -16,19 +16,21 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -36,10 +38,11 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
@@ -60,10 +63,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap05';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="13. Probability Density Functions" href="chap06.html" />
+    <link rel="next" title="6. Probability Density Functions" href="chap06.html" />
     <link rel="prev" title="4. Cumulative Distribution Functions" href="chap04.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -79,19 +83,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -99,7 +92,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -107,8 +99,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -124,7 +116,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -139,6 +132,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -152,15 +147,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -181,23 +172,16 @@
 <li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. The Binomial Distribution</a></li>
-
-
-
-
-
-
-
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">13. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">14. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">15. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">16. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">17. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">18. Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap12.html">19. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">20. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">21. Analytic Methods</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Modeling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
@@ -216,9 +200,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -330,24 +319,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -361,7 +342,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Binomial Distribution</h1>
+    <h1>Modeling Distributions</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -371,21 +352,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. The Binomial Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">6. The Poisson Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">7. The Exponential Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">8. The Normal Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">9. The Lognormal Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">10. Why model?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">11. Glossary</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12. Exercises</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">12.1. Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2. Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.3. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-binomial-distribution">5.1. The Binomial Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">5.2. The Poisson Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">5.3. The Exponential Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-1">5.8.1. Exercise 5.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-2">5.8.2. Exercise 5.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-3">5.8.3. Exercise 5.3</a></li>
 </ul>
 </li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -396,7 +376,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap05.ipynb">Click here to run this notebook on Colab</a>.</p>
+  <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, you can <a class="reference external" href="https://buymeacoffee.com/allendowney">buy me a coffee</a>.</p>
+<section id="modeling-distributions">
+<h1><span class="section-number">5. </span>Modeling Distributions<a class="headerlink" href="#modeling-distributions" title="Link to this heading">#</a></h1>
+<p>The distributions we have used so far are called empirical distributions because they are based on empirical observations – in other words, data. Many datasets we see in the real world can be closely approximated by a theoretical distribution, which is usually based on a simple mathematical function. This chapter presents some of these theoretical distributions and datasets they can be used to model.</p>
+<p>As examples, we’ll see that:</p>
+<ul class="simple">
+<li><p>In a skeet shooting competition, the number of hits and misses is well modeled by a binomial distribution.</p></li>
+<li><p>In games like hockey and soccer (football), the number of goals in a game follows a Poisson distribution, and the time between goals follows an exponential distribution.</p></li>
+<li><p>Birth weights follow a normal distribution, also called a Gaussian, and adult weights follow a lognormal distribution.</p></li>
+</ul>
+<p>If you are not familiar with these distributions – or these sports – I will explain what you need to know. For each example, we’ll start with a simulation based on a simple model, and show that the simulation results follow an theoretical distribution. Then we’ll see how well real data agrees with the model.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap05.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -404,13 +395,45 @@ document.write(`
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/javascript">
+            setTimeout(function() {
+                var nbb_cell_id = 1;
+                var nbb_unformatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
+                var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
+                var nbb_cells = Jupyter.notebook.get_cells();
+                for (var i = 0; i < nbb_cells.length; ++i) {
+                    if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
+                        if (nbb_cells[i].get_text() == nbb_unformatted_code) {
+                             nbb_cells[i].set_text(nbb_formatted_code);
+                        }
+                        break;
+                    }
+                }
+            }, 500);
+            </script></div>
+</details>
+</div>
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
@@ -447,7 +470,7 @@ document.write(`
 </summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
@@ -479,11 +502,11 @@ document.write(`
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
-<span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
@@ -507,7 +530,7 @@ document.write(`
 </details>
 </div>
 <section id="the-binomial-distribution">
-<h1><span class="section-number">5. </span>The Binomial Distribution<a class="headerlink" href="#the-binomial-distribution" title="Link to this heading">#</a></h1>
+<h2><span class="section-number">5.1. </span>The Binomial Distribution<a class="headerlink" href="#the-binomial-distribution" title="Link to this heading">#</a></h2>
 <p>As a first example, we’ll consider the sport of skeet shooting, in which competitors use shotguns to shoot clay disks that are thrown into the air.
 In international competition, including the Olympics, there are five rounds with 25 targets per round, with additional rounds as needed to determine a winner.</p>
 <p>As a model of a skeet-shooting competition, suppose that every participant has the same probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>, of hitting every target.
@@ -516,7 +539,7 @@ But even if it is not realistic, this model makes some surprisingly accurate pre
 <p>To simulate the model, I’ll use the following function, which takes the number of targets, <code class="docutils literal notranslate"><span class="pre">n</span></code>, and the probability of hitting each one, <code class="docutils literal notranslate"><span class="pre">p</span></code>, and returns a sequence of 1s and 0s to indicate hits and misses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">flip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">probs</span><span class="p">)</span>
@@ -598,7 +621,7 @@ But even if it is not realistic, this model makes some surprisingly accurate pre
 <p>If we generate a longer sequence and compute the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> of the results, we can confirm that the proportions of 1s and 0s are correct, at least approximately.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="n">flip</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
 <span class="n">pmf</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
@@ -659,7 +682,7 @@ But even if it is not realistic, this model makes some surprisingly accurate pre
 <p>Now we can use <code class="docutils literal notranslate"><span class="pre">flip</span></code> to simulate a round of skeet shooting and return the number of hits.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="n">seq</span> <span class="o">=</span> <span class="n">flip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">seq</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
@@ -742,7 +765,7 @@ We can simulate a competition like that by calling <code class="docutils literal
 <p>Here’s what the distribution of the results looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
 
 <span class="n">pmf_sim</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">results_sim</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;simulation results&quot;</span><span class="p">)</span>
 
@@ -752,7 +775,7 @@ We can simulate a competition like that by calling <code class="docutils literal
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/21fafbd7fb6232a52d7f3d2e8ed5f07320bd30050ac9c8051353f94911f3bf5d.png" src="_images/21fafbd7fb6232a52d7f3d2e8ed5f07320bd30050ac9c8051353f94911f3bf5d.png" />
+<img alt="_images/9a657a943a6f23cd9695df3112e049605f54d3eabfa1c961c8b27dbe4e83e13c.png" src="_images/9a657a943a6f23cd9695df3112e049605f54d3eabfa1c961c8b27dbe4e83e13c.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 12;
@@ -775,10 +798,10 @@ We can simulate a competition like that by calling <code class="docutils literal
 Mathematically, the distribution of these outcomes follows a <strong>binomial distribution</strong>, which has a PMF that is easy to compute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">comb</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">comb</span>
 
 
-<span class="k">def</span> <span class="nf">binomial_pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">binomial_pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -787,8 +810,8 @@ Mathematically, the distribution of these outcomes follows a <strong>binomial di
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 13;
-                var nbb_unformatted_code = "from scipy.special import comb\n\n\ndef binomial_pmf(k, n, p):\n    \"\"\"Compute the binomial PMF.\n\n    k (int or array-like): number of successes\n    n (int): number of trials\n    p (float): probability of success on a single trial\n\n    returns: float or ndarray\n    \"\"\"\n    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))";
-                var nbb_formatted_code = "from scipy.special import comb\n\n\ndef binomial_pmf(k, n, p):\n    \"\"\"Compute the binomial PMF.\n\n    k (int or array-like): number of successes\n    n (int): number of trials\n    p (float): probability of success on a single trial\n\n    returns: float or ndarray\n    \"\"\"\n    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))";
+                var nbb_unformatted_code = "from scipy.special import comb\n\n\ndef binomial_pmf(k, n, p):\n    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))";
+                var nbb_formatted_code = "from scipy.special import comb\n\n\ndef binomial_pmf(k, n, p):\n    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -833,7 +856,7 @@ If we call this function with a range of <code class="docutils literal notransla
 <p>And here’s what it looks like compared to the simulation results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">two_bar_plots</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">two_bar_plots</span>
 
 <span class="n">two_bar_plots</span><span class="p">(</span><span class="n">pmf_sim</span><span class="p">,</span> <span class="n">pmf_binom</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Hits&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;PMF&quot;</span><span class="p">)</span>
@@ -841,7 +864,7 @@ If we call this function with a range of <code class="docutils literal notransla
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a61d24b595dcd9242948cf5c5122d4a9217b06b95372fc0ae946bd5ac2e26e30.png" src="_images/a61d24b595dcd9242948cf5c5122d4a9217b06b95372fc0ae946bd5ac2e26e30.png" />
+<img alt="_images/6e3fd445eeb7089af11480421362b59dc5d2b7cfa54d38a345af22cddb301c87.png" src="_images/6e3fd445eeb7089af11480421362b59dc5d2b7cfa54d38a345af22cddb301c87.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 15;
@@ -1166,7 +1189,7 @@ We’ll select the columns that contain these results and use the NumPy function
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/aba17948c4723c23174d3ead3d812fdb2b193224cca6108d1fbf6615ff43be85.png" src="_images/aba17948c4723c23174d3ead3d812fdb2b193224cca6108d1fbf6615ff43be85.png" />
+<img alt="_images/82dedb9729c66badcff0a777f4b81b70ee3e49ca90f9c906ad8af61521059f70.png" src="_images/82dedb9729c66badcff0a777f4b81b70ee3e49ca90f9c906ad8af61521059f70.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 23;
@@ -1187,7 +1210,7 @@ We’ll select the columns that contain these results and use the NumPy function
 <p>The binomial model is a good fit for the distribution of the data – even though it makes the unrealistic assumption that all competitors have the same, unchanging capability.</p>
 </section>
 <section id="the-poisson-distribution">
-<h1><span class="section-number">6. </span>The Poisson Distribution<a class="headerlink" href="#the-poisson-distribution" title="Link to this heading">#</a></h1>
+<h2><span class="section-number">5.2. </span>The Poisson Distribution<a class="headerlink" href="#the-poisson-distribution" title="Link to this heading">#</a></h2>
 <p>As another example where the outcomes of sports events follow predictable patterns, let’s look at the number of goals scored in ice hockey games.</p>
 <p>We’ll start by simulating a 60-minute game, which is 3600 seconds, assuming that the teams score a total of 6 goals per game, on average, and that the goal-scoring probability, <code class="docutils literal notranslate"><span class="pre">p</span></code>,  is the same during any second.</p>
 <div class="cell docutils container">
@@ -1223,7 +1246,7 @@ We’ll select the columns that contain these results and use the NumPy function
 <p>Now we can use the following function to simulate <code class="docutils literal notranslate"><span class="pre">n</span></code> seconds and return the total number of goals scored.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_goals</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_goals</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">flip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1280,10 +1303,10 @@ We’ll select the columns that contain these results and use the NumPy function
 <p>The PMF of the Poisson distribution is easy to compute – given <code class="docutils literal notranslate"><span class="pre">lam</span></code>, we can use the following function to compute the probability of seeing <code class="docutils literal notranslate"><span class="pre">k</span></code> goals in a game.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">factorial</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">factorial</span>
 
 
-<span class="k">def</span> <span class="nf">poisson_pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">poisson_pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the Poisson PMF.</span>
 
 <span class="sd">    k (int or array-like): The number of occurrences</span>
@@ -1382,7 +1405,7 @@ We’ll select the columns that contain these results and use the NumPy function
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b6059b5c7d29afbaf40e40d2639f598e07d2c632e00a607ce5025d04bd2c26e3.png" src="_images/b6059b5c7d29afbaf40e40d2639f598e07d2c632e00a607ce5025d04bd2c26e3.png" />
+<img alt="_images/0c551d4f14b67a669c3c26f2cc293f462580119b74c1cfc99c94cb680b6a829a.png" src="_images/0c551d4f14b67a669c3c26f2cc293f462580119b74c1cfc99c94cb680b6a829a.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 30;
@@ -1626,12 +1649,12 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f9c72ff2fd66b3a4374e42fc69f70cf837ebf6839ae5bbf3b267ee787968888d.png" src="_images/f9c72ff2fd66b3a4374e42fc69f70cf837ebf6839ae5bbf3b267ee787968888d.png" />
+<img alt="_images/92c025fdcce8ab9168b5c3121d3d527b0d587fb1f8c5d915a3cea064ce1bfec3.png" src="_images/92c025fdcce8ab9168b5c3121d3d527b0d587fb1f8c5d915a3cea064ce1bfec3.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 38;
-                var nbb_unformatted_code = "pmf_goals = Pmf.from_seq(goals, name=\"home goals\")\n\ntwo_bar_plots(pmf_goals, pmf_poisson)\ndecorate(xlabel=\"Goals\", ylabel=\"PMF\")";
-                var nbb_formatted_code = "pmf_goals = Pmf.from_seq(goals, name=\"home goals\")\n\ntwo_bar_plots(pmf_goals, pmf_poisson)\ndecorate(xlabel=\"Goals\", ylabel=\"PMF\")";
+                var nbb_unformatted_code = "pmf_goals = Pmf.from_seq(goals, name=\"goals scored\")\n\ntwo_bar_plots(pmf_goals, pmf_poisson)\ndecorate(xlabel=\"Goals\", ylabel=\"PMF\")";
+                var nbb_formatted_code = "pmf_goals = Pmf.from_seq(goals, name=\"goals scored\")\n\ntwo_bar_plots(pmf_goals, pmf_poisson)\ndecorate(xlabel=\"Goals\", ylabel=\"PMF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -1647,7 +1670,7 @@ dtype: int64
 <p>The Poisson distribution fits the data well, which suggests that it is a good model of the goal-scoring process in hockey.</p>
 </section>
 <section id="the-exponential-distribution">
-<h1><span class="section-number">7. </span>The Exponential Distribution<a class="headerlink" href="#the-exponential-distribution" title="Link to this heading">#</a></h1>
+<h2><span class="section-number">5.3. </span>The Exponential Distribution<a class="headerlink" href="#the-exponential-distribution" title="Link to this heading">#</a></h2>
 <p>In the previous section, we simulated a simple model of a hockey game where a goal has the same probability of being scored during any second of the game.
 Under the same model, it turns out, the time until the first goal follows an <strong>exponential distribution</strong>.</p>
 <p>To demonstrate, let’s assume again that the teams score a total of 6 goals, on average, and compute the probability of a goal during each second.</p>
@@ -1684,7 +1707,7 @@ Under the same model, it turns out, the time until the first goal follows an <st
 <p>The following function simulates <code class="docutils literal notranslate"><span class="pre">n</span></code> seconds and uses <code class="docutils literal notranslate"><span class="pre">argmax</span></code> to find the time of the first goal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_first_goal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_first_goal</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">flip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1771,7 +1794,7 @@ And that makes sense – if we expect 6 goals per sixty-minute game, we expect o
 And the CDF of the exponential distribution is easy to compute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">exponential_cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">exponential_cdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the exponential CDF.</span>
 
 <span class="sd">    x: float or sequence of floats</span>
@@ -1835,7 +1858,7 @@ We can use the mean of the simulated results to compute lam.</p>
 The NumPy function <code class="docutils literal notranslate"><span class="pre">linspace</span></code> creates an array of equally-spaced values; in this example, it computes 201 values from 0 to 3600, including both.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cdf</span>
 
 <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
 <span class="n">ps</span> <span class="o">=</span> <span class="n">exponential_cdf</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">lam</span><span class="p">)</span>
@@ -1874,7 +1897,7 @@ The NumPy function <code class="docutils literal notranslate"><span class="pre">
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/21fc3d99a72e1916876cc2d27c16be2229965bdfe048354e4d1eee4ba3609da7.png" src="_images/21fc3d99a72e1916876cc2d27c16be2229965bdfe048354e4d1eee4ba3609da7.png" />
+<img alt="_images/c55b7374532810b8ca50e4fe589cc5b4ad7fd169424952236d2d7c4baed44fec.png" src="_images/c55b7374532810b8ca50e4fe589cc5b4ad7fd169424952236d2d7c4baed44fec.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 46;
@@ -2081,7 +2104,7 @@ If no goals were scored, it adds <code class="docutils literal notranslate"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2d58c14ea427a13aa4862f9623600c11fd66840bb9766ca4254485caf22bf655.png" src="_images/2d58c14ea427a13aa4862f9623600c11fd66840bb9766ca4254485caf22bf655.png" />
+<img alt="_images/1c550c67744d8bd026c997af7356caa45fcde279ac3d27a05c7beca9364724ba.png" src="_images/1c550c67744d8bd026c997af7356caa45fcde279ac3d27a05c7beca9364724ba.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 52;
@@ -2106,7 +2129,7 @@ If you ask a hockey fan whether that’s true, they would say no, and they would
 Nevertheless, theoretical distributions often fit real data remarkably well.</p>
 </section>
 <section id="the-normal-distribution">
-<span id="section-normal"></span><h1><span class="section-number">8. </span>The Normal Distribution<a class="headerlink" href="#the-normal-distribution" title="Link to this heading">#</a></h1>
+<span id="section-normal"></span><h2><span class="section-number">5.4. </span>The Normal Distribution<a class="headerlink" href="#the-normal-distribution" title="Link to this heading">#</a></h2>
 <p>Many things we measure in the real world follow a <strong>normal distribution</strong>, also known as a Gaussian distribution or a “bell curve”.
 To see where these distributions come from, let’s consider a model of the way giant pumpkins grow.
 Suppose that each day, a pumpkin gains 1 pound if the weather is bad, 2 pounds if the weather is fair, and 3 pounds if the weather is good.
@@ -2114,7 +2137,7 @@ And suppose the weather each day is bad, fair, or good with the same probability
 <p>We can use the following function to simulate this model for <code class="docutils literal notranslate"><span class="pre">n</span></code> days and return the total of the weight gains.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_growth</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_growth</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
     <span class="n">gains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">gains</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2175,10 +2198,10 @@ If we simulate the growth process for 100 days, we get a list of 1001 weights.</
 To see whether the weights follow a normal distribution, we’ll use the following function, which takes a sample and makes a <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> that represents a normal distribution with the same mean and standard deviation as the sample, evaluated over the range from 4 standard deviations below the mean to 4 standard deviations above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
 
 
-<span class="k">def</span> <span class="nf">make_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
@@ -2191,8 +2214,8 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 55;
-                var nbb_unformatted_code = "from scipy.stats import norm\n\n\ndef make_normal_model(data):\n    \"\"\"Make the Cdf of a normal distribution based on data.\n\n    data: sequence of numbers\n    \"\"\"\n    m, s = np.mean(data), np.std(data)\n    low, high = m - 4 * s, m + 4 * s\n    qs = np.linspace(low, high, 201)\n    ps = norm.cdf(qs, m, s)\n    return Cdf(ps, qs, name=\"normal model\")";
-                var nbb_formatted_code = "from scipy.stats import norm\n\n\ndef make_normal_model(data):\n    \"\"\"Make the Cdf of a normal distribution based on data.\n\n    data: sequence of numbers\n    \"\"\"\n    m, s = np.mean(data), np.std(data)\n    low, high = m - 4 * s, m + 4 * s\n    qs = np.linspace(low, high, 201)\n    ps = norm.cdf(qs, m, s)\n    return Cdf(ps, qs, name=\"normal model\")";
+                var nbb_unformatted_code = "from scipy.stats import norm\n\n\ndef make_normal_model(data):\n    m, s = np.mean(data), np.std(data)\n    low, high = m - 4 * s, m + 4 * s\n    qs = np.linspace(low, high, 201)\n    ps = norm.cdf(qs, m, s)\n    return Cdf(ps, qs, name=\"normal model\")";
+                var nbb_formatted_code = "from scipy.stats import norm\n\n\ndef make_normal_model(data):\n    m, s = np.mean(data), np.std(data)\n    low, high = m - 4 * s, m + 4 * s\n    qs = np.linspace(low, high, 201)\n    ps = norm.cdf(qs, m, s)\n    return Cdf(ps, qs, name=\"normal model\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2260,7 +2283,7 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 <code class="docutils literal notranslate"><span class="pre">xlabel</span></code> is a string, and <code class="docutils literal notranslate"><span class="pre">options</span></code> is a dictionary of options that controls the way <code class="docutils literal notranslate"><span class="pre">cdf_data</span></code> is plotted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">two_cdf_plots</span><span class="p">(</span><span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_data</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">two_cdf_plots</span><span class="p">(</span><span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_data</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
     <span class="n">cdf_model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
     <span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;CDF&quot;</span><span class="p">)</span>
@@ -2271,8 +2294,8 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 58;
-                var nbb_unformatted_code = "def two_cdf_plots(cdf_model, cdf_data, xlabel=\"\", **options):\n    \"\"\"Plot an empirical CDF and a theoretical model.\n\n    cdf_model: Cdf object\n    cdf_data: Cdf object\n    xlabel: string\n    options: control the way cdf_data is plotted\n    \"\"\"\n    cdf_model.plot(alpha=0.6, color=\"gray\")\n    cdf_data.plot(alpha=0.6, **options)\n\n    decorate(xlabel=xlabel, ylabel=\"CDF\")";
-                var nbb_formatted_code = "def two_cdf_plots(cdf_model, cdf_data, xlabel=\"\", **options):\n    \"\"\"Plot an empirical CDF and a theoretical model.\n\n    cdf_model: Cdf object\n    cdf_data: Cdf object\n    xlabel: string\n    options: control the way cdf_data is plotted\n    \"\"\"\n    cdf_model.plot(alpha=0.6, color=\"gray\")\n    cdf_data.plot(alpha=0.6, **options)\n\n    decorate(xlabel=xlabel, ylabel=\"CDF\")";
+                var nbb_unformatted_code = "def two_cdf_plots(cdf_model, cdf_data, xlabel=\"\", **options):\n    cdf_model.plot(alpha=0.6, color=\"gray\")\n    cdf_data.plot(alpha=0.6, **options)\n    decorate(xlabel=xlabel, ylabel=\"CDF\")";
+                var nbb_formatted_code = "def two_cdf_plots(cdf_model, cdf_data, xlabel=\"\", **options):\n    cdf_model.plot(alpha=0.6, color=\"gray\")\n    cdf_data.plot(alpha=0.6, **options)\n    decorate(xlabel=xlabel, ylabel=\"CDF\")";
                 var nbb_cells = Jupyter.notebook.get_cells();
                 for (var i = 0; i < nbb_cells.length; ++i) {
                     if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
@@ -2293,7 +2316,7 @@ To see whether the weights follow a normal distribution, we’ll use the followi
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/701b3ac56f96352719665d6189adf650c15ef70d4804334c6c2de18a68efd3a1.png" src="_images/701b3ac56f96352719665d6189adf650c15ef70d4804334c6c2de18a68efd3a1.png" />
+<img alt="_images/ff59c651ae02f307172c4c2f3f0f9db345bf99189dcf38aaf6ae3f3974f8aeb3.png" src="_images/ff59c651ae02f307172c4c2f3f0f9db345bf99189dcf38aaf6ae3f3974f8aeb3.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 59;
@@ -2347,7 +2370,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">statadict</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">statadict</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>statadict
 </pre></div>
@@ -2373,7 +2396,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nsfg</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nsfg</span>
 
 <span class="n">preg</span> <span class="o">=</span> <span class="n">nsfg</span><span class="o">.</span><span class="n">read_fem_preg</span><span class="p">()</span>
 <span class="n">birth_weights</span> <span class="o">=</span> <span class="n">preg</span><span class="p">[</span><span class="s2">&quot;totalwgt_lb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
@@ -2430,7 +2453,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 <p>To reduce the effect of the outliers on the estimated mean and standard deviation, we’ll use the SciPy function <code class="docutils literal notranslate"><span class="pre">trimboth</span></code> to remove the highest and lowest values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">trimboth</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">trimboth</span>
 
 <span class="n">trimmed</span> <span class="o">=</span> <span class="n">trimboth</span><span class="p">(</span><span class="n">birth_weights</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
 <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">trimmed</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">trimmed</span><span class="p">)</span>
@@ -2495,7 +2518,7 @@ We’ll use the trimmed data to make a normal model.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/89229f56ff5e38c1471b6631116835462312716317c885e4cbe56d692b8df947.png" src="_images/89229f56ff5e38c1471b6631116835462312716317c885e4cbe56d692b8df947.png" />
+<img alt="_images/43318fa9242dbf2539ab6974585b08ae429b24bd76931224e191d9c471d93170.png" src="_images/43318fa9242dbf2539ab6974585b08ae429b24bd76931224e191d9c471d93170.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 66;
@@ -2517,14 +2540,14 @@ We’ll use the trimmed data to make a normal model.</p>
 The real world is more complicated than simple mathematical models.</p>
 </section>
 <section id="the-lognormal-distribution">
-<span id="section-lognormal-distribution"></span><h1><span class="section-number">9. </span>The Lognormal Distribution<a class="headerlink" href="#the-lognormal-distribution" title="Link to this heading">#</a></h1>
+<span id="section-lognormal-distribution"></span><h2><span class="section-number">5.5. </span>The Lognormal Distribution<a class="headerlink" href="#the-lognormal-distribution" title="Link to this heading">#</a></h2>
 <p>In the previous section, we simulated pumpkin growth under the assumption that pumpkins grow 1-3 pounds per day, depending on the weather.
 Instead, let’s suppose their growth is proportional to their current weight, so big pumpkins gain more weight per day than small pumpkins – which is probably more realistic.</p>
 <p>The following function simulates this kind of proportional growth, where a pumpkin gains 3% of its weight if the weather is bad, 5% if the weather is fair, and 7% if the weather is good.
 Again, we’ll assume that the weather is bad, fair, or good on any given day with equal probability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_proportionate_growth</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_proportionate_growth</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.03</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">]</span>
     <span class="n">gains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">gains</span><span class="o">.</span><span class="n">prod</span><span class="p">()</span>
@@ -2627,7 +2650,7 @@ We could use logarithms with any base, but I’ll use base 10 because it makes t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/564a0dd400549ca690be94e6e4364accee883163e333ea4cb1a14d5e69d7ac7c.png" src="_images/564a0dd400549ca690be94e6e4364accee883163e333ea4cb1a14d5e69d7ac7c.png" />
+<img alt="_images/f222032c3a4c2a66b8aa6d1c514bf03c1d10f54997e71b137938690c587b74ad.png" src="_images/f222032c3a4c2a66b8aa6d1c514bf03c1d10f54997e71b137938690c587b74ad.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 70;
@@ -2679,7 +2702,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">thinkstats</span></code> module provides a function that reads BRFSS data and returns a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thinkstats</span> <span class="kn">import</span> <span class="n">read_brfss</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_brfss</span>
 
 <span class="n">brfss</span> <span class="o">=</span> <span class="n">read_brfss</span><span class="p">()</span>
 </pre></div>
@@ -2745,7 +2768,7 @@ Before we compute logarithms, let’s see if the weights follow a normal distrib
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9e5e1e7bc1babd08a5e5a4ead985782088209a609272afd5430c9f2715e1cddb.png" src="_images/9e5e1e7bc1babd08a5e5a4ead985782088209a609272afd5430c9f2715e1cddb.png" />
+<img alt="_images/57196ec34af470c34c1f561e0f80f08c7545a72c472a04ed01c2425d752cf6cd.png" src="_images/57196ec34af470c34c1f561e0f80f08c7545a72c472a04ed01c2425d752cf6cd.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 74;
@@ -2799,7 +2822,7 @@ Before we compute logarithms, let’s see if the weights follow a normal distrib
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/502edb1aa086742ea9f85469a9a18ad6960c4247f513ca77dc51bdd15fa17dac.png" src="_images/502edb1aa086742ea9f85469a9a18ad6960c4247f513ca77dc51bdd15fa17dac.png" />
+<img alt="_images/559820cb1312d676242a843c3c99d2c9b36c849dc486fab28fc6a47135bd82f4.png" src="_images/559820cb1312d676242a843c3c99d2c9b36c849dc486fab28fc6a47135bd82f4.png" />
 <script type="application/javascript">
             setTimeout(function() {
                 var nbb_cell_id = 76;
@@ -2820,7 +2843,7 @@ Before we compute logarithms, let’s see if the weights follow a normal distrib
 <p>The normal model fits the logarithms better than it fits the weights themselves, which suggests that proportional growth is a better model of weight gain than additive growth.</p>
 </section>
 <section id="why-model">
-<h1><span class="section-number">10. </span>Why model?<a class="headerlink" href="#why-model" title="Link to this heading">#</a></h1>
+<h2><span class="section-number">5.6. </span>Why model?<a class="headerlink" href="#why-model" title="Link to this heading">#</a></h2>
 <p>At the beginning of this chapter, I said that many real world phenomena can be modeled with theoretical distributions.
 But it might not have been clear why we should care.</p>
 <p>Like all models, theoretical distributions are abstractions, which means they leave out details that are considered irrelevant.
@@ -2839,7 +2862,7 @@ Taken literally, these claims cannot be true – there are always differences be
 But what is relevant or unneeded depends on what you are planning to use the model for.</p>
 </section>
 <section id="glossary">
-<h1><span class="section-number">11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h1>
+<h2><span class="section-number">5.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>binomial distribution:</strong> A theoretical distribution often use to model the number of successes or hit in a sequence of hits and misses.</p></li>
 <li><p><strong>Poisson distribution:</strong> A theoretical distribution often used to model the number of events that occur in an interval of time.</p></li>
@@ -2849,9 +2872,9 @@ But what is relevant or unneeded depends on what you are planning to use the mod
 </ul>
 </section>
 <section id="exercises">
-<h1><span class="section-number">12. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h1>
-<section id="exercise">
-<h2><span class="section-number">12.1. </span>Exercise<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">5.8. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-5-1">
+<h3><span class="section-number">5.8.1. </span>Exercise 5.1<a class="headerlink" href="#exercise-5-1" title="Link to this heading">#</a></h3>
 <p>In the NSFG respondent file, the <code class="docutils literal notranslate"><span class="pre">numfmhh</span></code> column records the “number of family members in” each respondent’s household.
 We can use <code class="docutils literal notranslate"><span class="pre">read_fem_resp</span></code> to read the file, and <code class="docutils literal notranslate"><span class="pre">query</span></code> to select respondents who were 25 or older when they were interviewed.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2881,7 +2904,7 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nsfg</span> <span class="kn">import</span> <span class="n">read_fem_resp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nsfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_fem_resp</span>
 
 <span class="n">resp</span> <span class="o">=</span> <span class="n">read_fem_resp</span><span class="p">()</span>
 </pre></div>
@@ -2933,8 +2956,8 @@ We can use <code class="docutils literal notranslate"><span class="pre">read_fem
 <p>Compute the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> of <code class="docutils literal notranslate"><span class="pre">numfmhh</span></code> for these older respondents and compare it with a Poisson distribution with the same mean.
 How well does the Poisson model fit the data?</p>
 </section>
-<section id="id1">
-<h2><span class="section-number">12.2. </span>Exercise<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="exercise-5-2">
+<h3><span class="section-number">5.8.2. </span>Exercise 5.2<a class="headerlink" href="#exercise-5-2" title="Link to this heading">#</a></h3>
 <p>Earlier in this chapter we saw that the time until the first goal in a hockey game follows an exponential distribution.
 If our model of goal-scoring is correct, a goal is equally likely at any time, regardless of how long it has been since the previous goal.
 And if that’s true, we expect the time between goals to follow an exponential distribution.</p>
@@ -2997,8 +3020,8 @@ And if that’s true, we expect the time between goals to follow an exponential 
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">exponential_cdf</span></code> to compute the CDF of an exponential distribution with the same mean as the observed intervals and compare this model to the CDF of the data.</p>
 </section>
-<section id="id2">
-<h2><span class="section-number">12.3. </span>Exercise<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="exercise-5-3">
+<h3><span class="section-number">5.8.3. </span>Exercise 5.3<a class="headerlink" href="#exercise-5-3" title="Link to this heading">#</a></h3>
 <p>Is the distribution of human height more like a normal or a lognormal distribution?
 To find out, we can select height data from the BRFSS like this:</p>
 <div class="cell docutils container">
@@ -3037,6 +3060,7 @@ Which model fits the data better?</p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>
 <p>Text license: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
 </section>
 </section>
 
@@ -3084,7 +3108,7 @@ Which model fits the data better?</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>Probability Density Functions</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Probability Density Functions</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -3095,7 +3119,8 @@ Which model fits the data better?</p>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -3104,21 +3129,20 @@ Which model fits the data better?</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. The Binomial Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">6. The Poisson Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">7. The Exponential Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">8. The Normal Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">9. The Lognormal Distribution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">10. Why model?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">11. Glossary</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12. Exercises</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">12.1. Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2. Exercise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.3. Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-binomial-distribution">5.1. The Binomial Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-poisson-distribution">5.2. The Poisson Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-exponential-distribution">5.3. The Exponential Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-distribution">5.4. The Normal Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lognormal-distribution">5.5. The Lognormal Distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-model">5.6. Why model?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">5.7. Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.8. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-1">5.8.1. Exercise 5.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-2">5.8.2. Exercise 5.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-3">5.8.3. Exercise 5.3</a></li>
 </ul>
 </li>
 </ul>
-
   </nav></div>
 
 </div></div>
@@ -3180,8 +3204,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
