@@ -109,7 +109,7 @@ def expect(line, cell):
 # Make the figures smaller to save some screen real estate.
 # The figures generated for the book have DPI 300, so scaling
 # them by a factor of 4 restores them to the size in the notebooks.
-plt.rcParams["figure.dpi"] = 75
+plt.rcParams["figure.dpi"] = 300
 plt.rcParams["figure.figsize"] = [6, 3.5]
 
 
@@ -150,8 +150,8 @@ def two_bar_plots(dist1, dist2, width=0.45, xlabel="", **options):
     width: width of the bars
     options: passed along to plt.bar
     """
-    underride(options, alpha=0.6)
     dist1.bar(align="edge", width=-width, **options)
+    underride(options, alpha=0.5)
     dist2.bar(align="edge", width=width, **options)
     decorate(xlabel=xlabel)
 
@@ -292,8 +292,8 @@ def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
     xlabel: string
     options: control the way cdf_data is plotted
     """
-    cdf_model.plot(alpha=0.6, color="gray")
-    cdf_data.plot(alpha=0.6, **options)
+    cdf_model.plot(ls=':', color="gray")
+    cdf_data.plot(**options)
 
     decorate(xlabel=xlabel, ylabel="CDF")
 
@@ -594,7 +594,7 @@ def plot_kde(sample, name="", **options):
 
     kde = gaussian_kde(sample)
     m, s = np.mean(sample), np.std(sample)
-    plt.axvline(m, ls=":", color="0.3")
+    plt.axvline(m, color="gray", ls=":")
 
     domain = m - 4 * s, m + 4 * s
     pdf = Pdf(kde, domain, name)
