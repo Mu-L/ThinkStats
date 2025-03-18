@@ -13,9 +13,9 @@ for filename in sorted(filenames):
     ntbk = nbf.read(filename, nbf.NO_CONVERT)
 
     # if the fourth element of ntbk.cells loads nb_black, remove it
-    cell = ntbk.cells[3]
-    if cell.source.startswith(r'%load_ext nb_black'):
-        ntbk.cells.pop(3)
+    #cell = ntbk.cells[3]
+    #if cell.source.startswith(r'%load_ext nb_black'):
+    #    ntbk.cells.pop(3)
 
     for cell in ntbk.cells:
         # remove tags
