@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -386,22 +386,8 @@
 <li><p>In games like hockey and soccer (football), the number of goals in a game follows a Poisson distribution, and the time between goals follows an exponential distribution.</p></li>
 <li><p>Birth weights follow a normal distribution, also called a Gaussian, and adult weights follow a lognormal distribution.</p></li>
 </ul>
-<p>If you are not familiar with these distributions – or these sports – I will explain what you need to know. For each example, we’ll start with a simulation based on a simple model, and show that the simulation results follow an theoretical distribution. Then we’ll see how well real data agrees with the model.</p>
+<p>If you are not familiar with these distributions – or these sports – I will explain what you need to know. For each example, we’ll start with a simulation based on a simple model, and show that the simulation results follow a theoretical distribution. Then we’ll see how well real data agrees with the model.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap05.ipynb">Click here to run this notebook on Colab</a>.</p>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -877,7 +863,7 @@ We’ll select the columns that contain these results and use the NumPy function
 </div>
 </div>
 </div>
-<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a <strong>Poisson distribution</strong>, which has just one parameter, denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (<code class="docutils literal notranslate"><span class="pre">lambda</span></code> is not a legal variable name because it is a Python keyword).
+<p>We could use the binomial distribution to model these results, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, the results are also well-modeled by a <strong>Poisson distribution</strong>, which is specified by a value usually denoted with the Greek letter λ, which is pronounced “lambda” and represented in code with the variable <code class="docutils literal notranslate"><span class="pre">lam</span></code> (<code class="docutils literal notranslate"><span class="pre">lambda</span></code> is not a legal variable name because it is a Python keyword).
 <code class="docutils literal notranslate"><span class="pre">lam</span></code> represents the goal-scoring rate, which is 6 goals per game in the example.</p>
 <p>The PMF of the Poisson distribution is easy to compute – given <code class="docutils literal notranslate"><span class="pre">lam</span></code>, we can use the following function to compute the probability of seeing <code class="docutils literal notranslate"><span class="pre">k</span></code> goals in a game.</p>
 <div class="cell docutils container">
@@ -939,8 +925,8 @@ We’ll select the columns that contain these results and use the NumPy function
 </div>
 </div>
 <p>The distributions are similar except for small differences due to random variation.
-That should not be surprising, because the simulation and the Poisson model are based on the same assumption, notably that the probability of scoring a goal is the same during any second of the game.
-So the real test is to see how well the model fits real data.</p>
+That should not be surprising, because the simulation and the Poisson model are based on the same assumption that the probability of scoring a goal is the same during any second of the game.
+So a stronger test is to see how well the model fits real data.</p>
 <p>From HockeyReference, I downloaded results of every game of the National Hockey League (NHL) 2023-2024 regular season (not including the playoffs).
 I extracted information about goals scored during 60 minutes of regulation play, not including overtime or tie-breaking shootouts.
 The results are in an HDF file with one key for each game, and a list of times, in seconds since the beginning of the game, when a goal was scored.
@@ -1132,7 +1118,7 @@ And the CDF of the exponential distribution is easy to compute.</p>
 </div>
 </div>
 </div>
-<p>The parameter, <code class="docutils literal notranslate"><span class="pre">lam</span></code>, is the average number of events per unit of time – in this example it is goals per second.
+<p>The value of <code class="docutils literal notranslate"><span class="pre">lam</span></code>, is the average number of events per unit of time – in this example it is goals per second.
 We can use the mean of the simulated results to compute <code class="docutils literal notranslate"><span class="pre">lam</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1176,7 +1162,7 @@ The NumPy function <code class="docutils literal notranslate"><span class="pre">
 <img alt="_images/08478961d3367ee9eeabdcf3debbd108f091e3f46e02d8ae784d9948ebb249df.png" src="_images/08478961d3367ee9eeabdcf3debbd108f091e3f46e02d8ae784d9948ebb249df.png" />
 </div>
 </div>
-<p>The exponential model fits the results from the simulation very well – but the real test is to see how it does with real data.</p>
+<p>The exponential model fits the results from the simulation very well – but a stronger test is to see how it does with real data.</p>
 <p>The following loop reads the results for all games, gets the time of the first goal, and stores the result in a list.
 If no goals were scored, it adds <code class="docutils literal notranslate"><span class="pre">nan</span></code> to the list.</p>
 <div class="cell tag_remove-print docutils container">
@@ -1474,7 +1460,7 @@ We’ll use the trimmed data to make a normal model.</p>
 </div>
 </div>
 <p>The normal model fits the data well except below 5 pounds, where the distribution of the data is to the left of the model – that is, the lightest babies are lighter than we’d expect in a normal distribution.
-The real world is more complicated than simple mathematical models.</p>
+The real world is usually more complicated than simple mathematical models.</p>
 </section>
 <section id="the-lognormal-distribution">
 <span id="section-lognormal-distribution"></span><h2><span class="section-number">5.5. </span>The Lognormal Distribution<a class="headerlink" href="#the-lognormal-distribution" title="Link to this heading">#</a></h2>
@@ -1494,7 +1480,7 @@ Again, we’ll assume that the weather is bad, fair, or good on any given day wi
 </div>
 <p>If a pumpkin gains 3% of its weight, the final weight is the product of the initial weight and the factor 1.03.
 So we can compute the weight after 100 days by choosing random factors and multiplying them together.</p>
-<p>Let’s call this function 1001 times to simulate 1001 pumpkins and save their weights.</p>
+<p>We’ll call this function 1001 times to simulate 1001 pumpkins and save their weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">simulate_proportionate_growth</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
@@ -1534,13 +1520,13 @@ We could use logarithms with any base, but I’ll use base 10 because it makes t
 <span class="n">cdf_log_sim_weights</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">log_sim_weights</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;simulation&quot;</span><span class="p">)</span>
 
 <span class="n">two_cdf_plots</span><span class="p">(</span>
-    <span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_log_sim_weights</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Pumpkin weight (pounds)&quot;</span>
+    <span class="n">cdf_model</span><span class="p">,</span> <span class="n">cdf_log_sim_weights</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Pumpkin weight (log10 pounds)&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1006ca2c720989bcff7456739a46efeb8465ad8432082144fcc338a6cc52c437.png" src="_images/1006ca2c720989bcff7456739a46efeb8465ad8432082144fcc338a6cc52c437.png" />
+<img alt="_images/fc31422af01f443ef5adfa55b650526b18895d13a5ef3fb95b2ebb2f33036761.png" src="_images/fc31422af01f443ef5adfa55b650526b18895d13a5ef3fb95b2ebb2f33036761.png" />
 </div>
 </div>
 <p>The model fits the simulation result very well, which is what we expected.</p>
@@ -1597,7 +1583,7 @@ Before we compute logarithms, let’s see if the weights follow a normal distrib
 <img alt="_images/12ce2ebcee81043ddca2f3e0cac500efd089bfaea406e5ab9fd91185871f2faf.png" src="_images/12ce2ebcee81043ddca2f3e0cac500efd089bfaea406e5ab9fd91185871f2faf.png" />
 </div>
 </div>
-<p>The normal distribution might be good enough model for this data, for some purposes – but let’s see if we can do better.</p>
+<p>The normal distribution might be a good enough model for this data, for some purposes – but let’s see if we can do better.</p>
 <p>Here’s the distribution of the log-transformed weights and a normal model with the same mean and standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1628,11 +1614,11 @@ But it might not have been clear why we should care.</p>
 <p>Like all models, theoretical distributions are abstractions, which means they leave out details that are considered irrelevant.
 For example, an observed distribution might have measurement errors or quirks that are specific to the sample; theoretical models ignore these idiosyncrasies.</p>
 <p>Theoretical models are also a form of data compression.
-When a model fits a dataset well, a small set of parameters can summarize a large amount of data.</p>
+When a model fits a dataset well, a small set of numbers can summarize a large amount of data.</p>
 <p>It is sometimes surprising when data from a natural phenomenon fit a theoretical distribution, but these observations can provide insight into physical systems.
 Sometimes we can explain why an observed distribution has a particular form.
 For example, in the previous section we found that adult weights are well-modeled by a lognormal distribution, which suggests that changes in weight from year to year might be proportional to current weight.</p>
-<p>Also, theoretical distributions lend themselves to mathematical analysis, as we will see in <a class="reference internal" href="chap14.html#chapter-analytic-methods"><span class="std std-ref">Chapter 14</span></a>.</p>
+<p>Also, theoretical distributions lend themselves to mathematical analysis, as we’ll see in <a class="reference internal" href="chap14.html#chapter-analytic-methods"><span class="std std-ref">Chapter 14</span></a>.</p>
 <p>But it is important to remember that all models are imperfect.
 Data from the real world never fit a theoretical distribution perfectly.
 People sometimes talk as if data are generated by models; for example, they might say that the distribution of human heights is normal, or the distribution of income is lognormal.
@@ -1643,7 +1629,7 @@ But what is relevant or unneeded depends on what you are planning to use the mod
 <section id="glossary">
 <h2><span class="section-number">5.7. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>binomial distribution:</strong> A theoretical distribution often used to model the number of successes or hit in a sequence of hits and misses.</p></li>
+<li><p><strong>binomial distribution:</strong> A theoretical distribution often used to model the number of successes or hits in a sequence of hits and misses.</p></li>
 <li><p><strong>Poisson distribution:</strong> A theoretical distribution often used to model the number of events that occur in an interval of time.</p></li>
 <li><p><strong>exponential distribution:</strong> A theoretical distribution often used to model the time between events.</p></li>
 <li><p><strong>normal distribution:</strong> A theoretical distribution often used to model data that follow a symmetric, bell-like curve.</p></li>
@@ -1688,7 +1674,7 @@ How well does the Poisson model fit the data?</p>
 <h3><span class="section-number">5.8.2. </span>Exercise 5.2<a class="headerlink" href="#exercise-5-2" title="Link to this heading">#</a></h3>
 <p>Earlier in this chapter we saw that the time until the first goal in a hockey game follows an exponential distribution.
 If our model of goal-scoring is correct, a goal is equally likely at any time, regardless of how long it has been since the previous goal.
-And if that’s true, we expect the time between goals to follow an exponential distribution.</p>
+And if that’s true, we expect the time between goals to follow an exponential distribution, too.</p>
 <p>The following loop reads the hockey data again, computes the time between successive goals, if there is more than one in a game, and collects the inter-goal times in a list.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -1734,7 +1720,7 @@ To find out, we can select height data from the BRFSS like this:</p>
 </div>
 <p>Compute the CDF of these values and compare it to a normal distribution with the same mean and standard deviation.
 Then compute the logarithms of the heights and compute the distribution of the logarithms to a normal distribution.
-Which model fits the data better?</p>
+Based on a visual comparison, which model fits the data better?</p>
 <p><a class="reference external" href="https://allendowney.github.io/ThinkStats/index.html">Think Stats: Exploratory Data Analysis in Python, 3rd Edition</a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>Code license: <a class="reference external" href="https://mit-license.org/">MIT License</a></p>

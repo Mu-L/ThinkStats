@@ -65,7 +65,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap10';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="11. Regression" href="chap11.html" />
+    <link rel="next" title="11. Multiple Regression" href="chap11.html" />
     <link rel="prev" title="9. Hypothesis Testing" href="chap09.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -180,7 +180,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -395,20 +395,6 @@ The next chapter introduces models that can handle more than two variables.</p>
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -610,7 +596,7 @@ It might make more sense if we use the slope and intercept to evaluate the fitte
 </div>
 </div>
 </div>
-<p>Here’s the fitted line alone with the scatter plot of the data.</p>
+<p>Here’s the fitted line along with the scatter plot of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">flipper_length</span><span class="p">,</span> <span class="n">body_mass</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -659,7 +645,8 @@ The following function computes these errors, which are also called <strong>resi
 </div>
 </div>
 </div>
-<p>The flipper length of the selected penguin is 181 mm and the predicted body mass is 3407 grams.</p>
+<p>The flipper length of the selected penguin is 181 mm and the predicted body mass is 3407 grams.
+Now let’s see what the actual mass is.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">body_mass</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">residuals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -672,7 +659,7 @@ The following function computes these errors, which are also called <strong>resi
 </div>
 </div>
 </div>
-<p>The actual mass of this penguin is 3750 grams, so the residual – after subtracting away the prediction – is 343 grams.</p>
+<p>The actual mass of this penguin is 3750 grams, and the residual – after subtracting away the prediction – is 343 grams.</p>
 <p>The average of the squared residuals is the mean squared error (MSE) of the predictions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -785,6 +772,7 @@ As you might guess based on the notation, <span class="math notranslate nohighli
 </div>
 </div>
 </div>
+<p>They are the same except for a small difference due to floating-point approximation.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">linregress</span></code> function also computes this value and returns it as an attribute in the <code class="docutils literal notranslate"><span class="pre">RegressionResult</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -828,8 +816,8 @@ We won’t prove that, but we can test it by adding small random values to the i
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>namespace(intercept=np.float64(-2533.968981924088),
-          slope=np.float64(33.67350705196381))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>namespace(intercept=np.float64(-2533.193389187175),
+          slope=np.float64(32.15393529728294))
 </pre></div>
 </div>
 </div>
@@ -851,7 +839,7 @@ We won’t prove that, but we can test it by adding small random values to the i
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(163098.85902884745), np.float64(189299.81753063845), np.True_)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(163098.85902884745), np.float64(179019.20812685465), np.True_)
 </pre></div>
 </div>
 </div>
@@ -861,7 +849,7 @@ One alternative is to minimize the absolute values of the errors.
 Another is to minimize the shortest distance from each point to the fitted line, which is called the “total error”.
 In some contexts, guessing too high might be better (or worse) than guessing too low.
 In that case you might want to compute a cost function for each residual, and minimize total cost.</p>
-<p>But the least squares fit is much more widely used than the alternatives, primarily because it is efficient to compute.
+<p>But the least squares fit is much more widely used than these alternatives, primarily because it is efficient to compute.
 The following function shows how.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1444,7 +1432,7 @@ Is the slope close to 2?</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Regression</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Multiple Regression</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

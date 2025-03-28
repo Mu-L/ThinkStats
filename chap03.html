@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -384,20 +384,6 @@ In this chapter we’ll introduce another way to describe a distribution, a prob
 We’ll use <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> objects to compute the mean and variance of a distribution, and the skewness, which indicates whether it is skewed to the left or right.
 Finally, we will explore how a phenomenon called the “inspection paradox” can cause a sample to give a biased view of a distribution.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap03.ipynb">Click here to run this notebook on Colab</a>.</p>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -1216,12 +1202,12 @@ It returns three <code class="docutils literal notranslate"><span class="pre">Da
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">two_bar_plots</span><span class="p">(</span><span class="n">first_pmf</span><span class="p">,</span> <span class="n">other_pmf</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;weeks&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;probability&quot;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Weeks&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Probability&quot;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dd7e7015b12033ec67d5272db31fb5181c26cda6c6588b950f3d8b6087ba7333.png" src="_images/dd7e7015b12033ec67d5272db31fb5181c26cda6c6588b950f3d8b6087ba7333.png" />
+<img alt="_images/969668e0953968aca7b4db5c4f02da3c9ebf8eea8585fd389fd31ff53c994bd5.png" src="_images/969668e0953968aca7b4db5c4f02da3c9ebf8eea8585fd389fd31ff53c994bd5.png" />
 </div>
 </div>
 <p>By plotting the PMF instead of the frequency table, we can compare the two distributions without being misled by the difference in sizes of the samples.
@@ -1354,7 +1340,7 @@ Are there any special values that should be replaced with <code class="docutils 
 </section>
 <section id="exercise-3-2">
 <h3><span class="section-number">3.7.2. </span>Exercise 3.2<a class="headerlink" href="#exercise-3-2" title="Link to this heading">#</a></h3>
-<p>In the same way that the mean identifies a central point in a distribution, and variance quantifies its spread, there is another statistic, called <strong>skewness</strong>, that is intended to indicate whether a distribution is skewed to the left or right.</p>
+<p>In the same way that the mean identifies a central point in a distribution, and variance quantifies its spread, there is another statistic, called <strong>skewness</strong>, that indicates whether a distribution is skewed to the left or right.</p>
 <p>Given a sample, we can compute the skewness by computing the sum of the cubed deviations and dividing by the standard deviation cubed.
 For example, here’s how we compute the skewness of <code class="docutils literal notranslate"><span class="pre">numbabes</span></code>.</p>
 <div class="cell docutils container">
@@ -1378,7 +1364,7 @@ For example, here’s how we compute the skewness of <code class="docutils liter
 </div>
 </div>
 </div>
-<p>In general, a positive value indicates that a distribution is skewed to the right, and a negative value indicates that it is skewed to the left.</p>
+<p>A positive value indicates that a distribution is skewed to the right, and a negative value indicates that it is skewed to the left.</p>
 <p>If you are given a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>, rather than a sequence of values, you can compute skewness like this:</p>
 <ol class="arabic simple">
 <li><p>Compute the deviation of each quantity in the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> from the mean.</p></li>
@@ -1386,12 +1372,12 @@ For example, here’s how we compute the skewness of <code class="docutils liter
 <li><p>Divide the sum by the standard deviation cubed.</p></li>
 </ol>
 <p>Write a function called <code class="docutils literal notranslate"><span class="pre">pmf_skewness</span></code> that takes a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object and returns its skewness.</p>
-<p>Use your function and the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> of <code class="docutils literal notranslate"><span class="pre">numbabes</span></code> to compute skewness, and confirm you get the same result.</p>
+<p>Use your function and the <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> of <code class="docutils literal notranslate"><span class="pre">numbabes</span></code> to compute skewness, and confirm you get the same result we computed above.</p>
 </section>
 <section id="exercise-3-3">
 <h3><span class="section-number">3.7.3. </span>Exercise 3.3<a class="headerlink" href="#exercise-3-3" title="Link to this heading">#</a></h3>
 <p>Something like the class size paradox appears if you survey children and ask how many children are in their family.
-Families with many children are more likely to appear in your sample, and families with no children have no chance to be in the sample.</p>
+Families with many children are more likely to appear in your sample, and families with no children have no chance to be in the sample at all.</p>
 <p>From <code class="docutils literal notranslate"><span class="pre">resp</span></code>, select <code class="docutils literal notranslate"><span class="pre">numkdhh</span></code>, which records the number of children under 18 in each respondent’s household.
 Make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> of the values in this column.</p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">bias</span></code> function to compute the distribution we would see if we surveyed the children and asked them how many children under 18 (including themselves) are in their household.</p>

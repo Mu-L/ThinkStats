@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -390,20 +390,6 @@ We’ll also look for extreme or erroneous values, called outliers, and consider
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -455,11 +441,11 @@ We’ll also look for extreme or erroneous values, called outliers, and consider
 </div>
 <section id="frequency-tables">
 <h2><span class="section-number">2.1. </span>Frequency Tables<a class="headerlink" href="#frequency-tables" title="Link to this heading">#</a></h2>
-<p>One way to describe a variable is a <strong>frequency table</strong>, which contains the values the variable contains and their <strong>frequencies</strong> – that is, the number of times each value appears.
+<p>One way to describe a variable is a <strong>frequency table</strong>, which contains the values of the variable and their <strong>frequencies</strong> – that is, the number of times each value appears.
 This description is called the <strong>distribution</strong> of the variable.</p>
 <p>To represent distributions, we’ll use a library called <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code>.
 In this context, “empirical” means that the distributions are based on data rather than mathematical models.
-<code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> provides a class called <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> we can use to compute and plot frequency tables.
+<code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> provides a class called <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> that we can use to compute and plot frequency tables.
 We can import it like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -745,7 +731,7 @@ But it looks like <code class="docutils literal notranslate"><span class="pre">0
 </div>
 </div>
 </div>
-<p>In the NSFG, age is reported in years and months, so there are more unique values than in the other distributions we’ve looked at.
+<p>In the NSFG, age is recorded in years and months, so there are more unique values than in the other distributions we’ve looked at.
 For that reason, we’ll pass <code class="docutils literal notranslate"><span class="pre">width=0.1</span></code> as a keyword argument to the <code class="docutils literal notranslate"><span class="pre">bar</span></code> method, which adjusts the width of the bars so they don’t overlap too much.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -779,7 +765,7 @@ The left tail is longer than the right – early babies are common, but pregnanc
 <section id="outliers">
 <h2><span class="section-number">2.3. </span>Outliers<a class="headerlink" href="#outliers" title="Link to this heading">#</a></h2>
 <p>Looking at frequency tables, it is easy to identify the shape of the distribution and the most common quantities, but rare quantities are not always visible.
-Before going on, it is a good idea to check for <strong>outliers</strong>, which are extreme quantities that might be measurement or recording errors, or might be accurate reports of rare events.</p>
+Before going on, it is a good idea to check for <strong>outliers</strong>, which are extreme values that might be measurement or recording errors, or might be accurate reports of rare events.</p>
 <p>To identify outliers, the following function takes a <code class="docutils literal notranslate"><span class="pre">FreqTab</span></code> object and an integer <code class="docutils literal notranslate"><span class="pre">n</span></code>, and uses a slice index to select the <code class="docutils literal notranslate"><span class="pre">n</span></code> smallest quantities and their frequencies.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -856,7 +842,7 @@ But there is no clear line between values that are certainly errors and values t
 <p>The best way to handle outliers depends on “domain knowledge” – that is, information about where the data come from and what they mean.
 And it depends on what analysis you are planning to perform.</p>
 <p>In this example, the motivating question is whether first babies tend to be earlier or later than other babies.
-So we’ll try to use statistics that will not be thrown off too much by a small number of incorrect values.</p>
+So we’ll use statistics that are not thrown off too much by a small number of incorrect values.</p>
 </section>
 <section id="first-babies">
 <h2><span class="section-number">2.4. </span>First Babies<a class="headerlink" href="#first-babies" title="Link to this heading">#</a></h2>
@@ -944,7 +930,7 @@ It looks like more of the non-first babies are born during week 39, but there ar
 </div>
 </div>
 </div>
-<p>Now, there are several possible causes of this apparent difference:</p>
+<p>There are several possible causes of this apparent difference:</p>
 <ul class="simple">
 <li><p>There might be an actual difference in average pregnancy length between first babies and others.</p></li>
 <li><p>The apparent difference we see in this dataset might be the result of bias in the sampling process – that is, the selection of survey respondents.</p></li>
@@ -990,7 +976,7 @@ So we might be tempted to write something like this.</p>
 <p>But notice that we used both groups to compute the standard deviation.
 If the groups are substantially different, the standard deviation when we put them together is larger than in either group, which might make the effect size seem small.</p>
 <p>An alternative is to use the standard deviation of just one group, but it’s not clear which. So we could take the average of the two standard deviations, but if the groups are different sizes, that would give too much weight to one group and not enough to the other.</p>
-<p>One solution is to use <strong>pooled standard deviation</strong>, which is the square root of pooled variance, which is the weighted sum of the variances in the groups.
+<p>A common solution is to use <strong>pooled standard deviation</strong>, which is the square root of pooled variance, which is the weighted sum of the variances in the groups.
 To compute it, we’ll start with the variances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1006,7 +992,7 @@ To compute it, we’ll start with the variances.</p>
 </div>
 </div>
 </div>
-<p>And here is the weighted sum, with the group sizes as weights.</p>
+<p>Here is the weighted sum, with the group sizes as weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">group1</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">group2</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>

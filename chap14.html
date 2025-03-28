@@ -180,7 +180,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Analytic Methods</a></li>
@@ -397,35 +397,6 @@ At the end of the chapter, I make suggestions for integrating computational and 
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 1;
-            var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -442,20 +413,6 @@ At the end of the chapter, I make suggestions for integrating computational and 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 2;
-            var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </details>
 </div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
@@ -469,22 +426,6 @@ At the end of the chapter, I make suggestions for integrating computational and 
     <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Cannot parse: 5:0: &lt;line number missing in source&gt;
-Traceback (most recent call last):
-  File &quot;/home/downey/miniconda3/envs/ThinkStats/lib/python3.11/site-packages/nb_black.py&quot;, line 62, in __format
-    cell = _format_code(cell)
-           ^^^^^^^^^^^^^^^^^^
-  File &quot;/home/downey/miniconda3/envs/ThinkStats/lib/python3.11/site-packages/nb_black.py&quot;, line 22, in _format_code
-    return format_str(src_contents=code, mode=FileMode())
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;src/black/__init__.py&quot;, line 1204, in format_str
-  File &quot;src/black/__init__.py&quot;, line 1218, in _format_str_once
-  File &quot;src/black/parsing.py&quot;, line 98, in lib2to3_parse
-black.parsing.InvalidInput: Cannot parse: 5:0: &lt;line number missing in source&gt;
 </pre></div>
 </div>
 </div>
@@ -505,20 +446,6 @@ black.parsing.InvalidInput: Cannot parse: 5:0: &lt;line number missing in source
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 4;
-            var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </details>
 </div>
 <section id="normal-probability-plots">
@@ -538,20 +465,6 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 5;
-            var nbb_formatted_code = "download(\n    \"https://raw.githubusercontent.com/allisonhorst/palmerpenguins/c19a904462482430170bfe2c718775ddb7dbb885/inst/extdata/penguins_raw.csv\"\n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>We can read the data like this.</p>
 <div class="cell docutils container">
@@ -565,19 +478,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(344, 17)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 6;
-            var nbb_formatted_code = "penguins = pd.read_csv(\"penguins_raw.csv\")\npenguins.shape";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The dataset contains measurements from three penguin species.
 For this example, we’ll select the Adélie penguins.</p>
@@ -592,19 +493,7 @@ For this example, we’ll select the Adélie penguins.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>152
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 7;
-            var nbb_formatted_code = "adelie = penguins.query('Species.str.startswith(\"Adelie\")').copy()\nlen(adelie)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>To see if penguin weights follow a normal distribution, we’ll compute the empirical CDF of the data.</p>
 <div class="cell docutils container">
@@ -616,20 +505,6 @@ For this example, we’ll select the Adélie penguins.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 8;
-            var nbb_formatted_code = "from empiricaldist import Cdf\n\nweights = adelie[\"Body Mass (g)\"].dropna()\ncdf_weights = Cdf.from_seq(weights)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And we’ll compute the analytic CDF of a normal distribution with the same mean and standard deviation.</p>
 <div class="cell docutils container">
@@ -643,19 +518,7 @@ For this example, we’ll select the Adélie penguins.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(3700.662251655629), np.float64(458.5661259101348))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 9;
-            var nbb_formatted_code = "m, s = weights.mean(), weights.std()\nm, s";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -667,25 +530,12 @@ For this example, we’ll select the Adélie penguins.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 10;
-            var nbb_formatted_code = "from scipy.stats import norm\n\ndist = norm(m, s)\nqs = np.linspace(m - 3.5 * s, m + 3.5 * s)\nps = dist.cdf(qs)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s what the CDF of the data looks like compared to the normal model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Normal model&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="o">**</span><span class="n">model_options</span><span class="p">)</span>
 <span class="n">cdf_weights</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;CDF&quot;</span><span class="p">)</span>
@@ -693,20 +543,8 @@ For this example, we’ll select the Adélie penguins.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/422248119840f3b7886ce6c80c0a37aa00e8e87fc6ecd57f05654a29093dd713.png" src="_images/422248119840f3b7886ce6c80c0a37aa00e8e87fc6ecd57f05654a29093dd713.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 11;
-            var nbb_formatted_code = "plt.plot(qs, ps, color=\"gray\", alpha=0.5, label=\"Normal model\")\ncdf_weights.plot(label=\"data\")\n\ndecorate(ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/9a8e665b64947ce1df5c9f8f7bde385b1fbfeff8d4d5872fbf739f23334e2197.png" src="_images/9a8e665b64947ce1df5c9f8f7bde385b1fbfeff8d4d5872fbf739f23334e2197.png" />
+</div>
 </div>
 <p>The normal distribution might be a good enough model of this data, but it’s certainly not a perfect fit.</p>
 <p>In general, plotting the CDF of the data and the CDF of a model is a good way to evaluate how well the model fits the data.
@@ -719,20 +557,6 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 12;
-            var nbb_formatted_code = "ys = np.sort(weights)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And the <span class="math notranslate nohighlight">\(x\)</span> values are the corresponding percentiles of a normal distribution, computed using the <code class="docutils literal notranslate"><span class="pre">ppf</span></code> method of the <code class="docutils literal notranslate"><span class="pre">norm</span></code> object, which computes the “percent point function”, which is the inverse CDF.</p>
 <div class="cell docutils container">
@@ -743,20 +567,6 @@ In a normal probability plot the <span class="math notranslate nohighlight">\(y\
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 13;
-            var nbb_formatted_code = "n = len(weights)\nps = (np.arange(n) + 0.5) / n\nxs = norm.ppf(ps)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>If the measurements are actually drawn from a normal distribution, the <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(x\)</span> values should fall on a straight line.
 To see how well they do, we can use <code class="docutils literal notranslate"><span class="pre">linregress</span></code> to fit a line.</p>
@@ -772,25 +582,11 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 14;
-            var nbb_formatted_code = "from scipy.stats import linregress\n\nresults = linregress(xs, ys)\nintercept, slope = results.intercept, results.slope\n\nfit_xs = np.linspace(-3, 3)\nfit_ys = intercept + slope * fit_xs";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following figure shows the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> values along with the fitted line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fit_xs</span><span class="p">,</span> <span class="n">fit_ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fit_xs</span><span class="p">,</span> <span class="n">fit_ys</span><span class="p">,</span> <span class="o">**</span><span class="n">model_options</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Standard normal&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Body mass (g)&quot;</span><span class="p">)</span>
@@ -799,19 +595,7 @@ To see how well they do, we can use <code class="docutils literal notranslate"><
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/ee75bd9cc7810d5af27c91f274b525a5360c747772232f8e1cda9fd37d207875.png" src="_images/ee75bd9cc7810d5af27c91f274b525a5360c747772232f8e1cda9fd37d207875.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 15;
-            var nbb_formatted_code = "plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5, label=\"model\")\nplt.plot(xs, ys, label=\"data\")\n\ndecorate(xlabel=\"Standard normal\", ylabel=\"Body mass (g)\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The normal probability plot is not a perfectly straight line, which indicates that the normal distribution is not a perfect model for this data.</p>
 <p>One reason is that the dataset includes male and female penguins, and the two groups have different means – let’s see what happens if we plot the groups separately.
@@ -837,20 +621,6 @@ The following function encapsulates the steps we used to make a normal probabili
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 16;
-            var nbb_formatted_code = "def normal_probability_plot(sample, **options):\n    \"\"\"Makes a normal probability plot with a fitted line.\"\"\"\n    n = len(sample)\n    ps = (np.arange(n) + 0.5) / n\n    xs = norm.ppf(ps)\n    ys = np.sort(sample)\n\n    results = linregress(xs, ys)\n    intercept, slope = results.intercept, results.slope\n\n    fit_xs = np.linspace(-3, 3)\n    fit_ys = intercept + slope * fit_xs\n\n    plt.plot(fit_xs, fit_ys, color=\"gray\", alpha=0.5)\n    plt.plot(xs, ys, **options)\n    decorate(xlabel=\"Standard normal\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s what the results look like for male and female penguins separately.</p>
 <div class="cell docutils container">
@@ -869,19 +639,7 @@ The following function encapsulates the steps we used to make a normal probabili
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/08b4e496844a147578d0273f68610e8a9cb0e2ed5d4ad465e5e3c2bba9fe6c46.png" src="_images/08b4e496844a147578d0273f68610e8a9cb0e2ed5d4ad465e5e3c2bba9fe6c46.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 17;
-            var nbb_formatted_code = "grouped = adelie.groupby(\"Sex\")\n\nweights_male = grouped.get_group(\"MALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_male, ls=\"--\", label=\"Male\")\n\nweights_female = grouped.get_group(\"FEMALE\")[\"Body Mass (g)\"]\nnormal_probability_plot(weights_female, label=\"Female\")\n\ndecorate(ylabel=\"Weight (g)\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The normal probability plots for both groups are close to a straight line, which indicates that the distributions of weight follow normal distributions.
 When we put the groups together, the distribution of their weights is a mixture of two normal distributions with different means – and a mixture like that is not always well modeled by a normal distribution.</p>
@@ -914,20 +672,6 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 18;
-            var nbb_formatted_code = "class Normal:\n    \"\"\"Represents a Normal distribution\"\"\"\n\n    def __init__(self, mu, sigma2):\n        \"\"\"Make a Normal object.\n\n        mu: mean\n        sigma2: variance\n        \"\"\"\n        self.mu = mu\n        self.sigma2 = sigma2\n\n    def __repr__(self):\n        \"\"\"Returns a string representation.\"\"\"\n        return f\"Normal({self.mu}, {self.sigma2})\"\n\n    __str__ = __repr__";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>As an example, we’ll create a <code class="docutils literal notranslate"><span class="pre">Normal</span></code> object that represents a normal distribution with the same mean and variance as the weights of the male penguins.</p>
 <div class="cell docutils container">
@@ -942,19 +686,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(4043.4931506849316, 120278.25342465754)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 19;
-            var nbb_formatted_code = "m, s = weights_male.mean(), weights_male.std()\ndist_male = Normal(m, s**2)\ndist_male";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And another <code class="docutils literal notranslate"><span class="pre">Normal</span></code> object with the same mean and variance as the weights of the female penguins.</p>
 <div class="cell docutils container">
@@ -969,19 +701,7 @@ The name <code class="docutils literal notranslate"><span class="pre">sigma2</sp
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(3368.8356164383563, 72565.63926940637)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 20;
-            var nbb_formatted_code = "m, s = weights_female.mean(), weights_female.std()\ndist_female = Normal(m, s**2)\ndist_female";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Next we’ll add a method to the <code class="docutils literal notranslate"><span class="pre">Normal</span></code> class that generates a random sample from a normal distribution.
 To add methods to an existing class, we’ll use a Jupyter magic command, <code class="docutils literal notranslate"><span class="pre">add_method_to</span></code>, which is defined in the <code class="docutils literal notranslate"><span class="pre">thinkstats</span></code> module.
@@ -998,32 +718,6 @@ def sample(self, n):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 21;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 21;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sample(self, n):\n    \"\"\"Generate a random sample from this distribution.\"\"\"\n    sigma = np.sqrt(self.sigma2)\n    return np.random.normal(self.mu, sigma, n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>We’ll use <code class="docutils literal notranslate"><span class="pre">sample</span></code> to demonstrate the first useful property of a normal distribution: if you draw values from two normal distributions and add them, the distribution of the sum is also normal.</p>
 <p>As an example, we’ll generate samples from the <code class="docutils literal notranslate"><span class="pre">Normal</span></code> objects we just made, add them together, and make a normal probability plot of the sums.</p>
@@ -1037,20 +731,8 @@ def sample(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/da90f8ba2b53d62e66ea142d1b078b7bb6ae19da23459ca3045fb7742804480e.png" src="_images/da90f8ba2b53d62e66ea142d1b078b7bb6ae19da23459ca3045fb7742804480e.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 22;
-            var nbb_formatted_code = "sample_sum = dist_male.sample(1000) + dist_female.sample(1000)\nnormal_probability_plot(sample_sum)\n\ndecorate(ylabel=\"Total weight (g)\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/33b567cbcfadb8b65eac37a8651c71cadf7ba8050819c06189d16430ccc37478.png" src="_images/33b567cbcfadb8b65eac37a8651c71cadf7ba8050819c06189d16430ccc37478.png" />
+</div>
 </div>
 <p>The normal probability plot looks like a straight line, which indicates that the sums follow a normal distribution.
 And that’s not all – if we know the parameters of the two distributions, we can compute the parameters of the distribution of the sum.
@@ -1061,37 +743,11 @@ The following method shows how.</p>
 
 
 def __add__(self, other):
-    &quot;&quot;&quot;Distribution of the sum of two normal distribution.&quot;&quot;&quot;
+    &quot;&quot;&quot;Distribution of the sum of two normal distributions.&quot;&quot;&quot;
     return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 23;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 23;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __add__(self, other):\n    \"\"\"Distribution of the sum of two normal distribution.\"\"\"\n    return Normal(self.mu + other.mu, self.sigma2 + other.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>In the distribution of the sum, the mean is the sum of the means and the variance is the sum of the variances.
 Now that we’ve defined the special method <code class="docutils literal notranslate"><span class="pre">__add__</span></code>, we can use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to “add” two distributions – that is, to compute the distribution of their sum.</p>
@@ -1106,19 +762,7 @@ Now that we’ve defined the special method <code class="docutils literal notran
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(7412.328767123288, 192843.8926940639)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 24;
-            var nbb_formatted_code = "dist_sum = dist_male + dist_female\ndist_sum";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>To confirm that this result is correct, we’ll use the following method, which plots the analytic CDF of a normal distribution.</p>
 <div class="cell docutils container">
@@ -1136,37 +780,11 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 25;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 25;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef plot_cdf(self, n_sigmas=3.5, **options):\n    \"\"\"Plot the CDF of this distribution.\"\"\"\n    mu, sigma = self.mu, np.sqrt(self.sigma2)\n    low, high = mu - n_sigmas * sigma, mu + n_sigmas * sigma\n    xs = np.linspace(low, high, 101)\n    ys = norm.cdf(xs, mu, sigma)\n    plt.plot(xs, ys, **options)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s the result along with the empirical CDF of the sum of the random samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist_sum</span><span class="o">.</span><span class="n">plot_cdf</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist_sum</span><span class="o">.</span><span class="n">plot_cdf</span><span class="p">(</span><span class="o">**</span><span class="n">model_options</span><span class="p">)</span>
 <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">sample_sum</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;sample&quot;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Total weight (g)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;CDF&quot;</span><span class="p">)</span>
@@ -1174,20 +792,8 @@ def plot_cdf(self, n_sigmas=3.5, **options):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c753763b82aaa7e81704591d1f7a8ebd7de0e1afde8c7e06831d313ed0942e9e.png" src="_images/c753763b82aaa7e81704591d1f7a8ebd7de0e1afde8c7e06831d313ed0942e9e.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 26;
-            var nbb_formatted_code = "dist_sum.plot_cdf(color=\"gray\", alpha=0.5, label=\"model\")\nCdf.from_seq(sample_sum).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weight (g)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/735bf59b3c32e52a9510e4cd08aa8a167823e52e9fedda2778932a3b80014ab5.png" src="_images/735bf59b3c32e52a9510e4cd08aa8a167823e52e9fedda2778932a3b80014ab5.png" />
+</div>
 </div>
 <p>It looks like the parameters we computed are correct, which confirms that we can add two normal distributions by adding their means and variances.</p>
 <p>As a corollary, if we generate <code class="docutils literal notranslate"><span class="pre">n</span></code> values from a normal distribution and add them up, the distribution of the sum is also a normal distribution.
@@ -1205,19 +811,7 @@ The following loop does that 1001 times, so the result is a sample from the dist
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>73
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 27;
-            var nbb_formatted_code = "n = len(weights_male)\nsample_sums_male = [dist_male.sample(n).sum() for i in range(1001)]\nn";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The following method makes a <code class="docutils literal notranslate"><span class="pre">Normal</span></code> object that represents the distribution of the sums.
 To compute the parameters, we multiply both the mean and variance by <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
@@ -1232,32 +826,6 @@ def sum(self, n):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 28;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 28;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef sum(self, n):\n    \"\"\"Return the distribution of the sum of n values.\"\"\"\n    return Normal(n * self.mu, n * self.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s the distribution of the sum of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights.</p>
 <div class="cell docutils container">
@@ -1266,27 +834,11 @@ def sum(self, n):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 29;
-            var nbb_formatted_code = "dist_sums_male = dist_male.sum(n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And here’s how it compares to the empirical distribution of the random sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
-
-<span class="n">dist_sums_male</span><span class="o">.</span><span class="n">plot_cdf</span><span class="p">(</span><span class="o">**</span><span class="n">model_options</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dist_sums_male</span><span class="o">.</span><span class="n">plot_cdf</span><span class="p">(</span><span class="o">**</span><span class="n">model_options</span><span class="p">)</span>
 <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">sample_sums_male</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;sample&quot;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;Total weights (g)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;CDF&quot;</span><span class="p">)</span>
@@ -1294,20 +846,8 @@ def sum(self, n):
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/26ce7516b7ca07c2a3809dcf34750ec0fd638ecd665fd3f14fd2525fbda89714.png" src="_images/26ce7516b7ca07c2a3809dcf34750ec0fd638ecd665fd3f14fd2525fbda89714.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 30;
-            var nbb_formatted_code = "model_options = dict(color=\"gray\", alpha=0.5, label=\"model\")\n\ndist_sums_male.plot_cdf(**model_options)\nCdf.from_seq(sample_sums_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Total weights (g)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/6c835d9609c5a715253f46fd2a9d60deadda0df552e1532d4ae1b5c4da9ef7b1.png" src="_images/6c835d9609c5a715253f46fd2a9d60deadda0df552e1532d4ae1b5c4da9ef7b1.png" />
+</div>
 </div>
 <p>The analytic distribution fits the distribution of the sample, which confirms that the <code class="docutils literal notranslate"><span class="pre">sum</span></code> method is correct.
 So if we collect a sample of <code class="docutils literal notranslate"><span class="pre">n</span></code> measurements, we can compute the distribution of their sum.</p>
@@ -1328,32 +868,6 @@ def __mul__(self, factor):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 31;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 31;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __mul__(self, factor):\n    \"\"\"Multiplies by a scalar.\"\"\"\n    return Normal(factor * self.mu, factor**2 * self.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1366,32 +880,6 @@ def __truediv__(self, factor):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 32;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1 / factor)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 32;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __truediv__(self, factor):\n    \"\"\"Divides by a scalar.\"\"\"\n    return self * (1 / factor)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>To compute the distribution of the product we multiply the mean by <code class="docutils literal notranslate"><span class="pre">factor</span></code> and the variance by the square of <code class="docutils literal notranslate"><span class="pre">factor</span></code>.
 We can use this property to compute the distribution of the sample means.</p>
@@ -1401,20 +889,6 @@ We can use this property to compute the distribution of the sample means.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 33;
-            var nbb_formatted_code = "dist_mean_male = dist_sums_male / n";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>To see if the result is correct, we’ll also compute the means of the random samples.</p>
 <div class="cell docutils container">
@@ -1423,20 +897,6 @@ We can use this property to compute the distribution of the sample means.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 34;
-            var nbb_formatted_code = "sample_means_male = np.array(sample_sums_male) / n";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And compare the normal model to the empirical CDF of the sample means.</p>
 <div class="cell docutils container">
@@ -1449,20 +909,8 @@ We can use this property to compute the distribution of the sample means.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/293b55b550a0dd089b142be067280cc02c681f24501e935db81e1fbb7c644ef3.png" src="_images/293b55b550a0dd089b142be067280cc02c681f24501e935db81e1fbb7c644ef3.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 35;
-            var nbb_formatted_code = "dist_mean_male.plot_cdf(**model_options)\nCdf.from_seq(sample_means_male).plot(label=\"sample\")\n\ndecorate(xlabel=\"Average weight (g)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/7d88dfb12c211ddbfd036362ac882a0b5e5036a574f1c85b5564ca4c0c6f7cb2.png" src="_images/7d88dfb12c211ddbfd036362ac882a0b5e5036a574f1c85b5564ca4c0c6f7cb2.png" />
+</div>
 </div>
 <p>The model and the simulation results agree, which shows that we can compute the distribution of the sample means analytically – which is very fast, compared to resampling.</p>
 <p>Now that we know the sampling distribution of the mean, we can use it to compute the standard error, which is the standard deviation of the sampling distribution.</p>
@@ -1477,19 +925,7 @@ We can use this property to compute the distribution of the sample means.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(40.591222045992765)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 36;
-            var nbb_formatted_code = "standard_error = np.sqrt(dist_mean_male.sigma2)\nstandard_error";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>This result suggests a shortcut we can use to compute the standard error directly, without computing the sampling distribution.
 In the sequence of steps we followed, we multiplied the variance by <code class="docutils literal notranslate"><span class="pre">n</span></code> and then divided by <code class="docutils literal notranslate"><span class="pre">n**2</span></code> – the net effect was to divide the variance by <code class="docutils literal notranslate"><span class="pre">n</span></code>, which means we divided the standard deviation by the square root of <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
@@ -1505,19 +941,7 @@ In the sequence of steps we followed, we multiplied the variance by <code class=
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(40.59122204599277)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 37;
-            var nbb_formatted_code = "standard_error = weights_male.std() / np.sqrt(n)\nstandard_error";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Now let’s consider one more result we can compute with normal distributions, the distribution of differences.</p>
 </section>
@@ -1536,19 +960,7 @@ In the sequence of steps we followed, we multiplied the variance by <code class=
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(3368.835616438356, 994.0498530055667)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 38;
-            var nbb_formatted_code = "n = len(weights_female)\ndist_mean_female = dist_female.sum(n) / n\ndist_mean_female";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Now we have sampling distributions for the average weight of male and female penguins – let’s compute the distribution of the differences.
 The following method computes the distribution of the difference between values from two normal distributions.</p>
@@ -1563,32 +975,6 @@ def __sub__(self, other):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 39;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 39;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef __sub__(self, other):\n    \"\"\"Compute the distribution of a difference.\"\"\"\n    return Normal(self.mu - other.mu, self.sigma2 + other.sigma2)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>As you might expect, the mean of the differences is the difference of the means.
 But as you might not expect, the variance of the differences is not the difference of the variances – it’s the sum!
@@ -1610,19 +996,7 @@ Here’s the analytic distribution of the differences.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(674.6575342465753, 2641.697160192656)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 40;
-            var nbb_formatted_code = "dist_diff_means = dist_mean_male - dist_mean_female\ndist_diff_means";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And here’s a random sample of differences.</p>
 <div class="cell docutils container">
@@ -1633,20 +1007,6 @@ Here’s the analytic distribution of the differences.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 41;
-            var nbb_formatted_code = "sample_sums_female = [dist_female.sample(n).sum() for i in range(1001)]\nsample_means_female = np.array(sample_sums_female) / n\nsample_diff_means = sample_means_male - sample_means_female";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following figure shows the empirical CDF of the random sample and the analytic CDF of the normal distribution.</p>
 <div class="cell docutils container">
@@ -1659,20 +1019,8 @@ Here’s the analytic distribution of the differences.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1558c2aed1e08a80b83837b244e06d6da14342a0701e2dec81938900f3e8209d.png" src="_images/1558c2aed1e08a80b83837b244e06d6da14342a0701e2dec81938900f3e8209d.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 42;
-            var nbb_formatted_code = "dist_diff_means.plot_cdf(**model_options)\nCdf.from_seq(sample_diff_means).plot(label=\"sample\")\n\ndecorate(xlabel=\"Difference in average weight (g)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/596c267b5ce8ac93fd569603318b1d2f34e2fa6ccce9cba0b17d308d1d531d23.png" src="_images/596c267b5ce8ac93fd569603318b1d2f34e2fa6ccce9cba0b17d308d1d531d23.png" />
+</div>
 </div>
 <p>They agree, which confirms that we found the distribution of the differences correctly.
 We can use this distribution to compute a confidence interval for the difference in weights.
@@ -1688,32 +1036,6 @@ def ppf(self, xs):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 43;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 43;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef ppf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.ppf(xs, self.mu, sigma)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The 5th and 95th percentiles form a 90% confidence interval.</p>
 <div class="cell docutils container">
@@ -1727,19 +1049,7 @@ def ppf(self, xs):
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([590.1162635 , 759.19880499])
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 44;
-            var nbb_formatted_code = "ci90 = dist_diff_means.ppf([0.05, 0.95])\nci90";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>We get approximately the same results from the random sample.</p>
 <div class="cell docutils container">
@@ -1749,22 +1059,10 @@ def ppf(self, xs):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([592.30261238, 755.823897  ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([578.86837628, 759.86657441])
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 45;
-            var nbb_formatted_code = "np.percentile(sample_diff_means, [5, 95])";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The analytic method is faster than resampling, and it is deterministic – that is, not random.</p>
 <p>However, everything we’ve done so far is based on the assumption that the distribution of measurements is normal.
@@ -1800,20 +1098,6 @@ The following loop generates samples from an exponential distribution, adds them
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 46;
-            var nbb_formatted_code = "lam = 1\ndf_sample_expo = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_expo[n] = [np.sum(np.random.exponential(lam, n)) for _ in range(1001)]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here are the averages for each list of sums.</p>
 <div class="cell docutils container">
@@ -1823,25 +1107,13 @@ The following loop generates samples from an exponential distribution, adds them
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        1.058763
-10       9.961863
-100    100.162140
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1        0.989885
+10       9.825744
+100    100.022555
 dtype: float64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 47;
-            var nbb_formatted_code = "df_sample_expo.mean()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The average value from this distribution is 1, so if we add up 10 values, the average of the sum is close to 10, and if we add up 100 values the average of the sum is close to 100.</p>
 <p>This function takes the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we just made and makes a normal probability plot for each list of sums.</p>
@@ -1863,20 +1135,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 48;
-            var nbb_formatted_code = "def normal_plot_samples(df_sample, ylabel=\"\"):\n    \"\"\"Normal probability plots for samples of sums.\"\"\"\n    plt.figure(figsize=(6.8, 2.6))\n    for i, n in enumerate(df_sample):\n        plt.subplot(1, 3, i + 1)\n        normal_probability_plot(df_sample[n])\n        decorate(\n            title=\"n=%d\" % n,\n            xticks=[],\n            yticks=[],\n            xlabel=\"Standard normal\",\n            ylabel=ylabel,\n        )";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following figure shows normal probability plots for the three lists of sums (the definition of <code class="docutils literal notranslate"><span class="pre">normal_plot_samples</span></code> is in the notebook for this chapter).</p>
 <div class="cell docutils container">
@@ -1886,20 +1144,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7e84d514916d623da6f4b45b3bdd2d66148eccf2951db743aea06ba2c5e8174e.png" src="_images/7e84d514916d623da6f4b45b3bdd2d66148eccf2951db743aea06ba2c5e8174e.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 49;
-            var nbb_formatted_code = "normal_plot_samples(df_sample_expo, ylabel=\"Sum of exponential values\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/771475bfc28457c8034dd0715e4bc6d6dcd8e75838c03bfb8a49aaa1d3c4ae23.png" src="_images/771475bfc28457c8034dd0715e4bc6d6dcd8e75838c03bfb8a49aaa1d3c4ae23.png" />
+</div>
 </div>
 <p>When <code class="docutils literal notranslate"><span class="pre">n=1</span></code>, the distribution of the sum is exponential, so the normal probability plot is not a straight line.
 But with <code class="docutils literal notranslate"><span class="pre">n=10</span></code> the distribution of the sum is approximately normal, and with <code class="docutils literal notranslate"><span class="pre">n=100</span></code> it is almost indistinguishable from normal.</p>
@@ -1908,7 +1154,7 @@ For distributions that are more skewed, it takes longer.
 As an example, let’s look at sums of values from a lognormal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span>
 <span class="n">df_sample_lognormal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]:</span>
     <span class="n">df_sample_lognormal</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
@@ -1917,20 +1163,6 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 50;
-            var nbb_formatted_code = "mu, sigma = 1.0, 1.0\ndf_sample_lognormal = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample_lognormal[n] = [\n        np.sum(np.random.lognormal(mu, sigma, n)) for _ in range(1001)\n    ]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here are the normal probability plots for the same range of sample sizes.</p>
 <div class="cell docutils container">
@@ -1940,20 +1172,8 @@ As an example, let’s look at sums of values from a lognormal distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/84e7079abb91a78f8eec1764d62c6f6046578e3dbf0116d7d383360399e67359.png" src="_images/84e7079abb91a78f8eec1764d62c6f6046578e3dbf0116d7d383360399e67359.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 51;
-            var nbb_formatted_code = "normal_plot_samples(df_sample_lognormal, ylabel=\"Sum of lognormal values\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/992059cdf6c2ff8c2aefa522b20aed972f30ffed9f8a5c38f86104666289e8fd.png" src="_images/992059cdf6c2ff8c2aefa522b20aed972f30ffed9f8a5c38f86104666289e8fd.png" />
+</div>
 </div>
 <p>When <code class="docutils literal notranslate"><span class="pre">n=1</span></code>, a normal model does not fit the distribution, and it is not much better with <code class="docutils literal notranslate"><span class="pre">n=10</span></code>.
 Even with <code class="docutils literal notranslate"><span class="pre">n=100</span></code>, the tails of the distribution clearly deviate from the model.</p>
@@ -1975,20 +1195,6 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 52;
-            var nbb_formatted_code = "alpha = 1.0\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(np.random.pareto(alpha, n)) for _ in range(1001)]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s what the normal probability plots look like for a range of sample sizes.</p>
 <div class="cell docutils container">
@@ -1998,20 +1204,8 @@ Depending on the parameters, some Pareto distributions do not have finite mean a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d4062db3626ca35b8e1d615a25d51064f19e0279b4fe506c4dec4821a2d9e462.png" src="_images/d4062db3626ca35b8e1d615a25d51064f19e0279b4fe506c4dec4821a2d9e462.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 53;
-            var nbb_formatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of Pareto values\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/587b9641385d2eb3b402badb3ed3172d2a45694e547a64cf0a6f2c63806aac36.png" src="_images/587b9641385d2eb3b402badb3ed3172d2a45694e547a64cf0a6f2c63806aac36.png" />
+</div>
 </div>
 <p>Even with <code class="docutils literal notranslate"><span class="pre">n=100</span></code>, the distribution of the sum is nothing like a normal distribution.</p>
 <p>I also mentioned that the CLT does not apply if the values are correlated.
@@ -2032,20 +1226,6 @@ This function is defined in the notebook for this chapter.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 54;
-            var nbb_formatted_code = "def generate_normal_correlated(n, rho):\n    \"\"\"Generates an array of correlated values from a standard normal dist.\"\"\"\n    xs = np.empty(n)\n    xs[0] = np.random.normal(0, 1)\n\n    sigma = np.sqrt(1 - rho**2)\n    for i in range(1, n):\n        xs[i] = rho * xs[i - 1] + np.random.normal(0, sigma)\n\n    return xs";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Given a correlated sequence from a normal distribution, the following function generates a correlated sequence from an exponential distribution.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2062,20 +1242,6 @@ This function is defined in the notebook for this chapter.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 55;
-            var nbb_formatted_code = "from scipy.stats import expon\n\n\ndef generate_expo_correlated(n, rho):\n    \"\"\"Generates a sequence of correlated values from an exponential dist.\"\"\"\n    normal = generate_normal_correlated(n, rho)\n    uniform = norm.cdf(normal)\n    expo = expon.ppf(uniform)\n    return expo";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>It starts with a sequence of correlated normal values and uses the normal CDF to transform them to a sequence of values from a uniform distribution between 0 and 1.
 Then it uses the exponential inverse CDF to transform them to a sequence of exponential values.</p>
@@ -2089,20 +1255,6 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 56;
-            var nbb_formatted_code = "rho = 0.8\ndf_sample = pd.DataFrame()\nfor n in [1, 10, 100]:\n    df_sample[n] = [np.sum(generate_expo_correlated(n, rho)) for _ in range(1001)]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here are the normal probability plots for the distribution of these sums.</p>
 <div class="cell docutils container">
@@ -2112,20 +1264,8 @@ Then it uses the exponential inverse CDF to transform them to a sequence of expo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/38d971cc46aa179507986810f9a4ba9a5459d06bafe185165e99dcec98d8fe78.png" src="_images/38d971cc46aa179507986810f9a4ba9a5459d06bafe185165e99dcec98d8fe78.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 57;
-            var nbb_formatted_code = "normal_plot_samples(df_sample, ylabel=\"Sum of correlated values\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/14c589bb074224b2acca7b61ea39e860ba0bd6970265d02e1629e183da8b0519.png" src="_images/14c589bb074224b2acca7b61ea39e860ba0bd6970265d02e1629e183da8b0519.png" />
+</div>
 </div>
 <p>With <code class="docutils literal notranslate"><span class="pre">rho=0.8</span></code>, there is a strong correlation between successive elements, and the distribution of the sum converges slowly.
 If there is also a strong correlation between distant elements of the sequence, it might not converge at all.</p>
@@ -2145,20 +1285,6 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 58;
-            var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/nsfg.py\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dct\")\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/2002FemPreg.dat.gz\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>We’ll use <code class="docutils literal notranslate"><span class="pre">get_nsfg_groups</span></code> to read the data and divide it into first babies and others.</p>
 <div class="cell docutils container">
@@ -2169,20 +1295,6 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 59;
-            var nbb_formatted_code = "from nsfg import get_nsfg_groups\n\nlive, firsts, others = get_nsfg_groups()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>As we’ve seen, first babies are born a little later, on average – the apparent difference is about 0.078 weeks.</p>
 <div class="cell docutils container">
@@ -2196,19 +1308,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.07803726677754952)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 60;
-            var nbb_formatted_code = "delta = firsts[\"prglngth\"].mean() - others[\"prglngth\"].mean()\ndelta";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>To see whether this difference might have happened by chance, we’ll assume as a null hypothesis that the mean and variance of pregnancy lengths is actually the same for both groups, so we can estimate it using all live births.</p>
 <div class="cell docutils container">
@@ -2218,20 +1318,6 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 61;
-            var nbb_formatted_code = "all_lengths = live[\"prglngth\"]\nm, s2 = all_lengths.mean(), all_lengths.var()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The distribution of pregnancy lengths does not follow a normal distribution – nevertheless, we can use a normal distribution to approximate the sampling distribution of the mean.</p>
 <p>The following function takes a sequence of values and returns a <code class="docutils literal notranslate"><span class="pre">Normal</span></code> object that represents the sampling distribution of the mean of a sample with the given size, <code class="docutils literal notranslate"><span class="pre">n</span></code>, drawn from a normal distribution with the same mean and variance as the data.</p>
@@ -2244,20 +1330,6 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 62;
-            var nbb_formatted_code = "def sampling_dist_mean(data, n):\n    mean, var = data.mean(), data.var()\n    dist = Normal(mean, var)\n    return dist.sum(n) / n";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s a normal approximation to the sampling distribution of mean weight for first births, under the null hypothesis.</p>
 <div class="cell docutils container">
@@ -2272,19 +1344,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(4363)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 63;
-            var nbb_formatted_code = "n1 = firsts[\"totalwgt_lb\"].count()\ndist_firsts = sampling_dist_mean(all_lengths, n1)\nn1";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And here’s the sampling distribution for other babies.</p>
 <div class="cell docutils container">
@@ -2299,19 +1359,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(4675)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 64;
-            var nbb_formatted_code = "n2 = others[\"totalwgt_lb\"].count()\ndist_others = sampling_dist_mean(all_lengths, n2)\nn2";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>We can compute the sampling distribution of the difference like this.</p>
 <div class="cell docutils container">
@@ -2325,19 +1373,7 @@ We’ll use the NSFG data again – instructions for downloading it are in the n
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Normal(0.0, 0.003235837567930557)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 65;
-            var nbb_formatted_code = "dist_diff = dist_firsts - dist_others\ndist_diff";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The mean is 0, which makes sense because if we draw two samples from the same distribution, we expect the difference in means to be 0, on average.
 The variance of the sampling distribution is 0.0032, which indicates how much variation we expect in the difference due to chance.</p>
@@ -2350,20 +1386,6 @@ The variance of the sampling distribution is 0.0032, which indicates how much va
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 66;
-            var nbb_formatted_code = "sample_firsts = [np.random.choice(all_lengths, n1).mean() for i in range(1001)]\nsample_others = [np.random.choice(all_lengths, n2).mean() for i in range(1001)]\nsample_diffs = np.subtract(sample_firsts, sample_others)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s the empirical CDF of the resampled differences compared to the normal model.
 The vertical dotted lines show the observed difference, positive and negative.</p>
@@ -2379,20 +1401,8 @@ The vertical dotted lines show the observed difference, positive and negative.</
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b834545705a02b125bca57ff9ca6009cd5d2c592fe5d9e65a893918ec1eef0d.png" src="_images/5b834545705a02b125bca57ff9ca6009cd5d2c592fe5d9e65a893918ec1eef0d.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 67;
-            var nbb_formatted_code = "dist_diff.plot_cdf(**model_options)\nCdf.from_seq(sample_diffs).plot(label=\"sample\")\nplt.axvline(delta, ls=\":\")\nplt.axvline(-delta, ls=\":\")\n\ndecorate(xlabel=\"Difference in pregnancy length\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/8554f3cc4200ae56cb83ba2865c3fa27e114ce327b2076f6c9c7e765e5bc586d.png" src="_images/8554f3cc4200ae56cb83ba2865c3fa27e114ce327b2076f6c9c7e765e5bc586d.png" />
+</div>
 </div>
 <p>In this example, the sample sizes are large and the skewness of the measurements is modest, so the sampling distribution is well approximated by a normal distribution.
 Therefore, we can use the normal CDF to compute a p-value.
@@ -2408,32 +1418,6 @@ def cdf(self, xs):
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 68;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 68;
-            var nbb_formatted_code = "%%add_method_to Normal\n\n\ndef cdf(self, xs):\n    sigma = np.sqrt(self.sigma2)\n    return norm.cdf(xs, self.mu, sigma)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s the probability of a difference as large as <code class="docutils literal notranslate"><span class="pre">delta</span></code> under the null hypothesis, which is the area under the right tail of the sampling distribution.</p>
 <div class="cell docutils container">
@@ -2447,19 +1431,7 @@ def cdf(self, xs):
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.08505405315526993)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 69;
-            var nbb_formatted_code = "right = 1 - dist_diff.cdf(delta)\nright";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And here’s the probability of a difference as negative as <code class="docutils literal notranslate"><span class="pre">-delta</span></code>, which is the area under the left tail.</p>
 <div class="cell docutils container">
@@ -2473,19 +1445,7 @@ def cdf(self, xs):
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.08505405315526993)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 70;
-            var nbb_formatted_code = "left = dist_diff.cdf(-delta)\nleft";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code> are the same because the normal distribution is symmetric.
 The sum of the two is the probability of a difference as large as <code class="docutils literal notranslate"><span class="pre">delta</span></code>, positive or negative.</p>
@@ -2499,19 +1459,7 @@ The sum of the two is the probability of a difference as large as <code class="d
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.17010810631053985)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 71;
-            var nbb_formatted_code = "left + right";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The resulting p-value is 0.170, which is consistent with the estimate we computed by resampling in <a class="reference internal" href="chap09.html#section-diff-means"><span class="std std-ref">Chapter 9</span></a>.</p>
 <p>The way we computed this p-value is similar to an <strong>independent sample <span class="math notranslate nohighlight">\(t\)</span> test</strong>.
@@ -2529,19 +1477,7 @@ SciPy provides a function called <code class="docutils literal notranslate"><spa
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.16755412639415004)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 72;
-            var nbb_formatted_code = "from scipy.stats import ttest_ind\n\nresult = ttest_ind(firsts[\"prglngth\"], others[\"prglngth\"])\nresult.pvalue";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>When the sample sizes are large, the result of the <span class="math notranslate nohighlight">\(t\)</span> test is close to what we computed with normal distributions.
 The <span class="math notranslate nohighlight">\(t\)</span> test is so called because it is based on a <strong>t distribution</strong> rather than a normal distribution.
@@ -2559,20 +1495,6 @@ The method is based on this mathematical result: If we generate two samples with
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 73;
-            var nbb_formatted_code = "def transform_correlation(r, n):\n    return r * np.sqrt((n - 2) / (1 - r**2))";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The transformed correlations follow a <span class="math notranslate nohighlight">\(t\)</span> distribution with parameter <code class="docutils literal notranslate"><span class="pre">n-2</span></code>.
 To see what that looks like, we’ll use the following function to generate uncorrelated samples from a standard normal distribution.</p>
@@ -2586,20 +1508,6 @@ To see what that looks like, we’ll use the following function to generate unco
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 74;
-            var nbb_formatted_code = "def generate_data(n):\n    \"\"\"Uncorrelated sequences from a standard normal.\"\"\"\n    xs = np.random.normal(0, 1, n)\n    ys = np.random.normal(0, 1, n)\n    return xs, ys";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And the following function to compute their correlation.</p>
 <div class="cell docutils container">
@@ -2610,20 +1518,6 @@ To see what that looks like, we’ll use the following function to generate unco
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 75;
-            var nbb_formatted_code = "def correlation(data):\n    xs, ys = data\n    return np.corrcoef(xs, ys)[0, 1]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following loop generates many pairs of samples, computes their correlation, and puts the results in a list.</p>
 <div class="cell docutils container">
@@ -2633,20 +1527,6 @@ To see what that looks like, we’ll use the following function to generate unco
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 76;
-            var nbb_formatted_code = "n = 100\nrs = [correlation(generate_data(n)) for i in range(1001)]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Next we’ll compute the transformed correlations.</p>
 <div class="cell docutils container">
@@ -2655,20 +1535,6 @@ To see what that looks like, we’ll use the following function to generate unco
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 77;
-            var nbb_formatted_code = "ts = transform_correlation(np.array(rs), n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>To check whether these <code class="docutils literal notranslate"><span class="pre">ts</span></code> follow a <span class="math notranslate nohighlight">\(t\)</span> distribution, we’ll use the following function, which makes an object that represents the CDF of a <span class="math notranslate nohighlight">\(t\)</span> distribution.</p>
 <div class="cell docutils container">
@@ -2677,27 +1543,13 @@ To see what that looks like, we’ll use the following function to generate unco
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">make_student_cdf</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the CDF of a Student t distributions.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the CDF of a Student t distribution.&quot;&quot;&quot;</span>
     <span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">student_t</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Cdf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 78;
-            var nbb_formatted_code = "from scipy.stats import t as student_t\n\n\ndef make_student_cdf(df):\n    \"\"\"Computes the CDF of a Student t distributions.\"\"\"\n    ts = np.linspace(-3, 3, 101)\n    ps = student_t.cdf(ts, df=df)\n    return Cdf(ps, ts)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The parameter of the <span class="math notranslate nohighlight">\(t\)</span> distribution is called <code class="docutils literal notranslate"><span class="pre">df</span></code>, which stands for “degrees of freedom”.
 The following figure shows the CDF of a <span class="math notranslate nohighlight">\(t\)</span> distribution with parameter <code class="docutils literal notranslate"><span class="pre">n-2</span></code> along with the empirical CDF of the transformed correlations.</p>
@@ -2713,20 +1565,8 @@ The following figure shows the CDF of a <span class="math notranslate nohighligh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a1ba31d2e7adb12ef9077533cbff2b69ee1085b9bc6abe8afe79618250098f7d.png" src="_images/a1ba31d2e7adb12ef9077533cbff2b69ee1085b9bc6abe8afe79618250098f7d.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 79;
-            var nbb_formatted_code = "make_student_cdf(df=n - 2).plot(**model_options)\n\ncdf_ts = Cdf.from_seq(ts)\ncdf_ts.plot(label=\"random normals\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/3f882ea0aeae5d9714d9e5958377a90cb38f09ce078584497fec4ff0d9b2223a.png" src="_images/3f882ea0aeae5d9714d9e5958377a90cb38f09ce078584497fec4ff0d9b2223a.png" />
+</div>
 </div>
 <p>This shows that if we draw uncorrelated samples from normal distributions, their transformed correlations follow a <span class="math notranslate nohighlight">\(t\)</span> distribution.</p>
 <p>If we draw samples from other distributions, their transformed correlations don’t follow a <span class="math notranslate nohighlight">\(t\)</span> distribution exactly, but they converge to a <span class="math notranslate nohighlight">\(t\)</span> distribution as the sample size increases.
@@ -2744,19 +1584,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9038
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 80;
-            var nbb_formatted_code = "valid = live.dropna(subset=[\"agepreg\", \"totalwgt_lb\"])\nn = len(valid)\nn";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The actual correlation is about 0.07.</p>
 <div class="cell docutils container">
@@ -2771,19 +1599,7 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.0688339703541091)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 81;
-            var nbb_formatted_code = "data = valid[\"agepreg\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>As we did in <a class="reference internal" href="chap09.html#section-test-correlation"><span class="std std-ref">Chapter 9</span></a>, we can simulate the null hypothesis by permuting the samples.</p>
 <div class="cell docutils container">
@@ -2797,20 +1613,6 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 82;
-            var nbb_formatted_code = "def permute(data):\n    \"\"\"Shuffle the x values.\"\"\"\n    xs, ys = data\n    new_xs = xs.copy()\n    np.random.shuffle(new_xs)\n    return new_xs, ys";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>If we generate many permutations and compute their correlations, the result is a sample from the distribution of correlations under the null hypothesis.</p>
 <div class="cell docutils container">
@@ -2819,20 +1621,6 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 83;
-            var nbb_formatted_code = "permuted_corrs = [correlation(permute(data)) for i in range(1001)]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And we can compute the transformed correlations like this.</p>
 <div class="cell docutils container">
@@ -2841,20 +1629,6 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 84;
-            var nbb_formatted_code = "ts = transform_correlation(np.array(permuted_corrs), n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following figure shows the empirical CDF of the <code class="docutils literal notranslate"><span class="pre">ts</span></code> along with the CDF of the <span class="math notranslate nohighlight">\(t\)</span> distribution with parameter <code class="docutils literal notranslate"><span class="pre">n-2</span></code>.</p>
 <div class="cell docutils container">
@@ -2867,20 +1641,8 @@ From the <code class="docutils literal notranslate"><span class="pre">DataFrame<
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/64b80843da03db61492a8f6eabb8428150b4988c3ff3c9b93eccef7cf2785dde.png" src="_images/64b80843da03db61492a8f6eabb8428150b4988c3ff3c9b93eccef7cf2785dde.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 85;
-            var nbb_formatted_code = "make_student_cdf(n - 2).plot(**model_options)\nCdf.from_seq(ts).plot(label=\"permuted data\")\n\ndecorate(xlabel=\"Transformed correlation\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/969c27dc5ddcfb66a7f3f7217e0c8e179ef642cbac9a8808c75b787e31aae984.png" src="_images/969c27dc5ddcfb66a7f3f7217e0c8e179ef642cbac9a8808c75b787e31aae984.png" />
+</div>
 </div>
 <p>The model fits the empirical distribution well, which means we can use it to compute a p-value for the observed correlation.
 First we’ll transform the observed correlation.</p>
@@ -2890,20 +1652,6 @@ First we’ll transform the observed correlation.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 86;
-            var nbb_formatted_code = "t_actual = transform_correlation(r_actual, n)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Now we can use the CDF of the <span class="math notranslate nohighlight">\(t\)</span> distribution to compute the probability of a value as large as <code class="docutils literal notranslate"><span class="pre">t_actual</span></code> under the null hypothesis.</p>
 <div class="cell docutils container">
@@ -2917,19 +1665,7 @@ First we’ll transform the observed correlation.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(2.861466619208386e-11)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 87;
-            var nbb_formatted_code = "right = 1 - student_t.cdf(t_actual, df=n - 2)\nright";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>We can also compute the probability of a value as negative as <code class="docutils literal notranslate"><span class="pre">-t_actual</span></code>.</p>
 <div class="cell docutils container">
@@ -2943,19 +1679,7 @@ First we’ll transform the observed correlation.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(2.8614735536574016e-11)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 88;
-            var nbb_formatted_code = "left = student_t.cdf(-t_actual, df=n - 2)\nleft";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The sum of the two is the probability of a correlation as big as <code class="docutils literal notranslate"><span class="pre">r_actual</span></code>, positive or negative.</p>
 <div class="cell docutils container">
@@ -2968,19 +1692,7 @@ First we’ll transform the observed correlation.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(5.722940172865787e-11)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 89;
-            var nbb_formatted_code = "left + right";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>SciPy provides a function that does the same calculation and returns the p-value of the observed correlation.</p>
 <div class="cell docutils container">
@@ -2996,19 +1708,7 @@ First we’ll transform the observed correlation.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(5.7229471073151754e-11)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 90;
-            var nbb_formatted_code = "from scipy.stats import pearsonr\n\ncorr, p_value = pearsonr(*data)\np_value";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The results are nearly the same.</p>
 <p>Based on the resampling results, we concluded that the p-value was less than 0.001, but we could not say how much less without running a very large number of resamplings.
@@ -3085,19 +1785,7 @@ It is not usually important to know precisely how unlikely.</p>
     </tr>
   </tbody>
 </table>
-</div></div><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 91;
-            var nbb_formatted_code = "from empiricaldist import Hist\n\nqs = np.arange(1, 7)\nfreqs = [8, 9, 19, 5, 8, 11]\nobserved = Hist(freqs, qs)\nobserved.index.name = \"outcome\"\nobserved";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div></div></div>
 </div>
 <p>First we computed the expected frequency for each outcome.</p>
 <div class="cell docutils container">
@@ -3108,20 +1796,6 @@ It is not usually important to know precisely how unlikely.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 92;
-            var nbb_formatted_code = "num_rolls = observed.sum()\noutcomes = observed.qs\nexpected = Hist(num_rolls / 6, outcomes)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Then we used the following function to compute the chi-squared statistic.</p>
 <div class="cell docutils container">
@@ -3133,20 +1807,6 @@ It is not usually important to know precisely how unlikely.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 93;
-            var nbb_formatted_code = "def chi_squared_stat(observed, expected):\n    diffs = (observed - expected) ** 2\n    ratios = diffs / expected\n    return np.sum(ratios.values.flatten())";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3154,20 +1814,6 @@ It is not usually important to know precisely how unlikely.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 94;
-            var nbb_formatted_code = "observed_chi2 = chi_squared_stat(observed, expected)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The chi-squared statistic is widely used for this kind of data because its sampling distribution under the null hypothesis converges to a distribution we can compute efficiently – not coincidentally, it is called a <strong>chi-squared distribution</strong>.
 To see what it looks like, we’ll use the following function, which simulates rolling a fair die.</p>
@@ -3181,20 +1827,6 @@ To see what it looks like, we’ll use the following function, which simulates r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 95;
-            var nbb_formatted_code = "def simulate_dice(observed):\n    n = np.sum(observed)\n    rolls = np.random.choice(observed.qs, n, replace=True)\n    hist = Hist.from_seq(rolls)\n    return hist";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The following loop runs the simulation many times and computes the chi-squared statistic of the outcomes.</p>
 <div class="cell docutils container">
@@ -3206,20 +1838,6 @@ To see what it looks like, we’ll use the following function, which simulates r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 96;
-            var nbb_formatted_code = "simulated_chi_squared = [\n    chi_squared_stat(simulate_dice(observed), expected) for i in range(1001)\n]\ncdf_simulated = Cdf.from_seq(simulated_chi_squared)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>To check whether the results follow a chi-squared distribution, we’ll use the following function, which computes the CDF of a chi-squared distribution with parameter <code class="docutils literal notranslate"><span class="pre">df</span></code>.</p>
 <div class="cell docutils container">
@@ -3235,20 +1853,6 @@ To see what it looks like, we’ll use the following function, which simulates r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 97;
-            var nbb_formatted_code = "from scipy.stats import chi2 as chi2_dist\n\n\ndef chi_squared_cdf(df):\n    \"\"\"Discrete approximation of the chi-squared CDF.\"\"\"\n    xs = np.linspace(0, 21, 101)\n    ps = chi2_dist.cdf(xs, df=df)\n    return Cdf(ps, xs)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>With <code class="docutils literal notranslate"><span class="pre">n</span></code> possible outcomes, the simulated chi-squared statistics should follow a chi-squared distribution with parameter <code class="docutils literal notranslate"><span class="pre">n-1</span></code>.</p>
 <div class="cell docutils container">
@@ -3258,20 +1862,6 @@ To see what it looks like, we’ll use the following function, which simulates r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 98;
-            var nbb_formatted_code = "n = len(observed)\ncdf_model = chi_squared_cdf(df=n - 1)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Here’s the empirical CDF of the simulated chi-squared statistics along with the CDF of the chi-squared distribution.</p>
 <div class="cell docutils container">
@@ -3284,20 +1874,8 @@ To see what it looks like, we’ll use the following function, which simulates r
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b96e9cc8ffed320a41e1b0e8babff6bf29ff7baa847cd76fca0987f71b461ad8.png" src="_images/b96e9cc8ffed320a41e1b0e8babff6bf29ff7baa847cd76fca0987f71b461ad8.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 99;
-            var nbb_formatted_code = "cdf_model.plot(**model_options)\ncdf_simulated.plot(label=\"simulation\")\n\ndecorate(xlabel=\"Chi-squared statistic\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/14da013801f82e99c9c52b754fea106deff44e8452ea419fe232db08895628f6.png" src="_images/14da013801f82e99c9c52b754fea106deff44e8452ea419fe232db08895628f6.png" />
+</div>
 </div>
 <p>The model fits the simulation results well, so we can use it to compute the probability of a value as large as <code class="docutils literal notranslate"><span class="pre">observed_chi2</span></code> under the null hypothesis.</p>
 <div class="cell docutils container">
@@ -3311,19 +1889,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.04069938850404997)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 100;
-            var nbb_formatted_code = "p_value = 1 - chi2_dist.cdf(observed_chi2, df=n - 1)\np_value";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>SciPy provides a function that does the same computation.</p>
 <div class="cell docutils container">
@@ -3334,20 +1900,6 @@ To see what it looks like, we’ll use the following function, which simulates r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 101;
-            var nbb_formatted_code = "from scipy.stats import chisquare\n\nchi2_stat, p_value = chisquare(f_obs=observed, f_exp=expected)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>The result is the same as the p-value we computed.</p>
 <div class="cell docutils container">
@@ -3360,19 +1912,7 @@ To see what it looks like, we’ll use the following function, which simulates r
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.040699388504049985)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 102;
-            var nbb_formatted_code = "p_value";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The advantage of the chi-squared statistic is that its distribution under the null hypothesis can be computed efficiently.
 But in context, it might not be the statistic that best quantifies the difference between the observed and expected outcomes.</p>
@@ -3402,7 +1942,7 @@ These methods have several advantages over analysis:</p>
 <section id="glossary">
 <h2><span class="section-number">14.11. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>normal probability plot:</strong> A plot that compares observed values with the quantiles of a normal distribution to assess if the data follow a normal distribution.</p></li>
+<li><p><strong>normal probability plot:</strong> A plot that compares observed values with the quantiles of a normal distribution to see how closely the data follow a normal distribution.</p></li>
 <li><p><strong>independent sample <span class="math notranslate nohighlight">\(t\)</span> test:</strong> A method for computing the p-value of an observed difference between the means of two independent groups.</p></li>
 <li><p><strong><span class="math notranslate nohighlight">\(t\)</span> distribution:</strong> A distribution used to model the sampling distribution of a difference in means under the null hypothesis that the difference is 0, as well as the sampling distribution of transformed correlations.</p></li>
 <li><p><strong>chi-squared distribution:</strong> A distribution used to model the sampling distribution of the chi-squared statistic.</p></li>
@@ -3431,19 +1971,7 @@ The observed difference is about 4.6 mm.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(4.616438356164366)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 103;
-            var nbb_formatted_code = "grouped = adelie.groupby(\"Sex\")\n\nlengths_male = grouped.get_group(\"MALE\")[\"Flipper Length (mm)\"]\nlengths_female = grouped.get_group(\"FEMALE\")[\"Flipper Length (mm)\"]\nobserved_diff = lengths_male.mean() - lengths_female.mean()\nobserved_diff";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">sampling_dist_mean</span></code> to make <code class="docutils literal notranslate"><span class="pre">Normal</span></code> objects that represent sampling distributions for the mean flipper length in the two groups – noting that the groups are not the same size.
 Then compute the sampling distribution of the difference and a 90% confidence interval.</p>
@@ -3451,8 +1979,7 @@ Then compute the sampling distribution of the difference and a 90% confidence in
 <section id="exercise-14-2">
 <h3><span class="section-number">14.12.2. </span>Exercise 14.2<a class="headerlink" href="#exercise-14-2" title="Link to this heading">#</a></h3>
 <p>Using the NSFG data, we computed the correlation between a baby’s birth weight and the mother’s age, and we used a <span class="math notranslate nohighlight">\(t\)</span> distribution to compute a p-value.
-Now let’s do the same with birth weight and father’s age, which is recorded in the <code class="docutils literal notranslate"><span class="pre">hpagelb</span></code> column.
-The observed correlation is about 0.065.</p>
+Now let’s do the same with birth weight and father’s age, which is recorded in the <code class="docutils literal notranslate"><span class="pre">hpagelb</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">valid</span> <span class="o">=</span> <span class="n">live</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hpagelb&quot;</span><span class="p">,</span> <span class="s2">&quot;totalwgt_lb&quot;</span><span class="p">])</span>
@@ -3465,20 +1992,9 @@ The observed correlation is about 0.065.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8933
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 109;
-            var nbb_formatted_code = "valid = live.dropna(subset=[\"hpagelb\", \"totalwgt_lb\"])\nn = len(valid)\nn";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
+</div>
+<p>The observed correlation is about 0.065.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;hpagelb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">valid</span><span class="p">[</span><span class="s2">&quot;totalwgt_lb&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -3491,19 +2007,7 @@ The observed correlation is about 0.065.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.06468629895432174)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 110;
-            var nbb_formatted_code = "data = valid[\"hpagelb\"].values, valid[\"totalwgt_lb\"].values\nr_actual = correlation(data)\nr_actual";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Compute the transformed correlation, <code class="docutils literal notranslate"><span class="pre">t_actual</span></code>.
 Use the CDF of the <span class="math notranslate nohighlight">\(t\)</span> distribution to compute a p-value – is this correlation statistically significant?
@@ -3523,20 +2027,6 @@ The notebook for this chapter has instructions to help you get started.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 114;
-            var nbb_formatted_code = "male = live.query(\"babysex == 1\")\nfemale = live.query(\"babysex == 2\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Now we’ll make a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with one column for each group and one row for each value of <code class="docutils literal notranslate"><span class="pre">fmarital</span></code>, which encodes marital status like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>  <span class="n">married</span>
@@ -3611,19 +2101,7 @@ The notebook for this chapter has instructions to help you get started.</p>
     </tr>
   </tbody>
 </table>
-</div></div><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 115;
-            var nbb_formatted_code = "observed = pd.DataFrame()\nobserved[\"male\"] = male[\"fmarital\"].value_counts().sort_index()\nobserved[\"female\"] = female[\"fmarital\"].value_counts().sort_index()\nobserved";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div></div></div>
 </div>
 <p>The null hypothesis is that the distribution of marital status is the same for both groups, so we can use the whole dataset to compute it.</p>
 <div class="cell tag_remove-print docutils container">
@@ -3684,19 +2162,7 @@ The notebook for this chapter has instructions to help you get started.</p>
     </tr>
   </tbody>
 </table>
-</div></div><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 116;
-            var nbb_formatted_code = "from empiricaldist import Pmf\n\npmf_fmarital = Pmf.from_seq(live[\"fmarital\"])\npmf_fmarital";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div></div></div>
 </div>
 <p>To compute the expected values, we multiply the probabilities in <code class="docutils literal notranslate"><span class="pre">pmf_marital</span></code> by the total number of cases in each column.</p>
 <div class="cell tag_remove-print docutils container">
@@ -3764,19 +2230,7 @@ The notebook for this chapter has instructions to help you get started.</p>
     </tr>
   </tbody>
 </table>
-</div></div><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 117;
-            var nbb_formatted_code = "expected = pd.DataFrame()\nexpected[\"male\"] = pmf_fmarital * observed[\"male\"].sum()\nexpected[\"female\"] = pmf_fmarital * observed[\"female\"].sum()\nexpected";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div></div></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">observed</span></code> and <code class="docutils literal notranslate"><span class="pre">expected</span></code> to compute a chi-squared statistic.
 Then use the CDF of the chi-squared distribution to compute a p-value.

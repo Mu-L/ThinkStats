@@ -66,7 +66,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="13. Survival analysis" href="chap13.html" />
-    <link rel="prev" title="11. Regression" href="chap11.html" />
+    <link rel="prev" title="11. Multiple Regression" href="chap11.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -180,7 +180,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -399,20 +399,6 @@ And we’ll try out a widely-used model for analyzing time series data, with the
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -557,13 +543,13 @@ We can use the <code class="docutils literal notranslate"><span class="pre">date
 </section>
 <section id="decomposition">
 <h2><span class="section-number">12.2. </span>Decomposition<a class="headerlink" href="#decomposition" title="Link to this heading">#</a></h2>
-<p>As a first example, we’ll look at how electricity generation from nuclear reactors has changed over from January 2001 to June 2024, and we’ll decompose the time series into a long-term trend and a periodic component.
+<p>As a first example, we’ll look at how electricity generation from nuclear reactors changed over the interval from January 2001 to June 2024, and we’ll decompose the time series into a long-term trend and a periodic component.
 Here are monthly totals of electricity generation from nuclear reactors in the United States.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">actual_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">trend_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">pred_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">pred_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">model_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -591,8 +577,8 @@ To see the long-term trend more clearly, we can use the <code class="docutils li
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">window=12</span></code> argument means it should select overlapping intervals of 12 months, so the first interval contains 12 measurements starting with the first, the second interval contains 12 measurements starting with the second, and so on.
-For each interval, we compute the mean of the measurements.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">window=12</span></code> argument selects overlapping intervals of 12 months, so the first interval contains 12 measurements starting with the first, the second interval contains 12 measurements starting with the second, and so on.
+For each interval, we compute the mean production.</p>
 <p>Here’s what the results look like, along with the original data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -673,7 +659,7 @@ Here’s what it looks like.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cecbcfcfe537398d318ad159df17f7aedc97603385384df7d0f88f126c24dfb4.png" src="_images/cecbcfcfe537398d318ad159df17f7aedc97603385384df7d0f88f126c24dfb4.png" />
+<img alt="_images/223fdd34511d534776c2bd15f07fa18ad8055da5a71f2f6ea25cfb075cd50119.png" src="_images/223fdd34511d534776c2bd15f07fa18ad8055da5a71f2f6ea25cfb075cd50119.png" />
 </div>
 </div>
 <p>If we subtract this sum from the original series, the result is the residual component, which represents the departure from the expected value for each month.</p>
@@ -920,7 +906,7 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">pre
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8f55d1b10893c75ab295812edfc5782884759dc2b8e1d9e6aeb5c11aa690b53c.png" src="_images/8f55d1b10893c75ab295812edfc5782884759dc2b8e1d9e6aeb5c11aa690b53c.png" />
+<img alt="_images/4546dc0d76d455fd31fbeae0de4d7376e3aa5cbe011ec48fdd1f9d8c762ea365.png" src="_images/4546dc0d76d455fd31fbeae0de4d7376e3aa5cbe011ec48fdd1f9d8c762ea365.png" />
 </div>
 </div>
 <p>The predictions fit the training data reasonably well, and the forecast looks like a reasonable projection, based on the assumption that the long-term trend will continue.</p>
@@ -936,10 +922,10 @@ Here are the predicted and actual values for the five-year interval from July 20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a5777b6dbf5d0c56dc6b0d1c5825723d3ca9080355edf1cb6fedfb46faa489fb.png" src="_images/a5777b6dbf5d0c56dc6b0d1c5825723d3ca9080355edf1cb6fedfb46faa489fb.png" />
+<img alt="_images/dadfdec385d546f07aba89f8f63e98c999a74f70fb24e87b891a95fe7cdb01a3.png" src="_images/dadfdec385d546f07aba89f8f63e98c999a74f70fb24e87b891a95fe7cdb01a3.png" />
 </div>
 </div>
-<p>The first year of the forecast was pretty good, but production from nuclear reactors in 2020 was lower than expected – probably due to the COVID-19 pandemic – and it never returned to the long-term trend.</p>
+<p>The first year of the forecast was pretty good, but production from nuclear reactors in 2020 was lower than expected – possibly due to the COVID-19 pandemic – and it never returned to the long-term trend.</p>
 <p>To quantify the accuracy of the predictions, we’ll use the mean absolute percentage error (MAPE), which the following function computes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1131,7 +1117,7 @@ Now we can use the seasonal component to predict future seasonal variation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8c9ced0e6cde41586173a811d07fedc9d1b629ad28a3f6a5b864602525f50d2f.png" src="_images/8c9ced0e6cde41586173a811d07fedc9d1b629ad28a3f6a5b864602525f50d2f.png" />
+<img alt="_images/b2007f14c06c5c897ee3798c4fa4822c72147ca2dd831e2e69b9060bc25d93ed.png" src="_images/b2007f14c06c5c897ee3798c4fa4822c72147ca2dd831e2e69b9060bc25d93ed.png" />
 </div>
 </div>
 <p>The retrodictions fit the training data well and the predictions seem plausible – now let’s see if they turned out to be accurate.
@@ -1146,7 +1132,7 @@ Here are the predictions along with the test data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f833f438edb86dccad159f5cff4b0ddf823ad24cd7eff65140a9b262cadc5dcc.png" src="_images/f833f438edb86dccad159f5cff4b0ddf823ad24cd7eff65140a9b262cadc5dcc.png" />
+<img alt="_images/7959a098635b4f14cda0befc16a4432f518b2d0ced5a6ad4b24e902e846c0022.png" src="_images/7959a098635b4f14cda0befc16a4432f518b2d0ced5a6ad4b24e902e846c0022.png" />
 </div>
 </div>
 <p>For the first three years, the predictions are very good.
@@ -1241,7 +1227,7 @@ These columns are named <code class="docutils literal notranslate"><span class="
 <p>These correlations are called lagged correlations or <strong>autocorrelations</strong> – the prefix “auto” indicates that we’re taking the correlation of the series with itself.
 As a special case, the correlation between <code class="docutils literal notranslate"><span class="pre">diff</span></code> and <code class="docutils literal notranslate"><span class="pre">lag1</span></code> is called <strong>serial correlation</strong> because it is the correlation between successive elements in the series.</p>
 <p>These correlation are strong enough to suggest that they should help with prediction, so let’s put them into a multiple regression.
-The following function uses the columns from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make a Patsy formula with the first column as the dependent variable and the other columns as explanatory variables.</p>
+The following function uses the columns from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to make a Patsy formula with the first column as the response variable and the other columns as explanatory variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">make_formula</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -1297,7 +1283,7 @@ Here’s what these retrodictions look like compared to the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a9c17f40e84404323276aa6939bba1df14c692ef93c6f29ad210e52993232341.png" src="_images/a9c17f40e84404323276aa6939bba1df14c692ef93c6f29ad210e52993232341.png" />
+<img alt="_images/25362ba60dc650c792f6ae719d08b4131d02fd21f6ccd5a129dd6fb4edc602f1.png" src="_images/25362ba60dc650c792f6ae719d08b4131d02fd21f6ccd5a129dd6fb4edc602f1.png" />
 </div>
 </div>
 <p>The predictions are good in some places, but the <span class="math notranslate nohighlight">\(R^2\)</span> value is only about 0.319, so there is room for improvement.</p>
@@ -1390,7 +1376,7 @@ But the p-value for the 6-month lag is small, which suggests that it contributes
 </div>
 </div>
 </div>
-<p>The <span class="math notranslate nohighlight">\(R^2\)</span> value for the sum of the two models is about 0.332, which is a little better than the result without the moving average adjustment (0.319).</p>
+<p>The <span class="math notranslate nohighlight">\(R^2\)</span> value for the sum of the two models is about 0.332, which is just a little better than the result without the moving average adjustment (0.319).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resid_ma</span> <span class="o">=</span> <span class="p">(</span><span class="n">diff</span> <span class="o">-</span> <span class="n">pred_diff</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
@@ -1421,12 +1407,18 @@ But the p-value for the 6-month lag is small, which suggests that it contributes
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_missing</span> <span class="o">=</span> <span class="n">pred_diff</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">n_missing</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.int64(21)
 </pre></div>
 </div>
 </div>
 </div>
 <p>That’s because we shifted the <code class="docutils literal notranslate"><span class="pre">Series</span></code> by 12 months to compute year-over-year differences, then we shifted the differences 3 months for the first autoregression model, and we shifted the residuals of the first model by 6 months for the second model.
-Each time we shift a series like this, we lose a few values at the beginning of the <code class="docutils literal notranslate"><span class="pre">Series</span></code>, and the sum of these shifts is 21.</p>
+Each time we shift a <code class="docutils literal notranslate"><span class="pre">Series</span></code> like this, we lose a few values at the beginning, and the sum of these shifts is 21.</p>
 <p>So before we can generate retrodictions, we have to prime the pump by copying the first 21 elements from the original into a new <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1464,7 +1456,7 @@ Each element is the sum of the value from the previous year and the predicted ye
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e13ed5f7765ab1a3153f88db472882da3df4cf0d833d8e4749d3ef8164f2c7af.png" src="_images/e13ed5f7765ab1a3153f88db472882da3df4cf0d833d8e4749d3ef8164f2c7af.png" />
+<img alt="_images/2ab0096ab9b6480c6e115d7f3c8ac2a14eb6e5e2a4a38a0f2461928181d4a95b.png" src="_images/2ab0096ab9b6480c6e115d7f3c8ac2a14eb6e5e2a4a38a0f2461928181d4a95b.png" />
 </div>
 </div>
 <p>They look pretty good, and the <span class="math notranslate nohighlight">\(R^2\)</span> value is about 0.86.</p>
@@ -1576,7 +1568,7 @@ For the same reason there were missing values at the beginning of the retrodicti
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/57c389a9d4fc53a195a14274e813c5d62c6f66628fbb717f4b01662c86610bc7.png" src="_images/57c389a9d4fc53a195a14274e813c5d62c6f66628fbb717f4b01662c86610bc7.png" />
+<img alt="_images/d30f11be1ed68092dd0ceeec1fc9302baf130befe4aaa17544426e968c7563b8.png" src="_images/d30f11be1ed68092dd0ceeec1fc9302baf130befe4aaa17544426e968c7563b8.png" />
 </div>
 </div>
 <p>The <span class="math notranslate nohighlight">\(R^2\)</span> value is also similar but not precisely the same.</p>
@@ -1646,7 +1638,7 @@ To demonstrate, we’ll split the time series into a training and test set, and 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d562499705bebaaf63e36bac0f8644691776eda30bd37dfe1c24c8054a72a5a7.png" src="_images/d562499705bebaaf63e36bac0f8644691776eda30bd37dfe1c24c8054a72a5a7.png" />
+<img alt="_images/bcae9229bc032c8d92335b38da841c868cb67614e7f558a710abe37d379cf837.png" src="_images/bcae9229bc032c8d92335b38da841c868cb67614e7f558a710abe37d379cf837.png" />
 </div>
 </div>
 <p>The actual values fall almost entirely within the confidence interval of the predictions.
@@ -2007,7 +1999,7 @@ Generate a five-year forecast and plot it along with its confidence interval.</p
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Regression</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Multiple Regression</p>
       </div>
     </a>
     <a class="right-next"

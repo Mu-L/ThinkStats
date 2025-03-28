@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -384,20 +384,6 @@
 An alternative is the cumulative distribution function (CDF), which is useful for computing percentiles, and especially useful for comparing distributions.</p>
 <p>Also in this chapter, we’ll compute percentile-based statistics to quantify the location, spread, and skewness of a distribution.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap04.ipynb">Click here to run this notebook on Colab</a>.</p>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -867,7 +853,7 @@ Here is a <code class="docutils literal notranslate"><span class="pre">Pmf</span
 </table>
 </div></div></div>
 </div>
-<p>We can use the bracket operator to look up a value in a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>.</p>
+<p>As we saw in the previous chapter, we can use the bracket operator to look up a value in a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -950,7 +936,7 @@ We can use the bracket operator to look up a value.</p>
 </div>
 <p>The result is the proportion of values in the sequence less than or equal to the given value. In this example, three out of five values in the sequence are less than or equal to <code class="docutils literal notranslate"><span class="pre">2</span></code>, so the result is 0.6.
 We can also think of this proportion as the probability that a randomly chosen value from the sequence is less than or equal to <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
-<p>We can also use parentheses to call the <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> object like a function.</p>
+<p>We can use parentheses to call the <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> object like a function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cdf</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -1589,7 +1575,7 @@ The following function implements this algorithm.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5f085e2a4bca817403a7e3a4888a30c80234448be5c2ed69e8495148b4253669.png" src="_images/5f085e2a4bca817403a7e3a4888a30c80234448be5c2ed69e8495148b4253669.png" />
+<img alt="_images/f5dd82c9efd6929670f0fcb6a83cc6d2f724a42d92b438d5e2eabf2df4000d2a.png" src="_images/f5dd82c9efd6929670f0fcb6a83cc6d2f724a42d92b438d5e2eabf2df4000d2a.png" />
 </div>
 </div>
 <p>The sample follows the distribution of the original data.
@@ -1616,7 +1602,7 @@ What do you think it will look like?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9a800b2db6e5341376040e446436127c80ead12f1fd28a51e91cca1599fa1e8e.png" src="_images/9a800b2db6e5341376040e446436127c80ead12f1fd28a51e91cca1599fa1e8e.png" />
+<img alt="_images/52f3765a77c885aca02c14ff7ccc676cf5ecd89b5fc49c8c20618034fcb053f9.png" src="_images/52f3765a77c885aca02c14ff7ccc676cf5ecd89b5fc49c8c20618034fcb053f9.png" />
 </div>
 </div>
 <p>The CDF of the percentile ranks is close to a straight line between 0 and 1.

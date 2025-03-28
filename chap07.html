@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -396,35 +396,6 @@ But if you are trying to guess someone’s weight, you will be more accurate if 
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> nb_black
-<span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 1;
-            var nbb_formatted_code = "%load_ext nb_black\n%load_ext autoreload\n%autoreload 2";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -441,20 +412,6 @@ But if you are trying to guess someone’s weight, you will be more accurate if 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 2;
-            var nbb_formatted_code = "from os.path import basename, exists\n\n\ndef download(url):\n    filename = basename(url)\n    if not exists(filename):\n        from urllib.request import urlretrieve\n\n        local, _ = urlretrieve(url, filename)\n        print(\"Downloaded \" + local)\n\n\ndownload(\"https://github.com/AllenDowney/ThinkStats/raw/v3/nb/thinkstats.py\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </details>
 </div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
@@ -468,22 +425,6 @@ But if you are trying to guess someone’s weight, you will be more accurate if 
     <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ERROR:root:Cannot parse: 5:0: &lt;line number missing in source&gt;
-Traceback (most recent call last):
-  File &quot;/home/downey/miniconda3/envs/ThinkStats/lib/python3.11/site-packages/nb_black.py&quot;, line 62, in __format
-    cell = _format_code(cell)
-           ^^^^^^^^^^^^^^^^^^
-  File &quot;/home/downey/miniconda3/envs/ThinkStats/lib/python3.11/site-packages/nb_black.py&quot;, line 22, in _format_code
-    return format_str(src_contents=code, mode=FileMode())
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File &quot;src/black/__init__.py&quot;, line 1204, in format_str
-  File &quot;src/black/__init__.py&quot;, line 1218, in _format_str_once
-  File &quot;src/black/parsing.py&quot;, line 98, in lib2to3_parse
-black.parsing.InvalidInput: Cannot parse: 5:0: &lt;line number missing in source&gt;
 </pre></div>
 </div>
 </div>
@@ -504,20 +445,6 @@ black.parsing.InvalidInput: Cannot parse: 5:0: &lt;line number missing in source
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 4;
-            var nbb_formatted_code = "import numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom thinkstats import decorate";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </details>
 </div>
 <section id="scatter-plots">
@@ -530,7 +457,7 @@ Let’s find out which it is.</p>
 The public data set includes the participants’ scores on several standardized tests, including the tests most often used in college admissions, the SAT and ACT.
 Because test-takers get separate scores for the math and verbal sections, we can use this data to explore the relationship between mathematical and verbal ability.</p>
 <p>I used the NLS Investigator to create an excerpt that contains the variables I’ll use for this analysis.
-With their permission, I can redistribute this except.
+With their permission, I can redistribute this excerpt.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -538,20 +465,6 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 5;
-            var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/nlsy97-extract.csv.gz\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>We can use <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> to read the data and <code class="docutils literal notranslate"><span class="pre">replace</span></code> to replace the special codes for missing data with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
 <div class="cell docutils container">
@@ -566,19 +479,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(8984, 34)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 6;
-            var nbb_formatted_code = "missing_codes = [-1, -2, -3, -4, -5]\nnlsy = pd.read_csv(\"nlsy97-extract.csv.gz\").replace(missing_codes, np.nan)\nnlsy.shape";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -752,19 +653,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
   </tbody>
 </table>
 <p>5 rows × 34 columns</p>
-</div></div><script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 7;
-            var nbb_formatted_code = "nlsy.head()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> contains one row for each of the 8984 participants in the survey and one column for each of the 34 variables I selected.
 The column names don’t mean much by themselves, so let’s replace the ones we’ll use with more interpretable names.</p>
@@ -775,20 +664,6 @@ The column names don’t mean much by themselves, so let’s replace the ones we
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 8;
-            var nbb_formatted_code = "nlsy[\"sat_verbal\"] = nlsy[\"R9793800\"]\nnlsy[\"sat_math\"] = nlsy[\"R9793900\"]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Both columns contain a few values less than 200, which is not possible because 200 is the lowest score, so we’ll replace them with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>.</p>
 <div class="cell docutils container">
@@ -801,20 +676,6 @@ The column names don’t mean much by themselves, so let’s replace the ones we
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 9;
-            var nbb_formatted_code = "columns = [\"sat_verbal\", \"sat_math\"]\n\nfor column in columns:\n    invalid = nlsy[column] < 200\n    nlsy.loc[invalid, column] = np.nan";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>Next we’ll use <code class="docutils literal notranslate"><span class="pre">dropna</span></code> to select only rows where both scores are valid.</p>
 <div class="cell docutils container">
@@ -828,19 +689,7 @@ The column names don’t mean much by themselves, so let’s replace the ones we
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1398, 36)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 10;
-            var nbb_formatted_code = "nlsy_valid = nlsy.dropna(subset=columns).copy()\nnlsy_valid.shape";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>SAT scores are standardized so the mean is 500 and the standard deviation is 100.
 In the NLSY sample, the means and standard deviations are close to these values.</p>
@@ -855,19 +704,7 @@ In the NLSY sample, the means and standard deviations are close to these values.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(501.80972818311875), np.float64(108.36562024213643))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 11;
-            var nbb_formatted_code = "sat_verbal = nlsy_valid[\"sat_verbal\"]\nsat_verbal.mean(), sat_verbal.std()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -880,19 +717,7 @@ In the NLSY sample, the means and standard deviations are close to these values.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(503.0829756795422), np.float64(109.8329973731453))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 12;
-            var nbb_formatted_code = "sat_math = nlsy_valid[\"sat_math\"]\nsat_math.mean(), sat_math.std()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Now, to see whether there is a relationship between these variables, let’s look at a <strong>scatter plot</strong>.</p>
 <div class="cell docutils container">
@@ -905,19 +730,7 @@ In the NLSY sample, the means and standard deviations are close to these values.
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/0f988465e8acea512fda0304b8e9dd149fabe76140193fe63bd2f2aa70d66ac5.png" src="_images/0f988465e8acea512fda0304b8e9dd149fabe76140193fe63bd2f2aa70d66ac5.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 13;
-            var nbb_formatted_code = "plt.scatter(sat_verbal, sat_math)\n\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Using the default options of the <code class="docutils literal notranslate"><span class="pre">scatter</span></code> function, we can see the general shape of the relationship.
 People who do well on one section of the test tend to do better on the other, too.</p>
@@ -935,19 +748,7 @@ Overplotting tends to give too much visual weight to outliers.</p>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/14095600611f677aa0ef387d3bc57551fa3d54612155fbd8e5927a09e306fd59.png" src="_images/14095600611f677aa0ef387d3bc57551fa3d54612155fbd8e5927a09e306fd59.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 14;
-            var nbb_formatted_code = "plt.scatter(sat_verbal, sat_math, s=5)\n\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Now we can see that the markers are aligned in rows and columns, because scores are rounded off to the nearest multiple of 10.
 Some information is lost in the process.</p>
@@ -962,20 +763,6 @@ The result is a NumPy array.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 15;
-            var nbb_formatted_code = "def jitter(seq, std=1):\n    n = len(seq)\n    return np.random.normal(0, std, n) + seq";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>If we jitter the scores with a standard deviation of 3, the rows and columns are no longer visible in the scatter plot.</p>
 <div class="cell docutils container">
@@ -985,20 +772,6 @@ The result is a NumPy array.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 16;
-            var nbb_formatted_code = "sat_verbal_jittered = jitter(sat_verbal, 3)\nsat_math_jittered = jitter(sat_math, 3)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1009,25 +782,13 @@ The result is a NumPy array.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cbee85fb47edf99885819a71b45dee374f0b9da58ffef2cdd07c7703fba07914.png" src="_images/cbee85fb47edf99885819a71b45dee374f0b9da58ffef2cdd07c7703fba07914.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 17;
-            var nbb_formatted_code = "plt.scatter(sat_verbal_jittered, sat_math_jittered, s=5)\n\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/dbb471e13a98090d65d1cf22f8fff9a380444fdb286557c75cbec580905a3949.png" src="_images/dbb471e13a98090d65d1cf22f8fff9a380444fdb286557c75cbec580905a3949.png" />
+</div>
 </div>
 <p>Jittering reduces the visual effect of rounding and makes the shape of the relationship clearer.
 But in general you should only jitter data for purposes of visualization and avoid using jittered data for analysis.</p>
 <p>In this example, even after adjusting the marker size and jittering the data, there is still some overplotting.
-So let’s try one more thing: we can use the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> parameter to make the markers partly transparent.</p>
+So let’s try one more thing: we can use the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> keyword to make the markers partly transparent.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sat_verbal_jittered</span><span class="p">,</span> <span class="n">sat_math_jittered</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
@@ -1037,20 +798,8 @@ So let’s try one more thing: we can use the <code class="docutils literal notr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ac8aaf230c3652ac9f35ae84217c5f4203b0ba529fa4736f8533b2c446999166.png" src="_images/ac8aaf230c3652ac9f35ae84217c5f4203b0ba529fa4736f8533b2c446999166.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 18;
-            var nbb_formatted_code = "plt.scatter(sat_verbal_jittered, sat_math_jittered, s=5, alpha=0.2)\n\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/12e2a86be22c5ad9a8f7f379a6098a61712e672fdb25dd56d9682996772a4d9a.png" src="_images/12e2a86be22c5ad9a8f7f379a6098a61712e672fdb25dd56d9682996772a4d9a.png" />
+</div>
 </div>
 <p>With transparency, overlapping data points look darker, so darkness is proportional to density.</p>
 <p>Although scatter plots are a simple and widely-used visualization, they can be hard to get right.
@@ -1084,19 +833,7 @@ We can use the <code class="docutils literal notranslate"><span class="pre">qcut
 Name: count, dtype: int64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 19;
-            var nbb_formatted_code = "deciles = pd.qcut(nlsy_valid[\"sat_verbal\"], 10, labels=False) + 1\ndeciles.value_counts().sort_index()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The number of respondents in each decile is roughly equal.</p>
 <p>Now we can use the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> method to divide the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> into groups by <code class="docutils literal notranslate"><span class="pre">decile</span></code>.</p>
@@ -1108,22 +845,10 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f282b657390&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x7f65f943f610&gt;
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 20;
-            var nbb_formatted_code = "df_groupby = nlsy_valid.groupby(deciles)\ndf_groupby";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">DataFrameGroupBy</span></code> object that represents the groups.
 We can select the <code class="docutils literal notranslate"><span class="pre">sat_math</span></code> column from it.</p>
@@ -1135,22 +860,10 @@ We can select the <code class="docutils literal notranslate"><span class="pre">s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7f282b3ed490&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pandas.core.groupby.generic.SeriesGroupBy object at 0x7f65f95d8a50&gt;
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 21;
-            var nbb_formatted_code = "series_groupby = df_groupby[\"sat_math\"]\nseries_groupby";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The result is a <code class="docutils literal notranslate"><span class="pre">SeriesGroupBy</span></code> object that represents the math scores in each decile.
 We can use the <code class="docutils literal notranslate"><span class="pre">quantile</span></code> function to compute the 10th, 50th, and 90th percentiles in each group.</p>
@@ -1162,20 +875,6 @@ We can use the <code class="docutils literal notranslate"><span class="pre">quan
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 22;
-            var nbb_formatted_code = "low = series_groupby.quantile(0.1)\nmedian = series_groupby.quantile(0.5)\nhigh = series_groupby.quantile(0.9)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>A decile plot shows these percentiles for each decile group.
 In the following figure, the line shows the median and the shaded region shows the area between the 10th and 90th percentiles.</p>
@@ -1190,20 +889,8 @@ In the following figure, the line shows the median and the shaded region shows t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f4e3638c0ee34ab3ff592872edaf0ee984f1cba4cdf69f3946b76d85bb171d95.png" src="_images/f4e3638c0ee34ab3ff592872edaf0ee984f1cba4cdf69f3946b76d85bb171d95.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 74;
-            var nbb_formatted_code = "xs = median.index\nplt.fill_between(xs, low, high, alpha=0.2)\nplt.plot(xs, median, label=\"median\")\n\ndecorate(xlabel=\"SAT Verbal Decile\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+<img alt="_images/d96f028a44165b862ffc6dfaf9d43db8ad78324ed9769ae62e35cd816ba83dbb.png" src="_images/d96f028a44165b862ffc6dfaf9d43db8ad78324ed9769ae62e35cd816ba83dbb.png" />
+</div>
 </div>
 <p>As an alternative, we can compute the median verbal score in each group and plot those values on the x-axis, rather than the decile numbers.</p>
 <div class="cell docutils container">
@@ -1219,19 +906,7 @@ In the following figure, the line shows the median and the shaded region shows t
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/7478049eb56ba9b05f007c7ee82a78689b9aff724688d5053eae27156e31cf43.png" src="_images/7478049eb56ba9b05f007c7ee82a78689b9aff724688d5053eae27156e31cf43.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 24;
-            var nbb_formatted_code = "xs = df_groupby[\"sat_verbal\"].median()\n\nplt.fill_between(xs, low, high, alpha=0.2)\nplt.plot(xs, median, color=\"C0\", label=\"median\")\n\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>It looks like the relationship between these variables is linear – that is, each increase in the median verbal scores corresponds to a roughly equal increase in median math scores.</p>
 <p>More generally, we could divide the respondents into any number of groups, not necessarily 10, and we could compute other summary statistics in each group, not just these percentiles.</p>
@@ -1259,19 +934,7 @@ max       145.000000
 Name: piat_math, dtype: float64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 25;
-            var nbb_formatted_code = "nlsy[\"piat_math\"] = nlsy[\"R1318200\"]\nnlsy[\"piat_math\"].describe()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Here’s what the distribution of scores looks like.</p>
 <div class="cell tag_remove-print docutils container">
@@ -1286,19 +949,7 @@ Name: piat_math, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/c1f1163e25dc79bfb7ed3344041202281c91b0584f90448a1e39e4a72c9b057a.png" src="_images/c1f1163e25dc79bfb7ed3344041202281c91b0584f90448a1e39e4a72c9b057a.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 73;
-            var nbb_formatted_code = "from empiricaldist import Cdf\n\ncdf_piat_math = Cdf.from_seq(nlsy[\"piat_math\"], name=\"PIAT math\")\ncdf_piat_math.step()\ndecorate(ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Students who do well on the PIAT in 9th grade are likely to do well on the SAT math section in 12th grade.
 For the NLSY participants who took both tests, the following scatter plot shows the relationship between their scores.
@@ -1315,22 +966,10 @@ It uses the <code class="docutils literal notranslate"><span class="pre">scatter
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/92d7e84881644fa49ce1da4918b4b6e3b3c2602ae51487c8dda48b6358e761f9.png" src="_images/92d7e84881644fa49ce1da4918b4b6e3b3c2602ae51487c8dda48b6358e761f9.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 27;
-            var nbb_formatted_code = "from thinkstats import scatter\n\nscatter(nlsy, \"piat_math\", \"sat_math\")\n\ndecorate(xlabel=\"PIAT Math\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
-<p>As expected, students who do well on the PIAT are also likely to do well on the SAT math.
-And if math and verbal ability are related, we might expect them do well on the SAT verbal section, too.
+</div>
+<p>As expected, students who do well on the PIAT are likely to do well on the SAT math.
+And if math and verbal ability are related, we expect them do well on the SAT verbal section, too.
 The following figure shows the relationship between the PIAT and SAT verbal scores.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1342,19 +981,7 @@ The following figure shows the relationship between the PIAT and SAT verbal scor
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/fd52c94c5263d0f8bc2ff56bbe2355631d0a04349d663c2943fb946383cda86c.png" src="_images/fd52c94c5263d0f8bc2ff56bbe2355631d0a04349d663c2943fb946383cda86c.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 28;
-            var nbb_formatted_code = "scatter(nlsy, \"piat_math\", \"sat_verbal\")\n\ndecorate(xlabel=\"PIAT Math\", ylabel=\"SAT Verbal\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Students with higher PIAT scores also have higher SAT verbal scores, on average.</p>
 <p>Comparing the scatter plots, the points in the first figure might be more compact, and the points in the second figure more dispersed.
@@ -1375,20 +1002,6 @@ To understand correlation, let’s start with standardization.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 29;
-            var nbb_formatted_code = "def standardize(xs):\n    \"\"\"Standardizes a sequence of numbers.\n\n    xs: sequence of numbers\n\n    returns: NumPy array\n    \"\"\"\n    return (xs - np.mean(xs)) / np.std(xs)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>To show how it’s used, we’ll select the rows where <code class="docutils literal notranslate"><span class="pre">piat_math</span></code> and <code class="docutils literal notranslate"><span class="pre">sat_math</span></code> are valid.</p>
 <div class="cell docutils container">
@@ -1399,20 +1012,6 @@ To understand correlation, let’s start with standardization.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 30;
-            var nbb_formatted_code = "valid = nlsy.dropna(subset=[\"piat_math\", \"sat_math\"])\npiat_math = valid[\"piat_math\"]\nsat_math = valid[\"sat_math\"]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And standardize the PIAT math scores.</p>
 <div class="cell docutils container">
@@ -1426,19 +1025,7 @@ To understand correlation, let’s start with standardization.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-2.4321756236287047e-16), np.float64(1.0))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 31;
-            var nbb_formatted_code = "piat_math_standard = standardize(piat_math)\nnp.mean(piat_math_standard), np.std(piat_math_standard)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The results are <strong>standard scores</strong>, also called “z-scores”.
 Because of the way the standard scores are calculated, the mean is close to 0 and the standard deviation is close to 1.</p>
@@ -1454,19 +1041,7 @@ Because of the way the standard scores are calculated, the mean is close to 0 an
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-1.737268302591932e-16), np.float64(0.9999999999999998))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 32;
-            var nbb_formatted_code = "sat_math_standard = standardize(sat_math)\nnp.mean(sat_math_standard), np.std(sat_math_standard)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The following figure shows sequences of these scores for the first 100 participants.</p>
 <p>Calling <code class="docutils literal notranslate"><span class="pre">subplot</span></code> with the arguments <code class="docutils literal notranslate"><span class="pre">2,</span> <span class="pre">1,</span> <span class="pre">1</span></code> tells Matplotlib to create multiple plots, arranged in two rows and one column, and initializes the first plot.
@@ -1475,19 +1050,7 @@ Calling it again with the arguments <code class="docutils literal notranslate"><
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/fa43024f27690f3470d08a31a927004837b5400ab2640eacf4444e64b3c89c72.png" src="_images/fa43024f27690f3470d08a31a927004837b5400ab2640eacf4444e64b3c89c72.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 33;
-            var nbb_formatted_code = "plt.subplot(2, 1, 1)\nplt.axhline(0, color=\"gray\", lw=1, alpha=0.5)\nplt.plot(piat_math_standard.values[:100], label=\"PIAT math\")\ndecorate(ylabel=\"z-score\", xticks=[])\n\nplt.subplot(2, 1, 2)\nplt.axhline(0, color=\"gray\", lw=1, alpha=0.5)\nplt.plot(sat_math_standard.values[:100], label=\"SAT math\", color=\"C1\")\ndecorate(ylabel=\"z-score\", xticks=[])";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>These variables are clearly related: when one is above the mean, the other is likely to be above the mean, too.
 To quantify the strength of this relationship, we’ll multiply the standard scores element-wise and compute the average of the products.</p>
@@ -1505,19 +1068,7 @@ As a result, the average product measures the similarity between the sequences.<
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.639735816517885)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 34;
-            var nbb_formatted_code = "np.mean(piat_math_standard * sat_math_standard)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The result, which is about 0.64, is the correlation coefficient.
 Here’s one way to interpret it: if someone’s PIAT math score is 1 standard deviation above the mean, we expect their SAT math score to be 0.64 standard deviations above the mean, on average.</p>
@@ -1532,19 +1083,7 @@ Here’s one way to interpret it: if someone’s PIAT math score is 1 standard d
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.639735816517885)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 35;
-            var nbb_formatted_code = "np.mean(sat_math_standard * piat_math_standard)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>So the correlation coefficient is symmetric: if someone’s SAT math score is 1 standard deviation above the mean, we expect their PIAT math score to be 0.64 standard deviations above the mean, on average.</p>
 <p>Correlation is a commonly-used statistic, so NumPy provides a function that computes it.</p>
@@ -1559,19 +1098,7 @@ Here’s one way to interpret it: if someone’s PIAT math score is 1 standard d
        [0.63973582, 1.        ]])
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 36;
-            var nbb_formatted_code = "np.corrcoef(piat_math, sat_math)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The result is a <strong>correlation matrix</strong>, with one row and one column for each variable.
 The value in the upper left is the correlation of <code class="docutils literal notranslate"><span class="pre">piat_math</span></code> with itself.
@@ -1591,19 +1118,7 @@ The correlation of any variable with itself is 1, which indicates perfect correl
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.6397358165178849)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 37;
-            var nbb_formatted_code = "from thinkstats import corrcoef\n\ncorrcoef(nlsy, \"piat_math\", \"sat_math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>We can use this function to compute the correlation of <code class="docutils literal notranslate"><span class="pre">piat_math</span></code> and <code class="docutils literal notranslate"><span class="pre">sat_verbal</span></code>.</p>
 <div class="cell docutils container">
@@ -1616,19 +1131,7 @@ The correlation of any variable with itself is 1, which indicates perfect correl
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.509413914696731)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 38;
-            var nbb_formatted_code = "corrcoef(nlsy, \"piat_math\", \"sat_verbal\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The correlation is about 0.51, so if someone’s PIAT math score is one standard deviation above the mean, we expect their SAT verbal score to be 0.51 standard deviations above the mean, on average.</p>
 <p>As we might expect, PIAT math scores predict SAT math scores better than they predict SAT verbal scores.</p>
@@ -1645,37 +1148,11 @@ To help you develop this sense, the following figure shows scatter plots for ran
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 39;
-            var nbb_formatted_code = "np.random.seed(17)\nxs = np.random.normal(size=300)\nys = np.random.normal(size=300)";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/c8ec844f8086de0e44015597cb23742e8830742dafa96729f2fdfb8ad9694944.png" src="_images/c8ec844f8086de0e44015597cb23742e8830742dafa96729f2fdfb8ad9694944.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 40;
-            var nbb_formatted_code = "from thinkstats import make_correlated_scatter\n\nplt.figure(figsize=(10, 2.5))\n\nfor i, rho in enumerate([0, 0.3, 0.7, 0.99]):\n    plt.subplot(1, 4, i + 1)\n    make_correlated_scatter(xs, ys, rho)\ndecorate()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The Greek letter ρ, which is spelled “rho” and pronounced like “row”, is the conventional symbol for the correlation coefficient.</p>
 <p>Correlation can also be negative.
@@ -1683,19 +1160,7 @@ Here are scatter plots for random data with a range of negative correlations.</p
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/8130e4c4e607e06bc906a3d448de49d8d2fdb53124fd0835e42287bf35999230.png" src="_images/8130e4c4e607e06bc906a3d448de49d8d2fdb53124fd0835e42287bf35999230.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 41;
-            var nbb_formatted_code = "plt.figure(figsize=(10, 2.5))\n\nfor i, rho in enumerate([-0.1, -0.3, -0.7, -0.99]):\n    plt.subplot(1, 4, i + 1)\n    make_correlated_scatter(xs, ys, rho)\ndecorate()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The correlation coefficient is always between -1 and 1.
 If there is no relationship between two variables, their correlation is 0 – but if the correlation is 0, that doesn’t necessarily mean there is no relationship.</p>
@@ -1705,21 +1170,9 @@ But in each case the correlation coefficient is close to 0.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/0fc6cf682c08a663cf12315b8c0791364c0495ff7321a21cd2e1f27ef44aa88b.png" src="_images/0fc6cf682c08a663cf12315b8c0791364c0495ff7321a21cd2e1f27ef44aa88b.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 42;
-            var nbb_formatted_code = "from thinkstats import make_nonlinear_scatter\n\nplt.figure(figsize=(10, 2.5))\n\nfor i, kind in enumerate([\"abs\", \"quadratic\", \"sinusoid\"]):\n    plt.subplot(1, 4, i + 1)\n    make_nonlinear_scatter(xs, ys, kind)\ndecorate()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
-<p>The important thing to remember is that correlation quantifies the strength of a <em>linear</em> relationship between variables.
+</div>
+<p>Correlation quantifies the strength of a <em>linear</em> relationship between variables.
 If there is a non-linear relationship, the correlation coefficient can be misleading.
 And if the correlation is close to 0, that does <em>not</em> mean there is no relationship.</p>
 </section>
@@ -1749,19 +1202,7 @@ max      599728.000000
 Name: income, dtype: float64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 43;
-            var nbb_formatted_code = "nlsy[\"income\"] = nlsy[\"U4949700\"]\nnlsy[\"income\"].describe()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The values in this column are gross family income, which is total income of the respondent and the other members of their household, from all sources, reported in U.S. dollars (USD).
 Here’s what the distribution of income looks like.</p>
@@ -1776,19 +1217,7 @@ Here’s what the distribution of income looks like.</p>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/fbe8ffbaa003da5b1da54fd29371d9b6dea847ce9fd35448116d3af986daff24.png" src="_images/fbe8ffbaa003da5b1da54fd29371d9b6dea847ce9fd35448116d3af986daff24.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 44;
-            var nbb_formatted_code = "cdf_income = Cdf.from_seq(nlsy[\"income\"])\ncdf_income.step()\n\ndecorate(xlabel=\"Income (USD)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Notice the step near $600,000 – values above this threshold were capped to protect the anonymity of the participants.
 Now here’s a scatter plot of the respondents’ SAT math scores and their income later in life.</p>
@@ -1802,19 +1231,7 @@ Now here’s a scatter plot of the respondents’ SAT math scores and their inco
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/033ecdb89906e77c53fc9648feda4d231fc85c654ca2b95210576c4b541e5899.png" src="_images/033ecdb89906e77c53fc9648feda4d231fc85c654ca2b95210576c4b541e5899.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 45;
-            var nbb_formatted_code = "scatter(nlsy, \"piat_math\", \"income\")\n\ndecorate(xlabel=\"PIAT math\", ylabel=\"Gross Family Income (USD)\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>It looks like there is a relationship between these variables.
 Here is the correlation.</p>
@@ -1828,19 +1245,7 @@ Here is the correlation.</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.30338587288641233)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 46;
-            var nbb_formatted_code = "corrcoef(nlsy, \"piat_math\", \"income\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The correlation is about 0.3, which means that if someone gets a PIAT math score one standard deviation above the mean when they are 15 years old, we expect their income to be about 0.3 standard deviations above the mean when they are 40.
 That’s not as strong as the correlation between PIAT scores and SAT scores, but considering the number of factors that affect income, it’s pretty strong.</p>
@@ -1858,20 +1263,6 @@ We can use the Pandas method <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 47;
-            var nbb_formatted_code = "valid = nlsy.dropna(subset=[\"piat_math\", \"income\"])\n\npiat_math_rank = valid[\"piat_math\"].rank(method=\"first\")\nincome_rank = valid[\"income\"].rank(method=\"first\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>With the <code class="docutils literal notranslate"><span class="pre">method=&quot;first&quot;</span></code> argument, <code class="docutils literal notranslate"><span class="pre">rank</span></code> assigns ranks from 1 to the length of the sequence, which is 4101.</p>
 <div class="cell docutils container">
@@ -1884,19 +1275,7 @@ We can use the Pandas method <code class="docutils literal notranslate"><span cl
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(1.0), np.float64(4101.0))
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 48;
-            var nbb_formatted_code = "income_rank.min(), income_rank.max()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Here’s a scatter plot of income ranks versus math score ranks.</p>
 <div class="cell docutils container">
@@ -1909,19 +1288,7 @@ We can use the Pandas method <code class="docutils literal notranslate"><span cl
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/54576c4f584935588032756607290db3d8baa66657cc33218f5506afb4ff79fc.png" src="_images/54576c4f584935588032756607290db3d8baa66657cc33218f5506afb4ff79fc.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 49;
-            var nbb_formatted_code = "plt.scatter(piat_math_rank, income_rank, s=5, alpha=0.2)\n\ndecorate(xlabel=\"PIAT math rank\", ylabel=\"Income rank\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And here’s the correlation of the ranks.</p>
 <div class="cell docutils container">
@@ -1934,19 +1301,7 @@ We can use the Pandas method <code class="docutils literal notranslate"><span cl
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.38148396696764847)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 50;
-            var nbb_formatted_code = "np.corrcoef(piat_math_rank, income_rank)[0, 1]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>The result is about 0.38, somewhat higher than the Pearson correlation, which is 0.30.
 Because rank correlation is less sensitive to the effect of extreme values, it is probably a better measure of the strength of the relationship between these variables.</p>
@@ -1963,19 +1318,7 @@ Because rank correlation is less sensitive to the effect of extreme values, it i
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.38474681505344815)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 51;
-            var nbb_formatted_code = "from thinkstats import rankcorr\n\nrankcorr(nlsy, \"piat_math\", \"income\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And SciPy provides a similar function called <code class="docutils literal notranslate"><span class="pre">spearmanr</span></code>, because rank correlation is also called Spearman’s correlation.</p>
 <div class="cell tag_remove-print docutils container">
@@ -1990,19 +1333,7 @@ Because rank correlation is less sensitive to the effect of extreme values, it i
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(0.38474681505344815)
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 52;
-            var nbb_formatted_code = "from scipy.stats import spearmanr\n\nspearmanr(valid[\"piat_math\"], valid[\"income\"]).statistic";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>As an exercise, you’ll have a chance to compute the correlation between SAT verbal scores and income, using both Pearson correlation and rank correlation.</p>
 </section>
@@ -2022,7 +1353,7 @@ If you divide a large sample into two groups at random and compute the means of 
 If the groups are nearly identical in all variables but A and B, you can rule out the possibility that something else causes both A and B.</p></li>
 </ol>
 <p>These ideas are the motivation for the <strong>randomized controlled trial</strong>, in which subjects are assigned randomly to two (or more) groups: a <strong>treatment group</strong> that receives some kind of intervention, like a new medicine, and a <strong>control group</strong> that receives no intervention, or another treatment whose effects are known.
-A randomized controlled trial is the most reliable way to demonstrate a causal relationship, and the foundation of science-based medicine.</p>
+A randomized controlled trial is the most reliable way to demonstrate a causal relationship, and the foundation of evidence-based medicine.</p>
 <p>Unfortunately, controlled trials are sometimes impossible or unethical.
 An alternative is to look for a <strong>natural experiment</strong>, where similar groups are exposed to different conditions due to circumstances beyond the control of the experimenter.</p>
 <p>Identifying and measuring causal relationships is the topic of a branch of statistics called <strong>causal inference</strong>.</p>
@@ -2063,19 +1394,7 @@ We can call it like this to visualize the relationship between SAT verbal and ma
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/7478049eb56ba9b05f007c7ee82a78689b9aff724688d5053eae27156e31cf43.png" src="_images/7478049eb56ba9b05f007c7ee82a78689b9aff724688d5053eae27156e31cf43.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 53;
-            var nbb_formatted_code = "from thinkstats import decile_plot\n\ndecile_plot(nlsy, \"sat_verbal\", \"sat_math\")\ndecorate(xlabel=\"SAT Verbal\", ylabel=\"SAT Math\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Make a decile plot of PIAT math scores and income.
 Does it appear to be a linear relationship?</p>
@@ -2112,19 +1431,7 @@ max         4.170000
 Name: gpa, dtype: float64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 57;
-            var nbb_formatted_code = "missing_codes = [-6, -7, -8, -9]\nnlsy[\"gpa\"] = nlsy[\"R9871900\"].replace(missing_codes, np.nan) / 100\nnlsy[\"gpa\"].describe()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>And here’s what the distribution of GPAs looks like.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2137,19 +1444,7 @@ Name: gpa, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/026a9ac9ed6fde538912d196b383d288b8c67c94cc3f120b9afc112fc8c889fc.png" src="_images/026a9ac9ed6fde538912d196b383d288b8c67c94cc3f120b9afc112fc8c889fc.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 58;
-            var nbb_formatted_code = "cdf_income = Cdf.from_seq(nlsy[\"gpa\"])\ncdf_income.step()\ndecorate(xlabel=\"Income (USD)\", ylabel=\"CDF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Make a scatter plot that shows the relationship between GPA and SAT math scores and compute the correlation coefficient.
 Do the same for the relationship between GPA and SAT verbal scores.
@@ -2180,19 +1475,7 @@ The values are encoded as integers.</p>
 Name: count, dtype: int64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 62;
-            var nbb_formatted_code = "nlsy[\"degree\"] = nlsy[\"Z9083900\"]\nnlsy[\"degree\"].value_counts().sort_index()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>But we can use these lists to decode them.</p>
 <div class="cell docutils container">
@@ -2211,20 +1494,6 @@ Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 63;
-            var nbb_formatted_code = "positions = [0, 1, 2, 3, 4, 5, 6, 7]\nlabels = [\n    \"None\",\n    \"GED\",\n    \"High school diploma\",\n    \"Associate's degree\",\n    \"Bachelor's degree\",\n    \"Master's degree\",\n    \"PhD\",\n    \"Professional degree\",\n]";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <p>And make a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> that represents the distribution of educational attainment.</p>
 <div class="cell tag_remove-print docutils container">
@@ -2240,19 +1509,7 @@ Name: count, dtype: int64
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/13567e080cbdb4df390effd3253b0857ed3d0e62265a6ae08c348ccfaf41b1ca.png" src="_images/13567e080cbdb4df390effd3253b0857ed3d0e62265a6ae08c348ccfaf41b1ca.png" />
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 64;
-            var nbb_formatted_code = "from empiricaldist import Pmf\n\nPmf.from_seq(nlsy[\"degree\"]).bar()\n\nplt.xticks(positions, labels, rotation=30, ha=\"right\")\ndecorate(ylabel=\"PMF\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Make a scatter plot of <code class="docutils literal notranslate"><span class="pre">income</span></code> versus <code class="docutils literal notranslate"><span class="pre">degree</span></code>.
 To avoid overplotting, jitter the values of <code class="docutils literal notranslate"><span class="pre">degree</span></code> and adjust the marker size and transparency.</p>
@@ -2268,7 +1525,7 @@ Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>Make a scatter plot that shows the relationship between height and weight.
 You might have to jitter the data to blur the visible rows and columns due to rounding.
 And with such a large sample, you will have to adjust the marker size and transparency to avoid overplotting.
-Also, because there are outliers in both measurement, you might want to use <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to zoom in on a region that covers most of the respondents.</p>
+Also, because there are outliers in both measurements, you might want to use <code class="docutils literal notranslate"><span class="pre">xlim</span></code> and <code class="docutils literal notranslate"><span class="pre">ylim</span></code> to zoom in on a region that covers most of the respondents.</p>
 <p>Here’s how we can load the data.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -2276,20 +1533,6 @@ Also, because there are outliers in both measurement, you might want to use <cod
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 67;
-            var nbb_formatted_code = "download(\"https://github.com/AllenDowney/ThinkStats/raw/v3/data/CDBRFS08.ASC.gz\")";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
 </div>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
@@ -2312,19 +1555,7 @@ max         236.000000
 Name: htm3, dtype: float64
 </pre></div>
 </div>
-<script type="application/javascript">
-        setTimeout(function() {
-            var nbb_cell_id = 68;
-            var nbb_formatted_code = "from thinkstats import read_brfss\n\nbrfss = read_brfss()\nbrfss[\"htm3\"].describe()";
-            var nbb_cells = Jupyter.notebook.get_cells();
-            for (var i = 0; i < nbb_cells.length; ++i) {
-                if (nbb_cells[i].input_prompt_number == nbb_cell_id) {
-                    nbb_cells[i].set_text(nbb_formatted_code);
-                    break;
-                }
-            }
-        }, 500);
-        </script></div>
+</div>
 </div>
 <p>Make a decile plot of weight versus height. Does the relationship seem to be linear?
 Compute the correlation coefficient and rank correlation. Are they substantially different? Which one do you think better quantifies the relationship between these variables?</p>

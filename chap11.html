@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>11. Regression &#8212; Think Stats</title>
+    <title>11. Multiple Regression &#8212; Think Stats</title>
   
   
   
@@ -180,7 +180,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Regression</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -344,7 +344,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Regression</h1>
+    <h1>Multiple Regression</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -379,27 +379,13 @@
                 <article class="bd-article">
                   
   <p>The third edition of <em>Think Stats</em> is not for sale yet, but if you would like to support this project, please consider <a class="reference external" href="https://buymeacoffee.com/allendowney">buying me a coffee</a>.</p>
-<section id="regression">
-<h1><span class="section-number">11. </span>Regression<a class="headerlink" href="#regression" title="Link to this heading">#</a></h1>
+<section id="multiple-regression">
+<h1><span class="section-number">11. </span>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Link to this heading">#</a></h1>
 <p>The linear least squares fit in the previous chapter is an example of <strong>regression</strong>, which is the more general problem of modeling the relationship between one set of variables, called <strong>response variables</strong> or dependent variables, and another set of variables, called <strong>explanatory variables</strong> or independent variables.</p>
 <p>In the examples in the previous chapter, there is only one response variable and one explanatory variable, which is called <strong>simple regression</strong>.
 In this chapter, we move on to <strong>multiple regression</strong>, with more than one explanatory variable, but still only one response variable.
 If there is more than one response variable, that’s multivariate regression, which we won’t cover in this book.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap11.ipynb">Click here to run this notebook on Colab</a>.</p>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -489,7 +475,7 @@ For that, we’ll use <code class="docutils literal notranslate"><span class="pr
 </div>
 </div>
 </div>
-<p>Now we can load the data, drop the rows with missing weights, and rename the columns.</p>
+<p>Now we can load the data, drop the rows with missing mass, and rename the columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">penguins</span> <span class="o">=</span> <span class="p">(</span>
@@ -625,7 +611,7 @@ In this example, it’s a linear model, which means that it assumes that the res
 </table></div></div>
 </div>
 <p>The first column contains the intercept and slope, which are the <strong>coefficients</strong> of the model.
-We can confirm that they are are same as the coefficients we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+We can confirm that they are the same as the coefficients we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">slope</span>
@@ -638,7 +624,7 @@ We can confirm that they are are same as the coefficients we got from <code clas
 </div>
 </div>
 </div>
-<p>The second column contains the standard errors of the coefficients – again, they are the same as as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
+<p>The second column contains the standard errors of the coefficients – again, they are the same as the values we got from <code class="docutils literal notranslate"><span class="pre">linregress</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_linregress</span><span class="o">.</span><span class="n">intercept_stderr</span><span class="p">,</span> <span class="n">result_linregress</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
@@ -651,7 +637,7 @@ We can confirm that they are are same as the coefficients we got from <code clas
 </div>
 </div>
 </div>
-<p>The next column reports <span class="math notranslate nohighlight">\(t\)</span> statistics, which are used to compute p-values – we can ignore them, because the p-values are in the next column, labeled <code class="docutils literal notranslate"><span class="pre">P&lt;|t|</span></code>.
+<p>The next column reports <span class="math notranslate nohighlight">\(t\)</span> statistics, which are used to compute p-values – we can ignore them, because the p-values are in the next column, labeled <code class="docutils literal notranslate"><span class="pre">P&gt;|t|</span></code>.
 The p-value for <code class="docutils literal notranslate"><span class="pre">flipper_length</span></code> is rounded down to 0, but we can display it like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -696,6 +682,7 @@ So we can compare <code class="docutils literal notranslate"><span class="pre">r
 </div>
 </div>
 </div>
+<p>hey are the same except for a small difference due to floating-point approximation.</p>
 <p>Before we go on to multiple regression, let’s compute one more simple regression, with <code class="docutils literal notranslate"><span class="pre">culmen_length</span></code> as the explanatory variable (the culmen is the top ridge of the bill).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -766,7 +753,7 @@ Now, let’s see what happens if we combine them.</p>
 </tr>
 </table></div></div>
 </div>
-<p>This model has three coefficients, an intercept and two slopes.
+<p>This model has three coefficients: an intercept and two slopes.
 The slope associated with flipper length is 22.7, which means we expect a penguin with a longer flipper, by one millimeter, to weight more, by 22.7 grams – assuming that culmen length is the same.
 Similarly, we expect a penguin with a longer culmen, by one millimeter, to weight more, by 76.3 grams – assuming that flipper length is the same.</p>
 <p>The p-values associated with both slopes are small, which means that the contribution of both explanatory variables would be unlikely to happen by chance.</p>
@@ -1277,7 +1264,7 @@ And the p-value associated with <code class="docutils literal notranslate"><span
 <section id="logistic-regression">
 <h2><span class="section-number">11.5. </span>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
 <p>Linear regression is based on a model where the expected value of the response variable is the weighted sum of the explanatory variables and an intercept.
-This model is appropriate when the response variable is a continuous quantity like birth weight or penguin weight, but not when the response variable is a discrete quantity like a count or a category.</p>
+This model is appropriate when the response variable is a continuous quantity like birth weight or penguin mass, but not when the response variable is a discrete quantity like a count or a category.</p>
 <p>For these kinds of response variables, we can use <strong>generalized linear models</strong> or GLMs.
 For example:</p>
 <ul class="simple">
@@ -1375,7 +1362,7 @@ Here’s what the predicted values look like.</p>
 <img alt="_images/c3e7e2a0a8a5c8b5e43914e573c0fc1edebf5ee62c0448ddb4ef9c70a63f350b.png" src="_images/c3e7e2a0a8a5c8b5e43914e573c0fc1edebf5ee62c0448ddb4ef9c70a63f350b.png" />
 </div>
 </div>
-<p>The lightest penguins are almost certain to be female, and the heaviest are likely to be male – in the middle, a penguin weighing 3750 grams is equally likely to be male or female.</p>
+<p>The lightest penguins are almost certain to be female, and the heaviest are likely to be male – in the middle, a penguin weighing 3750 grams is about equally likely to be male or female.</p>
 <p>Now let’s see what happens if we add the other measurements as explanatory variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1488,7 +1475,7 @@ We’ll use the following function to select them.</p>
 </div>
 </div>
 </div>
-<p>And here are the results.</p>
+<p>Here are the results of the logistic regression model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">formula</span> <span class="o">=</span> <span class="s2">&quot;y ~ mass + flipper_length + culmen_length + culmen_depth&quot;</span>
@@ -1524,7 +1511,7 @@ We’ll use the following function to select them.</p>
 </tr>
 </table></div></div>
 </div>
-<p>The pseudo-<span class="math notranslate nohighlight">\(R^2\)</span> value is 0.848, higher what we got with Adélie penguins (0.662).
+<p>The pseudo-<span class="math notranslate nohighlight">\(R^2\)</span> value is 0.848, higher than what we got with Adélie penguins (0.662).
 That means Gentoo penguins can be classified more accurately using physical measurements, compared to Adélie penguins, which suggests that Gentoo penguins are more dimorphic.</p>
 </section>
 <section id="glossary">
@@ -1532,14 +1519,14 @@ That means Gentoo penguins can be classified more accurately using physical meas
 <ul class="simple">
 <li><p><strong>regression</strong>: A method for estimating coefficients that fit a model to data.</p></li>
 <li><p><strong>response variables</strong>: The variables a regression model tries to predict, also known as dependent variables.</p></li>
-<li><p><strong>explanatory variables</strong>: The variables a model uses to predict the response variables. Also known as independent variables.</p></li>
+<li><p><strong>explanatory variables</strong>: The variables a model uses to predict the response variables, also known as independent variables.</p></li>
 <li><p><strong>simple regression</strong>: A regression with one response variable and one explanatory variable.</p></li>
 <li><p><strong>multiple regression</strong>: A regression with multiple explanatory variables, but only one response variable.</p></li>
 <li><p><strong>coefficients:</strong> In a regression model, the coefficients are the intercept and the estimated slopes for the explanatory variables.</p></li>
 <li><p><strong>categorical variable</strong>: A variable that can have one of a discrete set of values, usually not numerical.</p></li>
 <li><p><strong>control variable</strong>: A variable included in a regression to separate the direct effect of an explanatory variable from an indirect effect.</p></li>
 <li><p><strong>generalized linear models:</strong> A set of regression models based on different mathematical relationships between the explanatory and response variables.</p></li>
-<li><p><strong>logistic regression</strong>: A generalized linear model used when the response variable is boolean – that is, it has two possible values.</p></li>
+<li><p><strong>logistic regression</strong>: A generalized linear model used when the response variable has only two possible values.</p></li>
 </ul>
 </section>
 <section id="exercises">

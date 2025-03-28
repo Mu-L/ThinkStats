@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Hypothesis Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Time Series Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
@@ -390,20 +390,6 @@ What I present here is a mixture of these approaches that is often used in pract
 <span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<div class="cell tag_remove-print tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
 
@@ -457,8 +443,8 @@ What I present here is a mixture of these approaches that is often used in pract
 </div>
 <section id="flipping-coins">
 <h2><span class="section-number">9.1. </span>Flipping Coins<a class="headerlink" href="#flipping-coins" title="Link to this heading">#</a></h2>
-<p>We’ll start with a simple example.
-When Euro coins were introduced in 2002, a curious coin enthusiast spun a Belgian one-Euro coin on edge 250 times and noted that it landed with the heads side up 140 times and tails side up 110 times.
+<p>We’ll start with a simple example, based on an example in David MacKay’s book, <em>Information Theory, Inference, and Learning Algorithms</em>.</p>
+<p>When Euro coins were introduced in 2002, a curious coin enthusiast spun a Belgian one-Euro coin on edge 250 times and noted that it landed with the heads side up 140 times and tails side up 110 times.
 If the coin is perfectly balanced, we expect only 125 heads, so this data suggests the coin is biased.
 On the other hand, we don’t expect to get exactly 125 heads every time, so it’s possible that the coin is actually fair, and the apparent deviation from the expected value is due to chance.
 To see whether that’s plausible, we can perform a hypothesis test.</p>
@@ -469,7 +455,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">abs_deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">):</span>
     <span class="n">expected</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">p</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">heads</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span>
 </pre></div>
@@ -482,7 +468,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">heads</span> <span class="o">=</span> <span class="mi">140</span>
 <span class="n">tails</span> <span class="o">=</span> <span class="mi">110</span>
 
-<span class="n">observed_stat</span> <span class="o">=</span> <span class="n">deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">)</span>
+<span class="n">observed_stat</span> <span class="o">=</span> <span class="n">abs_deviation</span><span class="p">(</span><span class="n">heads</span><span class="p">)</span>
 <span class="n">observed_stat</span>
 </pre></div>
 </div>
@@ -527,7 +513,7 @@ To see whether that’s plausible, we can perform a hypothesis test.</p>
 <p>The following loop simulates the experiment many times, computes the deviation for each one, and uses a list comprehension to collect the results in a list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">deviation</span><span class="p">(</span><span class="n">simulate_flips</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_stats</span> <span class="o">=</span> <span class="p">[</span><span class="n">abs_deviation</span><span class="p">(</span><span class="n">simulate_flips</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -549,10 +535,9 @@ Here’s what the distribution of these values looks like.</p>
 <img alt="_images/3f731f1367cbe5b239cdb8e7b4f3b4024828e9c8d5c6fca6476b5a0b160761ba.png" src="_images/3f731f1367cbe5b239cdb8e7b4f3b4024828e9c8d5c6fca6476b5a0b160761ba.png" />
 </div>
 </div>
-<p>Values near 0 are the most common.
-Values greater than 10 are less common.
+<p>Values near 0 are the most common; values greater than 10 are less common.
 Remembering that the deviation in the observed data is 15, we see that deviations of that magnitude are rare, but not impossible.
-In this example, the simulated results equal or exceed about 7.1% of the time.</p>
+In this example, the simulated results equal or exceed 15 about 7.1% of the time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">simulated_stats</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
@@ -571,7 +556,7 @@ On the basis of this experiment, we can’t rule out the possibility that the co
 <p>This example demonstrates the logic of statistical hypothesis testing.</p>
 <ul class="simple">
 <li><p>We started with an observation, 140 heads out of 250 spins, and the hypothesis that the coin is biased – that is, that the probability of heads differs from 50%.</p></li>
-<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the observed effect. In this example, the test statistic is the deviation from the expected outcome.</p></li>
+<li><p>We chose a <strong>test statistic</strong> that quantifies the size of the observed effect. In this example, the test statistic is the absolute deviation from the expected outcome.</p></li>
 <li><p>We defined a <strong>null hypothesis</strong>, which is a model based on the assumption that the observed effect is due to chance. In this example, the null hypothesis is that the coin is fair.</p></li>
 <li><p>Next, we computed a <strong>p-value</strong>, which is the probability of seeing the observed effect if the null hypothesis is true. In this example, the p-value is the probability of a deviation as big as 15 or bigger.</p></li>
 </ul>
@@ -623,7 +608,7 @@ Now let’s see if that difference could be due to chance.</p>
 </div>
 </div>
 </div>
-<p>The following function takes the data as a tuple of two sequences, and computes absolute difference in means.</p>
+<p>The following function takes the data as a tuple of two sequences, and computes the absolute difference in means.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">abs_diff_means</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
@@ -777,7 +762,7 @@ To test that hypothesis, we can use as a test statistic the absolute difference 
 The following function computes this test statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">abs_diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">group1</span><span class="p">,</span> <span class="n">group2</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">group2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
@@ -788,7 +773,7 @@ The following function computes this test statistic.</p>
 <p>In the NSFG dataset, the difference in standard deviations is about 0.18.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_diff</span> <span class="o">=</span> <span class="n">diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_diff</span> <span class="o">=</span> <span class="n">abs_diff_stds</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">observed_diff</span>
 </pre></div>
 </div>
@@ -803,7 +788,7 @@ The following function computes this test statistic.</p>
 The following loop simulates the null hypothesis many times and computes the difference in standard deviation for each simulated dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_diffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">diff_stds</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_diffs</span> <span class="o">=</span> <span class="p">[</span><span class="n">abs_diff_stds</span><span class="p">(</span><span class="n">simulate_groups</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -1062,7 +1047,7 @@ But could these differences happen by chance?</p>
 <p>The following function takes the observed and expected frequencies and computes the sum of the absolute differences.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">total_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">total_abs_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">observed</span> <span class="o">-</span> <span class="n">expected</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1071,7 +1056,7 @@ But could these differences happen by chance?</p>
 <p>In the observed dataset, this test statistic is 20.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_dev</span> <span class="o">=</span> <span class="n">total_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">observed_dev</span> <span class="o">=</span> <span class="n">total_abs_deviation</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span>
 <span class="n">observed_dev</span>
 </pre></div>
 </div>
@@ -1097,7 +1082,7 @@ But could these differences happen by chance?</p>
 <p>The following loop simulates the experiment many times and computes the total absolute deviation for each one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_devs</span> <span class="o">=</span> <span class="p">[</span><span class="n">total_deviation</span><span class="p">(</span><span class="n">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated_devs</span> <span class="o">=</span> <span class="p">[</span><span class="n">total_abs_deviation</span><span class="p">(</span><span class="n">simulate_dice</span><span class="p">(</span><span class="n">observed</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -1196,7 +1181,7 @@ The shaded region shows the results that exceed the observed value.</p>
 </div>
 <p>The p-value using the chi-squared statistic is about 0.04, substantially smaller than what we got using total deviation, 0.13.
 If we take the 5% threshold seriously, we would consider this effect statistically significant.
-But considering the two tests together, I would say that the results are borderline.
+But considering the two tests together, I would say that the results are inconclusive.
 I would not rule out the possibility that the die is crooked, but I would not convict the accused cheater.</p>
 <p>This example demonstrates an important point: the p-value depends on the choice of test statistic and the model of the null hypothesis, and sometimes these choices determine whether an effect is statistically significant or not.</p>
 </section>
@@ -1207,7 +1192,7 @@ I would not rule out the possibility that the die is crooked, but I would not co
 <li><p><strong>test statistic</strong>: A statistic used in a hypothesis test to quantify the size of an observed effect.</p></li>
 <li><p><strong>null hypothesis</strong>: A model of a system based on the assumption that an effect observed in a sample does not exist in the population.</p></li>
 <li><p><strong>permutation</strong>: A way to simulate a null hypothesis by randomly shuffling a dataset.</p></li>
-<li><p><strong>p-value</strong>: The probability of an effect as big as the observed effect, under the null hypothesis.</p></li>
+<li><p><strong>p-value</strong>: The probability of an effect as big as the observed effect, under a null hypothesis.</p></li>
 <li><p><strong>statistically significant</strong>: An effect is statistically significant if the p-value is smaller than a chosen threshold, often 5%. In a large dataset, an observed effect can be statistically significant even if it is too small to matter in practice.</p></li>
 </ul>
 </section>
