@@ -109,7 +109,7 @@ def expect(line, cell):
 # Make the figures smaller to save some screen real estate.
 # The figures generated for the book have DPI 300, so scaling
 # them by a factor of 4 restores them to the size in the notebooks.
-plt.rcParams["figure.dpi"] = 300
+plt.rcParams["figure.dpi"] = 75
 plt.rcParams["figure.figsize"] = [6, 3.5]
 
 
