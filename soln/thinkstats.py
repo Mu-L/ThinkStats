@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 import scipy
 
-from empiricaldist import Hist, Pmf, Cdf, Hazard
+from empiricaldist import FreqTab, Pmf, Cdf, Hazard
 
 from scipy.stats import norm
 from scipy.stats import gaussian_kde
@@ -36,9 +36,11 @@ from IPython.core.magic_arguments import (
 def extract_function_name(text):
     """Find a function definition and return its name.
 
-    text: String
+    Args:
+        text: String containing function definition.
 
-    returns: String or None
+    Returns:
+        String or None: Function name if found, None otherwise.
     """
     pattern = r"def\s+(\w+)\s*\("
     match = re.search(pattern, text)
@@ -51,7 +53,15 @@ def extract_function_name(text):
 
 @register_cell_magic
 def add_method_to(args, cell):
+    """Add a method to a class.
 
+    Args:
+        args: String containing the class name.
+        cell: String containing the function definition.
+
+    Returns:
+        String: Status message indicating success or failure.
+    """
     # get the name of the function defined in this cell
     func_name = extract_function_name(cell)
     if func_name is None:
@@ -88,6 +98,12 @@ def add_method_to(args, cell):
 
 @register_cell_magic
 def expect_error(line, cell):
+    """Execute a cell and display the traceback if it raises an exception.
+
+    Args:
+        line: Unused.
+        cell: String containing code to execute.
+    """
     try:
         get_ipython().run_cell(cell)
     except Exception as e:
@@ -98,6 +114,12 @@ def expect_error(line, cell):
 @argument("exception", help="Type of exception to catch")
 @register_cell_magic
 def expect(line, cell):
+    """Execute a cell and display the traceback if it raises the expected exception.
+
+    Args:
+        line: String containing the expected exception type.
+        cell: String containing code to execute.
+    """
     args = parse_argstring(expect, line)
     exception = eval(args.exception)
     try:
@@ -127,10 +149,12 @@ def remove_spines():
 def value_counts(seq, **options):
     """Counts the values in a series and returns sorted.
 
-    seq: sequence
-    options: passed to pd.Series.value_counts
+    Args:
+        seq: sequence to count values from.
+        **options: passed to pd.Series.value_counts.
 
-    returns: pd.Series
+    Returns:
+        pd.Series: Sorted value counts.
     """
     options = underride(options, dropna=False)
     return pd.Series(seq).value_counts(**options).sort_index()
@@ -145,10 +169,12 @@ def value_counts(seq, **options):
 def two_bar_plots(dist1, dist2, width=0.45, xlabel="", **options):
     """Makes two back-to-back bar plots.
 
-    dist1: Hist or Pmf object
-    dist2: Hist or Pmf object
-    width: width of the bars
-    options: passed along to plt.bar
+    Args:
+        dist1: FreqTab or Pmf object for the left bars.
+        dist2: FreqTab or Pmf object for the right bars.
+        width: float width of the bars.
+        xlabel: string label for the x-axis.
+        **options: passed along to plt.bar.
     """
     dist1.bar(align="edge", width=-width, **options)
     underride(options, alpha=0.5)
@@ -159,10 +185,12 @@ def two_bar_plots(dist1, dist2, width=0.45, xlabel="", **options):
 def cohen_effect_size(group1, group2):
     """Computes Cohen's effect size for two groups.
 
-    group1: Series
-    group2: Series
+    Args:
+        group1: sequence containing first group's data.
+        group2: sequence containing second group's data.
 
-    returns: float
+    Returns:
+        float: Cohen's effect size.
     """
     diff = group1.mean() - group2.mean()
 
@@ -179,16 +207,16 @@ def cohen_effect_size(group1, group2):
 ## Chapter 5
 
 
-def read_brfss(
-    filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None
-):
+def read_brfss(filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None):
     """Reads the BRFSS data.
 
-    filename: string
-    compression: string
-    nrows: int number of rows to read, or None for all
+    Args:
+        filename: string path to the data file.
+        compression: string indicating compression type.
+        nrows: optional int number of rows to read, or None for all.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: BRFSS data with cleaned variables.
     """
     # column names and column specs from
     # https://www.cdc.gov/brfss/annual_data/2008/varLayout_table_08.htm
@@ -221,7 +249,8 @@ def read_brfss(
 def clean_brfss(df):
     """Recodes BRFSS variables.
 
-    df: DataFrame
+    Args:
+        df: DataFrame containing BRFSS data to clean.
     """
     df["age"] = df["age"].replace([7, 9], np.nan)
     df["htm3"] = df["htm3"].replace([999], np.nan)
@@ -238,11 +267,13 @@ from scipy.special import comb
 def binomial_pmf(k, n, p):
     """Compute the binomial PMF.
 
-    k (int or array-like): number of successes
-    n (int): number of trials
-    p (float): probability of success on a single trial
+    Args:
+        k: int or array-like number of successes.
+        n: int number of trials.
+        p: float probability of success on a single trial.
 
-    returns: float or ndarray
+    Returns:
+        float or ndarray: Probability mass for k successes.
     """
     return comb(n, k) * (p**k) * ((1 - p) ** (n - k))
 
@@ -253,10 +284,12 @@ from scipy.special import factorial
 def poisson_pmf(k, lam):
     """Compute the Poisson PMF.
 
-    k (int or array-like): The number of occurrences
-    lam (float): The rate parameter (λ) of the Poisson distribution
+    Args:
+        k: int or array-like number of occurrences.
+        lam: float rate parameter (λ) of the Poisson distribution.
 
-    returns: float or ndarray
+    Returns:
+        float or ndarray: Probability mass for k occurrences.
     """
     return (lam**k) * np.exp(-lam) / factorial(k)
 
@@ -264,10 +297,12 @@ def poisson_pmf(k, lam):
 def exponential_cdf(x, lam):
     """Compute the exponential CDF.
 
-    x: float or sequence of floats
-    lam: rate parameter
+    Args:
+        x: float or sequence of floats.
+        lam: float rate parameter.
 
-    returns: float or NumPy array of cumulative probability
+    Returns:
+        float or ndarray: Cumulative probability.
     """
     return 1 - np.exp(-lam * x)
 
@@ -275,7 +310,11 @@ def exponential_cdf(x, lam):
 def make_normal_model(data):
     """Make the Cdf of a normal distribution based on data.
 
-    data: sequence of numbers
+    Args:
+        data: sequence of numbers.
+
+    Returns:
+        Cdf: Normal distribution model.
     """
     m, s = np.mean(data), np.std(data)
     low, high = np.min(data), np.max(data)
@@ -287,10 +326,11 @@ def make_normal_model(data):
 def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
     """Plot an empirical CDF and a theoretical model.
 
-    cdf_model: Cdf object
-    cdf_data: Cdf object
-    xlabel: string
-    options: control the way cdf_data is plotted
+    Args:
+        cdf_model: Cdf object representing the theoretical model.
+        cdf_data: Cdf object representing the empirical data.
+        xlabel: string label for the x-axis.
+        **options: Control the way cdf_data is plotted.
     """
     cdf_model.plot(ls=':', color="gray")
     cdf_data.plot(**options)
@@ -304,11 +344,13 @@ def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
 def normal_pdf(xs, mu, sigma):
     """Evaluates the normal probability density function.
 
-    xs: float or sequence of floats
-    mu: mean of the distribution
-    sigma: standard deviation of the distribution
+    Args:
+        xs: float or sequence of floats.
+        mu: float mean of the distribution.
+        sigma: float standard deviation of the distribution.
 
-    returns: float or NumPy array of probability density
+    Returns:
+        float or ndarray: Probability density.
     """
     z = (xs - mu) / sigma
     return np.exp(-(z**2) / 2) / sigma / np.sqrt(2 * np.pi)
@@ -320,31 +362,36 @@ class Density:
     def __init__(self, density_func, domain, name=""):
         """Initializes the Pdf.
 
-        density_func: density function
-        domain: tuple of low, high
-        name: string
+        Args:
+            density_func: function that computes the density.
+            domain: tuple of (low, high) values.
+            name: string name for the distribution.
         """
         self.name = name
         self.density_func = density_func
         self.domain = domain
 
     def __repr__(self):
+        """Returns a string representation."""
         return f"Density({self.density_func.__name__}, {self.domain}, name={self.name})"
 
     def __call__(self, qs):
         """Evaluates this Density at qs.
 
-        qs: float or sequence of floats
+        Args:
+            qs: float or sequence of floats.
 
-        returns: float or NumPy array of probability density
+        Returns:
+            float or ndarray: Probability density.
         """
         return self.density_func(qs)
 
     def plot(self, qs=None, **options):
         """Plots this Density.
 
-        qs: NumPy array of quantities where the density_func should be evaluated
-        options: passed along to plt.plot
+        Args:
+            qs: optional ndarray of quantities where the density_func should be evaluated.
+            **options: passed along to plt.plot.
         """
         if qs is None:
             low, high = self.domain
@@ -361,10 +408,12 @@ class Pdf(Density):
     def make_pmf(self, qs=None, **options):
         """Makes a discrete approximation to the Pdf.
 
-        qs: NumPy array of quantities where the Pdf should be evaluated
-        options: passed along to the Pmf constructor
+        Args:
+            qs: optional ndarray of quantities where the Pdf should be evaluated.
+            **options: passed along to the Pmf constructor.
 
-        returns: Pmf
+        Returns:
+            Pmf: Discrete approximation of the Pdf.
         """
         if qs is None:
             low, high = self.domain
@@ -380,9 +429,13 @@ class Pdf(Density):
 def area_under(pdf, low, high):
     """Find the area under a PDF.
 
-    pdf: Pdf object
-    low: low end of the interval
-    high: high end of the interval
+    Args:
+        pdf: Pdf object to integrate.
+        low: float low end of the interval.
+        high: float high end of the interval.
+
+    Returns:
+        float: Area under the PDF between low and high.
     """
     qs = np.linspace(low, high, 501)
     ps = pdf(qs)
@@ -395,10 +448,12 @@ class ContinuousCdf(Density):
     def make_cdf(self, qs=None, **options):
         """Makes a discrete approximation to the CDF.
 
-        qs: NumPy array of quantities where the CDF should be evaluated
-        options: passed along to the Cdf constructor
+        Args:
+            qs: optional ndarray of quantities where the CDF should be evaluated.
+            **options: passed along to the Cdf constructor.
 
-        returns: Cdf
+        Returns:
+            Cdf: Discrete approximation of the CDF.
         """
         if qs is None:
             low, high = self.domain
@@ -417,9 +472,11 @@ class NormalPdf(Pdf):
     def __init__(self, mu=0, sigma=1, domain=None, name=""):
         """Constructs a NormalPdf with given mu and sigma.
 
-        mu: mean
-        sigma: standard deviation
-        name: string
+        Args:
+            mu: float mean of the distribution.
+            sigma: float standard deviation of the distribution.
+            domain: optional tuple of (low, high) values.
+            name: string name for the distribution.
         """
         self.mu = mu
         self.sigma = sigma
@@ -437,9 +494,11 @@ class NormalPdf(Pdf):
     def __call__(self, qs):
         """Evaluates this PDF at qs.
 
-        qs: scalar or sequence of floats
+        Args:
+            qs: float or sequence of floats.
 
-        returns: float or NumPy array of probability density
+        Returns:
+            float or ndarray: Probability density.
         """
         return normal_pdf(qs, self.mu, self.sigma)
 
@@ -450,9 +509,11 @@ class NormalCdf(ContinuousCdf):
     def __init__(self, mu=0, sigma=1, domain=None, name=""):
         """Constructs a NormalCdf with given mu and sigma.
 
-        mu: mean
-        sigma: standard deviation
-        name: string
+        Args:
+            mu: float mean of the distribution.
+            sigma: float standard deviation of the distribution.
+            domain: optional tuple of (low, high) values.
+            name: string name for the distribution.
         """
         self.mu = mu
         self.sigma = sigma
@@ -470,9 +531,11 @@ class NormalCdf(ContinuousCdf):
     def __call__(self, qs):
         """Evaluates this CDF at qs.
 
-        qs: scalar or sequence of floats
+        Args:
+            qs: float or sequence of floats.
 
-        returns: float or NumPy array of cumulative probability
+        Returns:
+            float or ndarray: Cumulative probability.
         """
         return norm.cdf(qs, self.mu, self.sigma)
 
@@ -480,10 +543,12 @@ class NormalCdf(ContinuousCdf):
 def exponential_pdf(x, lam):
     """Evaluates the exponential PDF.
 
-    x: float or sequence of floats
-    lam: rate parameter
+    Args:
+        x: float or sequence of floats.
+        lam: float rate parameter.
 
-    returns: float or NumPy array of probability density
+    Returns:
+        float or ndarray: Probability density.
     """
     return lam * np.exp(-lam * x)
 
@@ -494,8 +559,10 @@ class ExponentialPdf(Pdf):
     def __init__(self, lam=1, domain=None, name=""):
         """Constructs an ExponentialPdf with given lambda.
 
-        lam: rate parameter
-        name: string
+        Args:
+            lam: float rate parameter.
+            domain: optional tuple of (low, high) values.
+            name: string name for the distribution.
         """
         self.lam = lam
         if domain is None:
@@ -510,9 +577,11 @@ class ExponentialPdf(Pdf):
     def __call__(self, qs):
         """Evaluates this PDF at qs.
 
-        qs: scalar or sequence of floats
+        Args:
+            qs: float or sequence of floats.
 
-        returns: float or NumPy array of probability density
+        Returns:
+            float or ndarray: Probability density.
         """
         return exponential_pdf(qs, self.lam)
 
@@ -523,8 +592,10 @@ class ExponentialCdf(ContinuousCdf):
     def __init__(self, lam=1, domain=None, name=""):
         """Constructs an ExponentialCdf with given lambda.
 
-        lam: rate parameter
-        name: string
+        Args:
+            lam: float rate parameter.
+            domain: optional tuple of (low, high) values.
+            name: string name for the distribution.
         """
         self.lam = lam
         if domain is None:
@@ -539,9 +610,11 @@ class ExponentialCdf(ContinuousCdf):
     def __call__(self, qs):
         """Evaluates this CDF at qs.
 
-        qs: scalar or sequence of floats
+        Args:
+            qs: float or sequence of floats.
 
-        returns: float or NumPy array of cumulative probability
+        Returns:
+            float or ndarray: Cumulative probability.
         """
         return exponential_cdf(qs, self.lam)
 
@@ -549,9 +622,11 @@ class ExponentialCdf(ContinuousCdf):
 def read_baby_boom(filename="babyboom.dat"):
     """Reads the babyboom data.
 
-    filename: string
+    Args:
+        filename: string path to the data file.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Baby boom data with time, sex, weight, and minutes columns.
     """
     colspecs = [(1, 8), (9, 16), (17, 24), (25, 32)]
     column_names = ["time", "sex", "weight_g", "minutes"]
@@ -567,10 +642,12 @@ def read_baby_boom(filename="babyboom.dat"):
 def jitter(seq, std=1):
     """Jitters the values by adding random Gaussian noise.
 
-    seq: sequence of numbers
-    std: standard deviation of the added noise
+    Args:
+        seq: sequence of numbers to jitter.
+        std: float standard deviation of the added noise.
 
-    returns: new Numpy array
+    Returns:
+        ndarray: New array with jittered values.
     """
     n = len(seq)
     return np.random.normal(0, std, n) + seq
@@ -579,9 +656,11 @@ def jitter(seq, std=1):
 def standardize(xs):
     """Standardizes a sequence of numbers.
 
-    xs: sequence of numbers
+    Args:
+        xs: sequence of numbers to standardize.
 
-    returns: NumPy array
+    Returns:
+        ndarray: Standardized values with mean 0 and standard deviation 1.
     """
     return (xs - np.mean(xs)) / np.std(xs)
 
@@ -590,8 +669,13 @@ def standardize(xs):
 
 
 def plot_kde(sample, name="", **options):
-    """Plot an estimated PDF."""
+    """Plot an estimated PDF.
 
+    Args:
+        sample: sequence of values to estimate PDF from.
+        name: string name for the plot.
+        **options: passed along to plt.plot.
+    """
     kde = gaussian_kde(sample)
     m, s = np.mean(sample), np.std(sample)
     plt.axvline(m, color="gray", ls=":")
@@ -607,11 +691,13 @@ def plot_kde(sample, name="", **options):
 def make_pmf(sample, low, high):
     """Make a PMF based on KDE.
 
-    sample: sequence of values
-    low: low end of the range
-    high: high end of the range
+    Args:
+        sample: sequence of values to estimate PMF from.
+        low: float low end of the range.
+        high: float high end of the range.
 
-    returns: Pmf
+    Returns:
+        Pmf: Probability mass function based on KDE.
     """
     kde = gaussian_kde(sample)
     qs = np.linspace(low, high, 201)
@@ -625,7 +711,8 @@ def make_pmf(sample, low, high):
 def display_summary(result):
     """Prints summary statistics from a regression model.
 
-    result: RegressionResults object
+    Args:
+        result: RegressionResults object to summarize.
     """
     params = result.summary().tables[1]
     display(params)
@@ -646,27 +733,29 @@ def display_summary(result):
 def estimate_hazard(complete, ongoing):
     """Estimates the hazard function.
 
-    complete: sequence of complete lifetimes
-    ongoing: sequence of ongoing lifetimes
+    Args:
+        complete: sequence of complete lifetimes.
+        ongoing: sequence of ongoing lifetimes.
 
-    returns: Hazard object
+    Returns:
+        Hazard: Estimated hazard function.
     """
-    hist_complete = Hist.from_seq(complete)
-    hist_ongoing = Hist.from_seq(ongoing)
+    ft_complete = FreqTab.from_seq(complete)
+    ft_ongoing = FreqTab.from_seq(ongoing)
 
-    surv_complete = hist_complete.make_surv()
-    surv_ongoing = hist_ongoing.make_surv()
+    surv_complete = ft_complete.make_surv()
+    surv_ongoing = ft_ongoing.make_surv()
 
-    ts = pd.Index.union(hist_complete.index, hist_ongoing.index)
+    ts = pd.Index.union(ft_complete.index, ft_ongoing.index)
 
     at_risk = (
-        hist_complete(ts)
-        + hist_ongoing(ts)
+        ft_complete(ts)
+        + ft_ongoing(ts)
         + surv_complete(ts)
         + surv_ongoing(ts)
     )
 
-    hs = hist_complete(ts) / at_risk
+    hs = ft_complete(ts) / at_risk
 
     return Hazard(hs, ts)
 
@@ -677,11 +766,12 @@ def estimate_hazard(complete, ongoing):
 def scatter(df, var1, var2, jitter_std=None, **options):
     """Make a scatter plot and return the coefficient of correlation.
 
-    df: DataFrame
-    var1: string variable name
-    var2: string variable name
-    jitter_std: float standard deviation of noise to add
-    **options: passed along to plt.scatter
+    Args:
+        df: DataFrame containing the variables.
+        var1: string name of first variable.
+        var2: string name of second variable.
+        jitter_std: optional float standard deviation of noise to add.
+        **options: passed along to plt.scatter.
     """
     valid = df.dropna(subset=[var1, var2])
     xs = valid[var1]
@@ -698,10 +788,11 @@ def scatter(df, var1, var2, jitter_std=None, **options):
 def decile_plot(df, var1, var2, **options):
     """Make a decile plot.
 
-    df: DataFrame
-    var1: string variable name
-    var2: string variable name
-    **options: passed along to plt.plot
+    Args:
+        df: DataFrame containing the variables.
+        var1: string name of first variable.
+        var2: string name of second variable.
+        **options: passed along to plt.plot.
     """
     valid = df.dropna(subset=[var1, var2])
     deciles = pd.qcut(valid[var1], 10, labels=False)
@@ -722,11 +813,13 @@ def decile_plot(df, var1, var2, **options):
 def corrcoef(df, var1, var2):
     """Computes the correlation matrix for two variables.
 
-    df: DataFrame
-    var1: string variable name
-    var2: string variable name
+    Args:
+        df: DataFrame containing the variables.
+        var1: string name of first variable.
+        var2: string name of second variable.
 
-    returns: float
+    Returns:
+        float: Correlation coefficient between var1 and var2.
     """
     valid = df.dropna(subset=[var1, var2])
     xs = valid[var1]
@@ -737,11 +830,13 @@ def corrcoef(df, var1, var2):
 def rankcorr(df, var1, var2):
     """Computes the Spearman rank correlation for two variables.
 
-    df: DataFrame
-    var1: string variable name
-    var2: string variable name
+    Args:
+        df: DataFrame containing the variables.
+        var1: string name of first variable.
+        var2: string name of second variable.
 
-    returns: float
+    Returns:
+        float: Spearman rank correlation coefficient.
     """
     valid = df.dropna(subset=[var1, var2])
     xs = valid[var1].rank()
@@ -752,9 +847,11 @@ def rankcorr(df, var1, var2):
 def make_correlated_scatter(xs, ys, rho, **options):
     """Makes a scatter plot with given correlation.
 
-    xs: sequence of values
-    ys: sequence of values
-    rho: target correlation
+    Args:
+        xs: sequence of x values.
+        ys: sequence of y values.
+        rho: float target correlation coefficient.
+        **options: passed along to plt.scatter.
     """
     ys = rho * xs + np.sqrt(1 - rho**2) * ys
 
@@ -765,7 +862,11 @@ def make_correlated_scatter(xs, ys, rho, **options):
 
 
 def add_rho(rho):
-    """Adds a label to a figure to indicate the correlation."""
+    """Adds a label to a figure to indicate the correlation.
+
+    Args:
+        rho: float correlation coefficient to display.
+    """
     ax = plt.gca()
     plt.text(
         0.5,
@@ -781,8 +882,14 @@ def add_rho(rho):
 def make_nonlinear_scatter(xs, ys, kind="quadratic", **options):
     """Makes a scatter plot with a nonlinear relationship.
 
-    xs: sequence of values
-    ys: sequence of values
+    Args:
+        xs: sequence of x values.
+        ys: sequence of y values.
+        kind: string type of nonlinear relationship ('quadratic', 'sinusoid', or 'abs').
+        **options: passed along to plt.scatter.
+
+    Returns:
+        float: Correlation coefficient of the resulting scatter plot.
     """
     if kind == "quadratic":
         ys = ys + xs**2
@@ -811,10 +918,12 @@ def remove_spines():
 def cov(xs, ys):
     """Covariance of two variables.
 
-    xs: sequence of values
-    ys: sequence of values
+    Args:
+        xs: sequence of values for first variable.
+        ys: sequence of values for second variable.
 
-    returns: float
+    Returns:
+        float: Covariance between xs and ys.
     """
     xbar = np.mean(xs)
     ybar = np.mean(ys)
@@ -827,10 +936,12 @@ def cov(xs, ys):
 def corr(xs, ys):
     """Correlation coefficient for two variables.
 
-    xs: sequence of values
-    ys: sequence of values
+    Args:
+        xs: sequence of values for first variable.
+        ys: sequence of values for second variable.
 
-    returns: float
+    Returns:
+        float: Correlation coefficient between xs and ys.
     """
     sx = np.std(xs)
     sy = np.std(ys)
@@ -844,10 +955,12 @@ def corr(xs, ys):
 def percentile_rows(row_seq, percentiles):
     """Generates a sequence of percentiles from a sequence of rows.
 
-    row_seq: sequence of rows
-    percentiles: sequence of percentiles
+    Args:
+        row_seq: sequence of rows to compute percentiles from.
+        percentiles: sequence of percentiles to compute.
 
-    returns: sequence of percentiles
+    Returns:
+        ndarray: Array of percentiles for each column in row_seq.
     """
     array = np.asarray(row_seq)
     return np.percentile(array, percentiles, axis=0)
@@ -859,11 +972,13 @@ def percentile_rows(row_seq, percentiles):
 def predict(xs, inter, slope):
     """Predicted values of y for given xs.
 
-    xs: sequence of x
-    inter: float intercept
-    slope: float slope
+    Args:
+        xs: sequence of x values.
+        inter: float intercept of the line.
+        slope: float slope of the line.
 
-    returns: sequence of y
+    Returns:
+        ndarray: Predicted y values.
     """
     xs = np.asarray(xs)
     return inter + slope * xs
@@ -872,11 +987,13 @@ def predict(xs, inter, slope):
 def fit_line(xs, inter, slope):
     """Fits a line to the given data.
 
-    xs: sequence of x
-    inter: float intercept
-    slope: float slope
+    Args:
+        xs: sequence of x values.
+        inter: float intercept of the line.
+        slope: float slope of the line.
 
-    returns: sequence of x, sequence of y
+    Returns:
+        tuple: (fit_xs, fit_ys) arrays for plotting the fitted line.
     """
     low, high = np.min(xs), np.max(xs)
     fit_xs = np.linspace(low, high)
@@ -893,9 +1010,11 @@ def odds(p):
     normally undefined.  But I think it is reasonable to define Odds(1)
     to be infinity, so that's what this function does.
 
-    p: float 0-1
+    Args:
+        p: float probability between 0 and 1.
 
-    Returns: float odds
+    Returns:
+        float: Odds ratio. Returns infinity if p=1.
     """
     if p == 1:
         return float("inf")
@@ -905,11 +1024,13 @@ def odds(p):
 def probability(o):
     """Computes the probability corresponding to given odds.
 
-    Example: o=2 means 2:1 odds in favor, or 2/3 probability
+    Example: o=2 means 2:1 odds in favor, or 2/3 probability.
 
-    o: float odds, strictly positive
+    Args:
+        o: float odds, strictly positive.
 
-    Returns: float probability
+    Returns:
+        float: Probability between 0 and 1.
     """
     return o / (o + 1)
 
@@ -919,7 +1040,12 @@ def probability2(yes, no):
 
     Example: yes=2, no=1 means 2:1 odds in favor, or 2/3 probability.
 
-    yes, no: int or float odds in favor
+    Args:
+        yes: int or float count of favorable outcomes.
+        no: int or float count of unfavorable outcomes.
+
+    Returns:
+        float: Probability between 0 and 1.
     """
     return yes / (yes + no)
 
@@ -927,37 +1053,68 @@ def probability2(yes, no):
 def confidence_interval(cdf, percent=90):
     """Compute a confidence interval.
 
-    cdf: Cdf object
-    percent: percent to be included
+    Args:
+        cdf: Cdf object to compute interval from.
+        percent: float percent to be included in the interval.
 
-    returns: Numpy array
+    Returns:
+        ndarray: Array containing [lower, upper] bounds of the interval.
     """
     alpha = 1 - percent / 100
     return cdf.inverse([alpha / 2, 1 - alpha / 2])
 
 
 class Interpolator(object):
-    """Represents a mapping between sorted sequences; performs linear interp.
+    """Represents a mapping between sorted sequences; performs linear interpolation.
 
     Attributes:
-        xs: sorted list
-        ys: sorted list
+        xs: sorted list of x values.
+        ys: sorted list of y values.
     """
 
     def __init__(self, xs, ys):
+        """Initializes the interpolator.
+
+        Args:
+            xs: sorted list of x values.
+            ys: sorted list of y values.
+        """
         self.xs = xs
         self.ys = ys
 
     def lookup(self, x):
-        """Looks up x and returns the corresponding value of y."""
+        """Looks up x and returns the corresponding value of y.
+
+        Args:
+            x: float value to look up.
+
+        Returns:
+            float: Interpolated y value.
+        """
         return self._Bisect(x, self.xs, self.ys)
 
     def reverse(self, y):
-        """Looks up y and returns the corresponding value of x."""
+        """Looks up y and returns the corresponding value of x.
+
+        Args:
+            y: float value to look up.
+
+        Returns:
+            float: Interpolated x value.
+        """
         return self._Bisect(y, self.ys, self.xs)
 
     def _Bisect(self, x, xs, ys):
-        """Helper function."""
+        """Helper function for linear interpolation.
+
+        Args:
+            x: float value to interpolate.
+            xs: sorted list of x values.
+            ys: sorted list of y values.
+
+        Returns:
+            float: Interpolated value.
+        """
         if x <= xs[0]:
             return ys[0]
         if x >= xs[-1]:
@@ -971,9 +1128,13 @@ class Interpolator(object):
 def make_uniform_pmf(low, high, n):
     """Make a uniform Pmf.
 
-    low: lowest value (inclusive)
-    high: highest value (inclusize)
-    n: number of values
+    Args:
+        low: float lowest value (inclusive).
+        high: float highest value (inclusive).
+        n: int number of values.
+
+    Returns:
+        Pmf: Uniform probability mass function.
     """
     pmf = Pmf()
     for x in np.linspace(low, high, n):
@@ -985,10 +1146,12 @@ def make_uniform_pmf(low, high, n):
 def resample(xs, n=None):
     """Draw a sample from xs with the same length as xs.
 
-    xs: sequence
-    n: sample size (default: len(xs))
+    Args:
+        xs: sequence to resample from.
+        n: optional int sample size (default: len(xs)).
 
-    returns: NumPy array
+    Returns:
+        ndarray: Resampled values.
     """
     if n is None:
         n = len(xs)
@@ -998,11 +1161,13 @@ def resample(xs, n=None):
 def sample_rows(df, n, replace=False):
     """Choose a sample of rows from a DataFrame.
 
-    df: DataFrame
-    n: number of rows
-    replace: whether to sample with replacement
+    Args:
+        df: DataFrame to sample from.
+        n: int number of rows to sample.
+        replace: bool whether to sample with replacement.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Sampled rows.
     """
     return df.sample(n, replace=replace)
 
@@ -1010,9 +1175,11 @@ def sample_rows(df, n, replace=False):
 def resample_rows(df):
     """Resamples rows from a DataFrame.
 
-    df: DataFrame
+    Args:
+        df: DataFrame to resample from.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Resampled rows with same length as input.
     """
     n = len(df)
     return df.sample(n, replace=True)
@@ -1021,10 +1188,12 @@ def resample_rows(df):
 def resample_rows_weighted(df, column="finalwgt"):
     """Resamples a DataFrame using probabilities proportional to given column.
 
-    df: DataFrame
-    column: string column name to use as weights
+    Args:
+        df: DataFrame to resample from.
+        column: string column name to use as weights.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Resampled rows with same length as input.
     """
     n = len(df)
     weights = df[column]
@@ -1032,9 +1201,10 @@ def resample_rows_weighted(df, column="finalwgt"):
 
 
 def summarize_results(results):
-    """Prints the most important parts of linear regression results:
+    """Prints the most important parts of linear regression results.
 
-    results: RegressionResults object
+    Args:
+        results: RegressionResults object to summarize.
     """
     for name, param in results.params.items():
         pvalue = results.pvalues[name]
@@ -1051,8 +1221,9 @@ def summarize_results(results):
 def print_tabular(rows, header):
     """Prints results in LaTeX tabular format.
 
-    rows: list of rows
-    header: list of strings
+    Args:
+        rows: list of rows to print.
+        header: list of strings for column headers.
     """
     s = "\\hline " + " & ".join(header) + " \\\\ \\hline"
     print(s)
@@ -1063,13 +1234,15 @@ def print_tabular(rows, header):
 
 
 class Normal:
-    """Represents a Normal distribution"""
+    """Represents a Normal distribution."""
 
     def __init__(self, mu, sigma2, label=""):
-        """Initializes.
+        """Initializes a Normal distribution.
 
-        mu: mean
-        sigma2: variance
+        Args:
+            mu: float mean of the distribution.
+            sigma2: float variance of the distribution.
+            label: string label for the distribution.
         """
         self.mu = mu
         self.sigma2 = sigma2
@@ -1090,15 +1263,21 @@ class Normal:
 
     @property
     def sigma(self):
-        """Returns the standard deviation."""
+        """Returns the standard deviation.
+
+        Returns:
+            float: Standard deviation of the distribution.
+        """
         return np.sqrt(self.sigma2)
 
     def __add__(self, other):
         """Adds a number or other Normal.
 
-        other: number or Normal
+        Args:
+            other: number or Normal distribution to add.
 
-        returns: new Normal
+        Returns:
+            Normal: New Normal distribution.
         """
         if isinstance(other, Normal):
             return Normal(
@@ -1112,9 +1291,11 @@ class Normal:
     def sample(self, n):
         """Generates a random sample from this distribution.
 
-        n: int, length of the sample
+        Args:
+            n: int length of the sample.
 
-        returns: NumPy array
+        Returns:
+            ndarray: Random sample from the distribution.
         """
         sigma = np.sqrt(self.sigma2)
         return np.random.normal(self.mu, sigma, n)
@@ -1122,9 +1303,11 @@ class Normal:
     def __sub__(self, other):
         """Subtracts a number or other Normal.
 
-        other: number or Normal
+        Args:
+            other: number or Normal distribution to subtract.
 
-        returns: new Normal
+        Returns:
+            Normal: New Normal distribution.
         """
         if isinstance(other, Normal):
             return Normal(
@@ -1138,9 +1321,11 @@ class Normal:
     def __mul__(self, factor):
         """Multiplies by a scalar.
 
-        factor: number
+        Args:
+            factor: float to multiply by.
 
-        returns: new Normal
+        Returns:
+            Normal: New Normal distribution.
         """
         return Normal(factor * self.mu, factor**2 * self.sigma2)
 
@@ -1149,9 +1334,11 @@ class Normal:
     def __div__(self, divisor):
         """Divides by a scalar.
 
-        divisor: number
+        Args:
+            divisor: float to divide by.
 
-        returns: new Normal
+        Returns:
+            Normal: New Normal distribution.
         """
         return 1 / divisor * self
 
@@ -1160,17 +1347,20 @@ class Normal:
     def sum(self, n):
         """Return the distribution of the sum of n values.
 
-        n: int
+        Args:
+            n: int number of values to sum.
 
-        returns: new Normal
+        Returns:
+            Normal: Distribution of the sum.
         """
         return Normal(n * self.mu, n * self.sigma2)
 
     def plot_cdf(self, n_sigmas=4, **options):
         """Plot the CDF of this distribution.
 
-        n_sigmas: how many sigmas to show
-        options: passed along to plt.plot
+        Args:
+            n_sigmas: int how many sigmas to show.
+            **options: passed along to plt.plot.
         """
         mu, sigma = self.mu, np.sqrt(self.sigma2)
         low, high = mu - n_sigmas * sigma, mu + 3 * sigma
@@ -1181,18 +1371,22 @@ class Normal:
     def prob(self, x):
         """Returns the CDF of x.
 
-        x: float
+        Args:
+            x: float value to evaluate.
 
-        returns: float probability
+        Returns:
+            float: Cumulative probability at x.
         """
         return scipy.stats.norm.cdf(x, self.mu, self.sigma)
 
     def percentile(self, p):
         """Computes a percentile of a normal distribution.
 
-        p: float or sequence 0-100
+        Args:
+            p: float or sequence of percentiles (0-100).
 
-        returns: float or array
+        Returns:
+            float or ndarray: Values at the given percentiles.
         """
         return scipy.stats.norm.ppf(p / 100, self.mu, self.sigma)
 
@@ -1200,9 +1394,11 @@ class Normal:
 def student_cdf(n):
     """Discrete approximation of the CDF of Student's t distribution.
 
-    n: sample size
+    Args:
+        n: int sample size.
 
-    returns: Cdf
+    Returns:
+        Cdf: Discrete approximation of Student's t CDF.
     """
     ts = np.linspace(-3, 3, 101)
     ps = scipy.stats.t.cdf(ts, df=n - 2)
@@ -1213,9 +1409,11 @@ def student_cdf(n):
 def chi_squared_cdf(n):
     """Discrete approximation of the chi-squared CDF with df=n-1.
 
-    n: sample size
+    Args:
+        n: int sample size.
 
-    returns: Cdf
+    Returns:
+        Cdf: Discrete approximation of chi-squared CDF.
     """
     xs = np.linspace(0, 25, 101)
     ps = scipy.stats.chi2.cdf(xs, df=n - 1)
@@ -1228,8 +1426,12 @@ def chi_squared_cdf(n):
 def underride(d, **options):
     """Add key-value pairs to d only if key is not in d.
 
-    d: dictionary
-    options: keyword args to add to d
+    Args:
+        d: dict to add options to.
+        **options: keyword args to add to d.
+
+    Returns:
+        dict: Updated dictionary with new key-value pairs.
     """
     for key, val in options.items():
         d.setdefault(key, val)
@@ -1239,15 +1441,21 @@ def underride(d, **options):
 
 def decorate(**options):
     """Decorate the current axes.
-    Call decorate with keyword arguments like
+
+    Call decorate with keyword arguments like:
     decorate(title='Title',
              xlabel='x',
              ylabel='y')
-    The keyword arguments can be any of the axis properties
+
+    The keyword arguments can be any of the axis properties:
     https://matplotlib.org/api/axes_api.html
+
     In addition, you can use `legend=False` to suppress the legend.
     And you can use `loc` to indicate the location of the legend
     (the default value is 'best')
+
+    Args:
+        **options: keyword arguments for axis properties.
     """
     loc = options.pop("loc", "best")
     if options.pop("legend", True):
@@ -1259,8 +1467,10 @@ def decorate(**options):
 
 def legend(**options):
     """Draws a legend only if there is at least one labeled item.
-    options are passed to plt.legend()
-    https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html
+
+    Args:
+        **options: passed to plt.legend()
+            https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html
     """
     underride(options, loc="best")
 
