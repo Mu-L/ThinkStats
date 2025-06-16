@@ -7,12 +7,13 @@ License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 """
 
 import bisect
-import contextlib
 import re
+
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy
+from scipy.special import comb, factorial
 
 from empiricaldist import FreqTab, Pmf, Cdf, Hazard
 
@@ -20,10 +21,8 @@ from scipy.stats import norm
 from scipy.stats import gaussian_kde
 from scipy.integrate import simpson
 
-from IPython.display import display
+from IPython.display import display, HTML
 from statsmodels.iolib.table import SimpleTable
-
-# The following are magic commands from thinkpython.py
 
 from IPython.core.magic import register_cell_magic
 from IPython.core.magic_arguments import (
@@ -32,15 +31,21 @@ from IPython.core.magic_arguments import (
     parse_argstring,
 )
 
+# Check if we're running in a Jupyter environment
+try:
+    get_ipython()
+    IN_JUPYTER = True
+except NameError:
+    IN_JUPYTER = False
 
 def extract_function_name(text):
     """Find a function definition and return its name.
 
     Args:
-        text: String containing function definition.
+        text: string containing function definition.
 
     Returns:
-        String or None: Function name if found, None otherwise.
+        string or None: Function name if found, None otherwise.
     """
     pattern = r"def\s+(\w+)\s*\("
     match = re.search(pattern, text)
@@ -51,16 +56,15 @@ def extract_function_name(text):
         return None
 
 
-@register_cell_magic
 def add_method_to(args, cell):
     """Add a method to a class.
 
     Args:
-        args: String containing the class name.
-        cell: String containing the function definition.
+        args: string containing the class name.
+        cell: string containing the function definition.
 
     Returns:
-        String: Status message indicating success or failure.
+        string: Status message indicating success or failure.
     """
     # get the name of the function defined in this cell
     func_name = extract_function_name(cell)
@@ -96,13 +100,12 @@ def add_method_to(args, cell):
         namespace[func_name] = old_func
 
 
-@register_cell_magic
 def expect_error(line, cell):
     """Execute a cell and display the traceback if it raises an exception.
 
     Args:
         line: Unused.
-        cell: String containing code to execute.
+        cell: string containing code to execute.
     """
     try:
         get_ipython().run_cell(cell)
@@ -112,13 +115,12 @@ def expect_error(line, cell):
 
 @magic_arguments()
 @argument("exception", help="Type of exception to catch")
-@register_cell_magic
 def expect(line, cell):
     """Execute a cell and display the traceback if it raises the expected exception.
 
     Args:
-        line: String containing the expected exception type.
-        cell: String containing code to execute.
+        line: string containing the expected exception type.
+        cell: string containing code to execute.
     """
     args = parse_argstring(expect, line)
     exception = eval(args.exception)
@@ -127,6 +129,12 @@ def expect(line, cell):
     except exception as e:
         get_ipython().run_cell("%tb")
 
+
+# Only register cell magics if we're in a Jupyter environment
+if IN_JUPYTER:
+    register_cell_magic(add_method_to)
+    register_cell_magic(expect_error)
+    register_cell_magic(expect)
 
 # Make the figures smaller to save some screen real estate.
 # The figures generated for the book have DPI 300, so scaling
@@ -162,8 +170,46 @@ def value_counts(seq, **options):
 
 ## Chapter 1
 
+# read_stata is in nsfg.py
+
+def show_table(d):
+    """Show a table in a Jupyter notebook.
+
+    Args:
+        d: dictionary to show.
+
+    Returns:
+        HTML: HTML representation of the table.
+    """
+    df = pd.DataFrame(d)
+    return HTML(df.to_html(index=False))
 
 ## Chapter 2
+
+def smallest(ftab, n=10):
+    """Returns the smallest n values from a FreqTab.
+
+    Args:
+        ftab: FreqTab object to get smallest values from.
+        n: int number of values to return.
+
+    Returns:
+        list: List of n smallest values.
+    """
+    return ftab[:n]
+
+
+def largest(ftab, n=10):
+    """Returns the largest n values from a FreqTab.
+
+    Args:
+        ftab: FreqTab object to get largest values from.
+        n: int number of values to return.
+
+    Returns:
+        list: List of n largest values.
+    """
+    return ftab[-n:]
 
 
 def two_bar_plots(dist1, dist2, width=0.45, xlabel="", **options):
@@ -203,8 +249,283 @@ def cohen_effect_size(group1, group2):
 
 ## Chapter 3
 
+def bias(pmf, name):
+    """Pmf of a length-biased sample.
+
+    Args:
+        pmf: Pmf object to bias.
+        name: string name for the biased Pmf.
+
+    Returns:
+        Pmf: biased Pmf.
+    """
+    # multiply each probability by class size
+    ps = pmf.ps * pmf.qs
+
+    # make a new Pmf and normalize it
+    new_pmf = Pmf(ps, pmf.qs, name=name)
+    new_pmf.normalize()
+    return new_pmf
+
+def unbias(pmf, name):
+    """Unbias a Pmf by class size.
+
+    Args:
+        pmf: Pmf object to unbias.
+        name: string name for the unb.
+
+    Returns:
+        Pmf: unbiassed Pmf.
+    """
+    # divide each probability by class size
+    ps = pmf.ps / pmf.qs
+
+    new_pmf = Pmf(ps, pmf.qs, name=name)
+    new_pmf.normalize()
+    return new_pmf
+
+## Chapter 4
+
+def percentile_rank(x, seq):
+    """Percentile rank of x.
+
+    Args:
+        x: value to find the percentile rank of.
+        seq: sequence of values to compare to.
+
+    Returns:
+        float: Percentile rank of x.
+    """
+    return (seq <= x).mean() * 100
+
+def percentile(p, seq):
+    """Percentile of a sequence.
+
+    Args:
+        p: float percentile to compute (0-100).
+        seq: sequence of values to compute the percentile of.
+
+    Returns:
+        float: Value at the given percentile.
+
+    Raises:
+        ValueError: If p is not between 0 and 100.
+    """
+    if not 0 <= p <= 100:
+        raise ValueError("Percentile must be between 0 and 100")
+    n = len(seq)
+    i = (1 - p / 100) * (n + 1)
+    return seq[round(i)]
+
+def skewness(seq):
+    """Compute the skewness of a sequence
+
+    Args:
+        seq: sequence of numbers to compute the skewness of.
+
+    Returns:
+        float: Skewness of the sequence.
+    """
+    deviations = seq - seq.mean()
+    return np.mean(deviations**3) / seq.std(ddof=0) ** 3
+
+def median(cdf):
+    """Median of a CDF.
+
+    Args:
+        cdf: Cdf object to compute the median of.
+
+    Returns:
+        float: Median of the CDF.
+    """
+    m = cdf.inverse(0.5)
+    return m
+
+def iqr(cdf):
+    """Interquartile range of a CDF.
+
+    Args:
+        cdf: Cdf object to compute the IQR of.
+
+    Returns:
+        float: Interquartile range of the CDF.
+    """
+    low, high = cdf.inverse([0.25, 0.75])
+    return high - low
+
+def quartile_skewness(cdf):
+    """Quartile skewness of a CDF.
+
+    Args:
+        cdf: Cdf object to compute the quartile skewness of.
+
+    Returns:
+        float: Quartile skewness of the CDF.
+    """
+    low, median, high = cdf.inverse([0.25, 0.5, 0.75])
+    midpoint = (high + low) / 2
+    semi_iqr = (high - low) / 2
+    return (midpoint - median) / semi_iqr
+
+def sample_from_cdf(cdf, n):
+    """Sample from a CDF.
+
+    Args:
+        cdf: Cdf object to sample from.
+        n: int number of samples to draw.
+
+    Returns:
+        ndarray: Random sample from the CDF.
+    """
+    ps = np.random.random(size=n)
+    return cdf.inverse(ps)
 
 ## Chapter 5
+
+def flip(n, p):
+    """Flip a coin n times with probability p of heads.
+
+    Args:
+        n: int number of flips.
+        p: float probability of heads.
+
+    Returns:
+        ndarray: Random sample of heads and tails.
+    """
+    choices = [1, 0]
+    probs = [p, 1 - p]
+    return np.random.choice(choices, n, p=probs)
+
+def simulate_round(n, p):
+    """Simulate a round of n coin flips with probability p of heads.
+
+    Args:
+        n: int number of flips.
+        p: float probability of heads.
+
+    Returns:
+        int: Number of heads in the round.
+    """
+    seq = flip(n, p)
+    return seq.sum()
+    
+
+def binomial_pmf(k, n, p):
+    """Compute the binomial PMF.
+
+    Args:
+        k: int or array-like number of successes.
+        n: int number of trials.
+        p: float probability of success on a single trial.
+
+    Returns:
+        float or ndarray: Probability mass for k successes.
+    """
+    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))
+
+def simulate_goals(n, p):
+    """Simulate the number of goals scored in n soccer games with probability p of scoring a goal.
+
+    Args:
+        n: int number of games.
+        p: float probability of scoring a goal.
+
+    Returns:
+        int: Number of goals scored in n games. 
+    """
+    return flip(n, p).sum()
+
+def simulate_first_goal(n, p):
+    """Simulate the first goal scored in n soccer games with probability p of scoring a goal.
+
+    Args:
+        n: int number of games.
+        p: float probability of scoring a goal.
+
+    Returns:    
+        int: Number of games until the first goal is scored.
+    """
+    return flip(n, p).argmax()
+
+def poisson_pmf(k, lam):
+    """Compute the Poisson PMF.
+
+    Args:
+        k: int or array-like number of occurrences.
+        lam: float rate parameter (λ) of the Poisson distribution.
+
+    Returns:
+        float or ndarray: Probability mass for k occurrences.
+    """
+    return (lam**k) * np.exp(-lam) / factorial(k)
+
+def exponential_cdf(x, lam):
+    """Compute the exponential CDF.
+
+    Args:
+        x: float or sequence of floats.
+        lam: float rate parameter.
+
+    Returns:
+        float or ndarray: Cumulative probability.
+    """
+    return 1 - np.exp(-lam * x)
+
+def simulate_growth(n):
+    """Simulate the growth of a stock over n days.
+
+    Args:
+        n: int number of days.
+
+    Returns:
+        int: Total growth over n days.
+    """
+    choices = [1, 2, 3]
+    gains = np.random.choice(choices, n)
+    return gains.sum()
+
+
+
+def make_normal_model(data):
+    """Make the Cdf of a normal distribution based on data.
+
+    Args:
+        data: sequence of numbers.
+
+    Returns:
+        Cdf: Normal distribution model.
+    """
+    m, s = np.mean(data), np.std(data)
+    low, high = m - 4 * s, m + 4 * s
+    qs = np.linspace(low, high, 201)
+    ps = norm.cdf(qs, m, s)
+    return Cdf(ps, qs, name="normal model")
+
+def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
+    """Plot an empirical CDF and a theoretical model.
+
+    Args:
+        cdf_model: Cdf object representing the theoretical model.
+        cdf_data: Cdf object representing the empirical data.
+        xlabel: string label for the x-axis.
+        **options: Control the way cdf_data is plotted.
+    """
+    cdf_model.plot(ls=":", color="gray")
+    cdf_data.plot(**options)
+    decorate(xlabel=xlabel, ylabel="CDF")
+
+def simulate_proportionate_growth(n):
+    """Simulate proportionate growth over n days.
+
+    Args:
+        n: int number of days.
+
+    Returns:
+        int: Total growth over n days.
+    """
+    choices = [1.03, 1.05, 1.07]
+    gains = np.random.choice(choices, n)
+    return gains.prod()
 
 
 def read_brfss(filename="CDBRFS08.ASC.gz", compression="gzip", nrows=None):
@@ -259,83 +580,6 @@ def clean_brfss(df):
     df["wtyrago"] = df.wtyrago.apply(
         lambda x: x / 2.2 if x < 9000 else x - 9000
     )
-
-
-from scipy.special import comb
-
-
-def binomial_pmf(k, n, p):
-    """Compute the binomial PMF.
-
-    Args:
-        k: int or array-like number of successes.
-        n: int number of trials.
-        p: float probability of success on a single trial.
-
-    Returns:
-        float or ndarray: Probability mass for k successes.
-    """
-    return comb(n, k) * (p**k) * ((1 - p) ** (n - k))
-
-
-from scipy.special import factorial
-
-
-def poisson_pmf(k, lam):
-    """Compute the Poisson PMF.
-
-    Args:
-        k: int or array-like number of occurrences.
-        lam: float rate parameter (λ) of the Poisson distribution.
-
-    Returns:
-        float or ndarray: Probability mass for k occurrences.
-    """
-    return (lam**k) * np.exp(-lam) / factorial(k)
-
-
-def exponential_cdf(x, lam):
-    """Compute the exponential CDF.
-
-    Args:
-        x: float or sequence of floats.
-        lam: float rate parameter.
-
-    Returns:
-        float or ndarray: Cumulative probability.
-    """
-    return 1 - np.exp(-lam * x)
-
-
-def make_normal_model(data):
-    """Make the Cdf of a normal distribution based on data.
-
-    Args:
-        data: sequence of numbers.
-
-    Returns:
-        Cdf: Normal distribution model.
-    """
-    m, s = np.mean(data), np.std(data)
-    low, high = np.min(data), np.max(data)
-    qs = np.linspace(low, high, 201)
-    ps = norm.cdf(qs, m, s)
-    return Cdf(ps, qs, name="normal model")
-
-
-def two_cdf_plots(cdf_model, cdf_data, xlabel="", **options):
-    """Plot an empirical CDF and a theoretical model.
-
-    Args:
-        cdf_model: Cdf object representing the theoretical model.
-        cdf_data: Cdf object representing the empirical data.
-        xlabel: string label for the x-axis.
-        **options: Control the way cdf_data is plotted.
-    """
-    cdf_model.plot(ls=':', color="gray")
-    cdf_data.plot(**options)
-
-    decorate(xlabel=xlabel, ylabel="CDF")
 
 
 # Chapter 6
@@ -654,7 +898,10 @@ def jitter(seq, std=1):
 
 
 def standardize(xs):
-    """Standardizes a sequence of numbers.
+    """Standardizes a sequence of numbers to have mean 0 and standard deviation 1.
+    
+    Uses population standard deviation (ddof=0) for consistency with the
+    definition of z-scores.
 
     Args:
         xs: sequence of numbers to standardize.
@@ -669,7 +916,7 @@ def standardize(xs):
 
 
 def plot_kde(sample, name="", **options):
-    """Plot an estimated PDF.
+    """Plot an estimated PDF using Gaussian Kernel Density Estimation.
 
     Args:
         sample: sequence of values to estimate PDF from.
@@ -885,7 +1132,10 @@ def make_nonlinear_scatter(xs, ys, kind="quadratic", **options):
     Args:
         xs: sequence of x values.
         ys: sequence of y values.
-        kind: string type of nonlinear relationship ('quadratic', 'sinusoid', or 'abs').
+        kind: string type of nonlinear relationship. One of:
+            - 'quadratic': adds x^2 to y
+            - 'sinusoid': adds 10*sin(3x) to y
+            - 'abs': adds -|x| to y
         **options: passed along to plt.scatter.
 
     Returns:
@@ -1031,7 +1281,12 @@ def probability(o):
 
     Returns:
         float: Probability between 0 and 1.
+
+    Raises:
+        ValueError: If o is not positive.
     """
+    if o <= 0:
+        raise ValueError("Odds must be positive")
     return o / (o + 1)
 
 
@@ -1046,8 +1301,14 @@ def probability2(yes, no):
 
     Returns:
         float: Probability between 0 and 1.
+
+    Raises:
+        ValueError: If yes + no is not positive.
     """
-    return yes / (yes + no)
+    total = yes + no
+    if total <= 0:
+        raise ValueError("Total count must be positive")
+    return yes / total
 
 
 def confidence_interval(cdf, percent=90):
