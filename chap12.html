@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>12. Time Series Analysis &#8212; Think Stats</title>
+    <title>Time Series Analysis &#8212; Think Stats, 3rd edition</title>
   
   
   
@@ -65,8 +65,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'chap12';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="13. Survival analysis" href="chap13.html" />
-    <link rel="prev" title="11. Multiple Regression" href="chap11.html" />
+    <link rel="next" title="Survival analysis" href="chap13.html" />
+    <link rel="prev" title="Multiple Regression" href="chap11.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -144,7 +144,7 @@
   
   
   
-    <p class="title logo__title">Think Stats</p>
+    <p class="title logo__title">Think Stats, 3rd edition</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -164,36 +164,22 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
-<ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="chap00.html">Preface</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Exploratory Data Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Probability Mass Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Cumulative Distribution Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. Modeling Distributions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Probability Density Functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Relationships between variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Estimation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Hypothesis Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Multiple Regression</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Time Series Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Survival analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Analytic Methods</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="ripoff_etf.html">Rip-off ETF?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="temperature.html">Downloading Our World in Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="variability.html">The Variability Hypothesis</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="time_series.html">Time Series Analysis with StatsModels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">Probability Mass Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">Cumulative Distribution Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">Modeling Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">Probability Density Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">Relationships between variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">Estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">Hypothesis Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">Multiple Regression</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">Survival analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">Analytic Methods</a></li>
 </ul>
 
     </div>
@@ -354,20 +340,20 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electricity">12.1. Electricity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">12.2. Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">12.3. Prediction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplicative-model">12.4. Multiplicative Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoregression">12.5. Autoregression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average">12.6. Moving Average</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrodiction-with-autoregression">12.7. Retrodiction with Autoregression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima">12.8. ARIMA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-arima">12.9. Prediction with ARIMA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">12.10. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12.11. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-1">12.11.1. Exercise 12.1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-2">12.11.2. Exercise 12.2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-3">12.11.3. Exercise 12.3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electricity">Electricity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplicative-model">Multiplicative Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoregression">Autoregression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average">Moving Average</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrodiction-with-autoregression">Retrodiction with Autoregression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima">ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-arima">Prediction with ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-1">Exercise 12.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-2">Exercise 12.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-3">Exercise 12.3</a></li>
 </ul>
 </li>
 </ul>
@@ -381,9 +367,8 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p>The third edition of <em>Think Stats</em> is available now from <a class="reference external" href="https://bookshop.org/a/98697/9781098190255">Bookshop.org</a> and <a class="reference external" href="https://amzn.to/42lmxwu">Amazon</a> (those are affiliate links). If you are enjoying the free, online version, consider <a class="reference external" href="https://buymeacoffee.com/allendowney">buying me a coffee</a>.</p>
-<section id="time-series-analysis">
-<h1><span class="section-number">12. </span>Time Series Analysis<a class="headerlink" href="#time-series-analysis" title="Link to this heading">#</a></h1>
+  <section id="time-series-analysis">
+<h1>Time Series Analysis<a class="headerlink" href="#time-series-analysis" title="Link to this heading">#</a></h1>
 <p>A <strong>time series</strong> is a sequence of measurements from a system that varies in time.
 Many of the tools we used in previous chapters, like regression, can also be used with time series.
 But there are additional methods that are particularly useful for this kind of data.</p>
@@ -391,6 +376,7 @@ But there are additional methods that are particularly useful for this kind of d
 We will develop methods to decompose a time series into a long-term trend and a repeated seasonal component.
 We’ll use linear regression models to fit and forecast trends.
 And we’ll try out a widely-used model for analyzing time series data, with the formal name “autoregressive integrated moving average” and the easier-to-say acronym ARIMA.</p>
+<p>The third edition of <em>Think Stats</em> is available now from <a class="reference external" href="https://bookshop.org/a/98697/9781098190255">Bookshop.org</a> and <a class="reference external" href="https://amzn.to/42lmxwu">Amazon</a> (those are affiliate links). If you are enjoying the free, online version, consider <a class="reference external" href="https://buymeacoffee.com/allendowney">buying me a coffee</a>.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ThinkStats/blob/v3/nb/chap12.ipynb">Click here to run this notebook on Colab</a>.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -427,7 +413,7 @@ And we’ll try out a widely-used model for analyzing time series data, with the
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
+    <span class="o">%</span><span class="k">pip</span> install empiricaldist
 </pre></div>
 </div>
 </div>
@@ -445,13 +431,15 @@ And we’ll try out a widely-used model for analyzing time series data, with the
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">thinkstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.dpi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">300</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
 <section id="electricity">
-<h2><span class="section-number">12.1. </span>Electricity<a class="headerlink" href="#electricity" title="Link to this heading">#</a></h2>
+<h2>Electricity<a class="headerlink" href="#electricity" title="Link to this heading">#</a></h2>
 <p>As an example of time-series data, we’ll use a dataset from the U.S. Energy Information Administration – it includes total electricity generation per month from renewable sources from 2001 to 2024.
 Instructions for downloading the data are in the notebook for this chapter.</p>
 <p>The following cell downloads the data, which I downloaded September 17, 2024 from <a class="reference external" href="https://www.eia.gov/electricity/data/browser/">https://www.eia.gov/electricity/data/browser/</a>.</p>
@@ -542,14 +530,14 @@ We can use the <code class="docutils literal notranslate"><span class="pre">date
 <p>Now the index is a <code class="docutils literal notranslate"><span class="pre">DataTimeIndex</span></code> with the data type <code class="docutils literal notranslate"><span class="pre">datetime64[ns]</span></code>, which is defined in NumPy – <code class="docutils literal notranslate"><span class="pre">64</span></code> means each label uses 64 bits, and <code class="docutils literal notranslate"><span class="pre">ns</span></code> means it has nanosecond precision.</p>
 </section>
 <section id="decomposition">
-<h2><span class="section-number">12.2. </span>Decomposition<a class="headerlink" href="#decomposition" title="Link to this heading">#</a></h2>
+<h2>Decomposition<a class="headerlink" href="#decomposition" title="Link to this heading">#</a></h2>
 <p>As a first example, we’ll look at how electricity generation from nuclear reactors changed over the interval from January 2001 to June 2024, and we’ll decompose the time series into a long-term trend and a periodic component.
 Here are monthly totals of electricity generation from nuclear reactors in the United States.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">actual_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">trend_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">pred_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+<span class="n">pred_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
 <span class="n">model_options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -659,7 +647,7 @@ Here’s what it looks like.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/223fdd34511d534776c2bd15f07fa18ad8055da5a71f2f6ea25cfb075cd50119.png" src="_images/223fdd34511d534776c2bd15f07fa18ad8055da5a71f2f6ea25cfb075cd50119.png" />
+<img alt="_images/98b4a1d9f24862d8270f33a08b639def4b79c0de545d3fc7852be5ddb5812ccc.png" src="_images/98b4a1d9f24862d8270f33a08b639def4b79c0de545d3fc7852be5ddb5812ccc.png" />
 </div>
 </div>
 <p>If we subtract this sum from the original series, the result is the residual component, which represents the departure from the expected value for each month.</p>
@@ -766,7 +754,7 @@ The notebook for this chapter provides a function that plots them.</p>
 As we’ll see in the next section, it is also useful for making forecasts.</p>
 </section>
 <section id="prediction">
-<h2><span class="section-number">12.3. </span>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h2>
+<h2>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h2>
 <p>We can use the results from seasonal decomposition to predict the future.
 To demonstrate, we’ll use the following function to split the time series into a <strong>training series</strong>, which we’ll use to generate predictions, and a <strong>test series</strong>, which we’ll use to see whether they are accurate.</p>
 <div class="cell docutils container">
@@ -866,7 +854,7 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">pre
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b4f445a58a3a915c1afa182667bc1b021ee5108f8a0a13b1189cab4d84d5425c.png" src="_images/b4f445a58a3a915c1afa182667bc1b021ee5108f8a0a13b1189cab4d84d5425c.png" />
+<img alt="_images/10421b724eea60a0d4b770e733b0e1d6fe57918fb8f5332eadce262a8b1e9db6.png" src="_images/10421b724eea60a0d4b770e733b0e1d6fe57918fb8f5332eadce262a8b1e9db6.png" />
 </div>
 </div>
 <p>There’s a lot going on that’s not captured by the linear model, but it looks like there is a generally increasing trend.</p>
@@ -906,7 +894,7 @@ We’ll use the <code class="docutils literal notranslate"><span class="pre">pre
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4546dc0d76d455fd31fbeae0de4d7376e3aa5cbe011ec48fdd1f9d8c762ea365.png" src="_images/4546dc0d76d455fd31fbeae0de4d7376e3aa5cbe011ec48fdd1f9d8c762ea365.png" />
+<img alt="_images/6acb496d0f4a67a469eb0a6d5be12e29cc0a1f4636f5c9c3c057a17e5405e05e.png" src="_images/6acb496d0f4a67a469eb0a6d5be12e29cc0a1f4636f5c9c3c057a17e5405e05e.png" />
 </div>
 </div>
 <p>The predictions fit the training data reasonably well, and the forecast looks like a reasonable projection, based on the assumption that the long-term trend will continue.</p>
@@ -922,7 +910,7 @@ Here are the predicted and actual values for the five-year interval from July 20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dadfdec385d546f07aba89f8f63e98c999a74f70fb24e87b891a95fe7cdb01a3.png" src="_images/dadfdec385d546f07aba89f8f63e98c999a74f70fb24e87b891a95fe7cdb01a3.png" />
+<img alt="_images/40b223ff5bd9e25c209d5e64d67a2759df3c92c9c84258a89d5c112a627d3c4a.png" src="_images/40b223ff5bd9e25c209d5e64d67a2759df3c92c9c84258a89d5c112a627d3c4a.png" />
 </div>
 </div>
 <p>The first year of the forecast was pretty good, but production from nuclear reactors in 2020 was lower than expected – possibly due to the COVID-19 pandemic – and it never returned to the long-term trend.</p>
@@ -952,7 +940,7 @@ Here are the predicted and actual values for the five-year interval from July 20
 <p>We’ll come back to this example later in the chapter and see if we can do better with a different model.</p>
 </section>
 <section id="multiplicative-model">
-<h2><span class="section-number">12.4. </span>Multiplicative Model<a class="headerlink" href="#multiplicative-model" title="Link to this heading">#</a></h2>
+<h2>Multiplicative Model<a class="headerlink" href="#multiplicative-model" title="Link to this heading">#</a></h2>
 <p>The additive model we used in the previous section assumes that the time series is the <em>sum</em> of a long-term trend, a seasonal component, and a residual – which implies that the magnitude of the seasonal component and the residuals does not vary over time.</p>
 <p>As an example that violates this assumption, let’s look at small-scale solar electricity production since 2014.</p>
 <div class="cell docutils container">
@@ -1085,7 +1073,7 @@ Here are the results.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b745e68dab97c571d9c66bae114959c74273c2a1017c0544fdb832970b4283f7.png" src="_images/b745e68dab97c571d9c66bae114959c74273c2a1017c0544fdb832970b4283f7.png" />
+<img alt="_images/104532b413e58aba536f953e311b974c5319f8f68f40b35a2028eb71d9d62b03.png" src="_images/104532b413e58aba536f953e311b974c5319f8f68f40b35a2028eb71d9d62b03.png" />
 </div>
 </div>
 <p>The quadratic model fits the past trend well.
@@ -1117,7 +1105,7 @@ Now we can use the seasonal component to predict future seasonal variation.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b2007f14c06c5c897ee3798c4fa4822c72147ca2dd831e2e69b9060bc25d93ed.png" src="_images/b2007f14c06c5c897ee3798c4fa4822c72147ca2dd831e2e69b9060bc25d93ed.png" />
+<img alt="_images/72adf4b5229c66a4d857fcae73b0bff2d3f16102ccff9990075cadedc4f10ae6.png" src="_images/72adf4b5229c66a4d857fcae73b0bff2d3f16102ccff9990075cadedc4f10ae6.png" />
 </div>
 </div>
 <p>The retrodictions fit the training data well and the predictions seem plausible – now let’s see if they turned out to be accurate.
@@ -1132,7 +1120,7 @@ Here are the predictions along with the test data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7959a098635b4f14cda0befc16a4432f518b2d0ced5a6ad4b24e902e846c0022.png" src="_images/7959a098635b4f14cda0befc16a4432f518b2d0ced5a6ad4b24e902e846c0022.png" />
+<img alt="_images/ab7f8ae6a5ef72b928c7843f075ab68e726a4a06a8330de7dcb560b1a223a045.png" src="_images/ab7f8ae6a5ef72b928c7843f075ab68e726a4a06a8330de7dcb560b1a223a045.png" />
 </div>
 </div>
 <p>For the first three years, the predictions are very good.
@@ -1141,7 +1129,7 @@ After that, it looks like actual growth exceeded expectations.</p>
 In the next section, we’ll try a different approach, autoregression.</p>
 </section>
 <section id="autoregression">
-<h2><span class="section-number">12.5. </span>Autoregression<a class="headerlink" href="#autoregression" title="Link to this heading">#</a></h2>
+<h2>Autoregression<a class="headerlink" href="#autoregression" title="Link to this heading">#</a></h2>
 <p>The first idea of autoregression is that the future will be like the past.
 For example, in the time series we’ve looked at so far, there is a clear annual cycle.
 So if you are asked to make a prediction for next June, a good starting place would be last June.</p>
@@ -1283,7 +1271,7 @@ Here’s what these retrodictions look like compared to the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/25362ba60dc650c792f6ae719d08b4131d02fd21f6ccd5a129dd6fb4edc602f1.png" src="_images/25362ba60dc650c792f6ae719d08b4131d02fd21f6ccd5a129dd6fb4edc602f1.png" />
+<img alt="_images/67a9563d80bbdb7081135d430719689505c8371f9af0299b86babf83a1c50a11.png" src="_images/67a9563d80bbdb7081135d430719689505c8371f9af0299b86babf83a1c50a11.png" />
 </div>
 </div>
 <p>The predictions are good in some places, but the <span class="math notranslate nohighlight">\(R^2\)</span> value is only about 0.319, so there is room for improvement.</p>
@@ -1304,7 +1292,7 @@ Here’s what these retrodictions look like compared to the data.</p>
 <p>One way to improve the predictions is to compute the residuals from this model and use another model to predict the residuals – which is the third idea of autoregression.</p>
 </section>
 <section id="moving-average">
-<h2><span class="section-number">12.6. </span>Moving Average<a class="headerlink" href="#moving-average" title="Link to this heading">#</a></h2>
+<h2>Moving Average<a class="headerlink" href="#moving-average" title="Link to this heading">#</a></h2>
 <p>Suppose it’s June 2019, and you are asked to make a prediction for June 2020.
 Your first guess might be that this year’s value will be repeated next year.</p>
 <p>Now suppose it’s May 2020, and you are asked to revise your prediction for June 2020.
@@ -1394,7 +1382,7 @@ But the p-value for the 6-month lag is small, which suggests that it contributes
 <p>Next we’ll use these year-over-year differences to generate retrodictions for the original values.</p>
 </section>
 <section id="retrodiction-with-autoregression">
-<h2><span class="section-number">12.7. </span>Retrodiction with Autoregression<a class="headerlink" href="#retrodiction-with-autoregression" title="Link to this heading">#</a></h2>
+<h2>Retrodiction with Autoregression<a class="headerlink" href="#retrodiction-with-autoregression" title="Link to this heading">#</a></h2>
 <p>To generate retrodictions, we’ll start by putting the year-over-year differences in a <code class="docutils literal notranslate"><span class="pre">Series</span></code> that’s aligned with the index of the original.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1456,7 +1444,7 @@ Each element is the sum of the value from the previous year and the predicted ye
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2ab0096ab9b6480c6e115d7f3c8ac2a14eb6e5e2a4a38a0f2461928181d4a95b.png" src="_images/2ab0096ab9b6480c6e115d7f3c8ac2a14eb6e5e2a4a38a0f2461928181d4a95b.png" />
+<img alt="_images/30c56b70647a9d39ba3fc8237b91fbd0f1dea26952f48363f443248ef9d0a899.png" src="_images/30c56b70647a9d39ba3fc8237b91fbd0f1dea26952f48363f443248ef9d0a899.png" />
 </div>
 </div>
 <p>They look pretty good, and the <span class="math notranslate nohighlight">\(R^2\)</span> value is about 0.86.</p>
@@ -1485,7 +1473,7 @@ Each part of these acronyms refers to an element of the model.</p>
 <p>ARIMA models are powerful and versatile tools for modeling time series data.</p>
 </section>
 <section id="arima">
-<h2><span class="section-number">12.8. </span>ARIMA<a class="headerlink" href="#arima" title="Link to this heading">#</a></h2>
+<h2>ARIMA<a class="headerlink" href="#arima" title="Link to this heading">#</a></h2>
 <p>StatsModel provides a library called <code class="docutils literal notranslate"><span class="pre">tsa</span></code>, which stands for “time series analysis” – it includes a function called <code class="docutils literal notranslate"><span class="pre">ARIMA</span></code> that fits ARIMA models and generates forecasts.</p>
 <p>To fit the SARIMA model we developed in the previous sections, we’ll call this function with two tuples as arguments: <code class="docutils literal notranslate"><span class="pre">order</span></code> and <code class="docutils literal notranslate"><span class="pre">seasonal_order</span></code>.
 Here are the values in <code class="docutils literal notranslate"><span class="pre">order</span></code> that correspond to the model we used in the previous sections.</p>
@@ -1568,7 +1556,7 @@ For the same reason there were missing values at the beginning of the retrodicti
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d30f11be1ed68092dd0ceeec1fc9302baf130befe4aaa17544426e968c7563b8.png" src="_images/d30f11be1ed68092dd0ceeec1fc9302baf130befe4aaa17544426e968c7563b8.png" />
+<img alt="_images/bd53f76ed450000a2c4f52a05947fcad2eb513fa6a7ba0346a3e419f18504a26.png" src="_images/bd53f76ed450000a2c4f52a05947fcad2eb513fa6a7ba0346a3e419f18504a26.png" />
 </div>
 </div>
 <p>The <span class="math notranslate nohighlight">\(R^2\)</span> value is also similar but not precisely the same.</p>
@@ -1590,7 +1578,7 @@ For the same reason there were missing values at the beginning of the retrodicti
 <p>As an exercise, try out different values in <code class="docutils literal notranslate"><span class="pre">order</span></code> and <code class="docutils literal notranslate"><span class="pre">seasonal_order</span></code> and see if you can  find a model with higher <span class="math notranslate nohighlight">\(R^2\)</span>.</p>
 </section>
 <section id="prediction-with-arima">
-<h2><span class="section-number">12.9. </span>Prediction with ARIMA<a class="headerlink" href="#prediction-with-arima" title="Link to this heading">#</a></h2>
+<h2>Prediction with ARIMA<a class="headerlink" href="#prediction-with-arima" title="Link to this heading">#</a></h2>
 <p>The object returned by <code class="docutils literal notranslate"><span class="pre">ARIMA</span></code> provides a method called <code class="docutils literal notranslate"><span class="pre">get_forecast</span></code> that generates predictions.
 To demonstrate, we’ll split the time series into a training and test set, and fit the same model to the training set.</p>
 <div class="cell docutils container">
@@ -1638,7 +1626,7 @@ To demonstrate, we’ll split the time series into a training and test set, and 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bcae9229bc032c8d92335b38da841c868cb67614e7f558a710abe37d379cf837.png" src="_images/bcae9229bc032c8d92335b38da841c868cb67614e7f558a710abe37d379cf837.png" />
+<img alt="_images/1bfbd07dc05c5aa7b68ba8557ce4cb6880237f80f566d7a28fe147468d34a4b5.png" src="_images/1bfbd07dc05c5aa7b68ba8557ce4cb6880237f80f566d7a28fe147468d34a4b5.png" />
 </div>
 </div>
 <p>The actual values fall almost entirely within the confidence interval of the predictions.
@@ -1660,7 +1648,7 @@ Here’s the MAPE of the predictions.</p>
 In this time series, the autocorrelations are not especially strong, so the advantage of ARIMA is modest.</p>
 </section>
 <section id="glossary">
-<h2><span class="section-number">12.10. </span>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<h2>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>time series</strong>: A dataset where each value is associated with a specific time, often representing measurements taken at regular intervals.</p></li>
 <li><p><strong>seasonal decomposition:</strong> A method of splitting a time series into a long-term trend, a repeating seasonal component, and a residual component.</p></li>
@@ -1675,9 +1663,9 @@ In this time series, the autocorrelations are not especially strong, so the adva
 </ul>
 </section>
 <section id="exercises">
-<h2><span class="section-number">12.11. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
 <section id="exercise-12-1">
-<h3><span class="section-number">12.11.1. </span>Exercise 12.1<a class="headerlink" href="#exercise-12-1" title="Link to this heading">#</a></h3>
+<h3>Exercise 12.1<a class="headerlink" href="#exercise-12-1" title="Link to this heading">#</a></h3>
 <p>As an example of seasonal decomposition, let’s model monthly average surface temperatures in the United States.
 We’ll use a dataset from Our World in Data that includes “temperature [in Celsius] of the air measured 2 meters above the ground, encompassing land, sea, and in-land water surfaces,” for most countries in the world from 1950 to 2024.
 Instructions for downloading the data are in the notebook for this chapter.</p>
@@ -1913,7 +1901,7 @@ What is the average annual increase in surface temperature during this interval?
 If you are curious, repeat this analysis with other intervals or data from other countries.</p>
 </section>
 <section id="exercise-12-2">
-<h3><span class="section-number">12.11.2. </span>Exercise 12.2<a class="headerlink" href="#exercise-12-2" title="Link to this heading">#</a></h3>
+<h3>Exercise 12.2<a class="headerlink" href="#exercise-12-2" title="Link to this heading">#</a></h3>
 <p>Earlier in this chapter we used a multiplicative seasonal decomposition to model electricity production from small-scale solar power from 2014 to 2019 and forecast production from 2019 to 2024.
 Now let’s do the same with utility-scale solar power.
 Here’s what the time series looks like.</p>
@@ -1936,7 +1924,7 @@ Fit a linear or quadratic model to the trend and generate a five-year forecast, 
 Plot the forecast along with the test series, and compute the mean absolute percentage error (MAPE).</p>
 </section>
 <section id="exercise-12-3">
-<h3><span class="section-number">12.11.3. </span>Exercise 12.3<a class="headerlink" href="#exercise-12-3" title="Link to this heading">#</a></h3>
+<h3>Exercise 12.3<a class="headerlink" href="#exercise-12-3" title="Link to this heading">#</a></h3>
 <p>Let’s see how well an ARIMA model fits production from hydroelectric generators in the United States.
 Here’s what the time series looks like from 2001 to 2024.</p>
 <div class="cell docutils container">
@@ -1999,7 +1987,7 @@ Generate a five-year forecast and plot it along with its confidence interval.</p
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Multiple Regression</p>
+        <p class="prev-next-title">Multiple Regression</p>
       </div>
     </a>
     <a class="right-next"
@@ -2007,7 +1995,7 @@ Generate a five-year forecast and plot it along with its confidence interval.</p
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">13. </span>Survival analysis</p>
+        <p class="prev-next-title">Survival analysis</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2028,20 +2016,20 @@ Generate a five-year forecast and plot it along with its confidence interval.</p
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electricity">12.1. Electricity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">12.2. Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">12.3. Prediction</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplicative-model">12.4. Multiplicative Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoregression">12.5. Autoregression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average">12.6. Moving Average</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrodiction-with-autoregression">12.7. Retrodiction with Autoregression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima">12.8. ARIMA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-arima">12.9. Prediction with ARIMA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">12.10. Glossary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">12.11. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-1">12.11.1. Exercise 12.1</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-2">12.11.2. Exercise 12.2</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-3">12.11.3. Exercise 12.3</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#electricity">Electricity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplicative-model">Multiplicative Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoregression">Autoregression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-average">Moving Average</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrodiction-with-autoregression">Retrodiction with Autoregression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arima">ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-arima">Prediction with ARIMA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-1">Exercise 12.1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-2">Exercise 12.2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-12-3">Exercise 12.3</a></li>
 </ul>
 </li>
 </ul>
@@ -2081,20 +2069,6 @@ By Allen B. Downey
   
   <div class="footer-item">
     
-<div class="extra_footer">
-  <div style="text-align: left;">
-  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-    <img alt="Creative Commons License" style="border-width:0"
-         src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
-  </a>
-  <br />
-  This work is licensed under a
-  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-  </a>.
-</div>
-
-</div>
   </div>
   
 </div>
