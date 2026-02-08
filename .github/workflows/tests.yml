@@ -17,7 +17,7 @@ jobs:
       matrix:
         # don't test on macos until it can pip install pytables
         os: [ubuntu-latest, windows-latest]
-        python-version: ["3.10"]
+        python-version: ["3.12"]
 
     steps:
       - uses: actions/checkout@v2
