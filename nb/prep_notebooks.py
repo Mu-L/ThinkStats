@@ -35,7 +35,6 @@ for filename in sorted(filenames):
         # add reference label
         for tag in tags:
             if tag.startswith('chapter') or tag.startswith('section'):
-                print(tag)
                 label = f'({tag})=\n'
                 cell['source'] = label + cell['source']
 

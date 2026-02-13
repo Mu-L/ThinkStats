@@ -1,0 +1,20 @@
+name: ThinkStats
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy
+  - matplotlib
+  - scipy
+  - jupyter
+  - seaborn
+  - statsmodels
+  - sympy
+  - pytables
+  - html5lib
+  - lxml
+  - pip
+  - pip:
+    - empiricaldist
+    - statadict
+

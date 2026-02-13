@@ -154,6 +154,14 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# Jupyter Book generated notebooks (keep config files)
+jb/*.ipynb
+jb/*.md
+!jb/index.md
+!jb/time_series.md
+jb/loop.py
+jb/_build/
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
