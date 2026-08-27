@@ -15,10 +15,13 @@ from thinkstats import underride
 def read_stata(dct_file, dat_file, **options):
     """Read data from a stata file.
 
-    dct_file: string file name
-    dat_file: string file name
+    Args:
+        dct_file: string file name of the dictionary file.
+        dat_file: string file name of the data file.
+        **options: additional options passed to pd.read_fwf.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Stata data loaded into a pandas DataFrame.
     """
     stata_dict = parse_stata_dict(dct_file)
 
@@ -35,10 +38,12 @@ def read_stata(dct_file, dat_file, **options):
 def read_fem_resp(dct_file="2002FemResp.dct", dat_file="2002FemResp.dat.gz"):
     """Read the 2002 NSFG respondent file.
 
-    dct_file: string file name
-    dat_file: string file name
+    Args:
+        dct_file: string file name of the dictionary file.
+        dat_file: string file name of the data file.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG respondent data with cleaned variables.
     """
     resp =  read_stata(dct_file, dat_file)
     clean_fem_resp(resp)
@@ -48,10 +53,12 @@ def read_fem_resp(dct_file="2002FemResp.dct", dat_file="2002FemResp.dat.gz"):
 def read_fem_preg(dct_file="2002FemPreg.dct", dat_file="2002FemPreg.dat.gz"):
     """Reads the NSFG pregnancy data.
 
-    dct_file: string file name
-    dat_file: string file name
+    Args:
+        dct_file: string file name of the dictionary file.
+        dat_file: string file name of the data file.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG pregnancy data with cleaned variables.
     """
     preg = read_stata(dct_file, dat_file)
     clean_fem_preg(preg)
@@ -61,7 +68,11 @@ def read_fem_preg(dct_file="2002FemPreg.dct", dat_file="2002FemPreg.dat.gz"):
 def get_nsfg_groups():
     """Read the NSFG pregnancy file and split into groups.
     
-    returns: all live births, first babies, other babies
+    Returns:
+        tuple: (live, firsts, others) where:
+            live: DataFrame of all live births
+            firsts: DataFrame of first babies
+            others: DataFrame of other babies
     """
     preg = read_fem_preg()
     live = preg.query("outcome == 1")
@@ -73,7 +84,8 @@ def get_nsfg_groups():
 def read_fem_resp1995():
     """Reads respondent data from NSFG Cycle 5.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG Cycle 5 respondent data with cleaned variables.
     """
     dat_file = "1995FemRespData.dat.gz"
     names = ["cmintvw", "timesmar", "cmmarrhx", "cmbirth", "finalwgt"]
@@ -94,7 +106,8 @@ def read_fem_resp1995():
 def read_fem_resp2002():
     """Reads respondent data from NSFG Cycle 6.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG Cycle 6 respondent data with cleaned variables.
     """
     usecols = [
         "caseid",
@@ -115,7 +128,8 @@ def read_fem_resp2002():
 def read_fem_resp2010():
     """Reads respondent data from NSFG Cycle 7.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG Cycle 7 respondent data with cleaned variables.
     """
     usecols = [
         "caseid",
@@ -139,7 +153,8 @@ def read_fem_resp2010():
 def read_fem_resp2013():
     """Reads respondent data from NSFG Cycle 8.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: NSFG Cycle 8 respondent data with cleaned variables.
     """
     usecols = [
         "caseid",
@@ -163,9 +178,14 @@ def read_fem_resp2013():
 def clean_fem_resp(resp):
     """Cleans a respondent DataFrame.
 
-    resp: DataFrame of respondents
+    Args:
+        resp: DataFrame of respondents to clean.
 
-    Adds columns: agemarry, age, decade, fives
+    Adds columns:
+        agemarry: float age at marriage in years
+        age: float age at interview in years
+        decade: int decade of birth
+        fives: int five-year period of birth
     """
     resp["cmmarrhx"] = resp.cmmarrhx.replace([9997, 9998, 9999], np.nan)
     resp["agemarry"] = (resp.cmmarrhx - resp.cmbirth) / 12.0
@@ -180,7 +200,17 @@ def clean_fem_resp(resp):
 def clean_fem_preg(df):
     """Recodes variables from the pregnancy frame.
 
-    df: DataFrame
+    Args:
+        df: DataFrame of pregnancy data to clean.
+
+    Modifies:
+        agepreg: float age of mother at end of pregnancy
+        birthwgt_lb: float birth weight in pounds
+        birthwgt_oz: float birth weight in ounces
+        totalwgt_lb: float total birth weight in pounds
+        hpagelb: float mother's weight at last menstrual period
+        babysex: int sex of baby (1=male, 2=female)
+        nbrnaliv: int number of babies born alive
     """
     df.agepreg /= 100.0
     df.loc[df.birthwgt_lb > 20, "birthwgt_lb"] = np.nan
@@ -200,7 +230,8 @@ from statadict import parse_stata_dict
 def read_variables():
     """Reads Stata dictionary files for NSFG data.
 
-    returns: DataFrame that maps variables names to descriptions
+    Returns:
+        DataFrame: Mapping of variable names to descriptions.
     """
     vars1 = parse_stata_dict("2002FemPreg.dct").names
     vars2 = parse_stata_dict("2002FemResp.dct").names
@@ -213,9 +244,11 @@ def read_variables():
 def join_fem_resp(df):
     """Reads the female respondent file and joins on caseid.
 
-    df: DataFrame with caseid column
+    Args:
+        df: DataFrame with caseid column to join with.
 
-    returns: DataFrame
+    Returns:
+        DataFrame: Joined DataFrame with respondent data.
     """
     resp = read_fem_resp()
     resp.index = resp.caseid
@@ -224,11 +257,11 @@ def join_fem_resp(df):
     return join
 
 
-
 def main():
     """Tests the functions in this module.
 
-    script: string script name
+    Performs various assertions to verify the data loading and cleaning
+    functions are working correctly.
     """
     resp = read_fem_resp()
     assert len(resp) == 7643
@@ -251,7 +284,10 @@ def main():
     key = max(weights.keys())
     assert preg.finalwgt.value_counts()[key] == 6
     print("All tests passed.")
-    live, firsts, others = make_frames()
+    live, firsts, others = get_nsfg_groups()
+    assert len(live) == 9148
+    assert len(firsts) == 4413
+    assert len(others) == 4735
 
 
 if __name__ == "__main__":
