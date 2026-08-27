@@ -168,3 +168,82 @@ jb/_build/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Editor / local IDE
+.vscode/
+
+# Local planning notes (keep out of the repo)
+issue_*.md
+jb_gitignore_recommendation.md
+examples/plan.md
+examples/template_analysis.md
+scripts/suggested_commits.sh
+
+# Working copies of data under soln/ and nb/ (canonical files live in data/)
+soln/*.dat.gz
+soln/*.dct
+soln/*.csv
+soln/*.hdf
+soln/*.feather
+soln/*.zip
+soln/*.shtml
+soln/*.dat
+soln/*.dir
+soln/*.bak
+soln/old/
+soln/tools/
+soln/nlsy-2/
+soln/*.fig
+soln/*.svg
+soln/think_stats_chap_*.png
+soln/pyproject.toml
+soln/replace_pip.sh
+soln/glossary.md
+soln/Shooting_at_the_*
+soln/NHL_*
+soln/ELEC.*
+soln/Apr25_*
+soln/function_names.*
+
+nb/*.dat.gz
+nb/*.dct
+nb/*.hdf
+nb/Shooting_at_the_*
+nb/build.sh
+
+# Example scratch data, downloads, and generated figures
+examples/*.csv
+examples/*.feather
+examples/*.hdf5
+examples/*.XPT.gz
+examples/*.html
+examples/*_files/
+examples/Shooting_at_the_*
+examples/2024 Charles River*
+examples/llcp_varlayout*
+examples/*.gif
+examples/*.png
+examples/thinkstats.py
+examples/marathon_splits.*
+examples/template.md
+
+# Large / scraped data not yet curated for data/
+data/hockey/
+data/clean_nsfg.ipynb
+
+# Alternate book trees and local experiments
+split/
+quarto/
+wp/
+think-stats-3e/
+papers/
+reviews/
+build.sh
+
+# Tutorial working tree (notebooks live under tutorial/, not tutorial/ts/)
+tutorial/build.sh
+tutorial/prep_notebooks.py
+tutorial/ts/
+
+# Cover art drafts (published assets live elsewhere)
+think_stats_3e_cover*.jpg
