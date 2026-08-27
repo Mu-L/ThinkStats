@@ -2,7 +2,10 @@ PROJECT_NAME = ThinkStats
 PYTHON_VERSION = 3.12
 
 .PHONY: help create_environment create_environment_dev delete_environment \
-	update_environment update_environment_dev clean lint format tests
+	update_environment update_environment_dev clean lint format tests \
+	update-chapter md-from-ipynb
+
+CHAPTER ?= chap07
 
 help:
 	@echo "Available targets:"
@@ -15,6 +18,8 @@ help:
 	@echo "  lint                  - Run linters (flake8, black --check)"
 	@echo "  format                - Format code with black"
 	@echo "  tests                 - Run tests with pytest"
+	@echo "  update-chapter        - Rebuild one chapter from markdown (CHAPTER=chap07)"
+	@echo "  md-from-ipynb         - Export missing soln/*.md from existing notebooks"
 
 create_environment:
 	mamba env create -f environment.yml
@@ -68,3 +73,18 @@ tests:
 	@echo "Running tests..."
 	cd soln; pytest --nbmake chap*.ipynb
 	@echo ">>> Tests complete!"
+
+update-chapter:
+	@echo "Updating $(CHAPTER) from markdown..."
+	python scripts/book_pipeline.py $(CHAPTER)
+	@echo ">>> $(CHAPTER) updated (soln + nb)"
+
+md-from-ipynb:
+	@for f in soln/chap*.ipynb; do \
+		md="$${f%.ipynb}.md"; \
+		if [ ! -f "$$md" ]; then \
+			echo "Exporting $$md"; \
+			jupytext --to md "$$f"; \
+		fi; \
+	done
+	@echo ">>> md-from-ipynb complete"
