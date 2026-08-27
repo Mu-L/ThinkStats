@@ -21,6 +21,12 @@ This repository contains notebooks, data, and supplementary material for the thi
 - **tutorial**: Notebooks for a tutorial on time series analysis  
 
 
+### Note for users of earlier editions
+
+Older versions of this repository used Git LFS to store data files. 
+As of June 2025, all data files are included directly in Git to simplify access.
+
+
 ## Setup
 
 - **Makefile**: Instructions for creating a Conda environment for the book  
